@@ -2,5 +2,8 @@
   "item.rpgmod.zircon" : "Zircon",
   "item.rpgmod.raw_zircon" : "Raw Zircon",
 
-  "itemGroup.rpgmodtab": "Rpg Mod"
+  "itemGroup.rpgmodtab": "Rpg Mod",
+
+  "key.category.rpgmod.ability_bindings": "Ability Bindings",
+  "key.rpgmod.ability_1": "Use Ability 1"
 }
