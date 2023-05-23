@@ -11,6 +11,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.noahvolson.rpgmod.entity.ModEntityTypes;
 import net.noahvolson.rpgmod.item.ModItems;
 import net.noahvolson.rpgmod.networking.ModMessages;
+import net.noahvolson.rpgmod.particle.ModParticles;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -23,6 +24,8 @@ public class RpgMod {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ModItems.register(modEventBus);
+
+        ModParticles.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 
