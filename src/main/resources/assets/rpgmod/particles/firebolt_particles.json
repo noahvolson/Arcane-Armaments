@@ -1,5 +1,11 @@
 {
   "textures": [
-    "rpgmod:firebolt"
+    "rpgmod:firebolt_7",
+    "rpgmod:firebolt_6",
+    "rpgmod:firebolt_5",
+    "rpgmod:firebolt_4",
+    "rpgmod:firebolt_3",
+    "rpgmod:firebolt_2",
+    "rpgmod:firebolt_1"
   ]
 }

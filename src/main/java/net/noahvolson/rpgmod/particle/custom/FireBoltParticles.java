@@ -2,12 +2,15 @@ package net.noahvolson.rpgmod.particle.custom;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 public class FireBoltParticles extends TextureSheetParticle {
+    private final SpriteSet sprites;
+
     protected FireBoltParticles(ClientLevel level, double xCord, double yCord, double zCord, SpriteSet spriteSet,
                                 double xd, double yd, double zd) {
         super(level, xCord, yCord, zCord, xd, yd, zd);
@@ -21,22 +24,33 @@ public class FireBoltParticles extends TextureSheetParticle {
 
         this.quadSize *= 0.85F;             // Scale
         this.lifetime = 20;                 // How long shown in ticks
+
+        this.sprites = spriteSet;
         this.setSpriteFromAge(spriteSet);   // Needed to not CTD
 
-        this.rCol = 1f;
-        this.gCol = 1f;
-        this.bCol = 1f;
+        this.rCol = 255f - 246f;
+        this.gCol = 255f - 214;
+        this.bCol = 255f - 65f;
 
     }
 
+    int tickCounter = 0;
     @Override
     public void tick() {
         super.tick();
-        fadeOut();
+        this.setSpriteFromAge(this.sprites);
+        //fadeOut();
     }
 
     private void fadeOut() {
         this.alpha = (-(1/(float)lifetime) * age * 1);
+    }
+
+    private void stepColor() {
+        // From #F6D641     >   rgb(246, 214, 65)
+        // To   #FF5E00     >   rgb(255, 94, 0)
+
+        // Difference       >   (9,-120,-65)
     }
 
     @Override
