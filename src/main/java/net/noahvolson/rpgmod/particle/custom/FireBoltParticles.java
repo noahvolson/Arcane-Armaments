@@ -2,11 +2,14 @@ package net.noahvolson.rpgmod.particle.custom;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
+import org.w3c.dom.css.RGBColor;
+
+import java.awt.*;
 
 public class FireBoltParticles extends TextureSheetParticle {
     private final SpriteSet sprites;
@@ -23,39 +26,56 @@ public class FireBoltParticles extends TextureSheetParticle {
         this.zd = zd;
 
         this.quadSize *= 0.85F;             // Scale
-        this.lifetime = 20;                 // How long shown in ticks
+        this.lifetime = 15;                 // How long shown in ticks
 
         this.sprites = spriteSet;
         this.setSpriteFromAge(spriteSet);   // Needed to not CTD
 
-        this.rCol = 255f - 246f;
-        this.gCol = 255f - 214;
-        this.bCol = 255f - 65f;
+        this.setColorRgb(new Color(245, 224, 205)); // TODO make start a constant
 
     }
 
-    int tickCounter = 0;
     @Override
     public void tick() {
         super.tick();
         this.setSpriteFromAge(this.sprites);
-        //fadeOut();
+        this.stepColor(new Color(246, 214, 65), new Color(255, 94, 0));
+        this.setParticleSpeed(this.xd * 1.4, this.yd * 1.4, this.zd * 1.4);
     }
 
     private void fadeOut() {
         this.alpha = (-(1/(float)lifetime) * age * 1);
     }
 
-    private void stepColor() {
-        // From #F6D641     >   rgb(246, 214, 65)
-        // To   #FF5E00     >   rgb(255, 94, 0)
+    private void stepColor(Color start, Color end) {
+        int stepR = (end.getRed() - start.getRed()) / lifetime;
+        int stepG = (end.getGreen() - start.getGreen()) / lifetime;
+        int stepB = (end.getBlue() - start.getBlue()) / lifetime;
 
-        // Difference       >   (9,-120,-65)
+        this.setColorRgb(
+                new Color(
+                    start.getRed() + (stepR * age),
+                    start.getGreen() + (stepG * age),
+                    start.getBlue() + (stepB * age)
+                )
+        );
     }
 
+    private void setColorRgb(Color color) {
+        this.rCol = 255f - color.getRed();
+        this.gCol = 255f - color.getGreen();
+        this.bCol = 255f - color.getBlue();
+    }
+
+
+    public int getLightColor(float p_106821_) {
+        return 255;
+    }
+
+
     @Override
-    public ParticleRenderType getRenderType() {
-        return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
+    public @NotNull ParticleRenderType getRenderType() {
+        return ParticleRenderType.PARTICLE_SHEET_LIT;
     }
 
     @OnlyIn(Dist.CLIENT)

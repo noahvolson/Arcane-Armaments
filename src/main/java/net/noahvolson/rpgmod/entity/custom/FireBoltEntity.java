@@ -35,21 +35,22 @@ public class FireBoltEntity extends AbstractArrow {
     protected void onHitEntity(@NotNull EntityHitResult ray) {
         super.onHitEntity(ray);
         // this, x, y, z, explosionStrength, setsFires, breakMode
-        this.level.explode(this, this.getX(), this.getY(), this.getZ(), 4.0f, true, Explosion.BlockInteraction.NONE);
+        this.level.explode(this, this.getX(), this.getY(), this.getZ(), 1f, true, Explosion.BlockInteraction.NONE);
+        ray.getEntity().setSecondsOnFire(4);
     }
 
     @Override
     protected void onHitBlock(@NotNull BlockHitResult ray) {
         super.onHitBlock(ray);
         // To explode on hit:
-        // this.level.explode(this, this.getX(), this.getY(), this.getZ(), 4.0f, true, Explosion.BlockInteraction.NONE);
+        this.level.explode(this, this.getX(), this.getY(), this.getZ(), 1f, true, Explosion.BlockInteraction.NONE);
     }
 
     // To blow up after 3 seconds
     @Override
     protected void tickDespawn() {
         if (this.inGroundTime > 60){
-            this.level.explode(this, this.getX(), this.getY(), this.getZ(), 4.0f, true, Explosion.BlockInteraction.NONE);
+            //this.level.explode(this, this.getX(), this.getY(), this.getZ(), 4.0f, true, Explosion.BlockInteraction.NONE);
             this.discard();
         }
     }
@@ -77,10 +78,16 @@ public class FireBoltEntity extends AbstractArrow {
     }
 
     private void makeParticle() {
-        for(int j = 0; j < 2; ++j) {
+        for(int j = 0; j < 5; ++j) {
             //this.level.addParticle(ParticleTypes.FLAME, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
             //this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D)\
-            this.level.addParticle(ModParticles.FIREBOLT_PARTICLES.get(), this.getRandomX(0.5D), this.getRandomY(), this.getRandomZ(0.5D), 0, 0, 0);
+
+            double magnitude = .03;
+            double xD = (2*Math.random() - 1) * magnitude;
+            double yD = (2*Math.random() - 1) * magnitude;
+            double zD = (2*Math.random() - 1) * magnitude;
+
+            this.level.addParticle(ModParticles.FIREBOLT_PARTICLES.get(), this.getX(), this.getY(), this.getZ(), xD, yD, zD);
         }
     }
 

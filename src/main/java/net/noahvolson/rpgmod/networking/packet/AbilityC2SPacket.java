@@ -3,10 +3,7 @@ package net.noahvolson.rpgmod.networking.packet;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.projectile.LargeFireball;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkEvent;
 import net.noahvolson.rpgmod.entity.ModEntityTypes;
@@ -15,6 +12,7 @@ import net.noahvolson.rpgmod.entity.custom.FireBoltEntity;
 import java.util.function.Supplier;
 
 public class AbilityC2SPacket {
+
     public AbilityC2SPacket() {
 
     }
@@ -44,6 +42,10 @@ public class AbilityC2SPacket {
             FireBoltEntity fireBolt = new FireBoltEntity(ModEntityTypes.FIRE_BOLT.get(), player, player.level);
             fireBolt.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
             player.level.addFreshEntity(fireBolt);
+
+            player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - 1);
+
+            player.swing(InteractionHand.OFF_HAND, true);
         });
         return true;
     }
