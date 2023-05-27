@@ -6,7 +6,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.noahvolson.rpgmod.RpgMod;
-import net.noahvolson.rpgmod.entity.custom.FireBoltEntity;
+import net.noahvolson.rpgmod.entity.spell.FireBoltEntity;
 
 public class ModEntityTypes {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =

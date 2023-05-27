@@ -1,4 +1,4 @@
-package net.noahvolson.rpgmod.entity.custom;
+package net.noahvolson.rpgmod.entity.spell;
 
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.resources.ResourceLocation;
@@ -20,17 +20,14 @@ import org.jetbrains.annotations.NotNull;
 public class FireBoltEntity extends AbstractArrow {
     public FireBoltEntity(EntityType<FireBoltEntity> entityType, Level world) {
         super(entityType, world);
-        this.playSound(SoundEvents.GHAST_SHOOT, 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
     }
 
     public FireBoltEntity(EntityType<FireBoltEntity> entityType, double x, double y, double z, Level world) {
         super(entityType, x, y, z, world);
-        this.playSound(SoundEvents.GHAST_SHOOT, 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
     }
 
     public FireBoltEntity(EntityType<FireBoltEntity> entityType, LivingEntity shooter, Level world) {
         super(entityType, shooter, world);
-        this.playSound(SoundEvents.GHAST_SHOOT, 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
     }
 
     @Override
@@ -73,6 +70,7 @@ public class FireBoltEntity extends AbstractArrow {
     // called automatically whenever the arrow is added to the world
     @Override
     public @NotNull Packet<?> getAddEntityPacket() {
+        this.playSound(SoundEvents.GHAST_SHOOT, 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 

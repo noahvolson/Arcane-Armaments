@@ -7,7 +7,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkEvent;
 import net.noahvolson.rpgmod.entity.ModEntityTypes;
-import net.noahvolson.rpgmod.entity.custom.FireBoltEntity;
+import net.noahvolson.rpgmod.entity.spell.FireBoltEntity;
 
 import java.util.function.Supplier;
 
