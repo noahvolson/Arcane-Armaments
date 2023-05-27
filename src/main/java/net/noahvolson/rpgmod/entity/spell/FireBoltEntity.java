@@ -1,88 +1,37 @@
 package net.noahvolson.rpgmod.entity.spell;
 
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
-import net.minecraftforge.network.NetworkHooks;
 import net.noahvolson.rpgmod.particle.ModParticles;
 import org.jetbrains.annotations.NotNull;
 
-public class FireBoltEntity extends AbstractArrow {
+public class FireBoltEntity extends AbstractProjectileSpell {
     public FireBoltEntity(EntityType<FireBoltEntity> entityType, Level world) {
         super(entityType, world);
     }
 
-    public FireBoltEntity(EntityType<FireBoltEntity> entityType, double x, double y, double z, Level world) {
-        super(entityType, x, y, z, world);
-    }
-
     public FireBoltEntity(EntityType<FireBoltEntity> entityType, LivingEntity shooter, Level world) {
-        super(entityType, shooter, world);
+        super(entityType, shooter, world, SoundEvents.GHAST_SHOOT);
     }
 
     @Override
-    protected void onHitEntity(@NotNull EntityHitResult ray) {
-        this.setSoundEvent(new SoundEvent(new ResourceLocation("none")));
-        super.onHitEntity(ray);
-        // this, x, y, z, explosionStrength, setsFires, breakMode
+    protected void doEffectsEntity(@NotNull EntityHitResult ray) {
         this.level.explode(this, this.getX(), this.getY(), this.getZ(), 1f, true, Explosion.BlockInteraction.NONE);
-
-        Entity target = ray.getEntity();
-
-        // Remove arrows that may have been added by the hit
-        if (target instanceof LivingEntity) {
-            if (!this.level.isClientSide && this.getPierceLevel() <= 0) {
-                LivingEntity livingentity = (LivingEntity)target;
-                livingentity.setArrowCount(livingentity.getArrowCount() - 1);
-            }
-        }
-
         ray.getEntity().setSecondsOnFire(4);
-
     }
 
     @Override
-    protected void onHitBlock(@NotNull BlockHitResult ray) {
-        this.setSoundEvent(new SoundEvent(new ResourceLocation("none")));
-        super.onHitBlock(ray);
-        // To explode on hit:
+    protected void doEffectsBlock(@NotNull BlockHitResult ray) {
         this.level.explode(this, this.getX(), this.getY(), this.getZ(), 1f, true, Explosion.BlockInteraction.NONE);
-    }
-
-    // Returns the item stack to give the player
-    // Don't want to return a spell to inventory!
+    };
+    
     @Override
-    protected @NotNull ItemStack getPickupItem() {
-        return ItemStack.EMPTY;
-    }
-
-    // returns a packet to sync the entity from the server side to the client side
-    // called automatically whenever the arrow is added to the world
-    @Override
-    public @NotNull Packet<?> getAddEntityPacket() {
-        this.playSound(SoundEvents.GHAST_SHOOT, 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
-        return NetworkHooks.getEntitySpawningPacket(this);
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-        if (this.level.isClientSide) {
-            this.makeParticle();
-        }
-    }
-
-    private void makeParticle() {
+    protected void makeParticle() {
         for(int j = 0; j < 5; ++j) {
 
             double magnitude = .03;
