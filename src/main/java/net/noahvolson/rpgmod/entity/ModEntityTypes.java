@@ -6,12 +6,17 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.noahvolson.rpgmod.RpgMod;
-import net.noahvolson.rpgmod.entity.spell.FireBoltEntity;
+import net.noahvolson.rpgmod.entity.spell.AbstractProjectileSpell;
+import net.noahvolson.rpgmod.entity.spell.FireBoltSpell;
+import net.noahvolson.rpgmod.entity.spell.IceBoltSpell;
 
 public class ModEntityTypes {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
             DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, RpgMod.MOD_ID);
 
-    public static final RegistryObject<EntityType<FireBoltEntity>> FIRE_BOLT = ENTITY_TYPES.register("fire_bolt",
-            () -> EntityType.Builder.of((EntityType.EntityFactory<FireBoltEntity>) FireBoltEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).build("fire_bolt"));
+    public static final RegistryObject<EntityType<AbstractProjectileSpell>> FIRE_BOLT = ENTITY_TYPES.register("fire_bolt",
+            () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileSpell>) FireBoltSpell::new, MobCategory.MISC).sized(0.5F, 0.5F).build("fire_bolt"));
+
+    public static final RegistryObject<EntityType<AbstractProjectileSpell>> ICE_BOLT = ENTITY_TYPES.register("ice_bolt",
+            () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileSpell>) IceBoltSpell::new, MobCategory.MISC).sized(0.5F, 0.5F).build("ice_bolt"));
 }

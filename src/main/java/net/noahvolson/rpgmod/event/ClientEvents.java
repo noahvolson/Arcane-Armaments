@@ -5,11 +5,15 @@ import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.noahvolson.rpgmod.RpgMod;
 import net.noahvolson.rpgmod.networking.ModMessages;
 import net.noahvolson.rpgmod.networking.packet.AbilityC2SPacket;
+import net.noahvolson.rpgmod.particle.ModParticles;
+import net.noahvolson.rpgmod.particle.custom.FireBoltParticles;
+import net.noahvolson.rpgmod.particle.custom.IceBoltParticles;
 import net.noahvolson.rpgmod.util.KeyBinding;
 
 public class ClientEvents {
@@ -18,8 +22,16 @@ public class ClientEvents {
         @SubscribeEvent
         public static void onKeyInput(InputEvent.Key event) {
             if(KeyBinding.ABILITY_1_KEY.consumeClick()) {
-                // Minecraft.getInstance().player.sendSystemMessage(Component.literal("Pressed a key!"));
-                ModMessages.sendToServer(new AbilityC2SPacket());
+                ModMessages.sendToServer(new AbilityC2SPacket(1));
+            }
+            if(KeyBinding.ABILITY_2_KEY.consumeClick()) {
+                ModMessages.sendToServer(new AbilityC2SPacket(2));
+            }
+            if(KeyBinding.ABILITY_3_KEY.consumeClick()) {
+                ModMessages.sendToServer(new AbilityC2SPacket(3));
+            }
+            if(KeyBinding.ABILITY_4_KEY.consumeClick()) {
+                ModMessages.sendToServer(new AbilityC2SPacket(4));
             }
         }
     }
@@ -28,7 +40,17 @@ public class ClientEvents {
     public static class ClientModBusEvents {
         @SubscribeEvent
         public static void onKeyRegister(RegisterKeyMappingsEvent event) {
+
             event.register(KeyBinding.ABILITY_1_KEY);
+            event.register(KeyBinding.ABILITY_2_KEY);
+            event.register(KeyBinding.ABILITY_3_KEY);
+            event.register(KeyBinding.ABILITY_4_KEY);
+        }
+
+        @SubscribeEvent
+        public static void registerParticleFactories(final RegisterParticleProvidersEvent event) {
+            event.register(ModParticles.FIREBOLT_PARTICLES.get(), FireBoltParticles.Provider::new);
+            event.register(ModParticles.ICEBOLT_PARTICLES.get(), IceBoltParticles.Provider::new);
         }
     }
 }

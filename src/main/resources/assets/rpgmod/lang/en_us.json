@@ -5,5 +5,10 @@
   "itemGroup.rpgmodtab": "Rpg Mod",
 
   "key.category.rpgmod.ability_bindings": "Ability Bindings",
-  "key.rpgmod.ability_1": "Use Ability 1"
+  "key.rpgmod.ability_1": "Use Ability 1",
+  "key.rpgmod.ability_2": "Use Ability 2",
+  "key.rpgmod.ability_3": "Use Ability 3",
+  "key.rpgmod.ability_4": "Use Ability 4",
+
+  "effect.rpgmod.freeze": "Freeze"
 }

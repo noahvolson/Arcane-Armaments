@@ -3,51 +3,69 @@ package net.noahvolson.rpgmod.networking.packet;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkEvent;
 import net.noahvolson.rpgmod.entity.ModEntityTypes;
-import net.noahvolson.rpgmod.entity.spell.FireBoltEntity;
+import net.noahvolson.rpgmod.entity.spell.AbstractProjectileSpell;
+import net.noahvolson.rpgmod.entity.spell.FireBoltSpell;
+import net.noahvolson.rpgmod.entity.spell.IceBoltSpell;
 
 import java.util.function.Supplier;
 
 public class AbilityC2SPacket {
 
-    public AbilityC2SPacket() {
-
+    private final int abilityNum;
+    public AbilityC2SPacket(int abilityNum) {
+        this.abilityNum = abilityNum;
     }
 
+    // Deserialize
     public AbilityC2SPacket(FriendlyByteBuf buf) {
-
+        this.abilityNum = buf.readInt();
     }
 
+    // Serialize
     public void toBytes(FriendlyByteBuf buf) {
-
+        buf.writeInt(abilityNum);
     }
 
-    public boolean handle(Supplier<NetworkEvent.Context> supplier) {
+    public void handle(Supplier<NetworkEvent.Context> supplier) {
+        System.out.println("n9v9o9 - " + abilityNum);
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
             // NOW ACTING ON THE SERVER
             ServerPlayer player = context.getSender();
             ServerLevel level = player.getLevel();
 
-            //EntityType.COW.spawn(level, null, null, player.blockPosition(), MobSpawnType.COMMAND, true, false);
             Vec3 look = player.getLookAngle();
             double speed = 3D;
 
-            // TODO fix this: https://moddingtutorials.org/1.16.5/arrows
-            //EntityType.FIREBALL.spawn(level,null,player,player.blockPosition().above(), MobSpawnType.COMMAND, true, false).setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
-
-            FireBoltEntity fireBolt = new FireBoltEntity(ModEntityTypes.FIRE_BOLT.get(), player, player.level);
-            fireBolt.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
-            player.level.addFreshEntity(fireBolt);
-
-            player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - 1);
+            AbstractProjectileSpell spell;
+            switch (abilityNum) {
+                case 1 -> {
+                    spell = new IceBoltSpell(ModEntityTypes.ICE_BOLT.get(), player, player.level);
+                    spell.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
+                    player.level.addFreshEntity(spell);
+                }
+                case 2 -> {
+                    spell = new FireBoltSpell(ModEntityTypes.FIRE_BOLT.get(), player, player.level);
+                    spell.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
+                    player.level.addFreshEntity(spell);
+                }
+            }
+            if (!player.isCreative()) {
+                int spellCost = 1;
+                int remainingFood = player.getFoodData().getFoodLevel() - spellCost;
+                player.getFoodData().setFoodLevel(Math.max(remainingFood, 0));
+                if (remainingFood < 0) {
+                    player.setHealth(player.getHealth() + remainingFood);
+                }
+            }
 
             player.swing(InteractionHand.OFF_HAND, true);
         });
-        return true;
     }
 
 }

@@ -4,6 +4,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -24,12 +25,12 @@ public abstract class AbstractProjectileSpell extends AbstractArrow {
     private SoundEvent hitBlockSound;
 
     // For registering in ModEntityTypes
-    public AbstractProjectileSpell(EntityType<FireBoltEntity> entityType, Level world) {
+    public AbstractProjectileSpell(EntityType<AbstractProjectileSpell> entityType, Level world) {
         super(entityType, world);
     }
 
     // For ability casts
-    public AbstractProjectileSpell(EntityType<FireBoltEntity> entityType, LivingEntity shooter, Level world,
+    public AbstractProjectileSpell(EntityType<AbstractProjectileSpell> entityType, LivingEntity shooter, Level world,
                                    SoundEvent castSound, SoundEvent hitEntitySound, SoundEvent hitBlockSound) {
 
         super(entityType, shooter, world);
@@ -39,7 +40,7 @@ public abstract class AbstractProjectileSpell extends AbstractArrow {
     }
 
     // For ability casts
-    public AbstractProjectileSpell(EntityType<FireBoltEntity> entityType, LivingEntity shooter, Level world, SoundEvent castSound) {
+    public AbstractProjectileSpell(EntityType<AbstractProjectileSpell> entityType, LivingEntity shooter, Level world, SoundEvent castSound) {
 
         super(entityType, shooter, world);
         this.castSound = castSound;
@@ -49,7 +50,7 @@ public abstract class AbstractProjectileSpell extends AbstractArrow {
     protected void onHitEntity(@NotNull EntityHitResult ray) {
 
         // Override arrow sound
-        this.setSoundEvent(Objects.requireNonNullElseGet(this.hitEntitySound, () -> new SoundEvent(new ResourceLocation("none"))));
+        this.setSoundEvent(Objects.requireNonNullElseGet(this.hitEntitySound, () -> SoundEvents.WOOL_BREAK));
         super.onHitEntity(ray);
 
         // Remove arrows that may have been added by the hit
@@ -68,7 +69,7 @@ public abstract class AbstractProjectileSpell extends AbstractArrow {
 
     @Override
     protected void onHitBlock(@NotNull BlockHitResult ray) {
-        this.setSoundEvent(Objects.requireNonNullElseGet(this.hitBlockSound, () -> new SoundEvent(new ResourceLocation("none"))));
+        this.setSoundEvent(Objects.requireNonNullElseGet(this.hitBlockSound, () -> SoundEvents.WOOL_BREAK));
         super.onHitBlock(ray);
         doEffectsBlock(ray);
     }
@@ -96,6 +97,11 @@ public abstract class AbstractProjectileSpell extends AbstractArrow {
         if (this.level.isClientSide) {
             this.makeParticle();
         }
+    }
+
+    @Override
+    protected void tickDespawn() {
+        this.discard();
     }
 
     // Override this to customize spell effects

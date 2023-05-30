@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.noahvolson.rpgmod.effect.ModEffects;
 import net.noahvolson.rpgmod.entity.ModEntityTypes;
 import net.noahvolson.rpgmod.item.ModItems;
 import net.noahvolson.rpgmod.networking.ModMessages;
@@ -32,6 +33,9 @@ public class RpgMod {
         MinecraftForge.EVENT_BUS.register(this);
 
         ModEntityTypes.ENTITY_TYPES.register(modEventBus);
+
+        ModEffects.MOB_EFFECTS.register(modEventBus);
+
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
