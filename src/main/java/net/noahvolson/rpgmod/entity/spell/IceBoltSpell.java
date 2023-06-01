@@ -35,19 +35,28 @@ public class IceBoltSpell extends AbstractProjectileSpell {
     @Override
     protected void doEffectsEntity(@NotNull EntityHitResult ray) {
         if (!this.level.isClientSide && ray.getEntity() instanceof LivingEntity livingentity) {
-            BlockPos blockPos = ray.getEntity().getOnPos().above();
             livingentity.addEffect(new MobEffectInstance(ModEffects.FREEZE.get(), 100, -1));
 
-            AreaEffectCloud areaeffectcloud = new AreaEffectCloud(this.level, blockPos.getX(),blockPos.getY(), blockPos.getZ());
+            BlockPos blockPosAbove = ray.getEntity().getOnPos().above(4);
+            BlockPos blockPosFeet = ray.getEntity().getOnPos().above();
             Entity owner = this.getOwner();
+
+            AreaEffectCloud snowCloud = new AreaEffectCloud(this.level, blockPosAbove.getX(),blockPosAbove.getY(), blockPosAbove.getZ());
+            snowCloud.setParticle(ModParticles.FREEZE_PARTICLES.get());
+            snowCloud.setRadius(2F);
+            snowCloud.setDuration(200);
+            snowCloud.setWaitTime(0);
+            this.level.addFreshEntity(snowCloud);
+
+            AreaEffectCloud areaeffectcloud = new AreaEffectCloud(this.level, blockPosFeet.getX(), blockPosFeet.getY(), blockPosFeet.getZ());
             if (owner instanceof LivingEntity) {
                 areaeffectcloud.setOwner((LivingEntity)owner);
             }
-            areaeffectcloud.setParticle(ModParticles.ICEBOLT_PARTICLES.get());
+            areaeffectcloud.setParticle(ModParticles.HIDDEN_PARTICLES.get());
             areaeffectcloud.setRadius(2F);
             areaeffectcloud.setDuration(200);
             areaeffectcloud.setWaitTime(0);
-            areaeffectcloud.addEffect(new MobEffectInstance(ModEffects.FREEZE.get(), 1, 1));
+            areaeffectcloud.addEffect(new MobEffectInstance(ModEffects.FREEZE.get(), 30, -1));
             this.level.addFreshEntity(areaeffectcloud);
         }
     }
@@ -55,17 +64,26 @@ public class IceBoltSpell extends AbstractProjectileSpell {
     @Override
     protected void doEffectsBlock(@NotNull BlockHitResult ray) {
         if (!this.level.isClientSide) {
-            BlockPos blockPos = ray.getBlockPos().above();
-            AreaEffectCloud areaeffectcloud = new AreaEffectCloud(this.level, blockPos.getX(), blockPos.getY(), blockPos.getZ());
+            BlockPos blockPosAbove = ray.getBlockPos().above(4);
+            BlockPos blockPosFeet = ray.getBlockPos().above();
             Entity owner = this.getOwner();
+
+            AreaEffectCloud snowCloud = new AreaEffectCloud(this.level, blockPosAbove.getX(),blockPosAbove.getY(), blockPosAbove.getZ());
+            snowCloud.setParticle(ModParticles.FREEZE_PARTICLES.get());
+            snowCloud.setRadius(2F);
+            snowCloud.setDuration(200);
+            snowCloud.setWaitTime(0);
+            this.level.addFreshEntity(snowCloud);
+
+            AreaEffectCloud areaeffectcloud = new AreaEffectCloud(this.level, blockPosFeet.getX(), blockPosFeet.getY(), blockPosFeet.getZ());
             if (owner instanceof LivingEntity) {
                 areaeffectcloud.setOwner((LivingEntity)owner);
             }
-            areaeffectcloud.setParticle(ModParticles.ICEBOLT_PARTICLES.get());
+            areaeffectcloud.setParticle(ModParticles.HIDDEN_PARTICLES.get());
             areaeffectcloud.setRadius(2F);
             areaeffectcloud.setDuration(200);
             areaeffectcloud.setWaitTime(0);
-            areaeffectcloud.addEffect(new MobEffectInstance(ModEffects.FREEZE.get(), 1, 1));
+            areaeffectcloud.addEffect(new MobEffectInstance(ModEffects.FREEZE.get(), 30, -1));
             this.level.addFreshEntity(areaeffectcloud);
         }
 

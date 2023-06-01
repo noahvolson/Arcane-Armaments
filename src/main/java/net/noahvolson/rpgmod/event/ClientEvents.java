@@ -1,7 +1,5 @@
 package net.noahvolson.rpgmod.event;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
@@ -12,8 +10,10 @@ import net.noahvolson.rpgmod.RpgMod;
 import net.noahvolson.rpgmod.networking.ModMessages;
 import net.noahvolson.rpgmod.networking.packet.AbilityC2SPacket;
 import net.noahvolson.rpgmod.particle.ModParticles;
-import net.noahvolson.rpgmod.particle.custom.FireBoltParticles;
-import net.noahvolson.rpgmod.particle.custom.IceBoltParticles;
+import net.noahvolson.rpgmod.particle.custom.FireBoltParticle;
+import net.noahvolson.rpgmod.particle.custom.FreezeParticle;
+import net.noahvolson.rpgmod.particle.custom.HiddenParticle;
+import net.noahvolson.rpgmod.particle.custom.IceBoltParticle;
 import net.noahvolson.rpgmod.util.KeyBinding;
 
 public class ClientEvents {
@@ -49,8 +49,10 @@ public class ClientEvents {
 
         @SubscribeEvent
         public static void registerParticleFactories(final RegisterParticleProvidersEvent event) {
-            event.register(ModParticles.FIREBOLT_PARTICLES.get(), FireBoltParticles.Provider::new);
-            event.register(ModParticles.ICEBOLT_PARTICLES.get(), IceBoltParticles.Provider::new);
+            event.register(ModParticles.HIDDEN_PARTICLES.get(), HiddenParticle.Provider::new);
+            event.register(ModParticles.FIREBOLT_PARTICLES.get(), FireBoltParticle.Provider::new);
+            event.register(ModParticles.ICEBOLT_PARTICLES.get(), IceBoltParticle.Provider::new);
+            event.register(ModParticles.FREEZE_PARTICLES.get(), FreezeParticle.Provider::new);
         }
     }
 }

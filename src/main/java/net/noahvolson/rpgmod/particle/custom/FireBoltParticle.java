@@ -9,11 +9,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 
-public class IceBoltParticles extends TextureSheetParticle {
+public class FireBoltParticle extends TextureSheetParticle {
     private final SpriteSet sprites;
 
-    protected IceBoltParticles(ClientLevel level, double xCord, double yCord, double zCord, SpriteSet spriteSet,
-                                double xd, double yd, double zd) {
+    protected FireBoltParticle(ClientLevel level, double xCord, double yCord, double zCord, SpriteSet spriteSet,
+                               double xd, double yd, double zd) {
         super(level, xCord, yCord, zCord, xd, yd, zd);
 
         this.friction = 0.8F;   // Air friction?
@@ -24,12 +24,12 @@ public class IceBoltParticles extends TextureSheetParticle {
         this.zd = zd;
 
         this.quadSize *= 0.85F;             // Scale
-        this.lifetime = 10;                 // How long shown in ticks
+        this.lifetime = 15;                 // How long shown in ticks
 
         this.sprites = spriteSet;
         this.setSpriteFromAge(spriteSet);   // Needed to not CTD
 
-        this.setColorRgb(new Color(236, 245, 245));
+        this.setColorRgb(new Color(245, 224, 205));
 
     }
 
@@ -37,9 +37,8 @@ public class IceBoltParticles extends TextureSheetParticle {
     public void tick() {
         super.tick();
         this.setSpriteFromAge(this.sprites);
-        this.stepColor(new Color(255, 255, 255), new Color(76, 225, 227));
+        this.stepColor(new Color(246, 214, 65), new Color(255, 94, 0));
         this.setParticleSpeed(this.xd * 1.4, this.yd * 1.4, this.zd * 1.4);
-        fadeOut();
     }
 
     private void fadeOut() {
@@ -47,19 +46,18 @@ public class IceBoltParticles extends TextureSheetParticle {
     }
 
     private void stepColor(Color start, Color end) {
-        float stepR = (float) (end.getRed() - start.getRed()) / lifetime;
-        float stepG = (float) (end.getGreen() - start.getGreen()) / lifetime;
-        float stepB = (float) (end.getBlue() - start.getBlue()) / lifetime;
+        int stepR = (end.getRed() - start.getRed()) / lifetime;
+        int stepG = (end.getGreen() - start.getGreen()) / lifetime;
+        int stepB = (end.getBlue() - start.getBlue()) / lifetime;
 
         this.setColorRgb(
                 new Color(
-                        Math.round(start.getRed() + (stepR * age)),
-                        Math.round(start.getGreen() + (stepG * age)),
-                        Math.round(start.getBlue() + (stepB * age))
+                    start.getRed() + (stepR * age),
+                    start.getGreen() + (stepG * age),
+                    start.getBlue() + (stepB * age)
                 )
         );
     }
-
 
     private void setColorRgb(Color color) {
         this.rCol = 255f - color.getRed();
@@ -89,7 +87,7 @@ public class IceBoltParticles extends TextureSheetParticle {
         public Particle createParticle(@NotNull SimpleParticleType particleType, @NotNull ClientLevel level,
                                        double x, double y, double z,
                                        double dx, double dy, double dz) {
-            return new IceBoltParticles(level, x, y, z, this.sprites, dx, dy, dz);
+            return new FireBoltParticle(level, x, y, z, this.sprites, dx, dy, dz);
         }
     }
 }
