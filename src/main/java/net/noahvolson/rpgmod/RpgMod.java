@@ -13,6 +13,7 @@ import net.noahvolson.rpgmod.entity.ModEntityTypes;
 import net.noahvolson.rpgmod.item.ModItems;
 import net.noahvolson.rpgmod.networking.ModMessages;
 import net.noahvolson.rpgmod.particle.ModParticles;
+import net.noahvolson.rpgmod.sound.ModSounds;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -36,12 +37,13 @@ public class RpgMod {
 
         ModEffects.MOB_EFFECTS.register(modEventBus);
 
+        ModSounds.SOUND_EVENTS.register(modEventBus);
+
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        event.enqueueWork(() -> {
-            ModMessages.register(); // must come first
-        });
+        // must come first
+        event.enqueueWork(ModMessages::register);
 
     }
 

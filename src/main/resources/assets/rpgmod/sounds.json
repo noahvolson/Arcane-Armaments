@@ -1,0 +1,8 @@
+{
+  "blizzard_area": {
+    "subtitle": "sounds.rpgmod.blizzard_area",
+    "sounds": [
+      "rpgmod:blizzard_area"
+    ]
+  }
+}

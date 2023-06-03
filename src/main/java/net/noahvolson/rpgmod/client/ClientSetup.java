@@ -13,7 +13,8 @@ import net.noahvolson.rpgmod.entity.client.render.ProjectileSpellRenderer;
 public class ClientSetup {
     @SubscribeEvent
     public static void doSetup(FMLClientSetupEvent event) {
-        EntityRenderers.register(ModEntityTypes.FIRE_BOLT.get(), ProjectileSpellRenderer::new);
-        EntityRenderers.register(ModEntityTypes.ICE_BOLT.get(), ProjectileSpellRenderer::new);
+        EntityRenderers.register(ModEntityTypes.FIREBALL.get(), ProjectileSpellRenderer::new);
+        EntityRenderers.register(ModEntityTypes.BLIZZARD.get(), ProjectileSpellRenderer::new);
+        EntityRenderers.register(ModEntityTypes.THUNDER.get(), ProjectileSpellRenderer::new);
     }
 }

@@ -7,16 +7,20 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.noahvolson.rpgmod.RpgMod;
 import net.noahvolson.rpgmod.entity.spell.AbstractProjectileSpell;
-import net.noahvolson.rpgmod.entity.spell.FireBoltSpell;
-import net.noahvolson.rpgmod.entity.spell.IceBoltSpell;
+import net.noahvolson.rpgmod.entity.spell.FireballSpell;
+import net.noahvolson.rpgmod.entity.spell.BlizzardSpell;
+import net.noahvolson.rpgmod.entity.spell.ThunderSpell;
 
 public class ModEntityTypes {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
             DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, RpgMod.MOD_ID);
 
-    public static final RegistryObject<EntityType<AbstractProjectileSpell>> FIRE_BOLT = ENTITY_TYPES.register("fire_bolt",
-            () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileSpell>) FireBoltSpell::new, MobCategory.MISC).sized(0.5F, 0.5F).build("fire_bolt"));
+    public static final RegistryObject<EntityType<AbstractProjectileSpell>> FIREBALL = ENTITY_TYPES.register("fireball",
+            () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileSpell>) FireballSpell::new, MobCategory.MISC).sized(0.5F, 0.5F).build("fireball"));
 
-    public static final RegistryObject<EntityType<AbstractProjectileSpell>> ICE_BOLT = ENTITY_TYPES.register("ice_bolt",
-            () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileSpell>) IceBoltSpell::new, MobCategory.MISC).sized(0.5F, 0.5F).build("ice_bolt"));
+    public static final RegistryObject<EntityType<AbstractProjectileSpell>> BLIZZARD = ENTITY_TYPES.register("blizzard",
+            () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileSpell>) BlizzardSpell::new, MobCategory.MISC).sized(0.5F, 0.5F).build("blizzard"));
+
+    public static final RegistryObject<EntityType<AbstractProjectileSpell>> THUNDER = ENTITY_TYPES.register("thunder",
+            () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileSpell>) ThunderSpell::new, MobCategory.MISC).sized(0.5F, 0.5F).build("thunder"));
 }

@@ -9,46 +9,48 @@ import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 
-public class FreezeParticle extends TextureSheetParticle {
+public class FireballParticle extends TextureSheetParticle {
     private final SpriteSet sprites;
 
-    protected FreezeParticle(ClientLevel level, double xCord, double yCord, double zCord, SpriteSet spriteSet, double xd, double yd, double zd) {
+    protected FireballParticle(ClientLevel level, double xCord, double yCord, double zCord, SpriteSet spriteSet,
+                               double xd, double yd, double zd) {
         super(level, xCord, yCord, zCord, xd, yd, zd);
-        this.gravity = 0.225F;
-        this.friction = 1.0F;
+
+        this.friction = 0.8F;   // Air friction?
+
+        // Velocity
+        this.xd = xd;
+        this.yd = yd;
+        this.zd = zd;
+
+        this.quadSize *= 0.85F;             // Scale
+        this.lifetime = 15;                 // How long shown in ticks
+
         this.sprites = spriteSet;
-
-        this.xd = xd + (Math.random() * 2.0D - 1.0D) * (double)0.05F;
-        this.yd = yd + (Math.random() * 2.0D - 1.0D) * (double)0.05F;
-        this.zd = zd + (Math.random() * 2.0D - 1.0D) * (double)0.05F;
-
-        this.quadSize = 0.1F * (this.random.nextFloat() * this.random.nextFloat() * 1.0F + 1.0F);
-        this.lifetime = (int)(16.0D / ((double)this.random.nextFloat() * 0.8D + 0.2D)) + 2;
-
         this.setSpriteFromAge(spriteSet);   // Needed to not CTD
+
+        this.setColorRgb(new Color(245, 224, 205));
+
     }
 
     @Override
     public void tick() {
         super.tick();
         this.setSpriteFromAge(this.sprites);
-        this.xd *= (double)0.95F;
-        this.yd *= (double)0.9F;
-        this.zd *= (double)0.95F;
-
-        this.stepColor(new Color(231, 242, 245), new Color(76, 225, 227));
+        this.stepColor(new Color(246, 214, 65), new Color(255, 94, 0));
+        this.setParticleSpeed(this.xd * 1.4, this.yd * 1.4, this.zd * 1.4);
     }
 
     private void stepColor(Color start, Color end) {
-        float stepR = (float) (end.getRed() - start.getRed()) / lifetime;
-        float stepG = (float) (end.getGreen() - start.getGreen()) / lifetime;
-        float stepB = (float) (end.getBlue() - start.getBlue()) / lifetime;
+        int stepR = (end.getRed() - start.getRed()) / lifetime;
+        int stepG = (end.getGreen() - start.getGreen()) / lifetime;
+        int stepB = (end.getBlue() - start.getBlue()) / lifetime;
 
         this.setColorRgb(
                 new Color(
-                        Math.round(start.getRed() + (stepR * age)),
-                        Math.round(start.getGreen() + (stepG * age)),
-                        Math.round(start.getBlue() + (stepB * age))
+                    start.getRed() + (stepR * age),
+                    start.getGreen() + (stepG * age),
+                    start.getBlue() + (stepB * age)
                 )
         );
     }
@@ -59,9 +61,11 @@ public class FreezeParticle extends TextureSheetParticle {
         this.bCol = 255f - color.getBlue();
     }
 
+
     public int getLightColor(float p_106821_) {
         return 255;
     }
+
 
     @Override
     public @NotNull ParticleRenderType getRenderType() {
@@ -79,7 +83,7 @@ public class FreezeParticle extends TextureSheetParticle {
         public Particle createParticle(@NotNull SimpleParticleType particleType, @NotNull ClientLevel level,
                                        double x, double y, double z,
                                        double dx, double dy, double dz) {
-            return new FreezeParticle(level, x, y, z, this.sprites, dx, dy, dz);
+            return new FireballParticle(level, x, y, z, this.sprites, dx, dy, dz);
         }
     }
 }

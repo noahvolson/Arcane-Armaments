@@ -10,10 +10,7 @@ import net.noahvolson.rpgmod.RpgMod;
 import net.noahvolson.rpgmod.networking.ModMessages;
 import net.noahvolson.rpgmod.networking.packet.AbilityC2SPacket;
 import net.noahvolson.rpgmod.particle.ModParticles;
-import net.noahvolson.rpgmod.particle.custom.FireBoltParticle;
-import net.noahvolson.rpgmod.particle.custom.FreezeParticle;
-import net.noahvolson.rpgmod.particle.custom.HiddenParticle;
-import net.noahvolson.rpgmod.particle.custom.IceBoltParticle;
+import net.noahvolson.rpgmod.particle.custom.*;
 import net.noahvolson.rpgmod.util.KeyBinding;
 
 public class ClientEvents {
@@ -50,9 +47,10 @@ public class ClientEvents {
         @SubscribeEvent
         public static void registerParticleFactories(final RegisterParticleProvidersEvent event) {
             event.register(ModParticles.HIDDEN_PARTICLES.get(), HiddenParticle.Provider::new);
-            event.register(ModParticles.FIREBOLT_PARTICLES.get(), FireBoltParticle.Provider::new);
-            event.register(ModParticles.ICEBOLT_PARTICLES.get(), IceBoltParticle.Provider::new);
+            event.register(ModParticles.FIREBOLT_PARTICLES.get(), FireballParticle.Provider::new);
+            event.register(ModParticles.ICEBOLT_PARTICLES.get(), BlizzardParticle.Provider::new);
             event.register(ModParticles.FREEZE_PARTICLES.get(), FreezeParticle.Provider::new);
+            event.register(ModParticles.THUNDER_PARTICLES.get(), ThunderParticle.Provider::new);
         }
     }
 }

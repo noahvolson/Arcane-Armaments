@@ -3,14 +3,14 @@ package net.noahvolson.rpgmod.networking.packet;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkEvent;
 import net.noahvolson.rpgmod.entity.ModEntityTypes;
 import net.noahvolson.rpgmod.entity.spell.AbstractProjectileSpell;
-import net.noahvolson.rpgmod.entity.spell.FireBoltSpell;
-import net.noahvolson.rpgmod.entity.spell.IceBoltSpell;
+import net.noahvolson.rpgmod.entity.spell.BlizzardSpell;
+import net.noahvolson.rpgmod.entity.spell.FireballSpell;
+import net.noahvolson.rpgmod.entity.spell.ThunderSpell;
 
 import java.util.function.Supplier;
 
@@ -45,12 +45,17 @@ public class AbilityC2SPacket {
             AbstractProjectileSpell spell;
             switch (abilityNum) {
                 case 1 -> {
-                    spell = new IceBoltSpell(ModEntityTypes.ICE_BOLT.get(), player, player.level);
+                    spell = new BlizzardSpell(ModEntityTypes.BLIZZARD.get(), player, player.level);
                     spell.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
                     player.level.addFreshEntity(spell);
                 }
                 case 2 -> {
-                    spell = new FireBoltSpell(ModEntityTypes.FIRE_BOLT.get(), player, player.level);
+                    spell = new FireballSpell(ModEntityTypes.FIREBALL.get(), player, player.level);
+                    spell.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
+                    player.level.addFreshEntity(spell);
+                }
+                case 3 -> {
+                    spell = new ThunderSpell(ModEntityTypes.THUNDER.get(), player, player.level);
                     spell.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
                     player.level.addFreshEntity(spell);
                 }

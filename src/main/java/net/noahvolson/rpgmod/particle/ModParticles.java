@@ -24,6 +24,9 @@ public class ModParticles {
     public static final RegistryObject<SimpleParticleType> FREEZE_PARTICLES =
             PARTICLE_TYPES.register("freeze_particles", () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> THUNDER_PARTICLES =
+            PARTICLE_TYPES.register("thunder_particles", () -> new SimpleParticleType(true));
+
     public static void register(IEventBus eventBus) {
         PARTICLE_TYPES.register(eventBus);
     }

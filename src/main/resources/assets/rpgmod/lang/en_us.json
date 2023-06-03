@@ -10,5 +10,7 @@
   "key.rpgmod.ability_3": "Use Ability 3",
   "key.rpgmod.ability_4": "Use Ability 4",
 
-  "effect.rpgmod.freeze": "Freeze"
+  "effect.rpgmod.freeze": "Freeze",
+
+  "sounds.rpgmod.blizzard_area": "Blizzard Area Sound"
 }

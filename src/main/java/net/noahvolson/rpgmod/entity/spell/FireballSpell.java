@@ -1,7 +1,6 @@
 package net.noahvolson.rpgmod.entity.spell;
 
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -12,12 +11,12 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.noahvolson.rpgmod.particle.ModParticles;
 import org.jetbrains.annotations.NotNull;
 
-public class FireBoltSpell extends AbstractProjectileSpell {
-    public FireBoltSpell(EntityType<AbstractProjectileSpell> entityType, Level world) {
+public class FireballSpell extends AbstractProjectileSpell {
+    public FireballSpell(EntityType<AbstractProjectileSpell> entityType, Level world) {
         super(entityType, world);
     }
 
-    public FireBoltSpell(EntityType<AbstractProjectileSpell> entityType, LivingEntity shooter, Level world) {
+    public FireballSpell(EntityType<AbstractProjectileSpell> entityType, LivingEntity shooter, Level world) {
         super(entityType, shooter, world, SoundEvents.GHAST_SHOOT);
     }
 
