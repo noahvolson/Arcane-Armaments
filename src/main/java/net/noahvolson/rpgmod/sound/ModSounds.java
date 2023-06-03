@@ -14,6 +14,8 @@ public class ModSounds {
             DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, RpgMod.MOD_ID);
 
     public static final RegistryObject<SoundEvent> BLIZZARD_AREA = registerSoundEvent("blizzard_area");
+    public static final RegistryObject<SoundEvent> BLIZZARD_CAST = registerSoundEvent("blizzard_cast");
+    public static final RegistryObject<SoundEvent> BLIZZARD_IMPACT = registerSoundEvent("blizzard_impact");
 
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(RpgMod.MOD_ID, name)));

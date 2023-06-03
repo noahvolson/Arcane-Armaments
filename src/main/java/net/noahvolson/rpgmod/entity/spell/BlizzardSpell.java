@@ -25,7 +25,7 @@ public class BlizzardSpell extends AbstractProjectileSpell {
     }
 
     public BlizzardSpell(EntityType<AbstractProjectileSpell> entityType, LivingEntity shooter, Level world) {
-        super(entityType, shooter, world, SoundEvents.ILLUSIONER_CAST_SPELL, SoundEvents.GLASS_BREAK, SoundEvents.GLASS_BREAK);
+        super(entityType, shooter, world, ModSounds.BLIZZARD_CAST.get(), ModSounds.BLIZZARD_IMPACT.get(), ModSounds.BLIZZARD_IMPACT.get());
         this.setKnockback(0);
     }
 
@@ -54,10 +54,10 @@ public class BlizzardSpell extends AbstractProjectileSpell {
             areaeffectcloud.setDuration(120);
             areaeffectcloud.setWaitTime(0);
             areaeffectcloud.addEffect(new MobEffectInstance(ModEffects.FREEZE.get(), 30, -1));
-            this.level.addFreshEntity(areaeffectcloud);
 
+            this.level.addFreshEntity(areaeffectcloud);
+            this.level.playSound(null, this.getX(), this.getY(), this.getZ(), ModSounds.BLIZZARD_AREA.get(), SoundSource.HOSTILE, 1f, 1f);
         }
-        this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), ModSounds.BLIZZARD_AREA.get(), SoundSource.HOSTILE, 1f, 1f, false);
     }
 
     @Override
@@ -85,10 +85,11 @@ public class BlizzardSpell extends AbstractProjectileSpell {
             areaeffectcloud.addEffect(new MobEffectInstance(ModEffects.FREEZE.get(), 30, -1));
             this.level.addFreshEntity(areaeffectcloud);
 
+        } else {
+            this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), ModSounds.BLIZZARD_AREA.get(), SoundSource.HOSTILE, 1f, 1f, false);
         }
-        this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), ModSounds.BLIZZARD_AREA.get(), SoundSource.HOSTILE, 1f, 1f, false);
 
-    };
+    }
 
     @Override
     protected void tickDespawn() {

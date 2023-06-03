@@ -12,5 +12,7 @@
 
   "effect.rpgmod.freeze": "Freeze",
 
-  "sounds.rpgmod.blizzard_area": "Blizzard Area Sound"
+  "sounds.rpgmod.blizzard_area": "Blizzard Area Sound",
+  "sounds.rpgmod.blizzard_cast": "Blizzard Cast Sound",
+  "sounds.rpgmod.blizzard_impact": "Blizzard Impact Sound"
 }

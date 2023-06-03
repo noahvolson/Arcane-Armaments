@@ -4,5 +4,17 @@
     "sounds": [
       "rpgmod:blizzard_area"
     ]
+  },
+  "blizzard_cast": {
+    "subtitle": "sounds.rpgmod.blizzard_cast",
+    "sounds": [
+      "rpgmod:blizzard_cast"
+    ]
+  },
+  "blizzard_impact": {
+    "subtitle": "sounds.rpgmod.blizzard_impact",
+    "sounds": [
+      "rpgmod:blizzard_impact"
+    ]
   }
 }
