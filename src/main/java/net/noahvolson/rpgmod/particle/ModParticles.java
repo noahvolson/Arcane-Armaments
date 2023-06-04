@@ -27,6 +27,12 @@ public class ModParticles {
     public static final RegistryObject<SimpleParticleType> THUNDER_PARTICLES =
             PARTICLE_TYPES.register("thunder_particles", () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> RUNE_PARTICLES =
+            PARTICLE_TYPES.register("rune_particles", () -> new SimpleParticleType(true));
+
+    public static final RegistryObject<SimpleParticleType> ZAPPED_PARTICLES =
+            PARTICLE_TYPES.register("zapped_particles", () -> new SimpleParticleType(true));
+
     public static void register(IEventBus eventBus) {
         PARTICLE_TYPES.register(eventBus);
     }

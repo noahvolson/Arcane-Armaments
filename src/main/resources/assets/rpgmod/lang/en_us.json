@@ -11,8 +11,13 @@
   "key.rpgmod.ability_4": "Use Ability 4",
 
   "effect.rpgmod.freeze": "Freeze",
+  "effect.rpgmod.zapped": "Zapped!",
 
   "sounds.rpgmod.blizzard_area": "Blizzard Area Sound",
   "sounds.rpgmod.blizzard_cast": "Blizzard Cast Sound",
-  "sounds.rpgmod.blizzard_impact": "Blizzard Impact Sound"
+  "sounds.rpgmod.blizzard_impact": "Blizzard Impact Sound",
+
+  "sounds.rpgmod.thunder_cast": "Thunder Cast Sound",
+  "sounds.rpgmod.thunder_impact": "Thunder Impact Sound",
+  "sounds.rpgmod.thunder_pulse": "Thunder Pulse Sound"
 }

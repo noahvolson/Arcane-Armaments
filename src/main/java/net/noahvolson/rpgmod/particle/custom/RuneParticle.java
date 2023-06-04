@@ -9,11 +9,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 
-public class ThunderParticle extends TextureSheetParticle {
+public class RuneParticle extends TextureSheetParticle {
     private final SpriteSet sprites;
 
-    protected ThunderParticle(ClientLevel level, double xCord, double yCord, double zCord, SpriteSet spriteSet,
-                               double xd, double yd, double zd) {
+    protected RuneParticle(ClientLevel level, double xCord, double yCord, double zCord, SpriteSet spriteSet,
+                              double xd, double yd, double zd) {
         super(level, xCord, yCord, zCord, xd, yd, zd);
 
         this.friction = 0.75F;   // Air friction?
@@ -23,8 +23,8 @@ public class ThunderParticle extends TextureSheetParticle {
         this.yd = yd;
         this.zd = zd;
 
-        this.quadSize *= 1F;             // Scale
-        this.lifetime = 20;                 // How long shown in ticks
+        this.quadSize *= .6F;             // Scale
+        this.lifetime = 15;               // How long shown in ticks
 
         this.sprites = spriteSet;
         this.setSpriteFromAge(spriteSet);   // Needed to not CTD
@@ -37,7 +37,7 @@ public class ThunderParticle extends TextureSheetParticle {
     public void tick() {
         super.tick();
         this.setSpriteFromAge(this.sprites);
-        this.stepColor(new Color(226, 215, 241), new Color(166, 95, 246));
+        this.stepColor(new Color(226, 215, 241), new Color(179, 139, 241));
         this.setParticleSpeed(this.xd * 1.4, this.yd * 1.4, this.zd * 1.4);
         this.quadSize *= 0.97F;
         fadeOut();
@@ -89,7 +89,7 @@ public class ThunderParticle extends TextureSheetParticle {
         public Particle createParticle(@NotNull SimpleParticleType particleType, @NotNull ClientLevel level,
                                        double x, double y, double z,
                                        double dx, double dy, double dz) {
-            return new ThunderParticle(level, x, y, z, this.sprites, dx, dy, dz);
+            return new RuneParticle(level, x, y, z, this.sprites, dx, dy, dz);
         }
     }
 }

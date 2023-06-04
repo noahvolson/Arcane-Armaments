@@ -9,11 +9,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 
-public class ThunderParticle extends TextureSheetParticle {
+public class ZappedParticle extends TextureSheetParticle {
     private final SpriteSet sprites;
 
-    protected ThunderParticle(ClientLevel level, double xCord, double yCord, double zCord, SpriteSet spriteSet,
-                               double xd, double yd, double zd) {
+    protected ZappedParticle(ClientLevel level, double xCord, double yCord, double zCord, SpriteSet spriteSet,
+                              double xd, double yd, double zd) {
         super(level, xCord, yCord, zCord, xd, yd, zd);
 
         this.friction = 0.75F;   // Air friction?
@@ -89,7 +89,7 @@ public class ThunderParticle extends TextureSheetParticle {
         public Particle createParticle(@NotNull SimpleParticleType particleType, @NotNull ClientLevel level,
                                        double x, double y, double z,
                                        double dx, double dy, double dz) {
-            return new ThunderParticle(level, x, y, z, this.sprites, dx, dy, dz);
+            return new ZappedParticle(level, x, y, z, this.sprites, dx, dy, dz);
         }
     }
 }

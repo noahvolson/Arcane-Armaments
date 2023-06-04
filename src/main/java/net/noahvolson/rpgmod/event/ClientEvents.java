@@ -51,6 +51,8 @@ public class ClientEvents {
             event.register(ModParticles.ICEBOLT_PARTICLES.get(), BlizzardParticle.Provider::new);
             event.register(ModParticles.FREEZE_PARTICLES.get(), FreezeParticle.Provider::new);
             event.register(ModParticles.THUNDER_PARTICLES.get(), ThunderParticle.Provider::new);
+            event.register(ModParticles.RUNE_PARTICLES.get(), RuneParticle.Provider::new);
+            event.register(ModParticles.ZAPPED_PARTICLES.get(), ZappedParticle.Provider::new);
         }
     }
 }

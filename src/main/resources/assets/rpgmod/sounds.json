@@ -16,5 +16,23 @@
     "sounds": [
       "rpgmod:blizzard_impact"
     ]
+  },
+  "thunder_cast": {
+    "subtitle": "sounds.rpgmod.thunder_cast",
+    "sounds": [
+      "rpgmod:thunder_cast"
+    ]
+  },
+  "thunder_impact": {
+    "subtitle": "sounds.rpgmod.thunder_impact",
+    "sounds": [
+      "rpgmod:thunder_impact"
+    ]
+  },
+  "thunder_pulse": {
+    "subtitle": "sounds.rpgmod.thunder_pulse",
+    "sounds": [
+      "rpgmod:thunder_pulse"
+    ]
   }
 }
