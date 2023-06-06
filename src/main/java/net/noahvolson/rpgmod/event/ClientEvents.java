@@ -1,5 +1,6 @@
 package net.noahvolson.rpgmod.event;
 
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
@@ -47,6 +48,7 @@ public class ClientEvents {
         @SubscribeEvent
         public static void registerParticleFactories(final RegisterParticleProvidersEvent event) {
             event.register(ModParticles.HIDDEN_PARTICLES.get(), HiddenParticle.Provider::new);
+            event.register(ModParticles.BLINK_PARTICLES.get(), BlinkParticle.Provider::new);
             event.register(ModParticles.FIREBOLT_PARTICLES.get(), FireballParticle.Provider::new);
             event.register(ModParticles.ICEBOLT_PARTICLES.get(), BlizzardParticle.Provider::new);
             event.register(ModParticles.FREEZE_PARTICLES.get(), FreezeParticle.Provider::new);

@@ -7,10 +7,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkEvent;
 import net.noahvolson.rpgmod.entity.ModEntityTypes;
-import net.noahvolson.rpgmod.entity.spell.AbstractProjectileSpell;
-import net.noahvolson.rpgmod.entity.spell.BlizzardSpell;
-import net.noahvolson.rpgmod.entity.spell.FireballSpell;
-import net.noahvolson.rpgmod.entity.spell.ThunderSpell;
+import net.noahvolson.rpgmod.entity.spell.*;
 
 import java.util.function.Supplier;
 
@@ -32,7 +29,6 @@ public class AbilityC2SPacket {
     }
 
     public void handle(Supplier<NetworkEvent.Context> supplier) {
-        System.out.println("n9v9o9 - " + abilityNum);
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
             // NOW ACTING ON THE SERVER
@@ -45,16 +41,21 @@ public class AbilityC2SPacket {
             AbstractProjectileSpell spell;
             switch (abilityNum) {
                 case 1 -> {
-                    spell = new BlizzardSpell(ModEntityTypes.BLIZZARD.get(), player, player.level);
-                    spell.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
-                    player.level.addFreshEntity(spell);
-                }
-                case 2 -> {
                     spell = new FireballSpell(ModEntityTypes.FIREBALL.get(), player, player.level);
                     spell.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
                     player.level.addFreshEntity(spell);
                 }
+                case 2 -> {
+                    spell = new BlinkSpell(ModEntityTypes.BLINK.get(), player, player.level);
+                    spell.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
+                    player.level.addFreshEntity(spell);
+                }
                 case 3 -> {
+                    spell = new BlizzardSpell(ModEntityTypes.BLIZZARD.get(), player, player.level);
+                    spell.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
+                    player.level.addFreshEntity(spell);
+                }
+                case 4 -> {
                     spell = new ThunderSpell(ModEntityTypes.THUNDER.get(), player, player.level);
                     spell.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
                     player.level.addFreshEntity(spell);

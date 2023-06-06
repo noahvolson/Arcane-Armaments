@@ -15,6 +15,9 @@ public class ModParticles {
     public static final RegistryObject<SimpleParticleType> HIDDEN_PARTICLES =
             PARTICLE_TYPES.register("hidden_particles", () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> BLINK_PARTICLES =
+            PARTICLE_TYPES.register("blink_particles", () -> new SimpleParticleType(true));
+
     public static final RegistryObject<SimpleParticleType> FIREBOLT_PARTICLES =
             PARTICLE_TYPES.register("firebolt_particles", () -> new SimpleParticleType(true));
 

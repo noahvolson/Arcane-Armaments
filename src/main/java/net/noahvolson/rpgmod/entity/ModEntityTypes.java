@@ -6,14 +6,14 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.noahvolson.rpgmod.RpgMod;
-import net.noahvolson.rpgmod.entity.spell.AbstractProjectileSpell;
-import net.noahvolson.rpgmod.entity.spell.FireballSpell;
-import net.noahvolson.rpgmod.entity.spell.BlizzardSpell;
-import net.noahvolson.rpgmod.entity.spell.ThunderSpell;
+import net.noahvolson.rpgmod.entity.spell.*;
 
 public class ModEntityTypes {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
             DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, RpgMod.MOD_ID);
+
+    public static final RegistryObject<EntityType<AbstractProjectileSpell>> BLINK = ENTITY_TYPES.register("blink",
+            () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileSpell>) BlinkSpell::new, MobCategory.MISC).sized(0.5F, 0.5F).build("blink"));
 
     public static final RegistryObject<EntityType<AbstractProjectileSpell>> FIREBALL = ENTITY_TYPES.register("fireball",
             () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileSpell>) FireballSpell::new, MobCategory.MISC).sized(0.5F, 0.5F).build("fireball"));
