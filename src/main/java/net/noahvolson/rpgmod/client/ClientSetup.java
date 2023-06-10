@@ -13,9 +13,14 @@ import net.noahvolson.rpgmod.entity.client.render.ProjectileSpellRenderer;
 public class ClientSetup {
     @SubscribeEvent
     public static void doSetup(FMLClientSetupEvent event) {
+
+        // mage spells
         EntityRenderers.register(ModEntityTypes.BLINK.get(), ProjectileSpellRenderer::new);
         EntityRenderers.register(ModEntityTypes.FIREBALL.get(), ProjectileSpellRenderer::new);
         EntityRenderers.register(ModEntityTypes.BLIZZARD.get(), ProjectileSpellRenderer::new);
         EntityRenderers.register(ModEntityTypes.THUNDER.get(), ProjectileSpellRenderer::new);
+
+        // rogue spells
+        EntityRenderers.register(ModEntityTypes.DAGGER.get(), ProjectileSpellRenderer::new);
     }
 }

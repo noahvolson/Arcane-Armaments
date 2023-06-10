@@ -94,7 +94,7 @@ public abstract class AbstractProjectileSpell extends AbstractArrow {
     public void tick() {
         super.tick();
         if (this.level.isClientSide) {
-            this.makeParticle();
+            this.makeTrailParticle();
         }
     }
 
@@ -104,7 +104,7 @@ public abstract class AbstractProjectileSpell extends AbstractArrow {
     }
 
     // Override this to customize spell effects
-    protected void makeParticle() {
+    protected void makeTrailParticle() {
         for(int j = 0; j < 5; ++j) {
             this.level.addParticle(ParticleTypes.DRAGON_BREATH, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
         }

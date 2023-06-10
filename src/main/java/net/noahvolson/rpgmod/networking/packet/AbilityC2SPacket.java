@@ -41,7 +41,13 @@ public class AbilityC2SPacket {
             AbstractProjectileSpell spell;
             switch (abilityNum) {
                 case 1 -> {
+                    /*
                     spell = new FireballSpell(ModEntityTypes.FIREBALL.get(), player, player.level);
+                    spell.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
+                    player.level.addFreshEntity(spell);
+                    */
+
+                    spell = new DaggerAttack(ModEntityTypes.DAGGER.get(), player, player.level);
                     spell.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
                     player.level.addFreshEntity(spell);
                 }

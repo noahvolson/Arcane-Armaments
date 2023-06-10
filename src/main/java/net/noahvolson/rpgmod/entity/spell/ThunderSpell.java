@@ -1,6 +1,5 @@
 package net.noahvolson.rpgmod.entity.spell;
 
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.AreaEffectCloud;
@@ -48,7 +47,7 @@ public class ThunderSpell extends AbstractProjectileSpell {
     public void tick() {
         super.tick();
         if (this.level.isClientSide) {
-            this.makeParticle();
+            this.makeTrailParticle();
         } else if (this.inGroundTime % 20 == 0 && this.inGroundTime > 0) {
             this.level.playSound(null, this.getX(), this.getY(), this.getZ(),
                     ModSounds.THUNDER_PULSE.get(), SoundSource.HOSTILE, .5f, 1f);
@@ -63,7 +62,7 @@ public class ThunderSpell extends AbstractProjectileSpell {
     }
 
     @Override
-    protected void makeParticle() {
+    protected void makeTrailParticle() {
         if (!this.inGround) {
             for(int j = 0; j < 5; ++j) {
 

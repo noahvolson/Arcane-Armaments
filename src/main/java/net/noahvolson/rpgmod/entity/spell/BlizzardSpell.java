@@ -99,7 +99,7 @@ public class BlizzardSpell extends AbstractProjectileSpell {
     }
 
     @Override
-    protected void makeParticle() {
+    protected void makeTrailParticle() {
         if (!this.inGround) {
             for(int j = 0; j < 5; ++j) {
 

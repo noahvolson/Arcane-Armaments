@@ -11,6 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
+import net.minecraftforge.common.ForgeMod;
 import net.noahvolson.rpgmod.particle.ModParticles;
 import org.jetbrains.annotations.NotNull;
 
@@ -51,21 +52,18 @@ public class BlinkSpell extends AbstractProjectileSpell {
 
     @Override
     public void tick() {
+        if (!this.level.isClientSide) {
+            if (tickCounter >= 5 && !this.isRemoved()) {
+                blinkTo(this.getX(), this.getY(), this.getZ());
+                this.discard();
+            }
+            tickCounter++;
+        }
         super.tick();
-
-        if (tickCounter >= 5 && !this.isRemoved()) {
-            blinkTo(this.getX(), this.getY(), this.getZ());
-            this.discard();
-        }
-
-        if (this.level.isClientSide) {
-            this.makeParticle();
-        }
-        tickCounter++;
     }
 
     @Override
-    protected void makeParticle() {
+    protected void makeTrailParticle() {
         this.level.addParticle(ModParticles.BLINK_PARTICLES.get(), this.getX(), this.getY(), this.getZ(), 0, 0, 0);
     }
 

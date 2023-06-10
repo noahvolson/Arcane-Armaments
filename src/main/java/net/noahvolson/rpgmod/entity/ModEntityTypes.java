@@ -12,6 +12,7 @@ public class ModEntityTypes {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
             DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, RpgMod.MOD_ID);
 
+    // mage spells
     public static final RegistryObject<EntityType<AbstractProjectileSpell>> BLINK = ENTITY_TYPES.register("blink",
             () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileSpell>) BlinkSpell::new, MobCategory.MISC).sized(0.5F, 0.5F).build("blink"));
 
@@ -23,4 +24,8 @@ public class ModEntityTypes {
 
     public static final RegistryObject<EntityType<AbstractProjectileSpell>> THUNDER = ENTITY_TYPES.register("thunder",
             () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileSpell>) ThunderSpell::new, MobCategory.MISC).sized(0.5F, 0.5F).build("thunder"));
+
+    // rogue spells
+    public static final RegistryObject<EntityType<AbstractProjectileSpell>> DAGGER = ENTITY_TYPES.register("dagger",
+            () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileSpell>) DaggerAttack::new, MobCategory.MISC).sized(0.5F, 0.5F).build("dagger"));
 }

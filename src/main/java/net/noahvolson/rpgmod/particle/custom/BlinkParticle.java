@@ -29,7 +29,7 @@ public class BlinkParticle extends TextureSheetParticle {
         this.sprites = spriteSet;
         this.setSpriteFromAge(spriteSet);   // Needed to not CTD
 
-        this.setColorRgb(new Color(133, 198, 86));
+        this.setColorRgb(new Color(89, 182, 154));
 
     }
 
@@ -37,7 +37,7 @@ public class BlinkParticle extends TextureSheetParticle {
     public void tick() {
         super.tick();
         this.setSpriteFromAge(this.sprites);
-        this.stepColor(new Color(113, 172, 73), new Color(73, 130, 147));
+        this.stepColor(new Color(89, 182, 154), new Color(73, 130, 147));
         this.setParticleSpeed(this.xd * 1.4, this.yd * 1.4, this.zd * 1.4);
         fadeOut();
     }

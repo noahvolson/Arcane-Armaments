@@ -32,7 +32,7 @@ public class FireballSpell extends AbstractProjectileSpell {
     };
     
     @Override
-    protected void makeParticle() {
+    protected void makeTrailParticle() {
         for(int j = 0; j < 5; ++j) {
 
             double magnitude = .03;
