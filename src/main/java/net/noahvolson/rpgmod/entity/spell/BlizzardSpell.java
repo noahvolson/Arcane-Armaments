@@ -2,7 +2,6 @@ package net.noahvolson.rpgmod.entity.spell;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.AreaEffectCloud;
@@ -18,13 +17,13 @@ import net.noahvolson.rpgmod.sound.ModSounds;
 import org.jetbrains.annotations.NotNull;
 
 
-public class BlizzardSpell extends AbstractProjectileSpell {
+public class BlizzardSpell extends AbstractProjectileAbility {
 
-    public BlizzardSpell(EntityType<AbstractProjectileSpell> entityType, Level world) {
+    public BlizzardSpell(EntityType<AbstractProjectileAbility> entityType, Level world) {
         super(entityType, world);
     }
 
-    public BlizzardSpell(EntityType<AbstractProjectileSpell> entityType, LivingEntity shooter, Level world) {
+    public BlizzardSpell(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
         super(entityType, shooter, world, ModSounds.BLIZZARD_CAST.get(), ModSounds.BLIZZARD_IMPACT.get(), ModSounds.BLIZZARD_IMPACT.get());
         this.setKnockback(0);
     }

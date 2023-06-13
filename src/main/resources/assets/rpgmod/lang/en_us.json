@@ -10,14 +10,18 @@
   "key.rpgmod.ability_3": "Use Ability 3",
   "key.rpgmod.ability_4": "Use Ability 4",
 
-  "effect.rpgmod.freeze": "Freeze",
+  "effect.rpgmod.freeze": "Frozen",
   "effect.rpgmod.zapped": "Zapped!",
+  "effect.rpgmod.rupture": "Ruptured",
 
   "sounds.rpgmod.blizzard_area": "Blizzard Area Sound",
   "sounds.rpgmod.blizzard_cast": "Blizzard Cast Sound",
   "sounds.rpgmod.blizzard_impact": "Blizzard Impact Sound",
-
   "sounds.rpgmod.thunder_cast": "Thunder Cast Sound",
   "sounds.rpgmod.thunder_impact": "Thunder Impact Sound",
-  "sounds.rpgmod.thunder_pulse": "Thunder Pulse Sound"
+  "sounds.rpgmod.thunder_pulse": "Thunder Pulse Sound",
+  "sounds.rpgmod.poison_dagger": "Poison Dagger Sound",
+  "sounds.rpgmod.execute_dagger": "Execute Dagger Sound",
+
+  "death.attack.rupture": "%1$s ran too fast and bled out"
 }

@@ -11,12 +11,12 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.noahvolson.rpgmod.particle.ModParticles;
 import org.jetbrains.annotations.NotNull;
 
-public class FireballSpell extends AbstractProjectileSpell {
-    public FireballSpell(EntityType<AbstractProjectileSpell> entityType, Level world) {
+public class FireballSpell extends AbstractProjectileAbility {
+    public FireballSpell(EntityType<AbstractProjectileAbility> entityType, Level world) {
         super(entityType, world);
     }
 
-    public FireballSpell(EntityType<AbstractProjectileSpell> entityType, LivingEntity shooter, Level world) {
+    public FireballSpell(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
         super(entityType, shooter, world, SoundEvents.GHAST_SHOOT);
     }
 

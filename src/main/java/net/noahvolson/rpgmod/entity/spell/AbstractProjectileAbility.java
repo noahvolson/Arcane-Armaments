@@ -17,20 +17,20 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-public abstract class AbstractProjectileSpell extends AbstractArrow {
+public abstract class AbstractProjectileAbility extends AbstractArrow {
 
     private SoundEvent castSound;
     private SoundEvent hitEntitySound;
     private SoundEvent hitBlockSound;
 
     // For registering in ModEntityTypes
-    public AbstractProjectileSpell(EntityType<AbstractProjectileSpell> entityType, Level world) {
+    public AbstractProjectileAbility(EntityType<AbstractProjectileAbility> entityType, Level world) {
         super(entityType, world);
     }
 
     // For ability casts
-    public AbstractProjectileSpell(EntityType<AbstractProjectileSpell> entityType, LivingEntity shooter, Level world,
-                                   SoundEvent castSound, SoundEvent hitEntitySound, SoundEvent hitBlockSound) {
+    public AbstractProjectileAbility(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world,
+                                     SoundEvent castSound, SoundEvent hitEntitySound, SoundEvent hitBlockSound) {
 
         super(entityType, shooter, world);
         this.castSound = castSound;
@@ -39,7 +39,7 @@ public abstract class AbstractProjectileSpell extends AbstractArrow {
     }
 
     // For ability casts
-    public AbstractProjectileSpell(EntityType<AbstractProjectileSpell> entityType, LivingEntity shooter, Level world, SoundEvent castSound) {
+    public AbstractProjectileAbility(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world, SoundEvent castSound) {
 
         super(entityType, shooter, world);
         this.castSound = castSound;

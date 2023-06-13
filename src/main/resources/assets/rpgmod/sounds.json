@@ -34,5 +34,23 @@
     "sounds": [
       "rpgmod:thunder_pulse"
     ]
+  },
+  "poison_dagger": {
+    "subtitle": "sounds.rpgmod.poison_dagger",
+    "sounds": [
+      "rpgmod:poison_dagger"
+    ]
+  },
+  "rupture_dagger": {
+    "subtitle": "sounds.rpgmod.rupture_dagger",
+    "sounds": [
+      "rpgmod:rupture_dagger"
+    ]
+  },
+  "execute_dagger": {
+    "subtitle": "sounds.rpgmod.execute_dagger",
+    "sounds": [
+      "rpgmod:execute_dagger"
+    ]
   }
 }

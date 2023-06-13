@@ -1,27 +1,24 @@
 package net.noahvolson.rpgmod.entity.spell;
 
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
-import net.minecraftforge.common.ForgeMod;
 import net.noahvolson.rpgmod.particle.ModParticles;
 import org.jetbrains.annotations.NotNull;
 
-public class BlinkSpell extends AbstractProjectileSpell {
+public class BlinkSpell extends AbstractProjectileAbility {
     private int tickCounter = 0;
-    public BlinkSpell(EntityType<AbstractProjectileSpell> entityType, Level world) {
+    public BlinkSpell(EntityType<AbstractProjectileAbility> entityType, Level world) {
         super(entityType, world);
     }
 
-    public BlinkSpell(EntityType<AbstractProjectileSpell> entityType, LivingEntity shooter, Level world) {
+    public BlinkSpell(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
         super(entityType, shooter, world, SoundEvents.EVOKER_CAST_SPELL, SoundEvents.CHORUS_FRUIT_TELEPORT, SoundEvents.CHORUS_FRUIT_TELEPORT);
         this.setNoGravity(true);
     }

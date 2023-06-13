@@ -4,10 +4,10 @@ import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.noahvolson.rpgmod.RpgMod;
-import net.noahvolson.rpgmod.entity.spell.AbstractProjectileSpell;
+import net.noahvolson.rpgmod.entity.spell.AbstractProjectileAbility;
 import org.jetbrains.annotations.NotNull;
 
-public class ProjectileSpellRenderer extends ArrowRenderer<AbstractProjectileSpell> {
+public class ProjectileSpellRenderer extends ArrowRenderer<AbstractProjectileAbility> {
     public static final ResourceLocation TEXTURE = new ResourceLocation(RpgMod.MOD_ID, "textures/entity/invisible_arrow.png");
 
     public ProjectileSpellRenderer(EntityRendererProvider.Context manager) {
@@ -15,7 +15,7 @@ public class ProjectileSpellRenderer extends ArrowRenderer<AbstractProjectileSpe
     }
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(@NotNull AbstractProjectileSpell p_114482_) {
+    public @NotNull ResourceLocation getTextureLocation(@NotNull AbstractProjectileAbility p_114482_) {
         return TEXTURE;
     }
 }

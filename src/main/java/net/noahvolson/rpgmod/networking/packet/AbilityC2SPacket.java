@@ -38,33 +38,43 @@ public class AbilityC2SPacket {
             Vec3 look = player.getLookAngle();
             double speed = 3D;
 
-            AbstractProjectileSpell spell;
+            AbstractProjectileAbility ability;
             switch (abilityNum) {
                 case 1 -> {
                     /*
-                    spell = new FireballSpell(ModEntityTypes.FIREBALL.get(), player, player.level);
-                    spell.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
-                    player.level.addFreshEntity(spell);
+                    ability = new FireballSpell(ModEntityTypes.FIREBALL.get(), player, player.level);
+                    ability.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
+                    player.level.addFreshEntity(ability);
                     */
-
-                    spell = new DaggerAttack(ModEntityTypes.DAGGER.get(), player, player.level);
-                    spell.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
-                    player.level.addFreshEntity(spell);
+                    ability = new PoisonDaggerAttack(ModEntityTypes.POISON_DAGGER.get(), player, player.level);
+                    ability.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
+                    player.level.addFreshEntity(ability);
                 }
                 case 2 -> {
-                    spell = new BlinkSpell(ModEntityTypes.BLINK.get(), player, player.level);
-                    spell.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
-                    player.level.addFreshEntity(spell);
+                    /*
+                    ability = new BlinkSpell(ModEntityTypes.BLINK.get(), player, player.level);
+                    ability.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
+                    player.level.addFreshEntity(ability);
+                     */
+                    ability = new RuptureDaggerAttack(ModEntityTypes.RUPTURE_DAGGER.get(), player, player.level);
+                    ability.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
+                    player.level.addFreshEntity(ability);
+
                 }
                 case 3 -> {
-                    spell = new BlizzardSpell(ModEntityTypes.BLIZZARD.get(), player, player.level);
-                    spell.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
-                    player.level.addFreshEntity(spell);
+                    /*
+                    ability = new BlizzardSpell(ModEntityTypes.BLIZZARD.get(), player, player.level);
+                    ability.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
+                    player.level.addFreshEntity(ability);
+                    */
+                    ability = new ExecuteDaggerAttack(ModEntityTypes.EXECUTE_DAGGER.get(), player, player.level);
+                    ability.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
+                    player.level.addFreshEntity(ability);
                 }
                 case 4 -> {
-                    spell = new ThunderSpell(ModEntityTypes.THUNDER.get(), player, player.level);
-                    spell.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
-                    player.level.addFreshEntity(spell);
+                    ability = new ThunderSpell(ModEntityTypes.THUNDER.get(), player, player.level);
+                    ability.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
+                    player.level.addFreshEntity(ability);
                 }
             }
             if (!player.isCreative()) {

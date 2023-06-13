@@ -16,7 +16,10 @@ public class ModEffects {
             () -> new FreezeEffect(MobEffectCategory.HARMFUL, 3124687));
 
     public static final RegistryObject<MobEffect> ZAPPED = MOB_EFFECTS.register("zapped",
-            () -> new ZappedEffect(MobEffectCategory.HARMFUL, 3124687));
+            () -> new ZappedEffect(MobEffectCategory.HARMFUL, 8659406));
+
+    public static final RegistryObject<MobEffect> RUPTURED = MOB_EFFECTS.register("rupture",
+            () -> new RuptureEffect(MobEffectCategory.HARMFUL, 13050139));
 
     public static void register(IEventBus eventBus) {
         MOB_EFFECTS.register(eventBus);

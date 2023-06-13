@@ -20,6 +20,10 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> THUNDER_IMPACT = registerSoundEvent("thunder_impact");
     public static final RegistryObject<SoundEvent> THUNDER_PULSE = registerSoundEvent("thunder_pulse");
 
+    public static final RegistryObject<SoundEvent> POISON_DAGGER = registerSoundEvent("poison_dagger");
+    public static final RegistryObject<SoundEvent> RUPTURE_DAGGER = registerSoundEvent("rupture_dagger");
+    public static final RegistryObject<SoundEvent> EXECUTE_DAGGER = registerSoundEvent("execute_dagger");
+
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(RpgMod.MOD_ID, name)));
     }

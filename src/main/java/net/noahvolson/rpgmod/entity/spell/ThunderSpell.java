@@ -13,14 +13,14 @@ import net.noahvolson.rpgmod.particle.ModParticles;
 import net.noahvolson.rpgmod.sound.ModSounds;
 import org.jetbrains.annotations.NotNull;
 
-public class ThunderSpell extends AbstractProjectileSpell {
+public class ThunderSpell extends AbstractProjectileAbility {
     private final int DURATION = 60;
 
-    public ThunderSpell(EntityType<AbstractProjectileSpell> entityType, Level world) {
+    public ThunderSpell(EntityType<AbstractProjectileAbility> entityType, Level world) {
         super(entityType, world);
     }
 
-    public ThunderSpell(EntityType<AbstractProjectileSpell> entityType, LivingEntity shooter, Level world) {
+    public ThunderSpell(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
         super(entityType, shooter, world, ModSounds.THUNDER_CAST.get(), ModSounds.THUNDER_IMPACT.get(), ModSounds.THUNDER_IMPACT.get());
     }
 

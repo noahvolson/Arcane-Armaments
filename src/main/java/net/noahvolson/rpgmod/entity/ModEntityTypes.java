@@ -13,19 +13,25 @@ public class ModEntityTypes {
             DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, RpgMod.MOD_ID);
 
     // mage spells
-    public static final RegistryObject<EntityType<AbstractProjectileSpell>> BLINK = ENTITY_TYPES.register("blink",
-            () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileSpell>) BlinkSpell::new, MobCategory.MISC).sized(0.5F, 0.5F).build("blink"));
+    public static final RegistryObject<EntityType<AbstractProjectileAbility>> BLINK = ENTITY_TYPES.register("blink",
+            () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileAbility>) BlinkSpell::new, MobCategory.MISC).sized(0.5F, 0.5F).build("blink"));
 
-    public static final RegistryObject<EntityType<AbstractProjectileSpell>> FIREBALL = ENTITY_TYPES.register("fireball",
-            () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileSpell>) FireballSpell::new, MobCategory.MISC).sized(0.5F, 0.5F).build("fireball"));
+    public static final RegistryObject<EntityType<AbstractProjectileAbility>> FIREBALL = ENTITY_TYPES.register("fireball",
+            () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileAbility>) FireballSpell::new, MobCategory.MISC).sized(0.5F, 0.5F).build("fireball"));
 
-    public static final RegistryObject<EntityType<AbstractProjectileSpell>> BLIZZARD = ENTITY_TYPES.register("blizzard",
-            () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileSpell>) BlizzardSpell::new, MobCategory.MISC).sized(0.5F, 0.5F).build("blizzard"));
+    public static final RegistryObject<EntityType<AbstractProjectileAbility>> BLIZZARD = ENTITY_TYPES.register("blizzard",
+            () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileAbility>) BlizzardSpell::new, MobCategory.MISC).sized(0.5F, 0.5F).build("blizzard"));
 
-    public static final RegistryObject<EntityType<AbstractProjectileSpell>> THUNDER = ENTITY_TYPES.register("thunder",
-            () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileSpell>) ThunderSpell::new, MobCategory.MISC).sized(0.5F, 0.5F).build("thunder"));
+    public static final RegistryObject<EntityType<AbstractProjectileAbility>> THUNDER = ENTITY_TYPES.register("thunder",
+            () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileAbility>) ThunderSpell::new, MobCategory.MISC).sized(0.5F, 0.5F).build("thunder"));
 
     // rogue spells
-    public static final RegistryObject<EntityType<AbstractProjectileSpell>> DAGGER = ENTITY_TYPES.register("dagger",
-            () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileSpell>) DaggerAttack::new, MobCategory.MISC).sized(0.5F, 0.5F).build("dagger"));
+    public static final RegistryObject<EntityType<AbstractProjectileAbility>> POISON_DAGGER = ENTITY_TYPES.register("poison_dagger",
+            () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileAbility>) PoisonDaggerAttack::new, MobCategory.MISC).sized(0.5F, 0.5F).build("poison_dagger"));
+
+    public static final RegistryObject<EntityType<AbstractProjectileAbility>> RUPTURE_DAGGER = ENTITY_TYPES.register("rupture_dagger",
+            () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileAbility>) RuptureDaggerAttack::new, MobCategory.MISC).sized(0.5F, 0.5F).build("rupture_dagger"));
+
+    public static final RegistryObject<EntityType<AbstractProjectileAbility>> EXECUTE_DAGGER = ENTITY_TYPES.register("execute_dagger",
+            () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileAbility>) ExecuteDaggerAttack::new, MobCategory.MISC).sized(0.5F, 0.5F).build("execute_dagger"));
 }

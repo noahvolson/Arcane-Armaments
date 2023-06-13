@@ -55,6 +55,8 @@ public class ClientEvents {
             event.register(ModParticles.THUNDER_PARTICLES.get(), ThunderParticle.Provider::new);
             event.register(ModParticles.RUNE_PARTICLES.get(), RuneParticle.Provider::new);
             event.register(ModParticles.ZAPPED_PARTICLES.get(), ZappedParticle.Provider::new);
+            event.register(ModParticles.POISON_PARTICLES.get(), PoisonParticle.Provider::new);
+            event.register(ModParticles.BLOOD_PARTICLES.get(), BloodParticle.Provider::new);
         }
     }
 }
