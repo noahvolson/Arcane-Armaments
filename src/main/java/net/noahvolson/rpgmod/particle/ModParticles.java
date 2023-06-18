@@ -42,6 +42,12 @@ public class ModParticles {
     public static final RegistryObject<SimpleParticleType> BLOOD_PARTICLES =
             PARTICLE_TYPES.register("blood_particles", () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> EXECUTE_PARTICLES =
+            PARTICLE_TYPES.register("execute_particles", () -> new SimpleParticleType(true));
+
+    public static final RegistryObject<SimpleParticleType> DAGGER_PARTICLES =
+            PARTICLE_TYPES.register("dagger_particles", () -> new SimpleParticleType(true));
+
     public static void register(IEventBus eventBus) {
         PARTICLE_TYPES.register(eventBus);
     }

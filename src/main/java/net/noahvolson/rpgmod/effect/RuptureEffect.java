@@ -5,6 +5,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.noahvolson.rpgmod.particle.ModParticles;
 
 public class RuptureEffect extends MobEffect {
@@ -29,7 +30,7 @@ public class RuptureEffect extends MobEffect {
         double y = pLivingEntity.getY();
         double z = pLivingEntity.getZ();
 
-        if (!pLivingEntity.level.isClientSide()) {
+        if (!pLivingEntity.level.isClientSide() && !(pLivingEntity instanceof AbstractSkeleton)) {
             if (tickCounter > 0 && tickCounter % 10 == 0) {
                 if (lastX != null && lastY != null && lastZ != null) {
                     float distance = (float) Math.sqrt(Math.pow(x - lastX, 2) + Math.pow(y - lastY, 2) + Math.pow(z - lastZ, 2));

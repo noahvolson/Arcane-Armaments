@@ -9,68 +9,60 @@ import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 
-public class PoisonParticle extends TextureSheetParticle {
+public class ExecuteParticle extends TextureSheetParticle {
     private final SpriteSet sprites;
-    private final double xStart;
-    private final double yStart;
-    private final double zStart;
 
-    protected PoisonParticle(ClientLevel level, double xCord, double yCord, double zCord, SpriteSet spriteSet,
+    protected ExecuteParticle(ClientLevel level, double xCord, double yCord, double zCord, SpriteSet spriteSet,
                                double xd, double yd, double zd) {
-        super(level, xCord, yCord, zCord, xd, yd, zd);
+        super(level, xCord, yCord, zCord, 0.0D, 0.0D, 0.0D);
 
-        // From enchantment table particle
-        this.xd = xd;
-        this.yd = yd;
-        this.zd = zd;
-        this.xStart = xCord;
-        this.yStart = yCord;
-        this.zStart = zCord;
-        this.xo = xCord + xd;
-        this.yo = yCord + yd;
-        this.zo = zCord + zd;
-        this.x = this.xo;
-        this.y = this.yo;
-        this.z = this.zo;
         float f = this.random.nextFloat() * 0.6F + 0.4F;
-        this.rCol = 0.9F * f;
-        this.gCol = 0.9F * f;
+        this.rCol = f;
+        this.gCol = f;
         this.bCol = f;
-        this.hasPhysics = false;
-        this.lifetime = (int)(Math.random() * 10.0D) + 10;
+
+        this.quadSize *= 4F;             // Scale
+        this.lifetime = 15;                 // How long shown in ticks
 
         this.sprites = spriteSet;
         this.setSpriteFromAge(spriteSet);   // Needed to not CTD
-        this.setColorRgb(new Color(248, 245, 245));
-    }
+        this.setColorRgb(new Color(238, 64, 64));
 
+    }
+    @Override
     public void tick() {
-        this.setSpriteFromAge(this.sprites);
         this.xo = this.x;
         this.yo = this.y;
         this.zo = this.z;
         if (this.age++ >= this.lifetime) {
             this.remove();
         } else {
-            float f = (float)this.age / (float)this.lifetime;
-            f = 1.0F - f;
-            float f1 = 1.0F - f;
-            f1 *= f1;
-            f1 *= f1;
-            this.x = this.xStart + this.xd * (double)f;
-            this.y = this.yStart + this.yd * (double)f + (f1 * 0.5);
-            this.z = this.zStart + this.zd * (double)f;
+            this.setSpriteFromAge(this.sprites);
         }
-        fadeOut();
-    }
-    private void fadeOut() {
-        this.alpha = (-(1/(float)lifetime) * age * 1);
+        stepColor(new Color(238, 64, 64), new Color(151, 91, 243));
     }
 
     private void setColorRgb(Color color) {
         this.rCol = 255f - color.getRed();
         this.gCol = 255f - color.getGreen();
         this.bCol = 255f - color.getBlue();
+    }
+
+    private void stepColor(Color start, Color end) {
+        float stepR = (float) (end.getRed() - start.getRed()) / lifetime;
+        float stepG = (float) (end.getGreen() - start.getGreen()) / lifetime;
+        float stepB = (float) (end.getBlue() - start.getBlue()) / lifetime;
+
+        this.setColorRgb(
+                new Color(
+                        Math.round(start.getRed() + (stepR * age)),
+                        Math.round(start.getGreen() + (stepG * age)),
+                        Math.round(start.getBlue() + (stepB * age))
+                )
+        );
+    }
+    public int getLightColor(float p_106821_) {
+        return 255;
     }
 
     @Override
@@ -89,7 +81,7 @@ public class PoisonParticle extends TextureSheetParticle {
         public Particle createParticle(@NotNull SimpleParticleType particleType, @NotNull ClientLevel level,
                                        double x, double y, double z,
                                        double dx, double dy, double dz) {
-            return new PoisonParticle(level, x, y, z, this.sprites, dx, dy, dz);
+            return new ExecuteParticle(level, x, y, z, this.sprites, dx, dy, dz);
         }
     }
 }

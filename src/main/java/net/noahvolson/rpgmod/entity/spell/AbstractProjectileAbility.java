@@ -49,7 +49,7 @@ public abstract class AbstractProjectileAbility extends AbstractArrow {
     protected void onHitEntity(@NotNull EntityHitResult ray) {
 
         // Override arrow sound
-        this.setSoundEvent(Objects.requireNonNullElseGet(this.hitEntitySound, () -> SoundEvents.WOOL_BREAK));
+        this.setSoundEvent(this.hitEntitySound);
         super.onHitEntity(ray);
 
         // Remove arrows that may have been added by the hit
@@ -68,7 +68,7 @@ public abstract class AbstractProjectileAbility extends AbstractArrow {
 
     @Override
     protected void onHitBlock(@NotNull BlockHitResult ray) {
-        this.setSoundEvent(Objects.requireNonNullElseGet(this.hitBlockSound, () -> SoundEvents.WOOL_BREAK));
+        this.setSoundEvent(this.hitBlockSound);
         super.onHitBlock(ray);
         doEffectsBlock(ray);
     }

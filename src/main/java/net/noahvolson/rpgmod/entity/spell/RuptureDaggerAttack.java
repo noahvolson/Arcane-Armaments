@@ -1,5 +1,6 @@
 package net.noahvolson.rpgmod.entity.spell;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
@@ -7,6 +8,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.noahvolson.rpgmod.effect.ModEffects;
 import net.noahvolson.rpgmod.particle.ModParticles;
 import net.noahvolson.rpgmod.sound.ModSounds;
@@ -27,7 +29,7 @@ public class RuptureDaggerAttack extends AbstractMeleeAttack{
     @Override
     protected void doEffectsEntity(@NotNull EntityHitResult ray) {
         Entity entity = ray.getEntity();
-        if (!this.level.isClientSide && entity instanceof LivingEntity livingentity) {
+        if (entity.level instanceof ServerLevel serverLevel && entity instanceof LivingEntity livingentity) {
             livingentity.addEffect(new MobEffectInstance(ModEffects.RUPTURED.get(), DURATION, -1));
 
             double yShift = 1;
@@ -37,6 +39,9 @@ public class RuptureDaggerAttack extends AbstractMeleeAttack{
             bloodCloud.setDuration(5);
             bloodCloud.setWaitTime(0);
             this.level.addFreshEntity(bloodCloud);
+
+            Vec3 eyePos = livingentity.getEyePosition();
+            serverLevel.sendParticles(ModParticles.DAGGER_PARTICLES.get(), eyePos.x(), eyePos.y(), eyePos.z(), 1, 0D, 0D,0D, 0D);
         }
     };
 }

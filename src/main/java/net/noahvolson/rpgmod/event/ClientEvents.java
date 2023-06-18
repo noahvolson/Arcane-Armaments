@@ -57,6 +57,8 @@ public class ClientEvents {
             event.register(ModParticles.ZAPPED_PARTICLES.get(), ZappedParticle.Provider::new);
             event.register(ModParticles.POISON_PARTICLES.get(), PoisonParticle.Provider::new);
             event.register(ModParticles.BLOOD_PARTICLES.get(), BloodParticle.Provider::new);
+            event.register(ModParticles.EXECUTE_PARTICLES.get(), ExecuteParticle.Provider::new);
+            event.register(ModParticles.DAGGER_PARTICLES.get(), DaggerParticle.Provider::new);
         }
     }
 }

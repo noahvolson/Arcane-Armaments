@@ -24,13 +24,13 @@ public class BloodParticle extends TextureSheetParticle {
         this.yd = yd;
         this.zd = zd * 0.4;
 
-        this.quadSize *= 0.65F;             // Scale
+        this.quadSize *= 0.60F;             // Scale
         this.lifetime = 15;                 // How long shown in ticks
 
         this.sprites = spriteSet;
         this.setSpriteFromAge(spriteSet);   // Needed to not CTD
 
-        this.setColorRgb(new Color(254, 254, 254));
+        this.setColorRgb(new Color(182, 178, 178));
 
     }
 
