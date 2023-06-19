@@ -1,21 +1,17 @@
-package net.noahvolson.rpgmod.entity.spell;
+package net.noahvolson.rpgmod.entity.skill;
 
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.noahvolson.rpgmod.effect.ModEffects;
 import net.noahvolson.rpgmod.particle.ModParticles;
 import net.noahvolson.rpgmod.sound.ModSounds;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Objects;
 
 public class ExecuteDaggerAttack extends AbstractMeleeAttack{
     private final int DURATION = 100;
@@ -25,7 +21,7 @@ public class ExecuteDaggerAttack extends AbstractMeleeAttack{
     }
 
     public ExecuteDaggerAttack(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
-        super(entityType, shooter, world, ModSounds.EXECUTE_DAGGER.get());
+        super(entityType, shooter, world, null);
         this.setBaseDamage(1);
     }
 
@@ -34,11 +30,18 @@ public class ExecuteDaggerAttack extends AbstractMeleeAttack{
         Entity entity = ray.getEntity();
         if (entity.level instanceof ServerLevel serverLevel && entity instanceof LivingEntity livingentity) {
             Vec3 eyePos = livingentity.getEyePosition();
+            Entity owner = this.getOwner();
+            assert owner != null;
+            double shiftCloserBy = 0.3;
+            double x = eyePos.x() > owner.getX() ? eyePos.x() - shiftCloserBy : eyePos.x() + shiftCloserBy;
+            double z = eyePos.z() > owner.getZ() ? eyePos.z() - shiftCloserBy : eyePos.z() + shiftCloserBy;
             if (livingentity.getHealth() / livingentity.getMaxHealth() <= 0.33) {
                 livingentity.hurt(new DamageSource("execute"), livingentity.getHealth() * 100);
-                serverLevel.sendParticles(ModParticles.EXECUTE_PARTICLES.get(), eyePos.x(), eyePos.y(), eyePos.z(), 1, 0D, 0D,0D, 0D);
+                this.level.playSound(null, owner.getX(), owner.getY(), owner.getZ(), ModSounds.EXECUTE_DAGGER.get(), SoundSource.HOSTILE, 1F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+                serverLevel.sendParticles(ModParticles.EXECUTE_PARTICLES.get(), x, eyePos.y(), z, 1, 0D, 0D,0D, 0D);
             } else {
-                serverLevel.sendParticles(ModParticles.DAGGER_PARTICLES.get(), eyePos.x(), eyePos.y(), eyePos.z(), 1, 0D, 0D,0D, 0D);
+                this.level.playSound(null, owner.getX(), owner.getY(), owner.getZ(), ModSounds.FAILED_EXECUTE.get(), SoundSource.HOSTILE, 1F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+                serverLevel.sendParticles(ModParticles.DAGGER_PARTICLES.get(), x, eyePos.y(), z, 1, 0D, 0D,0D, 0D);
             }
         }
     };

@@ -1,6 +1,5 @@
 package net.noahvolson.rpgmod.event;
 
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
@@ -31,6 +30,9 @@ public class ClientEvents {
             if(KeyBinding.ABILITY_4_KEY.consumeClick()) {
                 ModMessages.sendToServer(new AbilityC2SPacket(4));
             }
+            if(KeyBinding.SWAP_CLASS_KEY.consumeClick()) {
+                ModMessages.sendToServer(new AbilityC2SPacket(5));
+            }
         }
     }
 
@@ -38,11 +40,11 @@ public class ClientEvents {
     public static class ClientModBusEvents {
         @SubscribeEvent
         public static void onKeyRegister(RegisterKeyMappingsEvent event) {
-
             event.register(KeyBinding.ABILITY_1_KEY);
             event.register(KeyBinding.ABILITY_2_KEY);
             event.register(KeyBinding.ABILITY_3_KEY);
             event.register(KeyBinding.ABILITY_4_KEY);
+            event.register(KeyBinding.SWAP_CLASS_KEY);
         }
 
         @SubscribeEvent

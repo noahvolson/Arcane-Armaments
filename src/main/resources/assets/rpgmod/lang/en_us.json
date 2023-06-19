@@ -9,6 +9,7 @@
   "key.rpgmod.ability_2": "Use Ability 2",
   "key.rpgmod.ability_3": "Use Ability 3",
   "key.rpgmod.ability_4": "Use Ability 4",
+  "key.rpgmod.swap_class": "Swap Class",
 
   "effect.rpgmod.freeze": "Frozen",
   "effect.rpgmod.zapped": "Zapped!",
@@ -22,6 +23,11 @@
   "sounds.rpgmod.thunder_pulse": "Thunder Pulse Sound",
   "sounds.rpgmod.poison_dagger": "Poison Dagger Sound",
   "sounds.rpgmod.execute_dagger": "Execute Dagger Sound",
+  "sounds.rpgmod.failed_execute": "Failed Execute Sound",
 
-  "death.attack.rupture": "%1$s ran too fast and bled out"
+  "death.attack.rupture": "%1$s ran too fast and bled out",
+  "death.attack.execute": "%1$s was executed",
+  "death.attack.execute.player": "%1$s was executed by %2$s",
+  "death.attack.overcast": "%1$s died of spell exhaustion",
+  "death.attack.overcast.player": "%1$s died of spell exhaustion"
 }

@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.noahvolson.rpgmod.RpgMod;
-import net.noahvolson.rpgmod.entity.spell.AbstractProjectileAbility;
+import net.noahvolson.rpgmod.entity.skill.AbstractProjectileAbility;
 import org.jetbrains.annotations.NotNull;
 
 public class ProjectileSpellRenderer extends ArrowRenderer<AbstractProjectileAbility> {

@@ -35,7 +35,8 @@ public class RuptureEffect extends MobEffect {
                 if (lastX != null && lastY != null && lastZ != null) {
                     float distance = (float) Math.sqrt(Math.pow(x - lastX, 2) + Math.pow(y - lastY, 2) + Math.pow(z - lastZ, 2));
                     if (distance > 0) {
-                        pLivingEntity.hurt(new DamageSource("rupture"), distance * MODIFIER);
+                        float damage = Math.min(distance, 4.0f);
+                        pLivingEntity.hurt(new DamageSource("rupture"), damage * MODIFIER);
                         double yShift = 0.5;
                         AreaEffectCloud bloodCloud = new AreaEffectCloud(pLivingEntity.level, pLivingEntity.getX(), pLivingEntity.blockPosition().getY() + yShift, pLivingEntity.getZ());
                         bloodCloud.setParticle(ModParticles.BLOOD_PARTICLES.get());

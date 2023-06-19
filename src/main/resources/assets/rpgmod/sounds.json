@@ -52,5 +52,11 @@
     "sounds": [
       "rpgmod:execute_dagger"
     ]
+  },
+  "failed_execute": {
+    "subtitle": "sounds.rpgmod.failed_execute",
+    "sounds": [
+      "rpgmod:failed_execute"
+    ]
   }
 }

@@ -24,6 +24,8 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> RUPTURE_DAGGER = registerSoundEvent("rupture_dagger");
     public static final RegistryObject<SoundEvent> EXECUTE_DAGGER = registerSoundEvent("execute_dagger");
 
+    public static final RegistryObject<SoundEvent> FAILED_EXECUTE = registerSoundEvent("failed_execute");
+
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(RpgMod.MOD_ID, name)));
     }

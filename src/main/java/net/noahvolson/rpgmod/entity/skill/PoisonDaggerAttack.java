@@ -1,8 +1,6 @@
-package net.noahvolson.rpgmod.entity.spell;
+package net.noahvolson.rpgmod.entity.skill;
 
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AreaEffectCloud;
@@ -43,7 +41,12 @@ public class PoisonDaggerAttack extends AbstractMeleeAttack{
             this.level.addFreshEntity(poisonCloud);
 
             Vec3 eyePos = livingentity.getEyePosition();
-            serverLevel.sendParticles(ModParticles.DAGGER_PARTICLES.get(), eyePos.x(), eyePos.y(), eyePos.z(), 1, 0D, 0D,0D, 0D);
+            Entity owner = this.getOwner();
+            assert owner != null;
+            double shiftCloserBy = 0.3;
+            double x = eyePos.x() > owner.getX() ? eyePos.x() - shiftCloserBy : eyePos.x() + shiftCloserBy;
+            double z = eyePos.z() > owner.getZ() ? eyePos.z() - shiftCloserBy : eyePos.z() + shiftCloserBy;
+            serverLevel.sendParticles(ModParticles.DAGGER_PARTICLES.get(), x, eyePos.y(), z, 1, 0D, 0D,0D, 0D);
         }
     };
 }

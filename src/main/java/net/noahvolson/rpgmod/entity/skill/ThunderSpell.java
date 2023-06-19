@@ -1,4 +1,4 @@
-package net.noahvolson.rpgmod.entity.spell;
+package net.noahvolson.rpgmod.entity.skill;
 
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;

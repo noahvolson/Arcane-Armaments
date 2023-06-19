@@ -1,9 +1,9 @@
-package net.noahvolson.rpgmod.entity.spell;
+package net.noahvolson.rpgmod.entity.skill;
 
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -12,12 +12,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
-
-public abstract class AbstractProjectileAbility extends AbstractArrow {
+public abstract class AbstractProjectileAbility extends AbstractArrow implements Skill {
 
     private SoundEvent castSound;
     private SoundEvent hitEntitySound;
@@ -108,6 +107,24 @@ public abstract class AbstractProjectileAbility extends AbstractArrow {
         for(int j = 0; j < 5; ++j) {
             this.level.addParticle(ParticleTypes.DRAGON_BREATH, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
         }
+    }
+
+    @Override
+    public void use(ServerPlayer player) {
+        double speed = 3D;
+        Vec3 look = player.getLookAngle();
+        this.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
+        player.level.addFreshEntity(this);
+    }
+
+    @Override
+    public int getCost() {
+        return 0;
+    }
+
+    @Override
+    public int getRecharge() {
+        return 0;
     }
 
 }
