@@ -8,7 +8,8 @@ public enum SkillTypes {
     THUNDER,
 
     // rogue
-    POISON_DAGGER,
+    SMOKE_BOMB,
+    VENOM_DAGGER,
     RUPTURE_DAGGER,
     EXECUTE_DAGGER
 }

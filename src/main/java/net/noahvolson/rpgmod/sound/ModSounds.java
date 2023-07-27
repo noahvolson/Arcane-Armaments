@@ -20,7 +20,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> THUNDER_IMPACT = registerSoundEvent("thunder_impact");
     public static final RegistryObject<SoundEvent> THUNDER_PULSE = registerSoundEvent("thunder_pulse");
 
-    public static final RegistryObject<SoundEvent> POISON_DAGGER = registerSoundEvent("poison_dagger");
+    public static final RegistryObject<SoundEvent> VENOM_DAGGER = registerSoundEvent("venom_dagger");
     public static final RegistryObject<SoundEvent> RUPTURE_DAGGER = registerSoundEvent("rupture_dagger");
     public static final RegistryObject<SoundEvent> EXECUTE_DAGGER = registerSoundEvent("execute_dagger");
 

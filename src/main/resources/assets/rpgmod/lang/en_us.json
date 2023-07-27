@@ -11,6 +11,7 @@
   "key.rpgmod.ability_4": "Use Ability 4",
   "key.rpgmod.swap_class": "Swap Class",
 
+  "effect.rpgmod.venom": "Venom",
   "effect.rpgmod.freeze": "Frozen",
   "effect.rpgmod.zapped": "Zapped!",
   "effect.rpgmod.rupture": "Ruptured",
@@ -21,11 +22,14 @@
   "sounds.rpgmod.thunder_cast": "Thunder Cast Sound",
   "sounds.rpgmod.thunder_impact": "Thunder Impact Sound",
   "sounds.rpgmod.thunder_pulse": "Thunder Pulse Sound",
-  "sounds.rpgmod.poison_dagger": "Poison Dagger Sound",
+  "sounds.rpgmod.venom_dagger": "Venom Dagger Sound",
   "sounds.rpgmod.execute_dagger": "Execute Dagger Sound",
   "sounds.rpgmod.failed_execute": "Failed Execute Sound",
 
+  "death.attack.venom": "%1$s succumbed to venom",
+  "death.attack.venom.player": "%1$s died to the venomous blades of %2$s",
   "death.attack.rupture": "%1$s ran too fast and bled out",
+  "death.attack.rupture.player": "%1$s bled to death after the precise strikes of %2$s",
   "death.attack.execute": "%1$s was executed",
   "death.attack.execute.player": "%1$s was executed by %2$s",
   "death.attack.overcast": "%1$s died of spell exhaustion",

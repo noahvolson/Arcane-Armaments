@@ -39,7 +39,7 @@ public class ExecuteParticle extends TextureSheetParticle {
         } else {
             this.setSpriteFromAge(this.sprites);
         }
-        stepColor(new Color(238, 64, 64), new Color(151, 91, 243));
+        stepColor(new Color(238, 64, 64), new Color(182, 91, 243));
     }
 
     private void setColorRgb(Color color) {

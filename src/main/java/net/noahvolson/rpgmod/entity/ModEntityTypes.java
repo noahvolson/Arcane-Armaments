@@ -26,8 +26,8 @@ public class ModEntityTypes {
             () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileAbility>) ThunderSpell::new, MobCategory.MISC).sized(0.5F, 0.5F).build("thunder"));
 
     // rogue spells
-    public static final RegistryObject<EntityType<AbstractProjectileAbility>> POISON_DAGGER = ENTITY_TYPES.register("poison_dagger",
-            () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileAbility>) PoisonDaggerAttack::new, MobCategory.MISC).sized(0.5F, 0.5F).build("poison_dagger"));
+    public static final RegistryObject<EntityType<AbstractProjectileAbility>> VENOM_DAGGER = ENTITY_TYPES.register("venom_dagger",
+            () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileAbility>) VenomDaggerAttack::new, MobCategory.MISC).sized(0.5F, 0.5F).build("poison_dagger"));
 
     public static final RegistryObject<EntityType<AbstractProjectileAbility>> RUPTURE_DAGGER = ENTITY_TYPES.register("rupture_dagger",
             () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileAbility>) RuptureDaggerAttack::new, MobCategory.MISC).sized(0.5F, 0.5F).build("rupture_dagger"));

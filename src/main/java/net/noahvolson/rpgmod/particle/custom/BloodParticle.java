@@ -48,6 +48,10 @@ public class BloodParticle extends TextureSheetParticle {
         this.bCol = 255f - color.getBlue();
     }
 
+    public int getLightColor(float p_106821_) {
+        return 255;
+    }
+
     @Override
     public @NotNull ParticleRenderType getRenderType() {
         return ParticleRenderType.PARTICLE_SHEET_LIT;

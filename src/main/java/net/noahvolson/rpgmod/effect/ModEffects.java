@@ -21,6 +21,9 @@ public class ModEffects {
     public static final RegistryObject<MobEffect> RUPTURED = MOB_EFFECTS.register("rupture",
             () -> new RuptureEffect(MobEffectCategory.HARMFUL, 13050139));
 
+    public static final RegistryObject<MobEffect> VENOM = MOB_EFFECTS.register("venom",
+            () -> new VenomEffect(MobEffectCategory.HARMFUL, 10281744));
+
     public static void register(IEventBus eventBus) {
         MOB_EFFECTS.register(eventBus);
     }

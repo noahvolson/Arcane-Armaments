@@ -4,6 +4,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.noahvolson.rpgmod.entity.skill.Skill;
+import net.noahvolson.rpgmod.entity.skill.SkillFactory;
 
 public abstract class AbstractRpgClass {
     

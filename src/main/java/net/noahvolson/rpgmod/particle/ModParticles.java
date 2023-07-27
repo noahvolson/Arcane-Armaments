@@ -36,8 +36,8 @@ public class ModParticles {
     public static final RegistryObject<SimpleParticleType> ZAPPED_PARTICLES =
             PARTICLE_TYPES.register("zapped_particles", () -> new SimpleParticleType(true));
 
-    public static final RegistryObject<SimpleParticleType> POISON_PARTICLES =
-            PARTICLE_TYPES.register("poison_particles", () -> new SimpleParticleType(true));
+    public static final RegistryObject<SimpleParticleType> VENOM_PARTICLES =
+            PARTICLE_TYPES.register("venom_particles", () -> new SimpleParticleType(true));
 
     public static final RegistryObject<SimpleParticleType> BLOOD_PARTICLES =
             PARTICLE_TYPES.register("blood_particles", () -> new SimpleParticleType(true));

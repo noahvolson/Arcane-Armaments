@@ -9,14 +9,14 @@ import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 
-public class PoisonParticle extends TextureSheetParticle {
+public class VenomParticle extends TextureSheetParticle {
     private final SpriteSet sprites;
     private final double xStart;
     private final double yStart;
     private final double zStart;
 
-    protected PoisonParticle(ClientLevel level, double xCord, double yCord, double zCord, SpriteSet spriteSet,
-                               double xd, double yd, double zd) {
+    protected VenomParticle(ClientLevel level, double xCord, double yCord, double zCord, SpriteSet spriteSet,
+                            double xd, double yd, double zd) {
         super(level, xCord, yCord, zCord, xd, yd, zd);
 
         // From enchantment table particle
@@ -41,7 +41,7 @@ public class PoisonParticle extends TextureSheetParticle {
 
         this.sprites = spriteSet;
         this.setSpriteFromAge(spriteSet);   // Needed to not CTD
-        this.setColorRgb(new Color(248, 245, 245));
+        this.setColorRgb(new Color(227, 246, 166));
     }
 
     public void tick() {
@@ -73,6 +73,10 @@ public class PoisonParticle extends TextureSheetParticle {
         this.bCol = 255f - color.getBlue();
     }
 
+    public int getLightColor(float p_106821_) {
+        return 255;
+    }
+
     @Override
     public @NotNull ParticleRenderType getRenderType() {
         return ParticleRenderType.PARTICLE_SHEET_LIT;
@@ -89,7 +93,7 @@ public class PoisonParticle extends TextureSheetParticle {
         public Particle createParticle(@NotNull SimpleParticleType particleType, @NotNull ClientLevel level,
                                        double x, double y, double z,
                                        double dx, double dy, double dz) {
-            return new PoisonParticle(level, x, y, z, this.sprites, dx, dy, dz);
+            return new VenomParticle(level, x, y, z, this.sprites, dx, dy, dz);
         }
     }
 }

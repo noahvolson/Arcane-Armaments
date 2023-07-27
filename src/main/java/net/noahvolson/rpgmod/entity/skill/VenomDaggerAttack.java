@@ -10,35 +10,36 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.noahvolson.rpgmod.effect.ModEffects;
 import net.noahvolson.rpgmod.particle.ModParticles;
 import net.noahvolson.rpgmod.sound.ModSounds;
 import org.jetbrains.annotations.NotNull;
 
-public class PoisonDaggerAttack extends AbstractMeleeAttack{
+public class VenomDaggerAttack extends AbstractMeleeAttack{
     private final int DURATION = 60;
 
-    public PoisonDaggerAttack(EntityType<AbstractProjectileAbility> entityType, Level world) {
+    public VenomDaggerAttack(EntityType<AbstractProjectileAbility> entityType, Level world) {
         super(entityType, world);
         this.setBaseDamage(1);
     }
 
-    public PoisonDaggerAttack(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
-        super(entityType, shooter, world, ModSounds.POISON_DAGGER.get());
+    public VenomDaggerAttack(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
+        super(entityType, shooter, world, ModSounds.VENOM_DAGGER.get());
     }
 
     @Override
     protected void doEffectsEntity(@NotNull EntityHitResult ray) {
         Entity entity = ray.getEntity();
         if (entity.level instanceof ServerLevel serverLevel && entity instanceof LivingEntity livingentity) {
-            livingentity.addEffect(new MobEffectInstance(MobEffects.POISON, DURATION, 1));
+            livingentity.addEffect(new MobEffectInstance(ModEffects.VENOM.get(), DURATION, -1));
 
             double yShift = 1;
-            AreaEffectCloud poisonCloud = new AreaEffectCloud(livingentity.level, livingentity.getX(), livingentity.blockPosition().getY() + yShift, livingentity.getZ());
-            poisonCloud.setParticle(ModParticles.POISON_PARTICLES.get());
-            poisonCloud.setRadius(.45F);
-            poisonCloud.setDuration(5);
-            poisonCloud.setWaitTime(0);
-            this.level.addFreshEntity(poisonCloud);
+            AreaEffectCloud venomCloud = new AreaEffectCloud(livingentity.level, livingentity.getX(), livingentity.blockPosition().getY() + yShift, livingentity.getZ());
+            venomCloud.setParticle(ModParticles.VENOM_PARTICLES.get());
+            venomCloud.setRadius(.45F);
+            venomCloud.setDuration(5);
+            venomCloud.setWaitTime(0);
+            this.level.addFreshEntity(venomCloud);
 
             Vec3 eyePos = livingentity.getEyePosition();
             Entity owner = this.getOwner();

@@ -2,11 +2,13 @@ package net.noahvolson.rpgmod.event;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
+import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.noahvolson.rpgmod.RpgMod;
+import net.noahvolson.rpgmod.client.ModHudOverlay;
 import net.noahvolson.rpgmod.networking.ModMessages;
 import net.noahvolson.rpgmod.networking.packet.AbilityC2SPacket;
 import net.noahvolson.rpgmod.particle.ModParticles;
@@ -48,6 +50,11 @@ public class ClientEvents {
         }
 
         @SubscribeEvent
+        public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
+            event.registerAboveAll("hud_venom", ModHudOverlay.HUD_VENOM);
+        }
+
+        @SubscribeEvent
         public static void registerParticleFactories(final RegisterParticleProvidersEvent event) {
             event.register(ModParticles.HIDDEN_PARTICLES.get(), HiddenParticle.Provider::new);
             event.register(ModParticles.BLINK_PARTICLES.get(), BlinkParticle.Provider::new);
@@ -57,7 +64,7 @@ public class ClientEvents {
             event.register(ModParticles.THUNDER_PARTICLES.get(), ThunderParticle.Provider::new);
             event.register(ModParticles.RUNE_PARTICLES.get(), RuneParticle.Provider::new);
             event.register(ModParticles.ZAPPED_PARTICLES.get(), ZappedParticle.Provider::new);
-            event.register(ModParticles.POISON_PARTICLES.get(), PoisonParticle.Provider::new);
+            event.register(ModParticles.VENOM_PARTICLES.get(), VenomParticle.Provider::new);
             event.register(ModParticles.BLOOD_PARTICLES.get(), BloodParticle.Provider::new);
             event.register(ModParticles.EXECUTE_PARTICLES.get(), ExecuteParticle.Provider::new);
             event.register(ModParticles.DAGGER_PARTICLES.get(), DaggerParticle.Provider::new);

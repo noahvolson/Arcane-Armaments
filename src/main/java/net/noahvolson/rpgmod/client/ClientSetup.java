@@ -21,7 +21,7 @@ public class ClientSetup {
         EntityRenderers.register(ModEntityTypes.THUNDER.get(), ProjectileSpellRenderer::new);
 
         // rogue spells
-        EntityRenderers.register(ModEntityTypes.POISON_DAGGER.get(), ProjectileSpellRenderer::new);
+        EntityRenderers.register(ModEntityTypes.VENOM_DAGGER.get(), ProjectileSpellRenderer::new);
         EntityRenderers.register(ModEntityTypes.RUPTURE_DAGGER.get(), ProjectileSpellRenderer::new);
         EntityRenderers.register(ModEntityTypes.EXECUTE_DAGGER.get(), ProjectileSpellRenderer::new);
     }

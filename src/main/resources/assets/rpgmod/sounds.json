@@ -35,10 +35,10 @@
       "rpgmod:thunder_pulse"
     ]
   },
-  "poison_dagger": {
-    "subtitle": "sounds.rpgmod.poison_dagger",
+  "venom_dagger": {
+    "subtitle": "sounds.rpgmod.venom_dagger",
     "sounds": [
-      "rpgmod:poison_dagger"
+      "rpgmod:venom_dagger"
     ]
   },
   "rupture_dagger": {
