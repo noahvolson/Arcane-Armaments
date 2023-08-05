@@ -1,4 +1,4 @@
-package net.noahvolson.rpgmod.entity.skill;
+package net.noahvolson.rpgmod.entity.skill.mage;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -12,6 +12,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.noahvolson.rpgmod.effect.ModEffects;
+import net.noahvolson.rpgmod.entity.skill.AbstractProjectileAbility;
 import net.noahvolson.rpgmod.particle.ModParticles;
 import net.noahvolson.rpgmod.sound.ModSounds;
 import org.jetbrains.annotations.NotNull;

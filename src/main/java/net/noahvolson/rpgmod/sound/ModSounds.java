@@ -23,6 +23,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> VENOM_DAGGER = registerSoundEvent("venom_dagger");
     public static final RegistryObject<SoundEvent> RUPTURE_DAGGER = registerSoundEvent("rupture_dagger");
     public static final RegistryObject<SoundEvent> EXECUTE_DAGGER = registerSoundEvent("execute_dagger");
+    public static final RegistryObject<SoundEvent> SMOKE_BOMB = registerSoundEvent("smoke_bomb");
 
     public static final RegistryObject<SoundEvent> FAILED_EXECUTE = registerSoundEvent("failed_execute");
 

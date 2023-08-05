@@ -1,4 +1,4 @@
-package net.noahvolson.rpgmod.entity.skill;
+package net.noahvolson.rpgmod.entity.skill.mage;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -9,6 +9,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
+import net.noahvolson.rpgmod.entity.skill.AbstractProjectileAbility;
 import net.noahvolson.rpgmod.particle.ModParticles;
 import org.jetbrains.annotations.NotNull;
 

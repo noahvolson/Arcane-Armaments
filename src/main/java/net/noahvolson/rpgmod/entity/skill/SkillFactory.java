@@ -3,6 +3,14 @@ package net.noahvolson.rpgmod.entity.skill;
 import net.minecraft.server.level.ServerPlayer;
 import net.noahvolson.rpgmod.entity.ModEntityTypes;
 import net.noahvolson.rpgmod.entity.rpgclass.SkillTypes;
+import net.noahvolson.rpgmod.entity.skill.mage.BlinkSpell;
+import net.noahvolson.rpgmod.entity.skill.mage.BlizzardSpell;
+import net.noahvolson.rpgmod.entity.skill.mage.FireballSpell;
+import net.noahvolson.rpgmod.entity.skill.mage.ThunderSpell;
+import net.noahvolson.rpgmod.entity.skill.rogue.ExecuteDaggerAttack;
+import net.noahvolson.rpgmod.entity.skill.rogue.RuptureDaggerAttack;
+import net.noahvolson.rpgmod.entity.skill.rogue.SmokeBombSkill;
+import net.noahvolson.rpgmod.entity.skill.rogue.VenomDaggerAttack;
 
 public class SkillFactory {
 
@@ -15,7 +23,7 @@ public class SkillFactory {
             case THUNDER    -> new ThunderSpell(ModEntityTypes.THUNDER.get(), player, player.level);
 
             // rogue
-            case SMOKE_BOMB     -> new SmokeBombCloud(player);
+            case SMOKE_BOMB     -> new SmokeBombSkill(player);
             case VENOM_DAGGER   -> new VenomDaggerAttack(ModEntityTypes.VENOM_DAGGER.get(), player, player.level);
             case RUPTURE_DAGGER -> new RuptureDaggerAttack(ModEntityTypes.RUPTURE_DAGGER.get(), player, player.level);
             case EXECUTE_DAGGER -> new ExecuteDaggerAttack(ModEntityTypes.EXECUTE_DAGGER.get(), player, player.level);

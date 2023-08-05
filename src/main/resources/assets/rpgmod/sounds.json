@@ -58,5 +58,11 @@
     "sounds": [
       "rpgmod:failed_execute"
     ]
+  },
+  "smoke_bomb": {
+    "subtitle": "sounds.rpgmod.smoke_bomb",
+    "sounds": [
+      "rpgmod:smoke_bomb"
+    ]
   }
 }

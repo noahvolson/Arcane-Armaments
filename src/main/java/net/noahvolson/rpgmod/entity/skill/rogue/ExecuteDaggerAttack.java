@@ -1,4 +1,4 @@
-package net.noahvolson.rpgmod.entity.skill;
+package net.noahvolson.rpgmod.entity.skill.rogue;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -9,11 +9,13 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.noahvolson.rpgmod.entity.skill.AbstractMeleeAttack;
+import net.noahvolson.rpgmod.entity.skill.AbstractProjectileAbility;
 import net.noahvolson.rpgmod.particle.ModParticles;
 import net.noahvolson.rpgmod.sound.ModSounds;
 import org.jetbrains.annotations.NotNull;
 
-public class ExecuteDaggerAttack extends AbstractMeleeAttack{
+public class ExecuteDaggerAttack extends AbstractMeleeAttack {
     private final int DURATION = 100;
 
     public ExecuteDaggerAttack(EntityType<AbstractProjectileAbility> entityType, Level world) {
@@ -37,10 +39,10 @@ public class ExecuteDaggerAttack extends AbstractMeleeAttack{
             double z = eyePos.z() > owner.getZ() ? eyePos.z() - shiftCloserBy : eyePos.z() + shiftCloserBy;
             if (livingentity.getHealth() / livingentity.getMaxHealth() <= 0.33) {
                 livingentity.hurt(new DamageSource("execute"), livingentity.getHealth() * 100);
-                this.level.playSound(null, owner.getX(), owner.getY(), owner.getZ(), ModSounds.EXECUTE_DAGGER.get(), SoundSource.HOSTILE, 1F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+                this.level.playSound(null, owner.getX(), owner.getY(), owner.getZ(), ModSounds.EXECUTE_DAGGER.get(), SoundSource.HOSTILE, 0.9F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
                 serverLevel.sendParticles(ModParticles.EXECUTE_PARTICLES.get(), x, eyePos.y(), z, 1, 0D, 0D,0D, 0D);
             } else {
-                this.level.playSound(null, owner.getX(), owner.getY(), owner.getZ(), ModSounds.FAILED_EXECUTE.get(), SoundSource.HOSTILE, 1F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+                this.level.playSound(null, owner.getX(), owner.getY(), owner.getZ(), ModSounds.FAILED_EXECUTE.get(), SoundSource.HOSTILE, 0.9F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
                 serverLevel.sendParticles(ModParticles.DAGGER_PARTICLES.get(), x, eyePos.y(), z, 1, 0D, 0D,0D, 0D);
             }
         }

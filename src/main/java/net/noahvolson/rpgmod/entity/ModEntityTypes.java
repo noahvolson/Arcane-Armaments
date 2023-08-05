@@ -7,6 +7,13 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.noahvolson.rpgmod.RpgMod;
 import net.noahvolson.rpgmod.entity.skill.*;
+import net.noahvolson.rpgmod.entity.skill.mage.BlinkSpell;
+import net.noahvolson.rpgmod.entity.skill.mage.BlizzardSpell;
+import net.noahvolson.rpgmod.entity.skill.mage.FireballSpell;
+import net.noahvolson.rpgmod.entity.skill.mage.ThunderSpell;
+import net.noahvolson.rpgmod.entity.skill.rogue.ExecuteDaggerAttack;
+import net.noahvolson.rpgmod.entity.skill.rogue.RuptureDaggerAttack;
+import net.noahvolson.rpgmod.entity.skill.rogue.VenomDaggerAttack;
 
 public class ModEntityTypes {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =

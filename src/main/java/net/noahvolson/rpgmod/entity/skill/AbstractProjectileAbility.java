@@ -127,4 +127,9 @@ public abstract class AbstractProjectileAbility extends AbstractArrow implements
         return 0;
     }
 
+    @Override
+    public boolean causesStealth() {
+        return false;
+    }
+
 }

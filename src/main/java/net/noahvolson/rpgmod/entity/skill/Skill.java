@@ -6,4 +6,5 @@ public interface Skill {
     public void use(ServerPlayer player);
     public int getCost();
     public int getRecharge();
+    public boolean causesStealth();
 }

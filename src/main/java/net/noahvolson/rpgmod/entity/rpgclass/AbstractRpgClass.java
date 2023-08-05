@@ -3,6 +3,7 @@ package net.noahvolson.rpgmod.entity.rpgclass;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffects;
 import net.noahvolson.rpgmod.entity.skill.Skill;
 import net.noahvolson.rpgmod.entity.skill.SkillFactory;
 
@@ -48,5 +49,8 @@ public abstract class AbstractRpgClass {
             }
         }
         player.swing(InteractionHand.OFF_HAND, true);
+        if (!skill.causesStealth() && player.hasEffect(MobEffects.INVISIBILITY)) {
+            player.removeEffect(MobEffects.INVISIBILITY);
+        }
     }
 }
