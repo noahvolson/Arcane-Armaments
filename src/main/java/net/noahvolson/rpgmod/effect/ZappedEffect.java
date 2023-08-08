@@ -26,21 +26,21 @@ public class ZappedEffect extends MobEffect {
                     pLivingEntity.level.addFreshEntity(bolt);
                 }
             });
+
+            pLivingEntity.getActiveEffects().forEach(mobEffectInstance -> {
+                if (mobEffectInstance.getEffect() instanceof ZappedEffect && mobEffectInstance.getDuration() % 20 == 0) {
+                    pLivingEntity.level.playSound(null, pLivingEntity.getX(), pLivingEntity.getY(), pLivingEntity.getZ(),
+                            ModSounds.THUNDER_PULSE.get(), SoundSource.HOSTILE, .5f, 1f);
+
+                    AreaEffectCloud zapCloud = new AreaEffectCloud(pLivingEntity.level, pLivingEntity.getX(), pLivingEntity.getY() + 1, pLivingEntity.getZ());
+                    zapCloud.setParticle(ModParticles.ZAPPED_PARTICLES.get());
+                    zapCloud.setRadius(1.5F);
+                    zapCloud.setDuration(5);
+                    zapCloud.setWaitTime(0);
+                    pLivingEntity.level.addFreshEntity(zapCloud);
+                }
+            });
         }
-        pLivingEntity.getActiveEffects().forEach(mobEffectInstance -> {
-            if (mobEffectInstance.getEffect() instanceof ZappedEffect && mobEffectInstance.getDuration() % 20 == 0) {
-                pLivingEntity.level.playSound(null, pLivingEntity.getX(), pLivingEntity.getY(), pLivingEntity.getZ(),
-                        ModSounds.THUNDER_PULSE.get(), SoundSource.HOSTILE, .5f, 1f);
-
-                AreaEffectCloud zapCloud = new AreaEffectCloud(pLivingEntity.level, pLivingEntity.getX(), pLivingEntity.getY() + 1, pLivingEntity.getZ());
-                zapCloud.setParticle(ModParticles.ZAPPED_PARTICLES.get());
-                zapCloud.setRadius(1.5F);
-                zapCloud.setDuration(5);
-                zapCloud.setWaitTime(0);
-                pLivingEntity.level.addFreshEntity(zapCloud);
-            }
-        });
-
         super.applyEffectTick(pLivingEntity, pAmplifier);
     }
 

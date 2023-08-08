@@ -22,11 +22,11 @@ public class VenomDaggerAttack extends AbstractMeleeAttack {
 
     public VenomDaggerAttack(EntityType<AbstractProjectileAbility> entityType, Level world) {
         super(entityType, world);
-        this.setBaseDamage(1);
     }
 
     public VenomDaggerAttack(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
         super(entityType, shooter, world, ModSounds.VENOM_DAGGER.get());
+        this.setBaseDamage(1);
     }
 
     @Override

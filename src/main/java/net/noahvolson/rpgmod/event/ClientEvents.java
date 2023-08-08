@@ -1,10 +1,7 @@
 package net.noahvolson.rpgmod.event;
 
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
-import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
-import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
+import net.minecraftforge.client.event.*;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.noahvolson.rpgmod.RpgMod;
@@ -51,6 +48,7 @@ public class ClientEvents {
 
         @SubscribeEvent
         public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
+            event.registerBelowAll("hud_berserk", ModHudOverlay.HUD_BERSERK);
             event.registerAboveAll("hud_venom", ModHudOverlay.HUD_VENOM);
         }
 
@@ -68,6 +66,7 @@ public class ClientEvents {
             event.register(ModParticles.BLOOD_PARTICLES.get(), BloodParticle.Provider::new);
             event.register(ModParticles.EXECUTE_PARTICLES.get(), ExecuteParticle.Provider::new);
             event.register(ModParticles.DAGGER_PARTICLES.get(), DaggerParticle.Provider::new);
+            event.register(ModParticles.BERSERK_PARTICLES.get(), BerserkParticle.Provider::new);
         }
     }
 }

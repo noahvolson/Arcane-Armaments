@@ -24,6 +24,27 @@ public class ModEffects {
     public static final RegistryObject<MobEffect> VENOM = MOB_EFFECTS.register("venom",
             () -> new VenomEffect(MobEffectCategory.HARMFUL, 10281744));
 
+    public static final RegistryObject<MobEffect> BERSERK = MOB_EFFECTS.register("berserk",
+            () -> new BerserkEffect(MobEffectCategory.BENEFICIAL, 16755263));
+
+    public static final RegistryObject<MobEffect> COOLDOWN_1 = MOB_EFFECTS.register("cooldown_1",
+            () -> new EmptyEffect(MobEffectCategory.BENEFICIAL));
+
+    public static final RegistryObject<MobEffect> COOLDOWN_2 = MOB_EFFECTS.register("cooldown_2",
+            () -> new EmptyEffect(MobEffectCategory.BENEFICIAL));
+
+    public static final RegistryObject<MobEffect> COOLDOWN_3 = MOB_EFFECTS.register("cooldown_3",
+            () -> new EmptyEffect(MobEffectCategory.BENEFICIAL));
+
+    public static final RegistryObject<MobEffect> COOLDOWN_4 = MOB_EFFECTS.register("cooldown_4",
+            () -> new EmptyEffect(MobEffectCategory.BENEFICIAL));
+
+    public static final RegistryObject<MobEffect> COOLDOWN_5 = MOB_EFFECTS.register("cooldown_5",
+            () -> new EmptyEffect(MobEffectCategory.BENEFICIAL));
+
+    public static final RegistryObject<MobEffect> COOLDOWN_6 = MOB_EFFECTS.register("cooldown_6",
+            () -> new EmptyEffect(MobEffectCategory.BENEFICIAL));
+
     public static void register(IEventBus eventBus) {
         MOB_EFFECTS.register(eventBus);
     }

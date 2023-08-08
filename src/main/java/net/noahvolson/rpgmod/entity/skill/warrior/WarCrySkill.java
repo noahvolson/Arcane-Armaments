@@ -4,6 +4,10 @@ import net.minecraft.server.level.ServerPlayer;
 import net.noahvolson.rpgmod.entity.skill.Skill;
 
 public class WarCrySkill implements Skill {
+
+    public WarCrySkill(ServerPlayer player) {
+    }
+
     @Override
     public void use(ServerPlayer player) {
 

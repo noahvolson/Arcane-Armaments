@@ -15,6 +15,14 @@
   "effect.rpgmod.freeze": "Frozen",
   "effect.rpgmod.zapped": "Zapped!",
   "effect.rpgmod.rupture": "Ruptured",
+  "effect.rpgmod.berserk": "Berserk",
+
+  "effect.rpgmod.cooldown_1": "cooldown_1",
+  "effect.rpgmod.cooldown_2": "cooldown_2",
+  "effect.rpgmod.cooldown_3": "cooldown_3",
+  "effect.rpgmod.cooldown_4": "cooldown_4",
+  "effect.rpgmod.cooldown_5": "cooldown_5",
+  "effect.rpgmod.cooldown_6": "cooldown_6",
 
   "sounds.rpgmod.blizzard_area": "Blizzard Area Sound",
   "sounds.rpgmod.blizzard_cast": "Blizzard Cast Sound",

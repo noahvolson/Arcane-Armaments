@@ -6,6 +6,7 @@ import net.minecraftforge.network.NetworkEvent;
 import net.noahvolson.rpgmod.entity.rpgclass.AbstractRpgClass;
 import net.noahvolson.rpgmod.entity.rpgclass.MageClass;
 import net.noahvolson.rpgmod.entity.rpgclass.RogueClass;
+import net.noahvolson.rpgmod.entity.rpgclass.WarriorClass;
 
 import java.util.function.Supplier;
 
@@ -33,7 +34,7 @@ public class AbilityC2SPacket {
         context.enqueueWork(() -> {
             // NOW ACTING ON THE SERVER
             ServerPlayer player = context.getSender();
-            AbstractRpgClass[] classes = {new MageClass(player), new RogueClass(player)};
+            AbstractRpgClass[] classes = {new WarriorClass(player), new MageClass(player), new RogueClass(player)};
             rpgClass = classes[classIndex];
 
             switch (abilityNum) {

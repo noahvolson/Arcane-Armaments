@@ -20,9 +20,12 @@ public class ClientSetup {
         EntityRenderers.register(ModEntityTypes.BLIZZARD.get(), ProjectileSpellRenderer::new);
         EntityRenderers.register(ModEntityTypes.THUNDER.get(), ProjectileSpellRenderer::new);
 
-        // rogue spells
+        // rogue abilities
         EntityRenderers.register(ModEntityTypes.VENOM_DAGGER.get(), ProjectileSpellRenderer::new);
         EntityRenderers.register(ModEntityTypes.RUPTURE_DAGGER.get(), ProjectileSpellRenderer::new);
         EntityRenderers.register(ModEntityTypes.EXECUTE_DAGGER.get(), ProjectileSpellRenderer::new);
+
+        // warrior abilities
+        EntityRenderers.register(ModEntityTypes.BERSERK.get(), ProjectileSpellRenderer::new);
     }
 }

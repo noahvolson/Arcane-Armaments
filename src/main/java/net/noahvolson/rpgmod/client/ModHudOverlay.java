@@ -19,6 +19,8 @@ public class ModHudOverlay {
             "textures/gui/venom_heart_full.png");
     private static final ResourceLocation HALF_VENOM_HEART = new ResourceLocation(RpgMod.MOD_ID,
             "textures/gui/venom_heart_half.png");
+    private static final ResourceLocation BERSERK_HEARTS = new ResourceLocation(RpgMod.MOD_ID,
+            "textures/gui/berserk_hearts.png");
 
     public static final IGuiOverlay HUD_VENOM = (((gui, poseStack, partialTick, width, height) -> {
         int x = width / 2;
@@ -37,15 +39,29 @@ public class ModHudOverlay {
 
             int i;
             for(i = 0; i < fullHearts; i++) {
-                GuiComponent.blit(poseStack,x - 90 + (i * 8), y - 38,0,0,7,7,
-                        7,7);
+                GuiComponent.blit(poseStack,x - 90 + (i * 8), y - 38,0,0,7,7, 7,7);
             }
 
             if (halfHeart) {
                 RenderSystem.setShaderTexture(0, HALF_VENOM_HEART);
-                GuiComponent.blit(poseStack,x - 90 + (i * 8), y - 38,0,0,7,7,
-                        7,7);
+                GuiComponent.blit(poseStack,x - 90 + (i * 8), y - 38,0,0,7,7, 7,7);
             }
+        }
+    }));
+
+    public static final IGuiOverlay HUD_BERSERK = (((gui, poseStack, partialTick, width, height) -> {
+        int x = width / 2;
+        int y = height;
+
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+
+        RenderSystem.setShaderTexture(0, BERSERK_HEARTS);
+
+        Player player = (Player) gui.getMinecraft().getCameraEntity();
+        if (player != null && player.hasEffect(ModEffects.BERSERK.get()) && !player.isCreative()) {
+            GuiComponent.blit(poseStack,x - 90, y - 46,0,0,81,16,
+                    81,16);
         }
     }));
 }

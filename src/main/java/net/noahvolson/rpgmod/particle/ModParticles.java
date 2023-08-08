@@ -48,6 +48,9 @@ public class ModParticles {
     public static final RegistryObject<SimpleParticleType> DAGGER_PARTICLES =
             PARTICLE_TYPES.register("dagger_particles", () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> BERSERK_PARTICLES =
+            PARTICLE_TYPES.register("berserk_particles", () -> new SimpleParticleType(true));
+
     public static void register(IEventBus eventBus) {
         PARTICLE_TYPES.register(eventBus);
     }

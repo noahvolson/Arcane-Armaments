@@ -4,6 +4,10 @@ import net.minecraft.server.level.ServerPlayer;
 import net.noahvolson.rpgmod.entity.skill.Skill;
 
 public class MeatHookAttack implements Skill {
+
+    public MeatHookAttack(ServerPlayer player) {
+    }
+
     @Override
     public void use(ServerPlayer player) {
 

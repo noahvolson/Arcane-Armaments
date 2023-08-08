@@ -11,5 +11,11 @@ public enum SkillTypes {
     SMOKE_BOMB,
     VENOM_DAGGER,
     RUPTURE_DAGGER,
-    EXECUTE_DAGGER
+    EXECUTE_DAGGER,
+
+    // warrior
+    BERSERK,
+    DEFIANCE,
+    MEATHOOK,
+    WARCRY
 }
