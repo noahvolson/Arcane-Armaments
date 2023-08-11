@@ -2,6 +2,7 @@ package net.noahvolson.rpgmod.event;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
+import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.noahvolson.rpgmod.RpgMod;
@@ -48,6 +49,7 @@ public class ClientEvents {
 
         @SubscribeEvent
         public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
+            event.registerBelowAll("hud_moved_armor", ModHudOverlay.MOVED_ARMOR);
             event.registerBelowAll("hud_berserk", ModHudOverlay.HUD_BERSERK);
             event.registerAboveAll("hud_venom", ModHudOverlay.HUD_VENOM);
         }

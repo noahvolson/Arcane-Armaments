@@ -1,6 +1,7 @@
 package net.noahvolson.rpgmod.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.GameRenderer;
@@ -64,4 +65,52 @@ public class ModHudOverlay {
                     81,16);
         }
     }));
+
+    public static final IGuiOverlay MOVED_ARMOR = (((gui, poseStack, partialTick, width, height) -> {
+        gui.setupOverlayRenderState(true, false);
+        Minecraft minecraft = gui.getMinecraft();
+        if (!minecraft.player.isCreative()) {
+            minecraft.getProfiler().push("armor");
+
+            RenderSystem.enableBlend();
+            int left = width / 2 + 10;
+            int top = height - 49;
+
+            int level = minecraft.player.getArmorValue();
+            for (int i = 1; level > 0 && i < 20; i += 2)
+            {
+                if (i < level)
+                {
+                    GuiComponent.blit(poseStack, left, top, 34, 9, 9, 9, 256, 256);
+                }
+                else if (i == level)
+                {
+                    GuiComponent.blit(poseStack, left, top, 25, 9, 9, 9, 256, 256);
+                }
+                else if (i > level)
+                {
+                    GuiComponent.blit(poseStack, left, top, 16, 9, 9, 9,256, 256);
+                }
+                left += 8;
+            }
+
+            RenderSystem.disableBlend();
+            minecraft.getProfiler().pop();
+        }
+    }));
+
+    // For cooldown animation:
+    //         LocalPlayer localplayer = Minecraft.getInstance().player;
+    //         float f = localplayer == null ? 0.0F : localplayer.getCooldowns().getCooldownPercent(p_115176_.getItem(), Minecraft.getInstance().getFrameTime());
+    //         if (f > 0.0F) {
+    //            RenderSystem.disableDepthTest();
+    //            RenderSystem.disableTexture();
+    //            RenderSystem.enableBlend();
+    //            RenderSystem.defaultBlendFunc();
+    //            Tesselator tesselator1 = Tesselator.getInstance();
+    //            BufferBuilder bufferbuilder1 = tesselator1.getBuilder();
+    //            this.fillRect(bufferbuilder1, p_115177_, p_115178_ + Mth.floor(16.0F * (1.0F - f)), 16, Mth.ceil(16.0F * f), 255, 255, 255, 127);
+    //            RenderSystem.enableTexture();
+    //            RenderSystem.enableDepthTest();
+    //         }
 }
