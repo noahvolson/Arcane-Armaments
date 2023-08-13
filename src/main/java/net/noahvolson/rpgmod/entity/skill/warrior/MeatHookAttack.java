@@ -14,17 +14,32 @@ public class MeatHookAttack implements Skill {
     }
 
     @Override
+    public void useTurnover(ServerPlayer player) {
+
+    }
+
+    @Override
+    public boolean canUseTurnover(ServerPlayer player) {
+        return false;
+    }
+
+    @Override
     public int getCost() {
         return 0;
     }
 
     @Override
-    public int getRecharge() {
+    public int getCooldown() {
         return 0;
     }
 
     @Override
-    public boolean causesStealth() {
+    public int getTurnoverCooldown() {
+        return 0;
+    }
+
+    @Override
+    public boolean isInvisibleCausing() {
         return false;
     }
 }

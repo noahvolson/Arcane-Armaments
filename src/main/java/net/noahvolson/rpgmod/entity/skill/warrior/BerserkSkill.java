@@ -16,11 +16,17 @@ public class BerserkSkill implements Skill {
 
     @Override
     public void use(ServerPlayer player) {
-        if (player.hasEffect(ModEffects.BERSERK.get())) {
-            new BerserkAttack(ModEntityTypes.BERSERK.get(), player, player.level).use(player);
-        } else {
-            player.addEffect(new MobEffectInstance(ModEffects.BERSERK.get(), DURATION, 0, false, false, true));
-        }
+        player.addEffect(new MobEffectInstance(ModEffects.BERSERK.get(), DURATION, 0, false, false, true));
+    }
+
+    @Override
+    public void useTurnover(ServerPlayer player) {
+        new BerserkAttack(ModEntityTypes.BERSERK.get(), player, player.level).use(player);
+    }
+
+    @Override
+    public boolean canUseTurnover(ServerPlayer player) {
+        return player.hasEffect(ModEffects.BERSERK.get());
     }
 
     @Override
@@ -29,12 +35,18 @@ public class BerserkSkill implements Skill {
     }
 
     @Override
-    public int getRecharge() {
-        return 0;
+    public int getCooldown() {
+        return 200;
     }
 
     @Override
-    public boolean causesStealth() {
+    public int getTurnoverCooldown() {
+        return 10;
+    }
+
+    @Override
+    public boolean isInvisibleCausing() {
         return false;
     }
+
 }
