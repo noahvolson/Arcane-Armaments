@@ -11,23 +11,29 @@ import net.noahvolson.rpgmod.entity.skill.Skill;
 import net.noahvolson.rpgmod.entity.skill.SkillFactory;
 
 public abstract class AbstractRpgClass {
-    
+
     ServerPlayer player;
     SkillTypes skillSlot1;
     SkillTypes skillSlot2;
     SkillTypes skillSlot3;
     SkillTypes skillSlot4;
     SkillFactory skillFactory;
+    private ClassType classType;
 
     final boolean DEBUG = true;
 
-    public AbstractRpgClass(ServerPlayer player, SkillTypes s_1, SkillTypes s_2, SkillTypes s_3, SkillTypes s_4) {
+    public AbstractRpgClass(ClassType classType, ServerPlayer player, SkillTypes s_1, SkillTypes s_2, SkillTypes s_3, SkillTypes s_4) {
+        this.classType = classType;
         this.player = player;
         this.skillSlot1 = s_1;
         this.skillSlot2 = s_2;
         this.skillSlot3 = s_3;
         this.skillSlot4 = s_4;
         this.skillFactory = new SkillFactory();
+    }
+
+    public ClassType getClassType() {
+        return classType;
     }
 
     public void useSlot1() {

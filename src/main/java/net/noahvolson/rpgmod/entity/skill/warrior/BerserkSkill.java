@@ -36,7 +36,7 @@ public class BerserkSkill implements Skill {
 
     @Override
     public int getCooldown() {
-        return 200;
+        return 100;
     }
 
     @Override

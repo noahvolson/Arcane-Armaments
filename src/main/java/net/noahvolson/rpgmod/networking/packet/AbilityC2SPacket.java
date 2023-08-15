@@ -1,12 +1,16 @@
 package net.noahvolson.rpgmod.networking.packet;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
 import net.noahvolson.rpgmod.entity.rpgclass.AbstractRpgClass;
 import net.noahvolson.rpgmod.entity.rpgclass.MageClass;
 import net.noahvolson.rpgmod.entity.rpgclass.RogueClass;
 import net.noahvolson.rpgmod.entity.rpgclass.WarriorClass;
+import net.noahvolson.rpgmod.player.PlayerRpgClass;
+import net.noahvolson.rpgmod.player.PlayerRpgClassProvider;
 
 import java.util.function.Supplier;
 
@@ -45,6 +49,14 @@ public class AbilityC2SPacket {
                 case 5 -> {
                     classIndex++;
                     classIndex = classIndex > classes.length - 1 ? 0 : classIndex;
+
+                    rpgClass = classes[classIndex];
+                    player.getCapability(PlayerRpgClassProvider.PLAYER_RPG_CLASS).ifPresent(curClass -> {
+                        curClass.setRpgClass(rpgClass.getClassType());
+                        player.sendSystemMessage(Component.literal("Swapping to " + curClass.getRpgClass().name()).withStyle(ChatFormatting.AQUA));
+                    });
+
+                    player.removeAllEffects();
                 }
             };
         });
