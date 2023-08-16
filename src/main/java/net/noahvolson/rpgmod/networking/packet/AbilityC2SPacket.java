@@ -5,19 +5,16 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
-import net.noahvolson.rpgmod.entity.rpgclass.AbstractRpgClass;
-import net.noahvolson.rpgmod.entity.rpgclass.MageClass;
-import net.noahvolson.rpgmod.entity.rpgclass.RogueClass;
-import net.noahvolson.rpgmod.entity.rpgclass.WarriorClass;
-import net.noahvolson.rpgmod.player.PlayerRpgClass;
+import net.noahvolson.rpgmod.networking.ModMessages;
 import net.noahvolson.rpgmod.player.PlayerRpgClassProvider;
+import net.noahvolson.rpgmod.rpgclass.RpgClass;
 
 import java.util.function.Supplier;
 
+import static net.noahvolson.rpgmod.rpgclass.RpgClasses.*;
+
 public class AbilityC2SPacket {
     private final int abilityNum;
-    private static int classIndex = 0;
-    AbstractRpgClass rpgClass;
 
     public AbilityC2SPacket(int abilityNum) {
         this.abilityNum = abilityNum;
@@ -38,27 +35,26 @@ public class AbilityC2SPacket {
         context.enqueueWork(() -> {
             // NOW ACTING ON THE SERVER
             ServerPlayer player = context.getSender();
-            AbstractRpgClass[] classes = {new WarriorClass(player), new MageClass(player), new RogueClass(player)};
-            rpgClass = classes[classIndex];
 
-            switch (abilityNum) {
-                case 1 -> rpgClass.useSlot1();
-                case 2 -> rpgClass.useSlot2();
-                case 3 -> rpgClass.useSlot3();
-                case 4 -> rpgClass.useSlot4();
-                case 5 -> {
-                    classIndex++;
-                    classIndex = classIndex > classes.length - 1 ? 0 : classIndex;
-
-                    rpgClass = classes[classIndex];
-                    player.getCapability(PlayerRpgClassProvider.PLAYER_RPG_CLASS).ifPresent(curClass -> {
-                        curClass.setRpgClass(rpgClass.getClassType());
-                        player.sendSystemMessage(Component.literal("Swapping to " + curClass.getRpgClass().name()).withStyle(ChatFormatting.AQUA));
-                    });
-
-                    player.removeAllEffects();
-                }
-            };
+            if (player != null) {
+                player.getCapability(PlayerRpgClassProvider.PLAYER_RPG_CLASS).ifPresent(curClass -> {
+                    String rpgClassId = curClass.getRpgClass();
+                    RpgClass rpgClass = switch (rpgClassId) {
+                        case "MAGE" -> MAGE;
+                        case "ROGUE" -> ROGUE;
+                        case "WARRIOR" -> WARRIOR;
+                        default -> null;
+                    };
+                    if (rpgClass != null) {
+                        switch (abilityNum) {
+                            case 1 -> rpgClass.useSkill1(player);
+                            case 2 -> rpgClass.useSkill2(player);
+                            case 3 -> rpgClass.useSkill3(player);
+                            case 4 -> rpgClass.useSkill4(player);
+                        }
+                    }
+                });
+            }
         });
     }
 

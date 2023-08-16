@@ -8,6 +8,7 @@ import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.noahvolson.rpgmod.RpgMod;
 import net.noahvolson.rpgmod.networking.packet.AbilityC2SPacket;
+import net.noahvolson.rpgmod.networking.packet.RpgClassSyncS2CPacket;
 
 public class ModMessages {
     private static SimpleChannel INSTANCE;
@@ -31,6 +32,12 @@ public class ModMessages {
                 .decoder(AbilityC2SPacket::new)
                 .encoder(AbilityC2SPacket::toBytes)
                 .consumerMainThread(AbilityC2SPacket::handle)
+                .add();
+
+        net.messageBuilder(RpgClassSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(RpgClassSyncS2CPacket::new)
+                .encoder(RpgClassSyncS2CPacket::toBytes)
+                .consumerMainThread(RpgClassSyncS2CPacket::handle)
                 .add();
 
     }

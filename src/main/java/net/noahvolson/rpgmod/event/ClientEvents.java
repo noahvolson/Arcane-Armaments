@@ -29,9 +29,6 @@ public class ClientEvents {
             if(KeyBinding.ABILITY_4_KEY.consumeClick()) {
                 ModMessages.sendToServer(new AbilityC2SPacket(4));
             }
-            if(KeyBinding.SWAP_CLASS_KEY.consumeClick()) {
-                ModMessages.sendToServer(new AbilityC2SPacket(5));
-            }
         }
     }
 
@@ -43,7 +40,6 @@ public class ClientEvents {
             event.register(KeyBinding.ABILITY_2_KEY);
             event.register(KeyBinding.ABILITY_3_KEY);
             event.register(KeyBinding.ABILITY_4_KEY);
-            event.register(KeyBinding.SWAP_CLASS_KEY);
         }
 
         @SubscribeEvent

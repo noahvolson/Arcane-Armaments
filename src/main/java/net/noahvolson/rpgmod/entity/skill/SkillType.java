@@ -1,6 +1,7 @@
-package net.noahvolson.rpgmod.entity.rpgclass;
+package net.noahvolson.rpgmod.entity.skill;
 
-public enum SkillTypes {
+public enum SkillType {
+
     // mage
     FIREBALL,
     BLINK,

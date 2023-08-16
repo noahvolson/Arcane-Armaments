@@ -1,32 +1,27 @@
 package net.noahvolson.rpgmod.player;
 
 import net.minecraft.nbt.CompoundTag;
-import net.noahvolson.rpgmod.entity.rpgclass.ClassType;
 
 public class PlayerRpgClass {
-    private ClassType rpgClass = ClassType.NONE;
+    private String playerRpgClass;
 
-    public ClassType getRpgClass() {
-        return rpgClass;
+    public String getRpgClass() {
+        return playerRpgClass;
     }
 
-    public void setRpgClass(ClassType classType) {
-        this.rpgClass = classType;
+    public void setRpgClass(String rpgClass) {
+        this.playerRpgClass = rpgClass;
     }
 
     public void copyFrom(PlayerRpgClass source) {
-        this.rpgClass = source.rpgClass;
+        this.playerRpgClass = source.playerRpgClass;
     }
 
     public void saveNBTData(CompoundTag nbt) {
-        nbt.putString("rpg_class", rpgClass.name());
+        nbt.putString("rpg_class", playerRpgClass);
     }
 
     public void loadNBTData(CompoundTag nbt) {
-        try {
-            rpgClass = ClassType.valueOf(nbt.getString("rpg_class"));
-        } catch (Exception e) {
-            rpgClass = ClassType.NONE;
-        }
+        playerRpgClass = nbt.getString("rpg_class");
     }
 }

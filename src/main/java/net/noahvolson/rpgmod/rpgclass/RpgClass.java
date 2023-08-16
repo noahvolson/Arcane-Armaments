@@ -1,4 +1,4 @@
-package net.noahvolson.rpgmod.entity.rpgclass;
+package net.noahvolson.rpgmod.rpgclass;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -6,50 +6,64 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.item.Item;
 import net.noahvolson.rpgmod.effect.ModEffects;
+import net.noahvolson.rpgmod.entity.skill.SkillType;
 import net.noahvolson.rpgmod.entity.skill.Skill;
 import net.noahvolson.rpgmod.entity.skill.SkillFactory;
 
-public abstract class AbstractRpgClass {
+public class RpgClass {
 
-    ServerPlayer player;
-    SkillTypes skillSlot1;
-    SkillTypes skillSlot2;
-    SkillTypes skillSlot3;
-    SkillTypes skillSlot4;
-    SkillFactory skillFactory;
-    private ClassType classType;
+    private final String id;
+    private final Item classItem;
+    private final SkillType skill1;
+    private final SkillType skill2;
+    private final SkillType skill3;
+    private final SkillType skill4;
 
-    final boolean DEBUG = true;
-
-    public AbstractRpgClass(ClassType classType, ServerPlayer player, SkillTypes s_1, SkillTypes s_2, SkillTypes s_3, SkillTypes s_4) {
-        this.classType = classType;
-        this.player = player;
-        this.skillSlot1 = s_1;
-        this.skillSlot2 = s_2;
-        this.skillSlot3 = s_3;
-        this.skillSlot4 = s_4;
-        this.skillFactory = new SkillFactory();
+    public RpgClass(String id, Item classItem, SkillType skill1, SkillType skill2, SkillType skill3, SkillType skill4) {
+        this.id = id;
+        this.classItem = classItem;
+        this.skill1 = skill1;
+        this.skill2 = skill2;
+        this.skill3 = skill3;
+        this.skill4 = skill4;
     }
 
-    public ClassType getClassType() {
-        return classType;
+    public String getId() {
+        return id;
+    }
+    public Item getClassItem() {
+        return classItem;
+    }
+    public SkillType getSkill1() {
+        return skill1;
+    }
+    public SkillType getSkill2() {
+        return skill2;
+    }
+    public SkillType getSkill3() {
+        return skill3;
+    }
+    public SkillType getSkill4() {
+        return skill4;
     }
 
-    public void useSlot1() {
-        useSkill(skillFactory.getSkill(skillSlot1, player), ModEffects.COOLDOWN_1.get());
+    public void useSkill1(ServerPlayer player) {
+        useSkill(player, SkillFactory.getSkill(skill1, player), ModEffects.COOLDOWN_1.get());
     }
-    public void useSlot2() {
-        useSkill(skillFactory.getSkill(skillSlot2, player), ModEffects.COOLDOWN_2.get());
+    public void useSkill2(ServerPlayer player) {
+        useSkill(player, SkillFactory.getSkill(skill2, player), ModEffects.COOLDOWN_2.get());
     }
-    public void useSlot3() {
-        useSkill(skillFactory.getSkill(skillSlot3, player), ModEffects.COOLDOWN_3.get());
+    public void useSkill3(ServerPlayer player) {
+        useSkill(player, SkillFactory.getSkill(skill3, player), ModEffects.COOLDOWN_3.get());
     }
-    public void useSlot4() {
-        useSkill(skillFactory.getSkill(skillSlot4, player), ModEffects.COOLDOWN_4.get());
+    public void useSkill4(ServerPlayer player) {
+        useSkill(player, SkillFactory.getSkill(skill4, player), ModEffects.COOLDOWN_4.get());
     }
 
-    private void useSkill(Skill skill, MobEffect cooldownEffect) {
+    private void useSkill(ServerPlayer player, Skill skill, MobEffect cooldownEffect) {
+        boolean DEBUG = true;
         boolean usedSkill = false;
 
         if (!player.hasEffect(cooldownEffect)) {

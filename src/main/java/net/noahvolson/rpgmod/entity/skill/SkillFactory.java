@@ -2,7 +2,6 @@ package net.noahvolson.rpgmod.entity.skill;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.noahvolson.rpgmod.entity.ModEntityTypes;
-import net.noahvolson.rpgmod.entity.rpgclass.SkillTypes;
 import net.noahvolson.rpgmod.entity.skill.mage.BlinkSpell;
 import net.noahvolson.rpgmod.entity.skill.mage.BlizzardSpell;
 import net.noahvolson.rpgmod.entity.skill.mage.FireballSpell;
@@ -18,8 +17,9 @@ import net.noahvolson.rpgmod.entity.skill.warrior.WarCrySkill;
 
 public class SkillFactory {
 
-    public Skill getSkill(SkillTypes selection, ServerPlayer player) {
+    public static Skill getSkill(SkillType selection, ServerPlayer player) {
         return switch (selection) {
+
             // mage
             case FIREBALL   -> new FireballSpell(ModEntityTypes.FIREBALL.get(), player, player.level);
             case BLINK      -> new BlinkSpell(ModEntityTypes.BLINK.get(), player, player.level);
