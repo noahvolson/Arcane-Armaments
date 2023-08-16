@@ -3,7 +3,7 @@ package net.noahvolson.rpgmod.player;
 import net.minecraft.nbt.CompoundTag;
 
 public class PlayerRpgClass {
-    private String playerRpgClass;
+    private String playerRpgClass = "";
 
     public String getRpgClass() {
         return playerRpgClass;

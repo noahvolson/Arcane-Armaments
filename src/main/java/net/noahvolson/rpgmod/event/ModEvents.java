@@ -37,13 +37,15 @@ public class ModEvents {
     public static class ForgeEvents {
 
         private static void setPlayerRpgClassCapability(ServerPlayer player, RpgClass rpgClass) {
-            player.getCapability(PlayerRpgClassProvider.PLAYER_RPG_CLASS).ifPresent(curClass -> {
-                if (!curClass.getRpgClass().equals(rpgClass.getId())) {
-                    player.sendSystemMessage(Component.literal("Swapping to " + rpgClass.getId()).withStyle(ChatFormatting.AQUA));
-                    curClass.setRpgClass(rpgClass.getId());
-                    ModMessages.sendToPlayer(new RpgClassSyncS2CPacket(curClass.getRpgClass()), player);
-                }
-            });
+            if (player != null) {
+                player.getCapability(PlayerRpgClassProvider.PLAYER_RPG_CLASS).ifPresent(curClass -> {
+                    if (!curClass.getRpgClass().equals(rpgClass.getId())) {
+                        player.sendSystemMessage(Component.literal("Swapping to " + rpgClass.getId()).withStyle(ChatFormatting.AQUA));
+                        curClass.setRpgClass(rpgClass.getId());
+                        ModMessages.sendToPlayer(new RpgClassSyncS2CPacket(curClass.getRpgClass()), player);
+                    }
+                });
+            }
         }
 
         @SubscribeEvent
