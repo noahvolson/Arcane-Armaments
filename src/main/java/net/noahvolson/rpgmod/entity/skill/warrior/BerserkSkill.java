@@ -35,16 +35,6 @@ public class BerserkSkill implements Skill {
     }
 
     @Override
-    public int getCooldown() {
-        return 100;
-    }
-
-    @Override
-    public int getTurnoverCooldown() {
-        return 10;
-    }
-
-    @Override
     public boolean isInvisibleCausing() {
         return false;
     }

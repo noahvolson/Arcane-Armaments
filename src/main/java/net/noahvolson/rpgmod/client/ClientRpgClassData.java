@@ -7,7 +7,7 @@ public class ClientRpgClassData {
         clientRpgClass = rpgClass;
     }
 
-    public String getRpgClass() {
+    public static String getRpgClass() {
         return clientRpgClass;
     }
 }

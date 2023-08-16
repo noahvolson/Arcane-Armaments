@@ -46,5 +46,5 @@ public class ExecuteDaggerAttack extends AbstractMeleeAttack {
                 serverLevel.sendParticles(ModParticles.DAGGER_PARTICLES.get(), x, eyePos.y(), z, 1, 0D, 0D,0D, 0D);
             }
         }
-    };
+    }
 }

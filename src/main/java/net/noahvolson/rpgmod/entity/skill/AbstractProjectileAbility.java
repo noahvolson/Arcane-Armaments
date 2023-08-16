@@ -132,15 +132,6 @@ public abstract class AbstractProjectileAbility extends AbstractArrow implements
         return 0;
     }
 
-    @Override
-    public int getCooldown() {
-        return 0;
-    }
-
-    @Override
-    public int getTurnoverCooldown() {
-        return 0;
-    }
 
     @Override
     public boolean isInvisibleCausing() {

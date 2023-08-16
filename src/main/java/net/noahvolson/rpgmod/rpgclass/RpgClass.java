@@ -50,25 +50,25 @@ public class RpgClass {
     }
 
     public void useSkill1(ServerPlayer player) {
-        useSkill(player, SkillFactory.getSkill(skill1, player), ModEffects.COOLDOWN_1.get());
+        useSkill(player, skill1, ModEffects.COOLDOWN_1.get());
     }
     public void useSkill2(ServerPlayer player) {
-        useSkill(player, SkillFactory.getSkill(skill2, player), ModEffects.COOLDOWN_2.get());
+        useSkill(player, skill2, ModEffects.COOLDOWN_2.get());
     }
     public void useSkill3(ServerPlayer player) {
-        useSkill(player, SkillFactory.getSkill(skill3, player), ModEffects.COOLDOWN_3.get());
+        useSkill(player, skill3, ModEffects.COOLDOWN_3.get());
     }
     public void useSkill4(ServerPlayer player) {
-        useSkill(player, SkillFactory.getSkill(skill4, player), ModEffects.COOLDOWN_4.get());
+        useSkill(player, skill4, ModEffects.COOLDOWN_4.get());
     }
 
-    private void useSkill(ServerPlayer player, Skill skill, MobEffect cooldownEffect) {
-        boolean DEBUG = true;
+    private void useSkill(ServerPlayer player, SkillType skillType, MobEffect cooldownEffect) {
+        boolean DEBUG = false;
         boolean usedSkill = false;
 
+        Skill skill = SkillFactory.getSkill(skillType, player);
         if (!player.hasEffect(cooldownEffect)) {
-            player.addEffect(new MobEffectInstance(cooldownEffect, skill.getCooldown(), 0, false, false, DEBUG));
-
+            player.addEffect(new MobEffectInstance(cooldownEffect, skillType.getCooldown(), 0, false, false, DEBUG));
             skill.use(player);
             if (!player.isCreative()) {
                 int remainingFood = player.getFoodData().getFoodLevel() - skill.getCost();
@@ -79,7 +79,7 @@ public class RpgClass {
             }
             usedSkill = true;
         } else if (skill.canUseTurnover(player)){
-            int turnoverCooldown = skill.getTurnoverCooldown();
+            int turnoverCooldown = skillType.getTurnoverCooldown();
             if (turnoverCooldown > 0 && !player.hasEffect(ModEffects.COOLDOWN_6.get())) {
                 skill.useTurnover(player);
                 player.addEffect(new MobEffectInstance(ModEffects.COOLDOWN_6.get(), turnoverCooldown, 0, false, false, DEBUG));

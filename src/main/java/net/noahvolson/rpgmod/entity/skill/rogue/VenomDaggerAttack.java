@@ -51,5 +51,5 @@ public class VenomDaggerAttack extends AbstractMeleeAttack {
             double z = eyePos.z() > owner.getZ() ? eyePos.z() - shiftCloserBy : eyePos.z() + shiftCloserBy;
             serverLevel.sendParticles(ModParticles.DAGGER_PARTICLES.get(), x, eyePos.y(), z, 1, 0D, 0D,0D, 0D);
         }
-    };
+    }
 }

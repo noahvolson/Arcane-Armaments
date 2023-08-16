@@ -7,8 +7,6 @@ public interface Skill {
     public void useTurnover(ServerPlayer player);
     public boolean canUseTurnover(ServerPlayer player);
     public int getCost();
-    public int getCooldown();
-    public int getTurnoverCooldown();
     public boolean isInvisibleCausing();
 
 }

@@ -15,6 +15,7 @@ import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -36,15 +37,38 @@ public class ModEvents {
     @Mod.EventBusSubscriber(modid = RpgMod.MOD_ID)
     public static class ForgeEvents {
 
-        private static void setPlayerRpgClassCapability(ServerPlayer player, RpgClass rpgClass) {
+        private static void setPlayerRpgClassCapabilityTick(ServerPlayer player, RpgClass rpgClass) {
             if (player != null) {
                 player.getCapability(PlayerRpgClassProvider.PLAYER_RPG_CLASS).ifPresent(curClass -> {
                     if (!curClass.getRpgClass().equals(rpgClass.getId())) {
                         player.sendSystemMessage(Component.literal("Swapping to " + rpgClass.getId()).withStyle(ChatFormatting.AQUA));
                         curClass.setRpgClass(rpgClass.getId());
-                        ModMessages.sendToPlayer(new RpgClassSyncS2CPacket(curClass.getRpgClass()), player);
+                        ModMessages.sendToPlayer(new RpgClassSyncS2CPacket(rpgClass.getId()), player);
                     }
                 });
+            }
+        }
+
+        private static void setPlayerRpgClassCapabilityJoin(ServerPlayer player, RpgClass rpgClass) {
+            if (player != null) {
+                player.getCapability(PlayerRpgClassProvider.PLAYER_RPG_CLASS).ifPresent(curClass -> {
+                    curClass.setRpgClass(rpgClass.getId());
+                    ModMessages.sendToPlayer(new RpgClassSyncS2CPacket(rpgClass.getId()), player);
+                });
+            }
+        }
+
+        @SubscribeEvent
+        public static void onPlayerJoin(EntityJoinLevelEvent event) {
+            if (event.getEntity() instanceof ServerPlayer player) {
+                ItemStack offhand = player.getOffhandItem();
+                if (offhand.is(MAGE.getClassItem())) {
+                    setPlayerRpgClassCapabilityJoin(player, MAGE);
+                } else if (offhand.is(ROGUE.getClassItem())) {
+                    setPlayerRpgClassCapabilityJoin(player, ROGUE);
+                } else if (offhand.is(WARRIOR.getClassItem())) {
+                    setPlayerRpgClassCapabilityJoin(player, WARRIOR);
+                }
             }
         }
 
@@ -53,11 +77,11 @@ public class ModEvents {
             if (event.player instanceof ServerPlayer player) {
                 ItemStack offhand = player.getOffhandItem();
                 if (offhand.is(MAGE.getClassItem())) {
-                    setPlayerRpgClassCapability(player, MAGE);
+                    setPlayerRpgClassCapabilityTick(player, MAGE);
                 } else if (offhand.is(ROGUE.getClassItem())) {
-                    setPlayerRpgClassCapability(player, ROGUE);
+                    setPlayerRpgClassCapabilityTick(player, ROGUE);
                 } else if (offhand.is(WARRIOR.getClassItem())) {
-                    setPlayerRpgClassCapability(player, WARRIOR);
+                    setPlayerRpgClassCapabilityTick(player, WARRIOR);
                 }
             }
         }

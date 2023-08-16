@@ -29,16 +29,6 @@ public class DefianceSkill implements Skill {
     }
 
     @Override
-    public int getCooldown() {
-        return 0;
-    }
-
-    @Override
-    public int getTurnoverCooldown() {
-        return 0;
-    }
-
-    @Override
     public boolean isInvisibleCausing() {
         return false;
     }
