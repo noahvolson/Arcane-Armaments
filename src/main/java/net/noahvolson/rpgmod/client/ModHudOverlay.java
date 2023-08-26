@@ -119,10 +119,49 @@ public class ModHudOverlay {
 
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-
         RenderSystem.setShaderTexture(0, CLASS_HOTBAR);
 
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+
         GuiComponent.blit(poseStack,x - 200, y - 23,0,0,85,24, 85,24);
+
+        Player player = gui.getMinecraft().player;
+        String rpgClassId = ClientRpgClassData.getRpgClass();
+        if (player != null && rpgClassId != null) {
+            RpgClass rpgClass = switch (rpgClassId) {
+                case "MAGE" -> MAGE;
+                case "ROGUE" -> ROGUE;
+                case "WARRIOR" -> WARRIOR;
+                default -> null;
+            };
+            if (rpgClass != null) {
+                RenderSystem.setShaderTexture(0, rpgClass.getSkill1().getIcon());
+                GuiComponent.blit(poseStack,x - 195, y - 18,0,0,15,15, 15,15);
+                RenderSystem.setShaderTexture(0, rpgClass.getSkill2().getIcon());
+                GuiComponent.blit(poseStack,x - 175, y - 18,0,0,15,15, 15,15);
+                RenderSystem.setShaderTexture(0, rpgClass.getSkill3().getIcon());
+                GuiComponent.blit(poseStack,x - 155, y - 18,0,0,15,15, 15,15);
+                RenderSystem.setShaderTexture(0, rpgClass.getSkill4().getIcon());
+                GuiComponent.blit(poseStack,x - 135, y - 18,0,0,15,15, 15,15);
+            }
+        }
+    }));
+
+    public static final IGuiOverlay HUD_BERSERK_OFFHAND = (((gui, poseStack, partialTick, width, height) -> {
+        int x = width / 2;
+        int y = height;
+        Player player = gui.getMinecraft().player;
+        String rpgClassId = ClientRpgClassData.getRpgClass();
+
+        if (player != null && rpgClassId.equals(WARRIOR.getId()) && player.hasEffect(ModEffects.COOLDOWN_1.get())) {
+            RenderSystem.setShader(GameRenderer::getPositionTexShader);
+            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+
+            int frame = (int) player.level.getGameTime() % 32;
+            RenderSystem.setShaderTexture(0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/berserk_offhand/berserk_offhand_" + String.format("%02d", frame) + ".png"));
+            GuiComponent.blit(poseStack,x - 121, y - 23,0,0,24,24, 24,24);
+        }
     }));
 
     public static final IGuiOverlay HUD_TRINKET_HOTBAR = (((gui, poseStack, partialTick, width, height) -> {
@@ -135,6 +174,7 @@ public class ModHudOverlay {
         RenderSystem.setShaderTexture(0, TRINKET_HOTBAR);
 
         GuiComponent.blit(poseStack,x + 97, y - 23,0,0,64,24, 64,24);
+
     }));
 
     public static final IGuiOverlay HUD_COOLDOWNS = (((gui, poseStack, partialTick, width, height) -> {
@@ -160,20 +200,20 @@ public class ModHudOverlay {
                 Tesselator tesselator1 = Tesselator.getInstance();
                 BufferBuilder bufferbuilder1 = tesselator1.getBuilder();
 
-                drawCooldown(player, ModEffects.COOLDOWN_1.get(), rpgClass.getSkill1(), bufferbuilder1, x, y, 0);
-                drawCooldown(player, ModEffects.COOLDOWN_2.get(), rpgClass.getSkill2(), bufferbuilder1, x, y, 1);
-                drawCooldown(player, ModEffects.COOLDOWN_3.get(), rpgClass.getSkill3(), bufferbuilder1, x, y, 2);
-                drawCooldown(player, ModEffects.COOLDOWN_4.get(), rpgClass.getSkill4(), bufferbuilder1, x, y, 3);
+                drawCooldown(player, ModEffects.COOLDOWN_1.get(), rpgClass.getSkill1().getCooldown(), bufferbuilder1, x, y, 0);
+                drawCooldown(player, ModEffects.COOLDOWN_2.get(), rpgClass.getSkill2().getCooldown(), bufferbuilder1, x, y, 1);
+                drawCooldown(player, ModEffects.COOLDOWN_3.get(), rpgClass.getSkill3().getCooldown(), bufferbuilder1, x, y, 2);
+                drawCooldown(player, ModEffects.COOLDOWN_4.get(), rpgClass.getSkill4().getCooldown(), bufferbuilder1, x, y, 3);
+                drawCooldown(player, ModEffects.COOLDOWN_6.get(), rpgClass.getSkill1().getTurnoverCooldown(), bufferbuilder1, x, y, 4);
             }
         }
     }));
 
-    private static void drawCooldown(Player player, MobEffect effect, SkillType skill, BufferBuilder bufferbuilder1, int x, int y, int index) {
+    private static void drawCooldown(Player player, MobEffect effect, int cooldown, BufferBuilder bufferbuilder1, int x, int y, int index) {
         if (player.hasEffect(effect)) {
-            int skillCooldown = skill.getCooldown();
-            if (skillCooldown > 0) {
+            if (cooldown > 0) {
                 int remainingTicks = Objects.requireNonNull(player.getEffect(effect)).getDuration();
-                float f = (float) remainingTicks / skillCooldown;
+                float f = (float) remainingTicks / cooldown;
                 fillRect(bufferbuilder1, x - (196 - (index * 20)), y - 19 + Mth.floor(16.0F * (1.0F - f)), 16, Mth.ceil(16.0F * f), 255, 255, 255, 127);
                 RenderSystem.enableTexture();
                 RenderSystem.enableDepthTest();

@@ -50,6 +50,7 @@ public class ClientEvents {
             event.registerBelowAll("hud_class_hotbar", ModHudOverlay.HUD_CLASS_HOTBAR);
             event.registerAboveAll("hud_venom", ModHudOverlay.HUD_VENOM);
             event.registerAboveAll("hud_cooldowns", ModHudOverlay.HUD_COOLDOWNS);
+            event.registerAboveAll("hud_berserk_offhand", ModHudOverlay.HUD_BERSERK_OFFHAND);
         }
 
         @SubscribeEvent
