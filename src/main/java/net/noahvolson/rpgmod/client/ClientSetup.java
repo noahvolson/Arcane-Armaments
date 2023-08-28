@@ -14,6 +14,8 @@ public class ClientSetup {
     @SubscribeEvent
     public static void doSetup(FMLClientSetupEvent event) {
 
+        // All skills that create an entity must register their types here
+
         // mage spells
         EntityRenderers.register(ModEntityTypes.BLINK.get(), ProjectileSpellRenderer::new);
         EntityRenderers.register(ModEntityTypes.FIREBALL.get(), ProjectileSpellRenderer::new);
@@ -27,5 +29,6 @@ public class ClientSetup {
 
         // warrior abilities
         EntityRenderers.register(ModEntityTypes.BERSERK.get(), ProjectileSpellRenderer::new);
+        EntityRenderers.register(ModEntityTypes.MEATHOOK.get(), ProjectileSpellRenderer::new);
     }
 }

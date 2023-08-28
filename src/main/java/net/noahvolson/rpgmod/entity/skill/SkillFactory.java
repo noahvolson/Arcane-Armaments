@@ -35,7 +35,7 @@ public class SkillFactory {
             // warrior
             case BERSERK -> new BerserkSkill(player);
             case WARCRY -> new WarCrySkill(player);
-            case MEATHOOK -> new MeatHookAttack(player);
+            case MEATHOOK -> new MeatHookAttack(ModEntityTypes.MEATHOOK.get(), player, player.level);
             case DEFIANCE -> new DefianceSkill(player);
 
         };

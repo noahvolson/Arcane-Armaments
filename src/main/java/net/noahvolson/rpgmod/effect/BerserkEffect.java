@@ -13,6 +13,7 @@ import java.util.Objects;
 public class BerserkEffect extends MobEffect {
     public BerserkEffect(MobEffectCategory mobEffectCategory, int color) {
         super(mobEffectCategory, color);
+        this.addAttributeModifier(Attributes.MOVEMENT_SPEED, "91AEAA56-376B-4498-935B-2F7F68070635", (double)0.3, AttributeModifier.Operation.MULTIPLY_TOTAL);
     }
 
     // Applied as long as isDurationEffectTick is true
@@ -20,10 +21,6 @@ public class BerserkEffect extends MobEffect {
     public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
 
         if (!pLivingEntity.level.isClientSide()) {
-
-            // TODO Fix how this interacts with swiftness
-            this.addAttributeModifier(Attributes.MOVEMENT_SPEED, "91AEAA56-376B-4498-935B-2F7F68070635", (double)0.3, AttributeModifier.Operation.MULTIPLY_TOTAL);
-
             AreaEffectCloud cloud = new AreaEffectCloud(pLivingEntity.level, pLivingEntity.getX(), pLivingEntity.getY() + 1, pLivingEntity.getZ());
             cloud.setParticle(ModParticles.BERSERK_PARTICLES.get());
             cloud.setRadius(.5F);

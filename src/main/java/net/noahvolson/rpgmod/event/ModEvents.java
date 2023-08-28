@@ -6,6 +6,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -61,6 +63,8 @@ public class ModEvents {
         @SubscribeEvent
         public static void onPlayerJoin(EntityJoinLevelEvent event) {
             if (event.getEntity() instanceof ServerPlayer player) {
+                player.getAttribute(Attributes.MOVEMENT_SPEED);
+
                 ItemStack offhand = player.getOffhandItem();
                 if (offhand.is(MAGE.getClassItem())) {
                     setPlayerRpgClassCapabilityJoin(player, MAGE);

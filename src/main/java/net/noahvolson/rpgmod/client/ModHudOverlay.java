@@ -154,7 +154,7 @@ public class ModHudOverlay {
         Player player = gui.getMinecraft().player;
         String rpgClassId = ClientRpgClassData.getRpgClass();
 
-        if (player != null && rpgClassId.equals(WARRIOR.getId()) && player.hasEffect(ModEffects.COOLDOWN_1.get())) {
+        if (player != null && rpgClassId != null && rpgClassId.equals(WARRIOR.getId()) && player.hasEffect(ModEffects.COOLDOWN_1.get())) {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 

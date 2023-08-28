@@ -15,6 +15,7 @@ import net.noahvolson.rpgmod.entity.skill.rogue.ExecuteDaggerAttack;
 import net.noahvolson.rpgmod.entity.skill.rogue.RuptureDaggerAttack;
 import net.noahvolson.rpgmod.entity.skill.rogue.VenomDaggerAttack;
 import net.noahvolson.rpgmod.entity.skill.warrior.BerserkAttack;
+import net.noahvolson.rpgmod.entity.skill.warrior.MeatHookAttack;
 
 public class ModEntityTypes {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
@@ -43,6 +44,10 @@ public class ModEntityTypes {
     public static final RegistryObject<EntityType<AbstractProjectileAbility>> EXECUTE_DAGGER = ENTITY_TYPES.register("execute_dagger",
             () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileAbility>) ExecuteDaggerAttack::new, MobCategory.MISC).sized(0.5F, 0.5F).build("execute_dagger"));
 
+    // warrior spells
     public static final RegistryObject<EntityType<AbstractProjectileAbility>> BERSERK = ENTITY_TYPES.register("berserk",
             () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileAbility>) BerserkAttack::new, MobCategory.MISC).sized(0.5F, 0.5F).build("berserk"));
+
+    public static final RegistryObject<EntityType<AbstractProjectileAbility>> MEATHOOK = ENTITY_TYPES.register("meathook",
+            () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileAbility>) MeatHookAttack::new, MobCategory.MISC).sized(0.5F, 0.5F).build("meathook"));
 }

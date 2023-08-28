@@ -27,6 +27,9 @@ public class ModEffects {
     public static final RegistryObject<MobEffect> BERSERK = MOB_EFFECTS.register("berserk",
             () -> new BerserkEffect(MobEffectCategory.BENEFICIAL, 16755263));
 
+    public static final RegistryObject<MobEffect> FEAR = MOB_EFFECTS.register("fear",
+            () -> new FearEffect(MobEffectCategory.HARMFUL, 0));
+
     public static final RegistryObject<MobEffect> COOLDOWN_1 = MOB_EFFECTS.register("cooldown_1",
             () -> new EmptyEffect(MobEffectCategory.BENEFICIAL));
 
