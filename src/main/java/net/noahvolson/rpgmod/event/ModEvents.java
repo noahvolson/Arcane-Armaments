@@ -18,6 +18,7 @@ import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -78,6 +79,9 @@ public class ModEvents {
 
         @SubscribeEvent
         public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+            if (event.player.hasEffect(ModEffects.SHELL.get())) {
+                //event.player.setDeltaMovement(0,0,0);
+            }
             if (event.player instanceof ServerPlayer player) {
                 ItemStack offhand = player.getOffhandItem();
                 if (offhand.is(MAGE.getClassItem())) {
@@ -120,6 +124,9 @@ public class ModEvents {
             if (event.getEntity() instanceof Player player && player.hasEffect(ModEffects.BERSERK.get())) {
                 event.setAmount(event.getAmount() * 2);
             }
+            if (event.getEntity() instanceof Player player && player.hasEffect(ModEffects.SHELL.get())) {
+                event.setAmount(event.getAmount() / 4);
+            }
         }
 
 
@@ -148,11 +155,5 @@ public class ModEvents {
             event.register(PlayerRpgClass.class);
         }
 
-        /*
-        @SubscribeEvent
-        public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-            // Maybe move cooldowns in here?
-        }
-        */
     }
 }

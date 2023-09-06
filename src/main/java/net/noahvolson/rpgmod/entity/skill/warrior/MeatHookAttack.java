@@ -30,7 +30,6 @@ public class MeatHookAttack extends AbstractProjectileAbility {
     protected void pullEntity(Entity target) {
         if (target != null && this.getOwner() != null) {
             Vec3 vec3 = (new Vec3(this.getOwner().getX() - target.getX(), this.getOwner().getY() - target.getY(), this.getOwner().getZ() - target.getZ())).scale(0.23D);
-            System.out.println("Pulling entity! - Vec3: " + vec3);
             target.setDeltaMovement(target.getDeltaMovement().add(vec3));
         }
     }
