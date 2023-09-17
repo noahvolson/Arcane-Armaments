@@ -29,7 +29,7 @@ public class BerserkParticle extends TextureSheetParticle {
         this.sprites = spriteSet;
         this.setSpriteFromAge(spriteSet);   // Needed to not CTD
 
-        this.setColorRgb(new Color(245, 224, 205));
+        this.setColorRgb(new Color(238, 78, 78));
 
     }
 
