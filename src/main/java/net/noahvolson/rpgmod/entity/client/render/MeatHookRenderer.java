@@ -31,7 +31,7 @@ public class MeatHookRenderer extends GeoProjectilesRenderer<MeatHookAttack> {
                                     @Nullable MultiBufferSource renderTypeBuffer,
                                     @Nullable VertexConsumer vertexBuilder, int packedLightIn,
                                     ResourceLocation textureLocation) {
-        stack.scale(0.8f, 0.8f, 0.8f); // Use to scale the entity
+        stack.scale(1.2f, 1.2f, 1.2f); // Use to scale the entity
         return super.getRenderType(animatable, partialTicks, stack, renderTypeBuffer, vertexBuilder, packedLightIn, textureLocation);
     }
 }

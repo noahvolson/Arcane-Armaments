@@ -1,5 +1,6 @@
 package net.noahvolson.rpgmod.entity.skill.warrior;
 
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
@@ -15,6 +16,8 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 public class MeatHookAttack extends AbstractProjectileAbility implements IAnimatable {
     private AnimationFactory factory = new AnimationFactory(this);
+    private int life;
+    private Vec3 lastTickPos;
 
     public MeatHookAttack(EntityType<? extends AbstractProjectileAbility> entityType, Level world) {
         super((EntityType<AbstractProjectileAbility>) entityType, world);
@@ -23,7 +26,8 @@ public class MeatHookAttack extends AbstractProjectileAbility implements IAnimat
     public MeatHookAttack(EntityType<? extends AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
         super((EntityType<AbstractProjectileAbility>) entityType, shooter, world, SoundEvents.METAL_HIT);
         this.setBaseDamage(0);
-        this.setSpeed(2D);
+        this.setSpeed(1D);
+        this.life = 0;
     }
 
     @Override
@@ -49,7 +53,25 @@ public class MeatHookAttack extends AbstractProjectileAbility implements IAnimat
     }
 
     @Override
+    protected void makeTrailParticle() {
+        if (!this.inGround && this.lastTickPos != null) {
+            for(int j = 0; j < 5; ++j) {
+                this.level.addParticle(ParticleTypes.DRAGON_BREATH, lastTickPos.x, lastTickPos.y, lastTickPos.z, 0, 0, 0);
+            }
+        }
+        this.lastTickPos = new Vec3(this.getX(), this.getY(), this.getZ());
+    }
+
+    @Override
     public AnimationFactory getFactory() {
         return factory;
+    }
+
+    @Override
+    protected void tickDespawn() {
+        ++this.life;
+        if (this.life >= 1200) {
+            this.discard();
+        }
     }
 }
