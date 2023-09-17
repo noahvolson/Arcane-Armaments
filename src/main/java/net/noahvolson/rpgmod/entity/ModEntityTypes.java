@@ -48,6 +48,6 @@ public class ModEntityTypes {
     public static final RegistryObject<EntityType<AbstractProjectileAbility>> BERSERK = ENTITY_TYPES.register("berserk",
             () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileAbility>) BerserkAttack::new, MobCategory.MISC).sized(0.5F, 0.5F).build("berserk"));
 
-    public static final RegistryObject<EntityType<AbstractProjectileAbility>> MEATHOOK = ENTITY_TYPES.register("meathook",
-            () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileAbility>) MeatHookAttack::new, MobCategory.MISC).sized(0.5F, 0.5F).build("meathook"));
+    public static final RegistryObject<EntityType<MeatHookAttack>> MEATHOOK = ENTITY_TYPES.register("meathook",
+            () -> EntityType.Builder.of((EntityType.EntityFactory<MeatHookAttack>) MeatHookAttack::new, MobCategory.MISC).sized(0.5F, 0.5F).build("meathook"));
 }

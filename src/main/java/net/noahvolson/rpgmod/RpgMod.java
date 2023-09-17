@@ -1,6 +1,8 @@
 package net.noahvolson.rpgmod;
 
 import com.mojang.logging.LogUtils;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -10,11 +12,14 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.noahvolson.rpgmod.effect.ModEffects;
 import net.noahvolson.rpgmod.entity.ModEntityTypes;
+import net.noahvolson.rpgmod.entity.client.render.MeatHookRenderer;
 import net.noahvolson.rpgmod.item.ModItems;
 import net.noahvolson.rpgmod.networking.ModMessages;
 import net.noahvolson.rpgmod.particle.ModParticles;
 import net.noahvolson.rpgmod.sound.ModSounds;
 import org.slf4j.Logger;
+import software.bernie.example.GeckoLibMod;
+import software.bernie.geckolib3.GeckoLib;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(RpgMod.MOD_ID)
@@ -39,6 +44,8 @@ public class RpgMod {
 
         ModSounds.SOUND_EVENTS.register(modEventBus);
 
+        GeckoLibMod.DISABLE_IN_DEV = true;
+        GeckoLib.initialize();
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -52,7 +59,7 @@ public class RpgMod {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-
+            EntityRenderers.register(ModEntityTypes.MEATHOOK.get(), MeatHookRenderer::new);
         }
     }
 }

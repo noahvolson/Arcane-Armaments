@@ -21,6 +21,7 @@ public abstract class AbstractProjectileAbility extends AbstractArrow implements
     private SoundEvent castSound;
     private SoundEvent hitEntitySound;
     private SoundEvent hitBlockSound;
+    private double speed = 3D;
 
     // For registering in ModEntityTypes
     public AbstractProjectileAbility(EntityType<AbstractProjectileAbility> entityType, Level world) {
@@ -109,9 +110,12 @@ public abstract class AbstractProjectileAbility extends AbstractArrow implements
         }
     }
 
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+
     @Override
     public void use(ServerPlayer player) {
-        double speed = 3D;
         Vec3 look = player.getLookAngle();
         this.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
         player.level.addFreshEntity(this);

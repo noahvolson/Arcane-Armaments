@@ -16,6 +16,7 @@ public class BerserkSkill implements Skill {
 
     @Override
     public void use(ServerPlayer player) {
+        new BerserkAttack(ModEntityTypes.BERSERK.get(), player, player.level).use(player);
         player.addEffect(new MobEffectInstance(ModEffects.BERSERK.get(), DURATION, 0, false, false, true));
     }
 

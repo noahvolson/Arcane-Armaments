@@ -22,9 +22,7 @@ public class ShellParticle extends TextureSheetParticle {
     protected ShellParticle(ClientLevel level, double xCord, double yCord, double zCord, SpriteSet spriteSet,
                               double xd, double yd, double zd) {
         super(level, xCord, yCord, zCord, xd, yd, zd);
-
-        System.out.println("xd, yd, zd: " + xd + "," + yd + "," + zd);
-
+        
         this.friction = 0.96F;
         this.xd = this.xd * (double)0.01F + xd;
         this.yd = this.yd * (double)0.01F + yd;
