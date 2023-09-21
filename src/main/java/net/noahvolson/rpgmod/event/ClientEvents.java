@@ -70,6 +70,7 @@ public class ClientEvents {
             event.register(ModParticles.BERSERK_PARTICLES.get(), BerserkParticle.Provider::new);
             event.register(ModParticles.FEAR_PARTICLES.get(), FearParticle.Provider::new);
             event.register(ModParticles.SHELL_PARTICLES.get(), ShellParticle.Provider::new);
+            event.register(ModParticles.CHAIN_PARTICLES.get(), ChainParticle.Provider::new);
 
 
         }

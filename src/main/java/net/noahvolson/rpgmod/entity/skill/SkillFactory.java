@@ -11,7 +11,7 @@ import net.noahvolson.rpgmod.entity.skill.rogue.RuptureDaggerAttack;
 import net.noahvolson.rpgmod.entity.skill.rogue.SmokeBombSkill;
 import net.noahvolson.rpgmod.entity.skill.rogue.VenomDaggerAttack;
 import net.noahvolson.rpgmod.entity.skill.warrior.BerserkSkill;
-import net.noahvolson.rpgmod.entity.skill.warrior.DefianceSkill;
+import net.noahvolson.rpgmod.entity.skill.warrior.MoltenShellSkill;
 import net.noahvolson.rpgmod.entity.skill.warrior.MeatHookAttack;
 import net.noahvolson.rpgmod.entity.skill.warrior.WarCrySkill;
 
@@ -36,7 +36,7 @@ public class SkillFactory {
             case BERSERK -> new BerserkSkill(player);
             case WARCRY -> new WarCrySkill(player);
             case MEATHOOK -> new MeatHookAttack(ModEntityTypes.MEATHOOK.get(), player, player.level);
-            case DEFIANCE -> new DefianceSkill(player);
+            case MOLTEN_SHELL -> new MoltenShellSkill(player);
 
         };
     }

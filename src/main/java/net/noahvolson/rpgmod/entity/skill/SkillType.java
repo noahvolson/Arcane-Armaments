@@ -21,7 +21,7 @@ public enum SkillType {
     BERSERK(    100,    10, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/warrior/warrior_1.png")),
     WARCRY(     20,     0,  new ResourceLocation(RpgMod.MOD_ID, "textures/gui/warrior/warrior_2.png")),
     MEATHOOK(   20,     0,  new ResourceLocation(RpgMod.MOD_ID, "textures/gui/warrior/warrior_3.png")),
-    DEFIANCE(   20,     0,  new ResourceLocation(RpgMod.MOD_ID, "textures/gui/warrior/warrior_4.png"));
+    MOLTEN_SHELL(   20,     0,  new ResourceLocation(RpgMod.MOD_ID, "textures/gui/warrior/warrior_4.png"));
 
     private final int cooldown;
     private final int turnoverCooldown;

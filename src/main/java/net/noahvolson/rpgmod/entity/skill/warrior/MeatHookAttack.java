@@ -6,6 +6,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.*;
 import net.noahvolson.rpgmod.entity.skill.AbstractProjectileAbility;
+import net.noahvolson.rpgmod.particle.ModParticles;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -26,7 +27,7 @@ public class MeatHookAttack extends AbstractProjectileAbility implements IAnimat
     public MeatHookAttack(EntityType<? extends AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
         super((EntityType<AbstractProjectileAbility>) entityType, shooter, world, SoundEvents.METAL_HIT);
         this.setBaseDamage(0);
-        this.setSpeed(1D);
+        this.setSpeed(2D);
         this.life = 0;
     }
 
@@ -56,7 +57,8 @@ public class MeatHookAttack extends AbstractProjectileAbility implements IAnimat
     protected void makeTrailParticle() {
         if (!this.inGround && this.lastTickPos != null) {
             for(int j = 0; j < 5; ++j) {
-                this.level.addParticle(ParticleTypes.DRAGON_BREATH, lastTickPos.x, lastTickPos.y, lastTickPos.z, 0, 0, 0);
+                this.level.addParticle(ModParticles.CHAIN_PARTICLES.get(), lastTickPos.x, lastTickPos.y, lastTickPos.z, 0, 0, 0);
+                this.level.addParticle(ModParticles.SHELL_PARTICLES.get(), lastTickPos.x, lastTickPos.y, lastTickPos.z, 0, 0, 0);
             }
         }
         this.lastTickPos = new Vec3(this.getX(), this.getY(), this.getZ());
@@ -70,7 +72,7 @@ public class MeatHookAttack extends AbstractProjectileAbility implements IAnimat
     @Override
     protected void tickDespawn() {
         ++this.life;
-        if (this.life >= 1200) {
+        if (this.life >= 300) {
             this.discard();
         }
     }

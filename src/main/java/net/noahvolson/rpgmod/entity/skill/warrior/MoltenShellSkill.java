@@ -1,6 +1,5 @@
 package net.noahvolson.rpgmod.entity.skill.warrior;
 
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -15,11 +14,11 @@ import net.noahvolson.rpgmod.particle.ModParticles;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DefianceSkill implements Skill {
+public class MoltenShellSkill implements Skill {
     private final int DURATION = 30;
     private final int RADIUS = 4;
 
-    public DefianceSkill(ServerPlayer player) {
+    public MoltenShellSkill(ServerPlayer player) {
     }
 
     @Override

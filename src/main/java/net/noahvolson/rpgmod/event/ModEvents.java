@@ -1,9 +1,15 @@
 package net.noahvolson.rpgmod.event;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -11,6 +17,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
@@ -26,6 +33,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.noahvolson.rpgmod.RpgMod;
 import net.noahvolson.rpgmod.effect.ModEffects;
+import net.noahvolson.rpgmod.entity.skill.ModAreaEffectCloud;
 import net.noahvolson.rpgmod.networking.ModMessages;
 import net.noahvolson.rpgmod.networking.packet.RpgClassSyncS2CPacket;
 import net.noahvolson.rpgmod.player.PlayerRpgClass;
@@ -79,10 +87,37 @@ public class ModEvents {
 
         @SubscribeEvent
         public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-            if (event.player.hasEffect(ModEffects.SHELL.get())) {
-                //event.player.setDeltaMovement(0,0,0);
-            }
             if (event.player instanceof ServerPlayer player) {
+
+                if (player.hasEffect(ModEffects.STOMPING.get()) && player.fallDistance == 0) {
+                    player.removeEffect(ModEffects.STOMPING.get());
+
+                    int i = Mth.floor(player.getX());
+                    int j = Mth.floor(player.getY() - (double)0.2F);
+                    int k = Mth.floor(player.getZ());
+                    BlockPos blockpos = new BlockPos(i, j, k);
+                    BlockState blockstate = player.level.getBlockState(blockpos);
+
+                    if (blockstate.isAir()) {
+                        j = Mth.floor(player.getY() - (double)1.2F);
+                        blockpos = new BlockPos(i, j, k);
+                        blockstate = player.level.getBlockState(blockpos);
+                    }
+
+                    int rumbleRadius = 4;
+                    int rumbleDuration = 10;
+
+                    ModAreaEffectCloud rumbleCloud = new ModAreaEffectCloud(player.level, player.getX(), player.getY(), player.getZ());
+                    rumbleCloud.setParticle(new BlockParticleOption(ParticleTypes.BLOCK, blockstate).setPos(blockpos));
+                    rumbleCloud.setRadiusOnUse(0F);
+                    rumbleCloud.setRadiusPerTick((float) rumbleRadius / rumbleDuration);
+                    rumbleCloud.setDuration(rumbleDuration);
+                    rumbleCloud.setWaitTime(0);
+                    rumbleCloud.setOwner(player);
+                    rumbleCloud.addEffect(new MobEffectInstance(ModEffects.FEAR.get(), 10, 0, false, false, true));
+                    player.level.addFreshEntity(rumbleCloud);
+                }
+
                 ItemStack offhand = player.getOffhandItem();
                 if (offhand.is(MAGE.getClassItem())) {
                     setPlayerRpgClassCapabilityTick(player, MAGE);
@@ -126,6 +161,9 @@ public class ModEvents {
             }
             if (event.getEntity() instanceof Player player && player.hasEffect(ModEffects.SHELL.get())) {
                 event.setAmount(event.getAmount() / 4);
+            }
+            if (event.getEntity() instanceof Player player && player.hasEffect(ModEffects.STOMPING.get()) && event.getSource() == DamageSource.FALL) {
+                event.setCanceled(true);
             }
         }
 
