@@ -7,12 +7,14 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
@@ -28,6 +30,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -125,7 +128,12 @@ public class ModEvents {
                     rumbleCloud.addEffect(new MobEffectInstance(ModEffects.FEAR.get(), 20, 0, false, false, true));
                     player.level.addFreshEntity(rumbleCloud);
 
-                    player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.STOMP_IMPACT.get(), SoundSource.HOSTILE, 1F, 1.2F / (player.level.random.nextFloat() * 0.2F + 0.9F));
+                    if (player.isInWater()) {
+                        player.level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.PLAYER_SPLASH_HIGH_SPEED, SoundSource.HOSTILE, 1F, 1.2F / (player.level.random.nextFloat() * 0.2F + 0.9F));
+                    }
+                    else {
+                        player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.STOMP_IMPACT.get(), SoundSource.HOSTILE, 1F, 1.2F / (player.level.random.nextFloat() * 0.2F + 0.9F));
+                    }
                 }
 
                 ItemStack offhand = player.getOffhandItem();
@@ -151,6 +159,17 @@ public class ModEvents {
         public static void onRenderPlayer(RenderPlayerEvent.Pre event) {
             if (event.getEntity().hasEffect(MobEffects.INVISIBILITY)) {
                 event.setCanceled(true);
+            }
+        }
+
+        @SubscribeEvent
+        public static void onLivingSetAttackTargetEvent (LivingSetAttackTargetEvent event) {
+            if (event.getTarget() instanceof Player player) {
+                if (event.getEntity() instanceof Mob mob) {
+                    if (player.hasEffect(MobEffects.INVISIBILITY)) {
+                        mob.setTarget(null);
+                    }
+                }
             }
         }
 
