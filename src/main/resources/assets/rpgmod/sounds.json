@@ -64,5 +64,35 @@
     "sounds": [
       "rpgmod:smoke_bomb"
     ]
+  },
+  "berserk": {
+    "subtitle": "sounds.rpgmod.berserk",
+    "sounds": [
+      "rpgmod:berserk"
+    ]
+  },
+  "grapple_cast": {
+    "subtitle": "sounds.rpgmod.grapple_cast",
+    "sounds": [
+      "rpgmod:grapple_cast"
+    ]
+  },
+  "grapple_ground": {
+    "subtitle": "sounds.rpgmod.grapple_ground",
+    "sounds": [
+      "rpgmod:grapple_ground"
+    ]
+  },
+  "stomp_impact": {
+    "subtitle": "sounds.rpgmod.stomp_impact",
+    "sounds": [
+      "rpgmod:stomp_impact"
+    ]
+  },
+  "molten_shell": {
+    "subtitle": "sounds.rpgmod.molten_shell",
+    "sounds": [
+      "rpgmod:molten_shell"
+    ]
   }
 }

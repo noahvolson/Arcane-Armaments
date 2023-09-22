@@ -19,8 +19,8 @@ public enum SkillType {
 
     // warrior
     BERSERK(    100,    10, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/warrior/warrior_1.png")),
-    WARCRY(     20,     0,  new ResourceLocation(RpgMod.MOD_ID, "textures/gui/warrior/warrior_2.png")),
-    MEATHOOK(   20,     0,  new ResourceLocation(RpgMod.MOD_ID, "textures/gui/warrior/warrior_3.png")),
+    STOMP(     20,     0,  new ResourceLocation(RpgMod.MOD_ID, "textures/gui/warrior/warrior_2.png")),
+    GRAPPLE(   20,     0,  new ResourceLocation(RpgMod.MOD_ID, "textures/gui/warrior/warrior_3.png")),
     MOLTEN_SHELL(   20,     0,  new ResourceLocation(RpgMod.MOD_ID, "textures/gui/warrior/warrior_4.png"));
 
     private final int cooldown;

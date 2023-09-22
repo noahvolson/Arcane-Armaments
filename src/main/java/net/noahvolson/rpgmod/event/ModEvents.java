@@ -7,6 +7,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -39,14 +40,19 @@ import net.noahvolson.rpgmod.networking.packet.RpgClassSyncS2CPacket;
 import net.noahvolson.rpgmod.player.PlayerRpgClass;
 import net.noahvolson.rpgmod.player.PlayerRpgClassProvider;
 import net.noahvolson.rpgmod.rpgclass.RpgClass;
+import net.noahvolson.rpgmod.sound.ModSounds;
 
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.UUID;
 
 import static net.noahvolson.rpgmod.rpgclass.RpgClasses.*;
 
 public class ModEvents {
     @Mod.EventBusSubscriber(modid = RpgMod.MOD_ID)
     public static class ForgeEvents {
+
+        static ArrayList<UUID> fallDamageImmune = new ArrayList<>();
 
         private static void setPlayerRpgClassCapabilityTick(ServerPlayer player, RpgClass rpgClass) {
             if (player != null) {
@@ -88,9 +94,11 @@ public class ModEvents {
         @SubscribeEvent
         public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
             if (event.player instanceof ServerPlayer player) {
+                fallDamageImmune.remove(player.getUUID());
 
-                if (player.hasEffect(ModEffects.STOMPING.get()) && player.fallDistance == 0) {
+                if (player.hasEffect(ModEffects.STOMPING.get()) && (player.isOnGround() || player.isInWater())) {
                     player.removeEffect(ModEffects.STOMPING.get());
+                    fallDamageImmune.add(player.getUUID());
 
                     int i = Mth.floor(player.getX());
                     int j = Mth.floor(player.getY() - (double)0.2F);
@@ -114,8 +122,10 @@ public class ModEvents {
                     rumbleCloud.setDuration(rumbleDuration);
                     rumbleCloud.setWaitTime(0);
                     rumbleCloud.setOwner(player);
-                    rumbleCloud.addEffect(new MobEffectInstance(ModEffects.FEAR.get(), 10, 0, false, false, true));
+                    rumbleCloud.addEffect(new MobEffectInstance(ModEffects.FEAR.get(), 20, 0, false, false, true));
                     player.level.addFreshEntity(rumbleCloud);
+
+                    player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.STOMP_IMPACT.get(), SoundSource.HOSTILE, 1F, 1.2F / (player.level.random.nextFloat() * 0.2F + 0.9F));
                 }
 
                 ItemStack offhand = player.getOffhandItem();
@@ -156,14 +166,20 @@ public class ModEvents {
         // Take double damage when berserking
         @SubscribeEvent
         public static void onLivingHurt(LivingHurtEvent event) {
-            if (event.getEntity() instanceof Player player && player.hasEffect(ModEffects.BERSERK.get())) {
-                event.setAmount(event.getAmount() * 2);
-            }
-            if (event.getEntity() instanceof Player player && player.hasEffect(ModEffects.SHELL.get())) {
-                event.setAmount(event.getAmount() / 4);
-            }
-            if (event.getEntity() instanceof Player player && player.hasEffect(ModEffects.STOMPING.get()) && event.getSource() == DamageSource.FALL) {
-                event.setCanceled(true);
+            if (event.getEntity() instanceof Player player) {
+                if (player.hasEffect(ModEffects.BERSERK.get())) {
+                    event.setAmount(event.getAmount() * 2);
+                }
+                if (player.hasEffect(ModEffects.SHELL.get())) {
+                    event.setAmount(event.getAmount() / 4);
+                }
+                if (event.getSource() == DamageSource.FALL) {
+                    System.out.println(fallDamageImmune);
+                    if (player.hasEffect(ModEffects.STOMPING.get()) || fallDamageImmune.contains(player.getUUID())) {
+                        fallDamageImmune.remove(player.getUUID());
+                        event.setCanceled(true);
+                    }
+                }
             }
         }
 

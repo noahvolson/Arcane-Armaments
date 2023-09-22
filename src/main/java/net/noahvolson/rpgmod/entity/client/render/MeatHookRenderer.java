@@ -8,12 +8,11 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.noahvolson.rpgmod.RpgMod;
 import net.noahvolson.rpgmod.entity.client.model.MeatHookModel;
-import net.noahvolson.rpgmod.entity.skill.warrior.MeatHookAttack;
+import net.noahvolson.rpgmod.entity.skill.warrior.GrappleAttack;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
 import software.bernie.geckolib3.renderers.geo.GeoProjectilesRenderer;
 
-public class MeatHookRenderer extends GeoProjectilesRenderer<MeatHookAttack> {
+public class MeatHookRenderer extends GeoProjectilesRenderer<GrappleAttack> {
 
 
     public MeatHookRenderer(EntityRendererProvider.Context renderManager) {
@@ -21,13 +20,13 @@ public class MeatHookRenderer extends GeoProjectilesRenderer<MeatHookAttack> {
     }
 
     @Override
-    public ResourceLocation getTextureLocation(MeatHookAttack instance) {
+    public ResourceLocation getTextureLocation(GrappleAttack instance) {
         return new ResourceLocation(RpgMod.MOD_ID, "textures/entity/meathook.png");
     }
 
 
     @Override
-    public RenderType getRenderType(MeatHookAttack animatable, float partialTicks, PoseStack stack,
+    public RenderType getRenderType(GrappleAttack animatable, float partialTicks, PoseStack stack,
                                     @Nullable MultiBufferSource renderTypeBuffer,
                                     @Nullable VertexConsumer vertexBuilder, int packedLightIn,
                                     ResourceLocation textureLocation) {

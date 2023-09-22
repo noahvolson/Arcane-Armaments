@@ -2,6 +2,7 @@ package net.noahvolson.rpgmod.entity.skill.warrior;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -10,12 +11,13 @@ import net.minecraft.world.phys.Vec3;
 import net.noahvolson.rpgmod.effect.ModEffects;
 import net.noahvolson.rpgmod.entity.skill.Skill;
 import net.noahvolson.rpgmod.particle.ModParticles;
+import net.noahvolson.rpgmod.sound.ModSounds;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MoltenShellSkill implements Skill {
-    private final int DURATION = 30;
+    private final int DURATION = 40;
     private final int RADIUS = 4;
 
     public MoltenShellSkill(ServerPlayer player) {
@@ -36,6 +38,7 @@ public class MoltenShellSkill implements Skill {
             }
             player.addEffect(new MobEffectInstance(ModEffects.SHELL.get(), DURATION, 0, false, false, true));
             player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, DURATION, 4, false, false, false));
+            player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.MOLTEN_SHELL.get(), SoundSource.HOSTILE, 1F, 1.2F / (player.level.random.nextFloat() * 0.2F + 0.9F));
         }
     }
 

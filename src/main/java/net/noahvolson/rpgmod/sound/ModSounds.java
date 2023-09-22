@@ -24,8 +24,14 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> RUPTURE_DAGGER = registerSoundEvent("rupture_dagger");
     public static final RegistryObject<SoundEvent> EXECUTE_DAGGER = registerSoundEvent("execute_dagger");
     public static final RegistryObject<SoundEvent> SMOKE_BOMB = registerSoundEvent("smoke_bomb");
-
     public static final RegistryObject<SoundEvent> FAILED_EXECUTE = registerSoundEvent("failed_execute");
+
+    public static final RegistryObject<SoundEvent> BERSERK = registerSoundEvent("berserk");
+    public static final RegistryObject<SoundEvent> GRAPPLE_CAST = registerSoundEvent("grapple_cast");
+    public static final RegistryObject<SoundEvent> GRAPPLE_GROUND = registerSoundEvent("grapple_ground");
+    public static final RegistryObject<SoundEvent> STOMP_IMPACT = registerSoundEvent("stomp_impact");
+    public static final RegistryObject<SoundEvent> MOLTEN_SHELL = registerSoundEvent("molten_shell");
+
 
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(RpgMod.MOD_ID, name)));
