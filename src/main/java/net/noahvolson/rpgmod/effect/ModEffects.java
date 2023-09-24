@@ -30,11 +30,14 @@ public class ModEffects {
     public static final RegistryObject<MobEffect> STOMPING = MOB_EFFECTS.register("stomping",
             () -> new StompingEffect(MobEffectCategory.HARMFUL, 0));
 
-    public static final RegistryObject<MobEffect> FEAR = MOB_EFFECTS.register("fear",
-            () -> new FearEffect(MobEffectCategory.HARMFUL, 0));
+    public static final RegistryObject<MobEffect> STUNNED = MOB_EFFECTS.register("stunned",
+            () -> new StunEffect(MobEffectCategory.HARMFUL, 0));
 
     public static final RegistryObject<MobEffect> SHELL = MOB_EFFECTS.register("shell",
             () -> new ShellEffect(MobEffectCategory.HARMFUL, 0));
+
+    public static final RegistryObject<MobEffect> BLESSED_BLADE = MOB_EFFECTS.register("blessed_blade",
+            () -> new BlessedBladeEffect(MobEffectCategory.HARMFUL, 0));
 
     public static final RegistryObject<MobEffect> COOLDOWN_1 = MOB_EFFECTS.register("cooldown_1",
             () -> new EmptyEffect(MobEffectCategory.BENEFICIAL));

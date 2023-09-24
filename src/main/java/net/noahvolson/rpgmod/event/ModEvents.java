@@ -14,12 +14,12 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
@@ -28,7 +28,6 @@ import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
@@ -40,13 +39,14 @@ import net.noahvolson.rpgmod.effect.ModEffects;
 import net.noahvolson.rpgmod.entity.skill.ModAreaEffectCloud;
 import net.noahvolson.rpgmod.networking.ModMessages;
 import net.noahvolson.rpgmod.networking.packet.RpgClassSyncS2CPacket;
+import net.noahvolson.rpgmod.particle.ModParticles;
 import net.noahvolson.rpgmod.player.PlayerRpgClass;
 import net.noahvolson.rpgmod.player.PlayerRpgClassProvider;
 import net.noahvolson.rpgmod.rpgclass.RpgClass;
 import net.noahvolson.rpgmod.sound.ModSounds;
 
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.List;
 import java.util.UUID;
 
 import static net.noahvolson.rpgmod.rpgclass.RpgClasses.*;
@@ -54,6 +54,8 @@ import static net.noahvolson.rpgmod.rpgclass.RpgClasses.*;
 public class ModEvents {
     @Mod.EventBusSubscriber(modid = RpgMod.MOD_ID)
     public static class ForgeEvents {
+        private static final int RUMBLE_RADIUS = 4;
+        private static final int RUMBLE_DURATION = 10;
 
         static ArrayList<UUID> fallDamageImmune = new ArrayList<>();
 
@@ -115,18 +117,25 @@ public class ModEvents {
                         blockstate = player.level.getBlockState(blockpos);
                     }
 
-                    int rumbleRadius = 4;
-                    int rumbleDuration = 10;
-
                     ModAreaEffectCloud rumbleCloud = new ModAreaEffectCloud(player.level, player.getX(), player.getY(), player.getZ());
                     rumbleCloud.setParticle(new BlockParticleOption(ParticleTypes.BLOCK, blockstate).setPos(blockpos));
                     rumbleCloud.setRadiusOnUse(0F);
-                    rumbleCloud.setRadiusPerTick((float) rumbleRadius / rumbleDuration);
-                    rumbleCloud.setDuration(rumbleDuration);
+                    rumbleCloud.setRadiusPerTick((float) RUMBLE_RADIUS / RUMBLE_DURATION);
+                    rumbleCloud.setDuration(RUMBLE_DURATION);
                     rumbleCloud.setWaitTime(0);
                     rumbleCloud.setOwner(player);
-                    rumbleCloud.addEffect(new MobEffectInstance(ModEffects.FEAR.get(), 20, 0, false, false, true));
+                    rumbleCloud.addEffect(new MobEffectInstance(ModEffects.STUNNED.get(), 20, 0, false, false, true));
                     player.level.addFreshEntity(rumbleCloud);
+
+                    ModAreaEffectCloud upperRumbleCloud = new ModAreaEffectCloud(player.level, player.getX(), player.getY() + 1, player.getZ());
+                    upperRumbleCloud.setParticle(ModParticles.HIDDEN_PARTICLES.get());
+                    upperRumbleCloud.setRadiusOnUse(0F);
+                    upperRumbleCloud.setRadiusPerTick((float) RUMBLE_RADIUS / RUMBLE_DURATION);
+                    upperRumbleCloud.setDuration(RUMBLE_DURATION);
+                    upperRumbleCloud.setWaitTime(0);
+                    upperRumbleCloud.setOwner(player);
+                    upperRumbleCloud.addEffect(new MobEffectInstance(ModEffects.STUNNED.get(), 20, 0, false, false, true));
+                    player.level.addFreshEntity(upperRumbleCloud);
 
                     if (player.isInWater()) {
                         player.level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.PLAYER_SPLASH_HIGH_SPEED, SoundSource.HOSTILE, 1F, 1.2F / (player.level.random.nextFloat() * 0.2F + 0.9F));
@@ -162,6 +171,7 @@ public class ModEvents {
             }
         }
 
+        // Remove mob aggro on invisibility
         @SubscribeEvent
         public static void onLivingSetAttackTargetEvent (LivingSetAttackTargetEvent event) {
             if (event.getTarget() instanceof Player player) {
@@ -177,6 +187,9 @@ public class ModEvents {
         @SubscribeEvent
         public static void onAttackEntity(AttackEntityEvent event) {
             Player player = event.getEntity();
+            if (player.hasEffect(ModEffects.BLESSED_BLADE.get()) && event.getTarget() instanceof LivingEntity target) {
+                target.setHealth(target.getHealth() - 1);
+            }
             if (player.hasEffect(MobEffects.INVISIBILITY)) {
                 player.removeEffect(MobEffects.INVISIBILITY);
             }
@@ -196,6 +209,11 @@ public class ModEvents {
                     System.out.println(fallDamageImmune);
                     if (player.hasEffect(ModEffects.STOMPING.get()) || fallDamageImmune.contains(player.getUUID())) {
                         fallDamageImmune.remove(player.getUUID());
+
+                        List<LivingEntity> list = player.level.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().inflate(RUMBLE_RADIUS, 0, RUMBLE_RADIUS));
+                        for (LivingEntity target : list) {
+                            target.hurt(new DamageSource("stomp"), event.getAmount());
+                        }
                         event.setCanceled(true);
                     }
                 }

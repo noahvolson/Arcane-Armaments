@@ -9,11 +9,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 
-public class FearParticle extends TextureSheetParticle {
+public class StunParticle extends TextureSheetParticle {
     private final SpriteSet sprites;
 
-    protected FearParticle(ClientLevel level, double xCord, double yCord, double zCord, SpriteSet spriteSet,
-                              double xd, double yd, double zd) {
+    protected StunParticle(ClientLevel level, double xCord, double yCord, double zCord, SpriteSet spriteSet,
+                           double xd, double yd, double zd) {
         super(level, xCord, yCord, zCord, 0.0D, 0.0D, 0.0D);
 
         float f = this.random.nextFloat() * 0.6F + 0.4F;
@@ -21,7 +21,7 @@ public class FearParticle extends TextureSheetParticle {
         this.gCol = f;
         this.bCol = f;
 
-        this.quadSize *= 1.5F;             // Scale
+        this.quadSize *= 0.8F;             // Scale
         this.lifetime = 10;                // How long shown in ticks
 
         this.sprites = spriteSet;
@@ -67,7 +67,7 @@ public class FearParticle extends TextureSheetParticle {
         public Particle createParticle(@NotNull SimpleParticleType particleType, @NotNull ClientLevel level,
                                        double x, double y, double z,
                                        double dx, double dy, double dz) {
-            return new FearParticle(level, x, y, z, this.sprites, dx, dy, dz);
+            return new StunParticle(level, x, y, z, this.sprites, dx, dy, dz);
         }
     }
 }

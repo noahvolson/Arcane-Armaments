@@ -68,7 +68,7 @@ public class ClientEvents {
             event.register(ModParticles.EXECUTE_PARTICLES.get(), ExecuteParticle.Provider::new);
             event.register(ModParticles.DAGGER_PARTICLES.get(), DaggerParticle.Provider::new);
             event.register(ModParticles.BERSERK_PARTICLES.get(), BerserkParticle.Provider::new);
-            event.register(ModParticles.FEAR_PARTICLES.get(), FearParticle.Provider::new);
+            event.register(ModParticles.STUN_PARTICLES.get(), StunParticle.Provider::new);
             event.register(ModParticles.SHELL_PARTICLES.get(), ShellParticle.Provider::new);
             event.register(ModParticles.CHAIN_PARTICLES.get(), ChainParticle.Provider::new);
 

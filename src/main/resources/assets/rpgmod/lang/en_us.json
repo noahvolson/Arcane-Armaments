@@ -16,7 +16,7 @@
   "effect.rpgmod.zapped": "Zapped!",
   "effect.rpgmod.rupture": "Ruptured",
   "effect.rpgmod.berserk": "Berserk",
-  "effect.rpgmod.fear": "Fear",
+  "effect.rpgmod.stunned": "Stunned",
   "effect.rpgmod.stomping": "Stomping",
   "effect.rpgmod.shell": "Molten Shell",
 
@@ -43,6 +43,8 @@
   "death.attack.rupture.player": "%1$s bled to death after the precise strikes of %2$s",
   "death.attack.execute": "%1$s was executed",
   "death.attack.execute.player": "%1$s was executed by %2$s",
+  "death.attack.stomp": "%1$s was crushed",
+  "death.attack.execute.stomp": "%1$s was crushed by %2$s",
   "death.attack.overcast": "%1$s died of spell exhaustion",
   "death.attack.overcast.player": "%1$s died of spell exhaustion"
 }
