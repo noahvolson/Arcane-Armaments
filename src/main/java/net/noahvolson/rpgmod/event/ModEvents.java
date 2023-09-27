@@ -13,6 +13,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -186,12 +187,21 @@ public class ModEvents {
         // Break invisibility on attack
         @SubscribeEvent
         public static void onAttackEntity(AttackEntityEvent event) {
-            Player player = event.getEntity();
-            if (player.hasEffect(ModEffects.BLESSED_BLADE.get()) && event.getTarget() instanceof LivingEntity target) {
-                target.setHealth(target.getHealth() - 1);
-            }
-            if (player.hasEffect(MobEffects.INVISIBILITY)) {
-                player.removeEffect(MobEffects.INVISIBILITY);
+            if (event.getEntity() instanceof ServerPlayer player) {
+                if (player.hasEffect(ModEffects.BLESSED_BLADE.get()) && event.getTarget() instanceof LivingEntity target) {
+                    target.setHealth(target.getHealth() - 1);
+
+                    AreaEffectCloud sparkleCloud = new AreaEffectCloud(target.level, target.getX(), target.getY() + 1, target.getZ());
+                    sparkleCloud.setParticle(ModParticles.BLESSED_BLADE_PARTICLES.get());
+                    sparkleCloud.setRadius(1.5F);
+                    sparkleCloud.setDuration(5);
+                    sparkleCloud.setWaitTime(0);
+                    player.level.addFreshEntity(sparkleCloud);
+                }
+
+                if (player.hasEffect(MobEffects.INVISIBILITY)) {
+                    player.removeEffect(MobEffects.INVISIBILITY);
+                }
             }
         }
 

@@ -71,8 +71,7 @@ public class ClientEvents {
             event.register(ModParticles.STUN_PARTICLES.get(), StunParticle.Provider::new);
             event.register(ModParticles.SHELL_PARTICLES.get(), ShellParticle.Provider::new);
             event.register(ModParticles.CHAIN_PARTICLES.get(), ChainParticle.Provider::new);
-
-
+            event.register(ModParticles.BLESSED_BLADE_PARTICLES.get(), BlessedBladeParticle.Provider::new);
         }
     }
 }

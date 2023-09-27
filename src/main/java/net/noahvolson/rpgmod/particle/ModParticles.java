@@ -60,6 +60,9 @@ public class ModParticles {
     public static final RegistryObject<SimpleParticleType> CHAIN_PARTICLES =
             PARTICLE_TYPES.register("chain_particles", () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> BLESSED_BLADE_PARTICLES =
+            PARTICLE_TYPES.register("blessed_blade_particles", () -> new SimpleParticleType(true));
+
     public static void register(IEventBus eventBus) {
         PARTICLE_TYPES.register(eventBus);
     }
