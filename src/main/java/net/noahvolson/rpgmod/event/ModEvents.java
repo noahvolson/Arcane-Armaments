@@ -193,14 +193,21 @@ public class ModEvents {
         public static void onAttackEntity(AttackEntityEvent event) {
             if (event.getEntity() instanceof ServerPlayer player) {
                 if (player.hasEffect(ModEffects.BLESSED_BLADE.get()) && event.getTarget() instanceof LivingEntity target) {
-                    target.setHealth(target.getHealth() - 1);
+
+                    if (target.isInvertedHealAndHarm()) {
+                        target.setHealth(target.getHealth() - 2);
+                    } else {
+                        target.setHealth(target.getHealth() - 1);
+                    }
 
                     AreaEffectCloud sparkleCloud = new AreaEffectCloud(target.level, target.getX(), target.getY() + 1, target.getZ());
                     sparkleCloud.setParticle(ModParticles.BLESSED_BLADE_PARTICLES.get());
-                    sparkleCloud.setRadius(1.5F);
+                    sparkleCloud.setRadius(1F);
                     sparkleCloud.setDuration(5);
                     sparkleCloud.setWaitTime(0);
                     player.level.addFreshEntity(sparkleCloud);
+
+                    player.level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ILLUSIONER_MIRROR_MOVE, SoundSource.HOSTILE, 1F, 1.2F / (player.level.random.nextFloat() * 0.2F + 0.9F));
                 }
 
                 if (player.hasEffect(MobEffects.INVISIBILITY)) {

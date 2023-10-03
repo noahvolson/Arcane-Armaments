@@ -24,7 +24,7 @@ public class BlessedBladesSkill extends AreaEffectCloud implements Skill {
     public BlessedBladesSkill(ServerPlayer player) {
         super(player.level, player.getX(), player.getY() + 0.5, player.getZ());
         this.setParticle(ModParticles.BLESSED_BLADE_PARTICLES.get());
-        this.setRadius(2F);
+        this.setRadius(3F);
         this.setDuration(10);
         this.setWaitTime(0);
     }
