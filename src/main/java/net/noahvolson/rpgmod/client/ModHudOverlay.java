@@ -133,6 +133,7 @@ public class ModHudOverlay {
                 case "MAGE" -> MAGE;
                 case "ROGUE" -> ROGUE;
                 case "WARRIOR" -> WARRIOR;
+                case "CLERIC" -> CLERIC;
                 default -> null;
             };
             if (rpgClass != null) {
@@ -189,6 +190,7 @@ public class ModHudOverlay {
                 case "MAGE" -> MAGE;
                 case "ROGUE" -> ROGUE;
                 case "WARRIOR" -> WARRIOR;
+                case "CLERIC" -> CLERIC;
                 default -> null;
             };
             if (rpgClass != null) {

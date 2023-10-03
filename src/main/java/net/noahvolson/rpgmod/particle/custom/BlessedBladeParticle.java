@@ -21,16 +21,17 @@ public class BlessedBladeParticle extends TextureSheetParticle {
         this.gCol = f;
         this.bCol = f;
 
-        this.quadSize *= 0.85F;             // Scale
+        this.quadSize *= 0.35F + this.random.nextFloat() * .1;             // Scale
         this.lifetime = 5;                 // How long shown in ticks
 
         this.sprites = spriteSet;
         this.setSpriteFromAge(spriteSet);   // Needed to not CTD
-        this.setColorRgb(new Color(245, 202, 94));
+        this.setColorRgb(new Color(254, 202, 94));
 
     }
     @Override
     public void tick() {
+        this.quadSize *= 1.1;
         this.xo = this.x;
         this.yo = this.y;
         this.zo = this.z;
@@ -39,7 +40,7 @@ public class BlessedBladeParticle extends TextureSheetParticle {
         } else {
             this.setSpriteFromAge(this.sprites);
         }
-        stepColor(new Color(245, 202, 94), new Color(252, 224, 195));
+        stepColor(new Color(254, 202, 94), new Color(254, 254, 254));
     }
 
     private void setColorRgb(Color color) {

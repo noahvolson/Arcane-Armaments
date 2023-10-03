@@ -93,6 +93,8 @@ public class ModEvents {
                     setPlayerRpgClassCapabilityJoin(player, ROGUE);
                 } else if (offhand.is(WARRIOR.getClassItem())) {
                     setPlayerRpgClassCapabilityJoin(player, WARRIOR);
+                } else if (offhand.is(CLERIC.getClassItem())) {
+                    setPlayerRpgClassCapabilityJoin(player, CLERIC);
                 }
             }
         }
@@ -153,6 +155,8 @@ public class ModEvents {
                     setPlayerRpgClassCapabilityTick(player, ROGUE);
                 } else if (offhand.is(WARRIOR.getClassItem())) {
                     setPlayerRpgClassCapabilityTick(player, WARRIOR);
+                } else if (offhand.is(CLERIC.getClassItem())) {
+                    setPlayerRpgClassCapabilityTick(player, CLERIC);
                 }
             }
         }

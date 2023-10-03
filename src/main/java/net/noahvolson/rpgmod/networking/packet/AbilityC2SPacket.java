@@ -43,6 +43,7 @@ public class AbilityC2SPacket {
                         case "MAGE" -> MAGE;
                         case "ROGUE" -> ROGUE;
                         case "WARRIOR" -> WARRIOR;
+                        case "CLERIC" -> CLERIC;
                         default -> null;
                     };
                     if (rpgClass != null) {

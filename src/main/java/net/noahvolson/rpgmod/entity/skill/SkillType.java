@@ -21,7 +21,14 @@ public enum SkillType {
     BERSERK(    100,    10, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/warrior/warrior_1.png")),
     STOMP(     20,     0,  new ResourceLocation(RpgMod.MOD_ID, "textures/gui/warrior/warrior_2.png")),
     GRAPPLE(   20,     0,  new ResourceLocation(RpgMod.MOD_ID, "textures/gui/warrior/warrior_3.png")),
-    MOLTEN_SHELL(   20,     0,  new ResourceLocation(RpgMod.MOD_ID, "textures/gui/warrior/warrior_4.png"));
+    MOLTEN_SHELL(   20,     0,  new ResourceLocation(RpgMod.MOD_ID, "textures/gui/warrior/warrior_4.png")),
+
+    // cleric
+    BLESSED_BLADES(20, 0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/mage/mage_4.png")),
+    FAITH_SHIELD(20, 0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/mage/mage_4.png")),
+    SMITING_RAY(20, 0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/mage/mage_4.png")),
+    RESIST_DEATH(20, 0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/mage/mage_4.png"));
+
 
     private final int cooldown;
     private final int turnoverCooldown;
