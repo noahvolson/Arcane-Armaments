@@ -7,6 +7,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.noahvolson.rpgmod.RpgMod;
 import net.noahvolson.rpgmod.entity.skill.*;
+import net.noahvolson.rpgmod.entity.skill.cleric.SmitingRaySkill;
 import net.noahvolson.rpgmod.entity.skill.mage.BlinkSpell;
 import net.noahvolson.rpgmod.entity.skill.mage.BlizzardSpell;
 import net.noahvolson.rpgmod.entity.skill.mage.FireballSpell;
@@ -50,4 +51,8 @@ public class ModEntityTypes {
 
     public static final RegistryObject<EntityType<GrappleAttack>> MEATHOOK = ENTITY_TYPES.register("meathook",
             () -> EntityType.Builder.of((EntityType.EntityFactory<GrappleAttack>) GrappleAttack::new, MobCategory.MISC).sized(1.2F, 1.2F).build("meathook"));
+
+    // cleric spells
+    public static final RegistryObject<EntityType<AbstractProjectileAbility>> SMITING_RAY = ENTITY_TYPES.register("smiting_ray",
+            () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileAbility>) SmitingRaySkill::new, MobCategory.MISC).sized(0.5F, 0.5F).build("smiting_ray"));
 }

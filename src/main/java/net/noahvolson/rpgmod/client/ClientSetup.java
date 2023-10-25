@@ -30,5 +30,8 @@ public class ClientSetup {
         // warrior abilities
         EntityRenderers.register(ModEntityTypes.BERSERK.get(), ProjectileSpellRenderer::new);
         EntityRenderers.register(ModEntityTypes.MEATHOOK.get(), ProjectileSpellRenderer::new);
+
+        // cleric abilities
+        EntityRenderers.register(ModEntityTypes.SMITING_RAY.get(), ProjectileSpellRenderer::new);
     }
 }
