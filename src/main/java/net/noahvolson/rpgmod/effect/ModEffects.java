@@ -39,6 +39,15 @@ public class ModEffects {
     public static final RegistryObject<MobEffect> BLESSED_BLADE = MOB_EFFECTS.register("blessed_blade",
             () -> new BlessedBladeEffect(MobEffectCategory.HARMFUL, 0));
 
+    public static final RegistryObject<MobEffect> HOLY_SHIELD_3 = MOB_EFFECTS.register("holy_shield_3",
+            () -> new HolyShieldEffect(MobEffectCategory.BENEFICIAL, 0));
+
+    public static final RegistryObject<MobEffect> HOLY_SHIELD_2 = MOB_EFFECTS.register("holy_shield_2",
+            () -> new HolyShieldEffect(MobEffectCategory.BENEFICIAL, 0));
+
+    public static final RegistryObject<MobEffect> HOLY_SHIELD_1 = MOB_EFFECTS.register("holy_shield_1",
+            () -> new HolyShieldEffect(MobEffectCategory.BENEFICIAL, 0));
+
     public static final RegistryObject<MobEffect> COOLDOWN_1 = MOB_EFFECTS.register("cooldown_1",
             () -> new EmptyEffect(MobEffectCategory.BENEFICIAL));
 

@@ -1,10 +1,9 @@
-package net.noahvolson.rpgmod.entity.skill.warrior;
+package net.noahvolson.rpgmod.entity.skill.cleric;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.phys.Vec3;
@@ -16,28 +15,22 @@ import net.noahvolson.rpgmod.sound.ModSounds;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoltenShellSkill implements Skill {
-    private final int DURATION = 40;
-    private final int RADIUS = 4;
+public class HolyShieldSkill implements Skill {
+    private final int DURATION = 600;
+    private final int RADIUS = 1;
 
-    public MoltenShellSkill(ServerPlayer player) {
+    public HolyShieldSkill(ServerPlayer player) {
     }
 
     @Override
     public void use(ServerPlayer player) {
         if (player.level instanceof ServerLevel serverLevel) {
-            List<LivingEntity> list = player.level.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().inflate(RADIUS, RADIUS, RADIUS));
-            for (LivingEntity target : list) {
-                target.setSecondsOnFire(3);
-                target.knockback(1.25D, player.getX() - target.getX(), player.getZ() - target.getZ());
-            }
-            ArrayList<Vec3> points = getSpherePoints(1500, RADIUS);
+            ArrayList<Vec3> points = getSpherePoints(400, RADIUS);
             for (Vec3 point : points) {
                 Vec3 shifted = point.add(player.position());
                 serverLevel.sendParticles(ModParticles.HOLY_SHIELD_PARTICLES.get(), shifted.x, shifted.y + 1, shifted.z, 1, 0, 0, 0, 0);
             }
-            player.addEffect(new MobEffectInstance(ModEffects.SHELL.get(), DURATION, 0, false, false, true));
-            player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, DURATION, 4, false, false, false));
+            player.addEffect(new MobEffectInstance(ModEffects.HOLY_SHIELD_3.get(), DURATION, 0, false, false, true));
             player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.MOLTEN_SHELL.get(), SoundSource.HOSTILE, 1F, 1.2F / (player.level.random.nextFloat() * 0.2F + 0.9F));
         }
     }

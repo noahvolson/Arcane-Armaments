@@ -49,10 +49,11 @@ public class ModEntityTypes {
     public static final RegistryObject<EntityType<AbstractProjectileAbility>> BERSERK = ENTITY_TYPES.register("berserk",
             () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileAbility>) BerserkAttack::new, MobCategory.MISC).sized(0.5F, 0.5F).build("berserk"));
 
-    public static final RegistryObject<EntityType<GrappleAttack>> MEATHOOK = ENTITY_TYPES.register("meathook",
+    public static final RegistryObject<EntityType<GrappleAttack>> GRAPPLE = ENTITY_TYPES.register("grapple",
             () -> EntityType.Builder.of((EntityType.EntityFactory<GrappleAttack>) GrappleAttack::new, MobCategory.MISC).sized(1.2F, 1.2F).build("meathook"));
 
     // cleric spells
     public static final RegistryObject<EntityType<AbstractProjectileAbility>> SMITING_RAY = ENTITY_TYPES.register("smiting_ray",
-            () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileAbility>) SmitingRaySkill::new, MobCategory.MISC).sized(0.5F, 0.5F).build("smiting_ray"));
+            () -> EntityType.Builder.of((EntityType.EntityFactory<AbstractProjectileAbility>) SmitingRaySkill::new, MobCategory.MISC).sized(0.7F, 0.7F).build("smiting_ray"));
+
 }

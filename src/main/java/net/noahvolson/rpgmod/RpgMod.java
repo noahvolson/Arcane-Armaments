@@ -1,7 +1,6 @@
 package net.noahvolson.rpgmod;
 
 import com.mojang.logging.LogUtils;
-import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -59,7 +58,7 @@ public class RpgMod {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-            EntityRenderers.register(ModEntityTypes.MEATHOOK.get(), MeatHookRenderer::new);
+            EntityRenderers.register(ModEntityTypes.GRAPPLE.get(), MeatHookRenderer::new);
         }
     }
 }

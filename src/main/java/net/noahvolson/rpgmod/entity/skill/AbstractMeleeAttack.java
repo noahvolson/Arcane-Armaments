@@ -63,6 +63,22 @@ public abstract class AbstractMeleeAttack extends AbstractProjectileAbility {
         super.tick();
     }
 
+    public double getStartX() {
+        return startX;
+    }
+
+    public double getStartY() {
+        return startY;
+    }
+
+    public double getStartZ() {
+        return startZ;
+    }
+
+    public double getRange() {
+        return range;
+    }
+
     @Override
     protected void makeTrailParticle() {}
 }

@@ -3,6 +3,7 @@ package net.noahvolson.rpgmod.entity.skill;
 import net.minecraft.server.level.ServerPlayer;
 import net.noahvolson.rpgmod.entity.ModEntityTypes;
 import net.noahvolson.rpgmod.entity.skill.cleric.BlessedBladesSkill;
+import net.noahvolson.rpgmod.entity.skill.cleric.HolyShieldSkill;
 import net.noahvolson.rpgmod.entity.skill.cleric.SmitingRaySkill;
 import net.noahvolson.rpgmod.entity.skill.mage.BlinkSpell;
 import net.noahvolson.rpgmod.entity.skill.mage.BlizzardSpell;
@@ -37,14 +38,14 @@ public class SkillFactory {
             // Warrior
             case BERSERK -> new BerserkSkill(player);
             case STOMP -> new StompSkill(player);
-            case GRAPPLE -> new GrappleAttack(ModEntityTypes.MEATHOOK.get(), player, player.level);
+            case GRAPPLE -> new GrappleAttack(ModEntityTypes.GRAPPLE.get(), player, player.level);
             case MOLTEN_SHELL -> new MoltenShellSkill(player);
 
             // Cleric
             case BLESSED_BLADES -> new BlessedBladesSkill(player);
-            case FAITH_SHIELD -> new BlessedBladesSkill(player);
+            case HOLY_SHIELD -> new HolyShieldSkill(player);
             case SMITING_RAY -> new SmitingRaySkill(ModEntityTypes.SMITING_RAY.get(), player, player.level);
-            case RESIST_DEATH -> new BlessedBladesSkill(player);
+            case HEALING_AURA -> new BlessedBladesSkill(player);
 
         };
     }

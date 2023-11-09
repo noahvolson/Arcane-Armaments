@@ -25,9 +25,9 @@ public enum SkillType {
 
     // cleric
     BLESSED_BLADES(20, 0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/mage/mage_4.png")),
-    FAITH_SHIELD(20, 0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/mage/mage_4.png")),
+    HOLY_SHIELD(20, 0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/mage/mage_4.png")),
     SMITING_RAY(20, 0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/mage/mage_4.png")),
-    RESIST_DEATH(20, 0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/mage/mage_4.png"));
+    HEALING_AURA(20, 0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/mage/mage_4.png"));
 
 
     private final int cooldown;

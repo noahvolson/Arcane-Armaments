@@ -16,7 +16,6 @@ import net.noahvolson.rpgmod.sound.ModSounds;
 import org.jetbrains.annotations.NotNull;
 
 public class ExecuteDaggerAttack extends AbstractMeleeAttack {
-    private final int DURATION = 100;
 
     public ExecuteDaggerAttack(EntityType<AbstractProjectileAbility> entityType, Level world) {
         super(entityType, world);

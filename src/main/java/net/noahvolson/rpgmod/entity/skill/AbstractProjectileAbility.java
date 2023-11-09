@@ -115,6 +115,11 @@ public abstract class AbstractProjectileAbility extends AbstractArrow implements
     }
 
     @Override
+    protected float getWaterInertia() {
+        return 0.99F;
+    }
+
+    @Override
     public void use(ServerPlayer player) {
         Vec3 look = player.getLookAngle();
         this.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);

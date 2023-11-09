@@ -6,11 +6,13 @@ import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AreaEffectCloud;
@@ -22,6 +24,7 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
@@ -176,12 +179,14 @@ public class ModEvents {
             }
         }
 
-        // Remove mob aggro on invisibility
+        // Remove mob aggro on invisibility and blindness
         @SubscribeEvent
         public static void onLivingSetAttackTargetEvent (LivingSetAttackTargetEvent event) {
             if (event.getTarget() instanceof Player player) {
                 if (event.getEntity() instanceof Mob mob) {
                     if (player.hasEffect(MobEffects.INVISIBILITY)) {
+                        mob.setTarget(null);
+                    } else if (mob.hasEffect(MobEffects.BLINDNESS)) {
                         mob.setTarget(null);
                     }
                 }
@@ -194,11 +199,8 @@ public class ModEvents {
             if (event.getEntity() instanceof ServerPlayer player) {
                 if (player.hasEffect(ModEffects.BLESSED_BLADE.get()) && event.getTarget() instanceof LivingEntity target) {
 
-                    if (target.isInvertedHealAndHarm()) {
-                        target.setHealth(target.getHealth() - 2);
-                    } else {
-                        target.setHealth(target.getHealth() - 1);
-                    }
+                    target.setHealth(target.getHealth() - 1);
+                    player.setHealth(player.getHealth() + 1);
 
                     AreaEffectCloud sparkleCloud = new AreaEffectCloud(target.level, target.getX(), target.getY() + 1, target.getZ());
                     sparkleCloud.setParticle(ModParticles.BLESSED_BLADE_PARTICLES.get());
@@ -216,18 +218,53 @@ public class ModEvents {
             }
         }
 
-        // Take double damage when berserking
+        private static ArrayList<Vec3> getSpherePoints(int samples, int r) {
+            ArrayList<Vec3> points = new ArrayList<>();
+            double phi = Math.PI * (Math.sqrt(5.) - 1.);        // golden angle in radians
+
+            for (int i = 0; i < samples; i++) {
+                float y = 1 - (i / (float)(samples - 1)) * 2;   // y goes from 1 to -1
+                double radius = Math.sqrt(1 - y * y);           // radius at y
+                double theta = phi * i;
+                double x = Math.cos(theta) * radius;
+                double z = Math.sin(theta) * radius;
+                points.add(new Vec3(x * r, y * r, z * r));
+            }
+            return points;
+        }
+
+        private static void shieldPlayer (LivingHurtEvent event, ServerPlayer player, ServerLevel level, MobEffect effect, MobEffect newEffect) {
+            if (player.hasEffect(effect)) {
+                int duration = player.getEffect(effect).getDuration();
+                player.removeEffect(effect);
+                if (newEffect != null) {
+                    player.addEffect(new MobEffectInstance(newEffect, duration, 0, false, false, true));
+                }
+                ArrayList<Vec3> points = getSpherePoints(500, 1);
+                for (Vec3 point : points) {
+                    Vec3 shifted = point.add(player.position());
+                    level.sendParticles(ModParticles.HOLY_SHIELD_PARTICLES.get(), shifted.x, shifted.y + 1, shifted.z, 1, 0, 0, 0, 0);
+                }
+
+                event.setCanceled(true);
+            }
+        }
+
         @SubscribeEvent
         public static void onLivingHurt(LivingHurtEvent event) {
-            if (event.getEntity() instanceof Player player) {
+            if (event.getEntity() instanceof ServerPlayer player && player.level instanceof ServerLevel level) {
+
+                shieldPlayer(event, player, level, ModEffects.HOLY_SHIELD_1.get(), null);
+                shieldPlayer(event, player, level, ModEffects.HOLY_SHIELD_2.get(), ModEffects.HOLY_SHIELD_1.get());
+                shieldPlayer(event, player, level, ModEffects.HOLY_SHIELD_3.get(), ModEffects.HOLY_SHIELD_2.get());
+
                 if (player.hasEffect(ModEffects.BERSERK.get())) {
-                    event.setAmount(event.getAmount() * 2);
+                    event.setAmount(event.getAmount() * 1.5F);
                 }
                 if (player.hasEffect(ModEffects.SHELL.get())) {
                     event.setAmount(event.getAmount() / 4);
                 }
                 if (event.getSource() == DamageSource.FALL) {
-                    System.out.println(fallDamageImmune);
                     if (player.hasEffect(ModEffects.STOMPING.get()) || fallDamageImmune.contains(player.getUUID())) {
                         fallDamageImmune.remove(player.getUUID());
 
