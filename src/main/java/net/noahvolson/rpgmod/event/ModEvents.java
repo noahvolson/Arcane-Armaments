@@ -32,6 +32,7 @@ import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.living.LivingHealEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
@@ -200,7 +201,7 @@ public class ModEvents {
                 if (player.hasEffect(ModEffects.BLESSED_BLADE.get()) && event.getTarget() instanceof LivingEntity target) {
 
                     target.setHealth(target.getHealth() - 1);
-                    player.setHealth(player.getHealth() + 1);
+                    player.heal(1);
 
                     AreaEffectCloud sparkleCloud = new AreaEffectCloud(target.level, target.getX(), target.getY() + 1, target.getZ());
                     sparkleCloud.setParticle(ModParticles.BLESSED_BLADE_PARTICLES.get());
@@ -246,6 +247,15 @@ public class ModEvents {
                     level.sendParticles(ModParticles.HOLY_SHIELD_PARTICLES.get(), shifted.x, shifted.y + 1, shifted.z, 1, 0, 0, 0, 0);
                 }
 
+                event.setCanceled(true);
+            }
+        }
+
+        @SubscribeEvent
+        public static void onLivingHeal(LivingHealEvent event) {
+            LivingEntity entity = event.getEntity();
+            if(entity.hasEffect(ModEffects.SMITING.get())) {
+                entity.hurt(new DamageSource("smiting"), event.getAmount());
                 event.setCanceled(true);
             }
         }

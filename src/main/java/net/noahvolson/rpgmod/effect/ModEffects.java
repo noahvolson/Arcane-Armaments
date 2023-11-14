@@ -48,6 +48,12 @@ public class ModEffects {
     public static final RegistryObject<MobEffect> HOLY_SHIELD_1 = MOB_EFFECTS.register("holy_shield_1",
             () -> new HolyShieldEffect(MobEffectCategory.BENEFICIAL, 0));
 
+    public static final RegistryObject<MobEffect> SMITING = MOB_EFFECTS.register("smiting",
+            () -> new SmitingEffect(MobEffectCategory.HARMFUL, 0));
+
+    public static final RegistryObject<MobEffect> HEALING_AURA = MOB_EFFECTS.register("healing_aura",
+            () -> new HealingAuraEffect(MobEffectCategory.BENEFICIAL, 0));
+
     public static final RegistryObject<MobEffect> COOLDOWN_1 = MOB_EFFECTS.register("cooldown_1",
             () -> new EmptyEffect(MobEffectCategory.BENEFICIAL));
 

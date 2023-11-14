@@ -69,6 +69,9 @@ public class ModParticles {
     public static final RegistryObject<SimpleParticleType> HOLY_SHIELD_PARTICLES =
             PARTICLE_TYPES.register("holy_shield_particles", () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> HEAL_PARTICLES =
+            PARTICLE_TYPES.register("heal_particles", () -> new SimpleParticleType(true));
+
     public static void register(IEventBus eventBus) {
         PARTICLE_TYPES.register(eventBus);
     }

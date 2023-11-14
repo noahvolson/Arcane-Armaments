@@ -3,6 +3,7 @@ package net.noahvolson.rpgmod.entity.skill;
 import net.minecraft.server.level.ServerPlayer;
 import net.noahvolson.rpgmod.entity.ModEntityTypes;
 import net.noahvolson.rpgmod.entity.skill.cleric.BlessedBladesSkill;
+import net.noahvolson.rpgmod.entity.skill.cleric.HealingAuraSkill;
 import net.noahvolson.rpgmod.entity.skill.cleric.HolyShieldSkill;
 import net.noahvolson.rpgmod.entity.skill.cleric.SmitingRaySkill;
 import net.noahvolson.rpgmod.entity.skill.mage.BlinkSpell;
@@ -45,7 +46,7 @@ public class SkillFactory {
             case BLESSED_BLADES -> new BlessedBladesSkill(player);
             case HOLY_SHIELD -> new HolyShieldSkill(player);
             case SMITING_RAY -> new SmitingRaySkill(ModEntityTypes.SMITING_RAY.get(), player, player.level);
-            case HEALING_AURA -> new BlessedBladesSkill(player);
+            case HEALING_AURA -> new HealingAuraSkill(player);
 
         };
     }

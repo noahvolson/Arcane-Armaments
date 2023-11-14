@@ -23,6 +23,8 @@
   "effect.rpgmod.holy_shield_3": "Holy Shield III",
   "effect.rpgmod.holy_shield_2": "Holy Shield II",
   "effect.rpgmod.holy_shield_1": "Holy Shield I",
+  "effect.rpgmod.healing_aura": "Healing Aura",
+  "effect.rpgmod.smiting": "Smiting",
 
   "effect.rpgmod.cooldown_1": "cooldown_1",
   "effect.rpgmod.cooldown_2": "cooldown_2",
@@ -42,13 +44,15 @@
   "sounds.rpgmod.failed_execute": "Failed Execute Sound",
 
   "death.attack.venom": "%1$s succumbed to venom",
-  "death.attack.venom.player": "%1$s died to the venomous blades of %2$s",
+  "death.attack.venom.player": "%1$s fell to the venomous blades of %2$s",
   "death.attack.rupture": "%1$s ran too fast and bled out",
-  "death.attack.rupture.player": "%1$s bled to death after the precise strikes of %2$s",
+  "death.attack.rupture.player": "%1$s bled to death from the precise strikes of %2$s",
   "death.attack.execute": "%1$s was executed",
   "death.attack.execute.player": "%1$s was executed by %2$s",
   "death.attack.stomp": "%1$s was crushed",
   "death.attack.execute.stomp": "%1$s was crushed by %2$s",
   "death.attack.overcast": "%1$s died of spell exhaustion",
-  "death.attack.overcast.player": "%1$s died of spell exhaustion"
+  "death.attack.overcast.player": "%1$s died of spell exhaustion",
+  "death.attack.smiting": "%1$s healed to death",
+  "death.attack.smiting.player": "%1$s was healed to death by %2$s"
 }

@@ -1,9 +1,6 @@
 package net.noahvolson.rpgmod.entity.skill.cleric;
 
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
@@ -15,7 +12,7 @@ import net.noahvolson.rpgmod.particle.ModParticles;
 import org.jetbrains.annotations.NotNull;
 
 public class SmitingRaySkill extends AbstractProjectileAbility {
-    private final int DURATION = 40;
+    private final int DURATION = 100;
     private final double range = 25;
 
     private double startX = 0;
@@ -41,7 +38,7 @@ public class SmitingRaySkill extends AbstractProjectileAbility {
     @Override
     protected void doEffectsEntity(@NotNull EntityHitResult ray) {
         if (!this.level.isClientSide && ray.getEntity() instanceof LivingEntity livingentity) {
-            livingentity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, DURATION, 1));
+            livingentity.addEffect(new MobEffectInstance(ModEffects.SMITING.get(), DURATION, 1));
         }
     }
 
