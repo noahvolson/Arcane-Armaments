@@ -9,6 +9,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.noahvolson.rpgmod.effect.ModEffects;
 import net.noahvolson.rpgmod.entity.skill.AbstractProjectileAbility;
 import net.noahvolson.rpgmod.particle.ModParticles;
+import net.noahvolson.rpgmod.sound.ModSounds;
 import org.jetbrains.annotations.NotNull;
 
 public class SmitingRaySkill extends AbstractProjectileAbility {
@@ -24,7 +25,7 @@ public class SmitingRaySkill extends AbstractProjectileAbility {
     }
 
     public SmitingRaySkill(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
-        super(entityType, shooter, world, null);
+        super(entityType, shooter, world, ModSounds.SMITING_RAY_CAST.get(), ModSounds.SMITING_RAY_IMPACT.get(), ModSounds.SMITING_RAY_IMPACT.get());
         this.setNoGravity(true);
 
         this.startX = shooter.getX();

@@ -24,10 +24,10 @@ public enum SkillType {
     MOLTEN_SHELL(   20,     0,  new ResourceLocation(RpgMod.MOD_ID, "textures/gui/warrior/warrior_4.png")),
 
     // cleric
-    BLESSED_BLADES(20, 0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/mage/mage_4.png")),
-    HOLY_SHIELD(20, 0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/mage/mage_4.png")),
-    SMITING_RAY(20, 0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/mage/mage_4.png")),
-    HEALING_AURA(20, 0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/mage/mage_4.png"));
+    BLESSED_BLADES(20, 0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/cleric/cleric_1.png")),
+    HOLY_SHIELD(20, 0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/cleric/cleric_2.png")),
+    SMITING_RAY(20, 0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/cleric/cleric_3.png")),
+    HEALING_AURA(20, 0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/cleric/cleric_4.png"));
 
 
     private final int cooldown;

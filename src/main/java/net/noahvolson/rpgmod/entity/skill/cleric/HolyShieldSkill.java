@@ -31,7 +31,7 @@ public class HolyShieldSkill implements Skill {
                 serverLevel.sendParticles(ModParticles.HOLY_SHIELD_PARTICLES.get(), shifted.x, shifted.y + 1, shifted.z, 1, 0, 0, 0, 0);
             }
             player.addEffect(new MobEffectInstance(ModEffects.HOLY_SHIELD_3.get(), DURATION, 0, false, false, true));
-            player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.MOLTEN_SHELL.get(), SoundSource.HOSTILE, 1F, 1.2F / (player.level.random.nextFloat() * 0.2F + 0.9F));
+            player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.HOLY_SHIELD_CAST.get(), SoundSource.HOSTILE, 1F, 1.2F / (player.level.random.nextFloat() * 0.2F + 0.9F));
         }
     }
 

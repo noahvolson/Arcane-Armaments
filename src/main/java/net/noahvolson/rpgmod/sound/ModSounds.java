@@ -32,6 +32,12 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> STOMP_IMPACT = registerSoundEvent("stomp_impact");
     public static final RegistryObject<SoundEvent> MOLTEN_SHELL = registerSoundEvent("molten_shell");
 
+    public static final RegistryObject<SoundEvent> HOLY_SHIELD_CAST = registerSoundEvent("holy_shield_cast");
+    public static final RegistryObject<SoundEvent> HOLY_SHIELD_IMPACT = registerSoundEvent("holy_shield_impact");
+    public static final RegistryObject<SoundEvent> SMITING_RAY_CAST = registerSoundEvent("smiting_ray_cast");
+    public static final RegistryObject<SoundEvent> SMITING_RAY_IMPACT = registerSoundEvent("smiting_ray_impact");
+    public static final RegistryObject<SoundEvent> HEALING_AURA = registerSoundEvent("healing_aura");
+
 
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(RpgMod.MOD_ID, name)));

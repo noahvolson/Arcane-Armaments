@@ -40,7 +40,7 @@ public class HealingAuraEffect extends MobEffect {
             if (duration < HealingAuraSkill.EFFECT_DURATION && duration % 40 == 0) {
                 HealingAuraSkill cloud = new HealingAuraSkill(player);
                 level.addFreshEntity(cloud);
-                level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.SMOKE_BOMB.get(), SoundSource.HOSTILE, .9F, 1.2F / (level.random.nextFloat() * 0.2F + 0.9F));
+                level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.HEALING_AURA.get(), SoundSource.HOSTILE, .9F, 1.2F / (level.random.nextFloat() * 0.2F + 0.9F));
             }
         }
         super.applyEffectTick(pLivingEntity, pAmplifier);

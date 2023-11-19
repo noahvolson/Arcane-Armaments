@@ -39,7 +39,7 @@ public class HealingAuraSkill extends AreaEffectCloud implements Skill {
     public void use(ServerPlayer player) {
         player.level.addFreshEntity(this);
         player.addEffect(new MobEffectInstance(ModEffects.HEALING_AURA.get(), EFFECT_DURATION, 0, false, false, true));
-        this.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.SMOKE_BOMB.get(), SoundSource.HOSTILE, .9F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+        this.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.HEALING_AURA.get(), SoundSource.HOSTILE, .9F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
     }
 
     @Override

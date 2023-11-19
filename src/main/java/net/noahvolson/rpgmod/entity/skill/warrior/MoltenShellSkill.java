@@ -34,7 +34,7 @@ public class MoltenShellSkill implements Skill {
             ArrayList<Vec3> points = getSpherePoints(1500, RADIUS);
             for (Vec3 point : points) {
                 Vec3 shifted = point.add(player.position());
-                serverLevel.sendParticles(ModParticles.HOLY_SHIELD_PARTICLES.get(), shifted.x, shifted.y + 1, shifted.z, 1, 0, 0, 0, 0);
+                serverLevel.sendParticles(ModParticles.SHELL_PARTICLES.get(), shifted.x, shifted.y + 1, shifted.z, 1, 0, 0, 0, 0);
             }
             player.addEffect(new MobEffectInstance(ModEffects.SHELL.get(), DURATION, 0, false, false, true));
             player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, DURATION, 4, false, false, false));

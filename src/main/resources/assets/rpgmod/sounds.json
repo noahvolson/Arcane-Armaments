@@ -94,5 +94,35 @@
     "sounds": [
       "rpgmod:molten_shell"
     ]
+  },
+  "holy_shield_cast": {
+    "subtitle": "sounds.rpgmod.holy_shield_cast",
+    "sounds": [
+      "rpgmod:holy_shield_cast"
+    ]
+  },
+  "holy_shield_impact": {
+    "subtitle": "sounds.rpgmod.holy_shield_impact",
+    "sounds": [
+      "rpgmod:holy_shield_impact"
+    ]
+  },
+  "smiting_ray_cast": {
+    "subtitle": "sounds.rpgmod.smiting_ray_cast",
+    "sounds": [
+      "rpgmod:smiting_ray_cast"
+    ]
+  },
+  "smiting_ray_impact": {
+    "subtitle": "sounds.rpgmod.smiting_ray_impact",
+    "sounds": [
+      "rpgmod:smiting_ray_impact"
+    ]
+  },
+  "healing_aura": {
+    "subtitle": "sounds.rpgmod.healing_aura",
+    "sounds": [
+      "rpgmod:healing_aura"
+    ]
   }
 }
