@@ -65,13 +65,19 @@ public class ModEvents {
         static ArrayList<UUID> fallDamageImmune = new ArrayList<>();
 
         private static void setPlayerRpgClassCapabilityTick(ServerPlayer player, RpgClass rpgClass) {
-            if (player != null) {
+            if (player != null && rpgClass != null) {
                 player.getCapability(PlayerRpgClassProvider.PLAYER_RPG_CLASS).ifPresent(curClass -> {
                     if (!curClass.getRpgClass().equals(rpgClass.getId())) {
                         player.sendSystemMessage(Component.literal("Swapping to " + rpgClass.getId()).withStyle(ChatFormatting.AQUA));
                         curClass.setRpgClass(rpgClass.getId());
                         ModMessages.sendToPlayer(new RpgClassSyncS2CPacket(rpgClass.getId()), player);
                     }
+                });
+            }
+            else if (player != null) {
+                player.getCapability(PlayerRpgClassProvider.PLAYER_RPG_CLASS).ifPresent(curClass -> {
+                    curClass.setRpgClass("");
+                    ModMessages.sendToPlayer(new RpgClassSyncS2CPacket(""), player);
                 });
             }
         }
@@ -161,6 +167,8 @@ public class ModEvents {
                     setPlayerRpgClassCapabilityTick(player, WARRIOR);
                 } else if (offhand.is(CLERIC.getClassItem())) {
                     setPlayerRpgClassCapabilityTick(player, CLERIC);
+                } else {
+                    setPlayerRpgClassCapabilityTick(player, null);
                 }
             }
         }
