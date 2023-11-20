@@ -23,7 +23,7 @@ public class ExecuteDaggerAttack extends AbstractMeleeAttack {
 
     public ExecuteDaggerAttack(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
         super(entityType, shooter, world, null);
-        this.setBaseDamage(1);
+        this.setBaseDamage(this.getBaseDamage() * 0.5);
     }
 
     @Override

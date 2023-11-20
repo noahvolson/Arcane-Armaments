@@ -1,11 +1,16 @@
 package net.noahvolson.rpgmod.entity.skill;
 
+import com.google.common.collect.Multimap;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import org.jetbrains.annotations.NotNull;
@@ -30,6 +35,11 @@ public abstract class AbstractMeleeAttack extends AbstractProjectileAbility {
         this.startY = shooter.getY();
         this.startZ = shooter.getZ();
         this.attackSound = attackSound;
+
+        // Set damage based on main hand weapon
+        Multimap<Attribute, AttributeModifier> mainHand = shooter.getMainHandItem().getAttributeModifiers(EquipmentSlot.MAINHAND);
+        double damage = mainHand.size() > 0 ? (mainHand.get(Attributes.ATTACK_DAMAGE).iterator().next().getAmount() / 2.5) : 1;
+        this.setBaseDamage(damage); // Need to divide by 2.5 to account for arrow velocity (which multiplies damage)
 
         if (shooter instanceof ServerPlayer serverplayer) {
             this.range = serverplayer.getAttackRange();

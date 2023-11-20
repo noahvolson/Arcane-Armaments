@@ -20,9 +20,5 @@ public class BerserkAttack extends AbstractMeleeAttack implements Skill {
 
     public BerserkAttack(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
         super(entityType, shooter, world, SoundEvents.PLAYER_ATTACK_SWEEP);
-
-        Multimap<Attribute, AttributeModifier> mainHand = shooter.getMainHandItem().getAttributeModifiers(EquipmentSlot.MAINHAND);
-        double damage = mainHand.size() > 0 ? (mainHand.get(Attributes.ATTACK_DAMAGE).iterator().next().getAmount() / 2.5) : 1;
-        this.setBaseDamage(damage); // Need to divide by 2.5 to account for arrow velocity (which multiplies damage)
     }
 }

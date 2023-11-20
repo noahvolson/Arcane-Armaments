@@ -25,7 +25,7 @@ public class RuptureDaggerAttack extends AbstractMeleeAttack {
 
     public RuptureDaggerAttack(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
         super(entityType, shooter, world, ModSounds.RUPTURE_DAGGER.get());
-        this.setBaseDamage(1);
+        this.setBaseDamage(this.getBaseDamage() * 0.5);
     }
 
     @Override
