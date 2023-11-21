@@ -2,6 +2,8 @@
   "item.rpgmod.zircon" : "Zircon",
   "item.rpgmod.raw_zircon" : "Raw Zircon",
 
+  "block.rpgmod.gem_infusing_station" : "Gem Infusing Station",
+
   "itemGroup.rpgmodtab": "Rpg Mod",
 
   "key.category.rpgmod.ability_bindings": "Ability Bindings",

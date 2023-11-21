@@ -1,6 +1,7 @@
 package net.noahvolson.rpgmod;
 
 import com.mojang.logging.LogUtils;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -9,12 +10,16 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.noahvolson.rpgmod.block.ModBlocks;
+import net.noahvolson.rpgmod.block.entity.ModBlockEntities;
+import net.noahvolson.rpgmod.screen.GemInfusingStationScreen;
 import net.noahvolson.rpgmod.effect.ModEffects;
 import net.noahvolson.rpgmod.entity.ModEntityTypes;
 import net.noahvolson.rpgmod.entity.client.render.MeatHookRenderer;
 import net.noahvolson.rpgmod.item.ModItems;
 import net.noahvolson.rpgmod.networking.ModMessages;
 import net.noahvolson.rpgmod.particle.ModParticles;
+import net.noahvolson.rpgmod.screen.ModMenuTypes;
 import net.noahvolson.rpgmod.sound.ModSounds;
 import org.slf4j.Logger;
 import software.bernie.example.GeckoLibMod;
@@ -30,17 +35,16 @@ public class RpgMod {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ModItems.register(modEventBus);
-
+        ModBlocks.register(modEventBus);
+        ModBlockEntities.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
         ModParticles.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 
         MinecraftForge.EVENT_BUS.register(this);
-
         ModEntityTypes.ENTITY_TYPES.register(modEventBus);
-
         ModEffects.MOB_EFFECTS.register(modEventBus);
-
         ModSounds.SOUND_EVENTS.register(modEventBus);
 
         GeckoLibMod.DISABLE_IN_DEV = true;
@@ -59,6 +63,7 @@ public class RpgMod {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             EntityRenderers.register(ModEntityTypes.GRAPPLE.get(), MeatHookRenderer::new);
+            MenuScreens.register(ModMenuTypes.GEM_INFUSING_STATION_MENU.get(), GemInfusingStationScreen::new);
         }
     }
 }
