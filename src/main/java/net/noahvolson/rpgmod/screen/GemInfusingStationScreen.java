@@ -3,7 +3,6 @@ package net.noahvolson.rpgmod.screen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.screens.Screen;
 import net.noahvolson.rpgmod.RpgMod;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -14,6 +13,8 @@ import net.minecraft.world.entity.player.Inventory;
 public class GemInfusingStationScreen extends AbstractContainerScreen<GemInfusingStationMenu> {
     private static final ResourceLocation TEXTURE =
             new ResourceLocation(RpgMod.MOD_ID,"textures/gui/gem_infusing_station_gui.png");
+
+    private final int[] buttonDownCounter = {0,0,0,0};
 
     public GemInfusingStationScreen(GemInfusingStationMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);
@@ -34,21 +35,32 @@ public class GemInfusingStationScreen extends AbstractContainerScreen<GemInfusin
 
         this.blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight);
 
-        renderProgressArrow(pPoseStack, x, y);
         renderSkillInfo(pPoseStack, x, y, pMouseX, pMouseY);
-        this.addWidget(new Button(x + 76, y + 8, 92, 17, Component.literal("TEST"), this::onButtonClicked));
-        this.addWidget(new Button(x + 76, y + 25, 92, 17, Component.literal("TEST"), this::onButtonClicked));
-        this.addWidget(new Button(x + 76, y + 42, 92, 17, Component.literal("TEST"), this::onButtonClicked));
-        this.addWidget(new Button(x + 76, y + 59, 92, 17, Component.literal("TEST"), this::onButtonClicked));
-    }
-    private void onButtonClicked(Button button) {
-        System.out.println("n9v9o9 - Button clicked!!!");
-    }
-    //TODO Remove me!
-    private void renderProgressArrow(PoseStack pPoseStack, int x, int y) {
-        if(menu.isCrafting()) {
-            blit(pPoseStack, x + 105, y + 33, 176, 0, 8, menu.getScaledProgress());
+        this.addWidget(new Button(x + 76, y + 8, 92, 17, Component.literal(""), (button) -> onButtonClicked(button, pPoseStack, 0)));
+        this.addWidget(new Button(x + 76, y + 25, 92, 17, Component.literal(""), (button) -> onButtonClicked(button, pPoseStack, 1)));
+        this.addWidget(new Button(x + 76, y + 42, 92, 17, Component.literal(""), (button) -> onButtonClicked(button, pPoseStack, 2)));
+        this.addWidget(new Button(x + 76, y + 59, 92, 17, Component.literal(""), (button) -> onButtonClicked(button, pPoseStack, 3)));
+
+        if (buttonDownCounter[0] > 0) {
+            blit(pPoseStack, x + 76, y + 8, 0, 202, 91, 16);
+            buttonDownCounter[0]--;
         }
+        if (buttonDownCounter[1] > 0) {
+            blit(pPoseStack, x + 76, y + 25, 0, 202, 91, 16);
+            buttonDownCounter[1]--;
+        }
+        if (buttonDownCounter[2] > 0) {
+            blit(pPoseStack, x + 76, y + 42, 0, 202, 91, 16);
+            buttonDownCounter[2]--;
+        }
+        if (buttonDownCounter[3] > 0) {
+            blit(pPoseStack, x + 76, y + 59, 0, 202, 91, 16);
+            buttonDownCounter[3]--;
+        }
+
+    }
+    private void onButtonClicked(Button button, PoseStack pPoseStack, int index) {
+        buttonDownCounter[index] = 20;
     }
 
     private void renderSkillInfo(PoseStack pPoseStack, int x, int y, int pMouseX, int pMouseY) {
