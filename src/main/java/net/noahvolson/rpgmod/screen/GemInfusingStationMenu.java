@@ -1,15 +1,5 @@
 package net.noahvolson.rpgmod.screen;
 
-import net.minecraft.Util;
-import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
-import net.minecraft.world.item.EnchantedBookItem;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.noahvolson.rpgmod.block.ModBlocks;
 import net.noahvolson.rpgmod.block.entity.GemInfusingStationBlockEntity;
 import net.minecraft.network.FriendlyByteBuf;
@@ -21,8 +11,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
-
-import java.util.List;
 
 public class GemInfusingStationMenu extends AbstractContainerMenu {
     public final GemInfusingStationBlockEntity blockEntity;
@@ -50,18 +38,6 @@ public class GemInfusingStationMenu extends AbstractContainerMenu {
         });
 
         addDataSlots(data);
-    }
-
-    public boolean isCrafting() {
-        return data.get(0) > 0;
-    }
-
-    public int getScaledProgress() {
-        int progress = this.data.get(0);
-        int maxProgress = this.data.get(1);  // Max Progress
-        int progressArrowSize = 26; // This is the height in pixels of your arrow
-
-        return maxProgress != 0 && progress != 0 ? progress * progressArrowSize / maxProgress : 0;
     }
 
     // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons
@@ -145,8 +121,7 @@ public class GemInfusingStationMenu extends AbstractContainerMenu {
 
     @Override
     public boolean clickMenuButton(Player player, int button) {
-        System.out.println("Clicked button " + button +  " from side: " + player.level);
-
+        this.blockEntity.craftItem();
         switch (button) {
             case 0 -> {
                 buttonDownCounter[0] = 20;

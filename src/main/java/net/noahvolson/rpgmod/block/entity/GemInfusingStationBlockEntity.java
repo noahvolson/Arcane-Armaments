@@ -34,34 +34,24 @@ public class GemInfusingStationBlockEntity extends BlockEntity implements MenuPr
     };
 
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
-
     protected final ContainerData data;
-    private int progress = 0;
-    private int maxProgress = 78;
 
     public GemInfusingStationBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.GEM_INFUSING_STATION.get(), pos, state);
         this.data = new ContainerData() {
             @Override
-            public int get(int index) {
-                return switch (index) {
-                    case 0 -> GemInfusingStationBlockEntity.this.progress;
-                    case 1 -> GemInfusingStationBlockEntity.this.maxProgress;
-                    default -> 0;
-                };
+            public int get(int p_39284_) {
+                return 0;
             }
 
             @Override
-            public void set(int index, int value) {
-                switch (index) {
-                    case 0 -> GemInfusingStationBlockEntity.this.progress = value;
-                    case 1 -> GemInfusingStationBlockEntity.this.maxProgress = value;
-                }
+            public void set(int p_39285_, int p_39286_) {
+
             }
 
             @Override
             public int getCount() {
-                return 2;
+                return 0;
             }
         };
     }
@@ -101,8 +91,6 @@ public class GemInfusingStationBlockEntity extends BlockEntity implements MenuPr
     @Override
     protected void saveAdditional(CompoundTag nbt) {
         nbt.put("inventory", itemHandler.serializeNBT());
-        nbt.putInt("gem_infusing_station.progress", this.progress);
-
         super.saveAdditional(nbt);
     }
 
@@ -110,7 +98,6 @@ public class GemInfusingStationBlockEntity extends BlockEntity implements MenuPr
     public void load(CompoundTag nbt) {
         super.load(nbt);
         itemHandler.deserializeNBT(nbt.getCompound("inventory"));
-        progress = nbt.getInt("gem_infusing_station.progress");
     }
 
     public void drops() {
@@ -122,46 +109,23 @@ public class GemInfusingStationBlockEntity extends BlockEntity implements MenuPr
         Containers.dropContents(this.level, this.worldPosition, inventory);
     }
 
-    public static void tick(Level level, BlockPos pos, BlockState state, GemInfusingStationBlockEntity pEntity) {
-        if(level.isClientSide()) {
-            return;
-        }
-
-        if(hasRecipe(pEntity)) {
-            pEntity.progress++;
-            setChanged(level, pos, state);
-
-            if(pEntity.progress >= pEntity.maxProgress) {
-                craftItem(pEntity);
+    public void craftItem() {
+        if(this.level != null && !this.level.isClientSide) {
+            if(hasRecipe()) {
+                this.itemHandler.extractItem(0, 1, false);
+                this.itemHandler.setStackInSlot(1, new ItemStack(ModItems.ZIRCON.get(),
+                        this.itemHandler.getStackInSlot(1).getCount() + 1));
             }
-        } else {
-            pEntity.resetProgress();
-            setChanged(level, pos, state);
         }
     }
 
-    private void resetProgress() {
-        this.progress = 0;
-    }
-
-    private static void craftItem(GemInfusingStationBlockEntity pEntity) {
-
-        if(hasRecipe(pEntity)) {
-            pEntity.itemHandler.extractItem(0, 1, false);
-            pEntity.itemHandler.setStackInSlot(1, new ItemStack(ModItems.ZIRCON.get(),
-                    pEntity.itemHandler.getStackInSlot(1).getCount() + 1));
-
-            pEntity.resetProgress();
-        }
-    }
-
-    private static boolean hasRecipe(GemInfusingStationBlockEntity entity) {
-        SimpleContainer inventory = new SimpleContainer(entity.itemHandler.getSlots());
-        for (int i = 0; i < entity.itemHandler.getSlots(); i++) {
-            inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
+    private boolean hasRecipe() {
+        SimpleContainer inventory = new SimpleContainer(this.itemHandler.getSlots());
+        for (int i = 0; i < this.itemHandler.getSlots(); i++) {
+            inventory.setItem(i, this.itemHandler.getStackInSlot(i));
         }
 
-        boolean hasRawGemInFirstSlot = entity.itemHandler.getStackInSlot(0).getItem() == ModItems.RAW_ZIRCON.get();
+        boolean hasRawGemInFirstSlot = this.itemHandler.getStackInSlot(0).getItem() == ModItems.RAW_ZIRCON.get();
 
         return hasRawGemInFirstSlot && canInsertAmountIntoOutputSlot(inventory) &&
                 canInsertItemIntoOutputSlot(inventory, new ItemStack(ModItems.ZIRCON.get(), 0));
