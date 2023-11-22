@@ -1,5 +1,15 @@
 package net.noahvolson.rpgmod.screen;
 
+import net.minecraft.Util;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.item.EnchantedBookItem;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.noahvolson.rpgmod.block.ModBlocks;
 import net.noahvolson.rpgmod.block.entity.GemInfusingStationBlockEntity;
 import net.minecraft.network.FriendlyByteBuf;
@@ -12,10 +22,13 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
+import java.util.List;
+
 public class GemInfusingStationMenu extends AbstractContainerMenu {
     public final GemInfusingStationBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
+    private final int[] buttonDownCounter = {0,0,0,0};
 
     public GemInfusingStationMenu(int id, Inventory inv, FriendlyByteBuf extraData) {
         this(id, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(2));
@@ -119,6 +132,41 @@ public class GemInfusingStationMenu extends AbstractContainerMenu {
     private void addPlayerHotbar(Inventory playerInventory) {
         for (int i = 0; i < 9; ++i) {
             this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 144));
+        }
+    }
+
+    public boolean renderPressedButton(int index) {
+        if (buttonDownCounter[index] > 0) {
+            buttonDownCounter[index]--;
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean clickMenuButton(Player player, int button) {
+        System.out.println("Clicked button " + button +  " from side: " + player.level);
+
+        switch (button) {
+            case 0 -> {
+                buttonDownCounter[0] = 20;
+                return true;
+            }
+            case 1 -> {
+                buttonDownCounter[1] = 20;
+                return true;
+            }
+            case 2 -> {
+                buttonDownCounter[2] = 20;
+                return true;
+            }
+            case 3 -> {
+                buttonDownCounter[3] = 20;
+                return true;
+            }
+            default -> {
+                return false;
+            }
         }
     }
 }
