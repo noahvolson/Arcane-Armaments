@@ -2,6 +2,8 @@ package net.noahvolson.rpgmod.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
 import net.noahvolson.rpgmod.RpgMod;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -33,11 +35,36 @@ public class GemInfusingStationScreen extends AbstractContainerScreen<GemInfusin
         this.blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight);
 
         renderProgressArrow(pPoseStack, x, y);
+        renderSkillInfo(pPoseStack, x, y, pMouseX, pMouseY);
+        this.addWidget(new Button(x + 76, y + 8, 92, 17, Component.literal("TEST"), this::onButtonClicked));
+        this.addWidget(new Button(x + 76, y + 25, 92, 17, Component.literal("TEST"), this::onButtonClicked));
+        this.addWidget(new Button(x + 76, y + 42, 92, 17, Component.literal("TEST"), this::onButtonClicked));
+        this.addWidget(new Button(x + 76, y + 59, 92, 17, Component.literal("TEST"), this::onButtonClicked));
     }
-
+    private void onButtonClicked(Button button) {
+        System.out.println("n9v9o9 - Button clicked!!!");
+    }
+    //TODO Remove me!
     private void renderProgressArrow(PoseStack pPoseStack, int x, int y) {
         if(menu.isCrafting()) {
             blit(pPoseStack, x + 105, y + 33, 176, 0, 8, menu.getScaledProgress());
+        }
+    }
+
+    private void renderSkillInfo(PoseStack pPoseStack, int x, int y, int pMouseX, int pMouseY) {
+        if (pMouseX >= 228 && pMouseX < 319) {
+            if (pMouseY >= 60 && pMouseY <= 76) {
+                blit(pPoseStack, x + 76, y + 8, 0, 185, 91, 16);
+            }
+            else if (pMouseY >= 77 && pMouseY <= 93) {
+                blit(pPoseStack, x + 76, y + 25, 0, 185, 91, 16);
+            }
+            else if (pMouseY >= 94 && pMouseY <= 110) {
+                blit(pPoseStack, x + 76, y + 42, 0, 185, 91, 16);
+            }
+            else if (pMouseY >= 111 && pMouseY <= 127) {
+                blit(pPoseStack, x + 76, y + 59, 0, 185, 91, 16);
+            }
         }
     }
 

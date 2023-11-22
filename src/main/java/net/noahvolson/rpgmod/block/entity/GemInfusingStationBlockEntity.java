@@ -68,7 +68,7 @@ public class GemInfusingStationBlockEntity extends BlockEntity implements MenuPr
 
     @Override
     public Component getDisplayName() {
-        return Component.literal("Gem Infusing Station");
+        return Component.literal("Armory");
     }
 
     @Nullable
@@ -147,9 +147,9 @@ public class GemInfusingStationBlockEntity extends BlockEntity implements MenuPr
     private static void craftItem(GemInfusingStationBlockEntity pEntity) {
 
         if(hasRecipe(pEntity)) {
-            pEntity.itemHandler.extractItem(1, 1, false);
-            pEntity.itemHandler.setStackInSlot(2, new ItemStack(ModItems.ZIRCON.get(),
-                    pEntity.itemHandler.getStackInSlot(2).getCount() + 1));
+            pEntity.itemHandler.extractItem(0, 1, false);
+            pEntity.itemHandler.setStackInSlot(1, new ItemStack(ModItems.ZIRCON.get(),
+                    pEntity.itemHandler.getStackInSlot(1).getCount() + 1));
 
             pEntity.resetProgress();
         }
@@ -161,17 +161,17 @@ public class GemInfusingStationBlockEntity extends BlockEntity implements MenuPr
             inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
         }
 
-        boolean hasRawGemInFirstSlot = entity.itemHandler.getStackInSlot(1).getItem() == ModItems.RAW_ZIRCON.get();
+        boolean hasRawGemInFirstSlot = entity.itemHandler.getStackInSlot(0).getItem() == ModItems.RAW_ZIRCON.get();
 
         return hasRawGemInFirstSlot && canInsertAmountIntoOutputSlot(inventory) &&
-                canInsertItemIntoOutputSlot(inventory, new ItemStack(ModItems.ZIRCON.get(), 1));
+                canInsertItemIntoOutputSlot(inventory, new ItemStack(ModItems.ZIRCON.get(), 0));
     }
 
     private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack stack) {
-        return inventory.getItem(2).getItem() == stack.getItem() || inventory.getItem(2).isEmpty();
+        return inventory.getItem(1).getItem() == stack.getItem() || inventory.getItem(1).isEmpty();
     }
 
     private static boolean canInsertAmountIntoOutputSlot(SimpleContainer inventory) {
-        return inventory.getItem(2).getMaxStackSize() > inventory.getItem(2).getCount();
+        return inventory.getItem(1).getMaxStackSize() > inventory.getItem(1).getCount();
     }
 }
