@@ -2,12 +2,24 @@ package net.noahvolson.rpgmod.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.network.chat.FormattedText;
+import net.minecraft.world.entity.player.Player;
 import net.noahvolson.rpgmod.RpgMod;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.noahvolson.rpgmod.client.ClientRpgClassData;
+import net.noahvolson.rpgmod.rpgclass.RpgClass;
+
+import javax.swing.text.AttributeSet;
+import javax.swing.text.Style;
+
+import static net.noahvolson.rpgmod.rpgclass.RpgClasses.*;
+import static net.noahvolson.rpgmod.rpgclass.RpgClasses.CLERIC;
 
 public class GemInfusingStationScreen extends AbstractContainerScreen<GemInfusingStationMenu> {
     private static final ResourceLocation TEXTURE =
@@ -30,63 +42,84 @@ public class GemInfusingStationScreen extends AbstractContainerScreen<GemInfusin
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        this.blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight);
+        this.blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight + 2);
 
         renderSkillInfo(pPoseStack, x, y, pMouseX, pMouseY);
 
         if (this.menu.renderPressedButton(0)) {
-            blit(pPoseStack, x + 76, y + 8, 0, 202, 91, 16);
+            blit(pPoseStack, x + 76, y + 8, 0, 202, 75, 16);
         }
         if (this.menu.renderPressedButton(1)) {
-            blit(pPoseStack, x + 76, y + 25, 0, 202, 91, 16);
+            blit(pPoseStack, x + 76, y + 25, 0, 202, 75, 16);
         }
         if (this.menu.renderPressedButton(2)) {
-            blit(pPoseStack, x + 76, y + 42, 0, 202, 91, 16);
+            blit(pPoseStack, x + 76, y + 42, 0, 202, 75, 16);
         }
         if (this.menu.renderPressedButton(3)) {
-            blit(pPoseStack, x + 76, y + 59, 0, 202, 91, 16);
+            blit(pPoseStack, x + 76, y + 59, 0, 202, 75, 16);
+        }
+
+        RpgClass rpgClass = this.menu.getRpgClass();
+        if (rpgClass != null) {
+            RenderSystem.enableBlend();
+            RenderSystem.defaultBlendFunc();
+            RenderSystem.setShaderTexture(0, rpgClass.getSkill1().getIcon());
+            GuiComponent.blit(pPoseStack,x + 60, y + 9,0,0,15,15, 15,15);
+            RenderSystem.setShaderTexture(0, rpgClass.getSkill2().getIcon());
+            GuiComponent.blit(pPoseStack,x + 60, y + 26,0,0,15,15, 15,15);
+            RenderSystem.setShaderTexture(0, rpgClass.getSkill3().getIcon());
+            GuiComponent.blit(pPoseStack,x + 60, y + 43,0,0,15,15, 15,15);
+            RenderSystem.setShaderTexture(0, rpgClass.getSkill4().getIcon());
+            GuiComponent.blit(pPoseStack,x + 60, y + 60,0,0,15,15, 15,15);
+
+            this.font.draw(pPoseStack,  rpgClass.getSkill1().getLabel(), x + 80, y + 12, 4537905);
+            this.font.draw(pPoseStack, rpgClass.getSkill2().getLabel(), x + 80, y + 29, 4537905);
+            this.font.draw(pPoseStack, rpgClass.getSkill3().getLabel(), x + 80, y + 46, 4537905);
+            this.font.draw(pPoseStack, rpgClass.getSkill4().getLabel(), x + 80, y + 63, 4537905);
         }
     }
 
     @Override
-    public boolean mouseClicked(double x, double y, int p_98760_) {
+    public boolean mouseClicked(double pMouseX, double pMouseY, int p_98760_) {
         if (this.minecraft != null && this.minecraft.player != null && this.minecraft.gameMode != null) {
-            if (x >= 228 && y < 319) {
-                if (y >= 60 && y <= 76 && this.menu.clickMenuButton(this.minecraft.player, 0)) {
+            int x = (width - imageWidth) / 2;
+            int y = (height - imageHeight) / 2;
+            if (pMouseX >= x + 76 && pMouseX < x + 151) {
+                if (pMouseY >= y + 8 && pMouseY <= y + 24 && this.menu.clickMenuButton(this.minecraft.player, 0)) {
                     this.minecraft.gameMode.handleInventoryButtonClick((this.menu).containerId, 0);
                     return true;
                 }
-                else if (y >= 77 && y <= 93 && this.menu.clickMenuButton(this.minecraft.player, 1)) {
+                else if (pMouseY >= y + 25 && pMouseY <= y + 41 && this.menu.clickMenuButton(this.minecraft.player, 1)) {
                     this.minecraft.gameMode.handleInventoryButtonClick((this.menu).containerId, 1);
                     return true;
                 }
-                else if (y >= 94 && y <= 110 && this.menu.clickMenuButton(this.minecraft.player, 2)) {
+                else if (pMouseY >= y + 42 && pMouseY <= y + 58 && this.menu.clickMenuButton(this.minecraft.player, 2)) {
                     this.minecraft.gameMode.handleInventoryButtonClick((this.menu).containerId, 2);
                     return true;
                 }
-                else if (y >= 111 && y <= 127 && this.menu.clickMenuButton(this.minecraft.player, 3)) {
+                else if (pMouseY >= y + 59 && pMouseY <= y + 75 && this.menu.clickMenuButton(this.minecraft.player, 3)) {
                     this.minecraft.gameMode.handleInventoryButtonClick((this.menu).containerId, 3);
                     return true;
                 }
             }
         }
 
-        return super.mouseClicked(x, y, p_98760_);
+        return super.mouseClicked(pMouseX, pMouseY, p_98760_);
     }
 
     private void renderSkillInfo(PoseStack pPoseStack, int x, int y, int pMouseX, int pMouseY) {
-        if (pMouseX >= 228 && pMouseX < 319) {
-            if (pMouseY >= 60 && pMouseY <= 76) {
-                blit(pPoseStack, x + 76, y + 8, 0, 185, 91, 16);
+        if (pMouseX >= x + 76 && pMouseX < x + 151) {
+            if (pMouseY >= y + 8 && pMouseY <= y + 24) {
+                blit(pPoseStack, x + 76, y + 8, 0, 185, 75, 16);
             }
-            else if (pMouseY >= 77 && pMouseY <= 93) {
-                blit(pPoseStack, x + 76, y + 25, 0, 185, 91, 16);
+            else if (pMouseY >= y + 25 && pMouseY <= y + 41) {
+                blit(pPoseStack, x + 76, y + 25, 0, 185, 75, 16);
             }
-            else if (pMouseY >= 94 && pMouseY <= 110) {
-                blit(pPoseStack, x + 76, y + 42, 0, 185, 91, 16);
+            else if (pMouseY >= y + 42 && pMouseY <= y + 58) {
+                blit(pPoseStack, x + 76, y + 42, 0, 185, 75, 16);
             }
-            else if (pMouseY >= 111 && pMouseY <= 127) {
-                blit(pPoseStack, x + 76, y + 59, 0, 185, 91, 16);
+            else if (pMouseY >= y + 59 && pMouseY <= y + 75) {
+                blit(pPoseStack, x + 76, y + 59, 0, 185, 75, 16);
             }
         }
     }

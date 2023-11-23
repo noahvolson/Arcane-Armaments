@@ -2,23 +2,16 @@ package net.noahvolson.rpgmod.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import net.minecraft.client.AttackIndicatorStatus;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import net.noahvolson.rpgmod.RpgMod;
 import net.noahvolson.rpgmod.effect.ModEffects;
-import net.noahvolson.rpgmod.entity.skill.SkillFactory;
-import net.noahvolson.rpgmod.entity.skill.SkillType;
-import net.noahvolson.rpgmod.player.PlayerRpgClassProvider;
 import net.noahvolson.rpgmod.rpgclass.RpgClass;
 
 import java.util.Objects;
@@ -155,7 +148,7 @@ public class ModHudOverlay {
         Player player = gui.getMinecraft().player;
         String rpgClassId = ClientRpgClassData.getRpgClass();
 
-        if (player != null && rpgClassId != null && rpgClassId.equals(WARRIOR.getId()) && player.hasEffect(ModEffects.COOLDOWN_1.get())) {
+        if (player != null && rpgClassId != null && rpgClassId.equals(WARRIOR.getLabel()) && player.hasEffect(ModEffects.COOLDOWN_1.get())) {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 

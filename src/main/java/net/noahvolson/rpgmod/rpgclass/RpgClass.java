@@ -14,15 +14,17 @@ import net.noahvolson.rpgmod.entity.skill.SkillFactory;
 
 public class RpgClass {
 
-    private final String id;
+    private final int id;
+    private final String label;
     private final Item classItem;
     private final SkillType skill1;
     private final SkillType skill2;
     private final SkillType skill3;
     private final SkillType skill4;
 
-    public RpgClass(String id, Item classItem, SkillType skill1, SkillType skill2, SkillType skill3, SkillType skill4) {
+    public RpgClass(int id, String label, Item classItem, SkillType skill1, SkillType skill2, SkillType skill3, SkillType skill4) {
         this.id = id;
+        this.label = label;
         this.classItem = classItem;
         this.skill1 = skill1;
         this.skill2 = skill2;
@@ -30,8 +32,11 @@ public class RpgClass {
         this.skill4 = skill4;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
+    }
+    public String getLabel() {
+        return label;
     }
     public Item getClassItem() {
         return classItem;

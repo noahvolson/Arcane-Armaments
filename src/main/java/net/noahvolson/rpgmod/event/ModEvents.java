@@ -67,10 +67,10 @@ public class ModEvents {
         private static void setPlayerRpgClassCapabilityTick(ServerPlayer player, RpgClass rpgClass) {
             if (player != null && rpgClass != null) {
                 player.getCapability(PlayerRpgClassProvider.PLAYER_RPG_CLASS).ifPresent(curClass -> {
-                    if (!curClass.getRpgClass().equals(rpgClass.getId())) {
-                        player.sendSystemMessage(Component.literal("Swapping to " + rpgClass.getId()).withStyle(ChatFormatting.AQUA));
-                        curClass.setRpgClass(rpgClass.getId());
-                        ModMessages.sendToPlayer(new RpgClassSyncS2CPacket(rpgClass.getId()), player);
+                    if (!curClass.getRpgClass().equals(rpgClass.getLabel())) {
+                        player.sendSystemMessage(Component.literal("Swapping to " + rpgClass.getLabel()).withStyle(ChatFormatting.AQUA));
+                        curClass.setRpgClass(rpgClass.getLabel());
+                        ModMessages.sendToPlayer(new RpgClassSyncS2CPacket(rpgClass.getLabel()), player);
                     }
                 });
             }
@@ -85,8 +85,8 @@ public class ModEvents {
         private static void setPlayerRpgClassCapabilityJoin(ServerPlayer player, RpgClass rpgClass) {
             if (player != null) {
                 player.getCapability(PlayerRpgClassProvider.PLAYER_RPG_CLASS).ifPresent(curClass -> {
-                    curClass.setRpgClass(rpgClass.getId());
-                    ModMessages.sendToPlayer(new RpgClassSyncS2CPacket(rpgClass.getId()), player);
+                    curClass.setRpgClass(rpgClass.getLabel());
+                    ModMessages.sendToPlayer(new RpgClassSyncS2CPacket(rpgClass.getLabel()), player);
                 });
             }
         }

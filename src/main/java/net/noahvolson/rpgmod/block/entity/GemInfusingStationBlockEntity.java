@@ -1,5 +1,6 @@
 package net.noahvolson.rpgmod.block.entity;
 
+import net.minecraft.world.level.Level;
 import net.noahvolson.rpgmod.item.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -13,7 +14,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -21,6 +21,8 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import net.noahvolson.rpgmod.rpgclass.RpgClass;
+import net.noahvolson.rpgmod.rpgclass.RpgClasses;
 import net.noahvolson.rpgmod.screen.GemInfusingStationMenu;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -35,23 +37,24 @@ public class GemInfusingStationBlockEntity extends BlockEntity implements MenuPr
 
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
     protected final ContainerData data;
+    private RpgClass rpgClass;
 
     public GemInfusingStationBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.GEM_INFUSING_STATION.get(), pos, state);
         this.data = new ContainerData() {
             @Override
-            public int get(int p_39284_) {
-                return 0;
+            public int get(int index) {
+                return rpgClass != null && index == 0 ? rpgClass.getId() : -1;
             }
 
             @Override
-            public void set(int p_39285_, int p_39286_) {
-
+            public void set(int index, int value) {
+                rpgClass = index == 0 ? RpgClasses.getById(value) : null;
             }
 
             @Override
             public int getCount() {
-                return 0;
+                return 1;
             }
         };
     }
@@ -107,6 +110,13 @@ public class GemInfusingStationBlockEntity extends BlockEntity implements MenuPr
         }
 
         Containers.dropContents(this.level, this.worldPosition, inventory);
+    }
+
+    public static void tick(Level level, BlockPos pos, BlockState state, GemInfusingStationBlockEntity pEntity) {
+        if(level.isClientSide()) {
+            return;
+        }
+        pEntity.rpgClass = RpgClasses.getByItem(pEntity.itemHandler.getStackInSlot(0).getItem());
     }
 
     public void craftItem() {

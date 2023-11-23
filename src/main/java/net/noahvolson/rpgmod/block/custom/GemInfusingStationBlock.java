@@ -10,6 +10,8 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -19,6 +21,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
 import net.noahvolson.rpgmod.block.entity.GemInfusingStationBlockEntity;
+import net.noahvolson.rpgmod.block.entity.ModBlockEntities;
 
 import javax.annotation.Nullable;
 
@@ -97,4 +100,11 @@ public class GemInfusingStationBlock extends BaseEntityBlock {
         return new GemInfusingStationBlockEntity(pos, state);
     }
 
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state,
+                                                                  BlockEntityType<T> type) {
+        return createTickerHelper(type, ModBlockEntities.GEM_INFUSING_STATION.get(),
+                GemInfusingStationBlockEntity::tick);
+    }
 }

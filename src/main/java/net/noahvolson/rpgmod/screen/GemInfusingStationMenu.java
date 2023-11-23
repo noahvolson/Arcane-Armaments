@@ -11,6 +11,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
+import net.noahvolson.rpgmod.rpgclass.RpgClass;
+import net.noahvolson.rpgmod.rpgclass.RpgClasses;
 
 public class GemInfusingStationMenu extends AbstractContainerMenu {
     public final GemInfusingStationBlockEntity blockEntity;
@@ -33,8 +35,8 @@ public class GemInfusingStationMenu extends AbstractContainerMenu {
         addPlayerHotbar(inv);
 
         this.blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
-            this.addSlot(new SlotItemHandler(handler, 0, 15, 47)); // Top left corner
-            this.addSlot(new SlotItemHandler(handler, 1, 35, 47));
+            this.addSlot(new SlotItemHandler(handler, 0, 13, 47)); // Top left corner
+            this.addSlot(new SlotItemHandler(handler, 1, 33, 47));
         });
 
         addDataSlots(data);
@@ -119,9 +121,14 @@ public class GemInfusingStationMenu extends AbstractContainerMenu {
         return false;
     }
 
+    public RpgClass getRpgClass() {
+        return RpgClasses.getById(this.data.get(0));
+    }
+
     @Override
     public boolean clickMenuButton(Player player, int button) {
         this.blockEntity.craftItem();
+        System.out.println("n9v9o9 clickMenuButton - " + button);
         switch (button) {
             case 0 -> {
                 buttonDownCounter[0] = 20;
