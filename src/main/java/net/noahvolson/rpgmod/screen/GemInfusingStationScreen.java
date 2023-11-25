@@ -46,16 +46,22 @@ public class GemInfusingStationScreen extends AbstractContainerScreen<GemInfusin
 
         renderSkillInfo(pPoseStack, x, y, pMouseX, pMouseY);
 
-        if (this.menu.renderPressedButton(0)) {
+        boolean pressed0 = this.menu.renderPressedButton(0);
+        boolean pressed1 = this.menu.renderPressedButton(1);
+        boolean pressed2 = this.menu.renderPressedButton(2);
+        boolean pressed3 = this.menu.renderPressedButton(3);
+
+
+        if (pressed0) {
             blit(pPoseStack, x + 76, y + 8, 0, 202, 75, 16);
         }
-        if (this.menu.renderPressedButton(1)) {
+        if (pressed1) {
             blit(pPoseStack, x + 76, y + 25, 0, 202, 75, 16);
         }
-        if (this.menu.renderPressedButton(2)) {
+        if (pressed2) {
             blit(pPoseStack, x + 76, y + 42, 0, 202, 75, 16);
         }
-        if (this.menu.renderPressedButton(3)) {
+        if (pressed3) {
             blit(pPoseStack, x + 76, y + 59, 0, 202, 75, 16);
         }
 
@@ -76,6 +82,25 @@ public class GemInfusingStationScreen extends AbstractContainerScreen<GemInfusin
             this.font.draw(pPoseStack, rpgClass.getSkill2().getLabel(), x + 80, y + 29, 4537905);
             this.font.draw(pPoseStack, rpgClass.getSkill3().getLabel(), x + 80, y + 46, 4537905);
             this.font.draw(pPoseStack, rpgClass.getSkill4().getLabel(), x + 80, y + 63, 4537905);
+
+            if (pMouseX >= x + 76 && pMouseX < x + 151) {
+                if (pMouseY >= y + 8 && pMouseY <= y + 24) {
+                    int color = pressed0 ? 10522994 : 16645499;
+                    this.font.draw(pPoseStack,  rpgClass.getSkill1().getLabel(), x + 80, y + 12, color);
+                }
+                else if (pMouseY >= y + 25 && pMouseY <= y + 41) {
+                    int color = pressed1 ? 10522994 : 16645499;
+                    this.font.draw(pPoseStack, rpgClass.getSkill2().getLabel(), x + 80, y + 29, color);
+                }
+                else if (pMouseY >= y + 42 && pMouseY <= y + 58) {
+                    int color = pressed2 ? 10522994 : 16645499;
+                    this.font.draw(pPoseStack, rpgClass.getSkill3().getLabel(), x + 80, y + 46, color);
+                }
+                else if (pMouseY >= y + 59 && pMouseY <= y + 75) {
+                    int color = pressed3 ? 10522994 : 16645499;
+                    this.font.draw(pPoseStack, rpgClass.getSkill4().getLabel(), x + 80, y + 63, color);
+                }
+            }
         }
     }
 
