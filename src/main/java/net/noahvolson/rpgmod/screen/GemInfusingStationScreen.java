@@ -6,6 +6,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.network.chat.FormattedText;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.noahvolson.rpgmod.RpgMod;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -32,6 +34,21 @@ public class GemInfusingStationScreen extends AbstractContainerScreen<GemInfusin
     @Override
     protected void init() {
         super.init();
+    }
+
+    private ResourceLocation getResourceLocation(Item item) {
+        if (item != null) {
+            if (item.getDescriptionId().matches("^item\\.minecraft\\..*")) {
+                return new ResourceLocation("textures/item/" + item.getDescriptionId().replace("item.minecraft.", "") + ".png");
+            }
+            else if (item.getDescriptionId().matches("^block\\.minecraft\\..*")) {
+                return new ResourceLocation("textures/block/" + item.getDescriptionId().replace("block.minecraft.", "") + ".png");
+            } else {
+                return new ResourceLocation("textures/item/" + Items.GUNPOWDER.getDescriptionId().replace("block.minecraft.", "") + ".png");
+            }
+        } else {
+            return new ResourceLocation("textures/item/" + Items.GUNPOWDER.getDescriptionId().replace("block.minecraft.", "") + ".png");
+        }
     }
 
     @Override
@@ -69,6 +86,8 @@ public class GemInfusingStationScreen extends AbstractContainerScreen<GemInfusin
         if (rpgClass != null) {
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
+
+            // Render Skill icons
             RenderSystem.setShaderTexture(0, rpgClass.getSkill1().getIcon());
             GuiComponent.blit(pPoseStack,x + 60, y + 9,0,0,15,15, 15,15);
             RenderSystem.setShaderTexture(0, rpgClass.getSkill2().getIcon());
@@ -78,7 +97,32 @@ public class GemInfusingStationScreen extends AbstractContainerScreen<GemInfusin
             RenderSystem.setShaderTexture(0, rpgClass.getSkill4().getIcon());
             GuiComponent.blit(pPoseStack,x + 60, y + 60,0,0,15,15, 15,15);
 
-            this.font.draw(pPoseStack,  rpgClass.getSkill1().getLabel(), x + 80, y + 12, 4537905);
+            // Render Skill craft cost items
+            // NOTE: Probably shouldn't be parsing the descriptionId to find the resource location. Looking for a better solution...
+
+            Item skill2Cost = rpgClass.getSkill2().getCraftCost(); // Skill 1 comes preloaded on the weapon, so we can skip it here
+            Item skill3Cost = rpgClass.getSkill3().getCraftCost();
+            Item skill4Cost = rpgClass.getSkill4().getCraftCost();
+
+            RenderSystem.getShaderColor();
+            RenderSystem.enableBlend();
+            RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 0.7f);
+            if (skill2Cost != null) {
+                RenderSystem.setShaderTexture(0, getResourceLocation(skill2Cost));
+                GuiComponent.blit(pPoseStack,x + 153, y + 26,0,0,16,16, 16,16);
+            }
+            if (skill3Cost != null) {
+                RenderSystem.setShaderTexture(0, getResourceLocation(skill3Cost));
+                GuiComponent.blit(pPoseStack,x + 153, y + 43,0,0,16,16, 16,16);
+            }
+            if (skill3Cost != null) {
+                RenderSystem.setShaderTexture(0, getResourceLocation(skill4Cost));
+                GuiComponent.blit(pPoseStack,x + 153, y + 60,0,0,16,16, 16,16);
+            }
+            RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1f);
+            RenderSystem.disableBlend();
+
+            this.font.draw(pPoseStack, rpgClass.getSkill1().getLabel(), x + 80, y + 12, 4537905);
             this.font.draw(pPoseStack, rpgClass.getSkill2().getLabel(), x + 80, y + 29, 4537905);
             this.font.draw(pPoseStack, rpgClass.getSkill3().getLabel(), x + 80, y + 46, 4537905);
             this.font.draw(pPoseStack, rpgClass.getSkill4().getLabel(), x + 80, y + 63, 4537905);
