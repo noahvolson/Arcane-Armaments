@@ -47,6 +47,8 @@ import net.noahvolson.rpgmod.networking.packet.RpgClassSyncS2CPacket;
 import net.noahvolson.rpgmod.particle.ModParticles;
 import net.noahvolson.rpgmod.player.PlayerRpgClass;
 import net.noahvolson.rpgmod.player.PlayerRpgClassProvider;
+import net.noahvolson.rpgmod.player.PlayerUnlockedSkills;
+import net.noahvolson.rpgmod.player.PlayerUnlockedSkillsProvider;
 import net.noahvolson.rpgmod.rpgclass.RpgClass;
 import net.noahvolson.rpgmod.sound.ModSounds;
 
@@ -301,7 +303,10 @@ public class ModEvents {
         public static void onAttachCapabilitiesPlayer(AttachCapabilitiesEvent<Entity> event) {
             if(event.getObject() instanceof Player) {
                 if(!event.getObject().getCapability(PlayerRpgClassProvider.PLAYER_RPG_CLASS).isPresent()) {
-                    event.addCapability(new ResourceLocation(RpgMod.MOD_ID, "properties"), new PlayerRpgClassProvider());
+                    event.addCapability(new ResourceLocation(RpgMod.MOD_ID, "properties.rpg_class"), new PlayerRpgClassProvider());
+                }
+                if(!event.getObject().getCapability(PlayerUnlockedSkillsProvider.PLAYER_UNLOCKED_SKILLS).isPresent()) {
+                    event.addCapability(new ResourceLocation(RpgMod.MOD_ID, "properties.unlocked_skills"), new PlayerUnlockedSkillsProvider());
                 }
             }
         }
@@ -314,12 +319,18 @@ public class ModEvents {
                         newStore.copyFrom(oldStore);
                     });
                 });
+                event.getOriginal().getCapability(PlayerUnlockedSkillsProvider.PLAYER_UNLOCKED_SKILLS).ifPresent(oldStore -> {
+                    event.getOriginal().getCapability(PlayerUnlockedSkillsProvider.PLAYER_UNLOCKED_SKILLS).ifPresent(newStore -> {
+                        newStore.copyFrom(oldStore);
+                    });
+                });
             }
         }
 
         @SubscribeEvent
         public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
             event.register(PlayerRpgClass.class);
+            event.register(PlayerUnlockedSkills.class);
         }
 
     }

@@ -8,7 +8,7 @@ import net.noahvolson.rpgmod.RpgMod;
 public enum SkillType {
 
     // mage
-    FIREBALL(       "Fireball",     20,     0,  null,               new ResourceLocation(RpgMod.MOD_ID, "textures/gui/mage/mage_1.png")),
+    FIREBALL(       "Fireball",     20,     0,  null,                   new ResourceLocation(RpgMod.MOD_ID, "textures/gui/mage/mage_1.png")),
     BLINK(          "Blink",        20,     0,  Items.ENDER_PEARL,              new ResourceLocation(RpgMod.MOD_ID, "textures/gui/mage/mage_2.png")),
     BLIZZARD(       "Blizzard",     20,     0,  Items.POWDER_SNOW_BUCKET,       new ResourceLocation(RpgMod.MOD_ID, "textures/gui/mage/mage_3.png")),
     THUNDER(        "Thunder",      20,     0,  Items.AMETHYST_SHARD,           new ResourceLocation(RpgMod.MOD_ID, "textures/gui/mage/mage_4.png")),
@@ -27,7 +27,7 @@ public enum SkillType {
 
     // cleric
     BLESSED_BLADES( "Bless Blades", 20,     0,  null,                   new ResourceLocation(RpgMod.MOD_ID, "textures/gui/cleric/cleric_1.png")),
-    HOLY_SHIELD(    "Holy Shield",  20,     0,  Items.BOOK,                   new ResourceLocation(RpgMod.MOD_ID, "textures/gui/cleric/cleric_2.png")),
+    HOLY_SHIELD(    "Holy Shield",  20,     0,  Items.BOOK,                     new ResourceLocation(RpgMod.MOD_ID, "textures/gui/cleric/cleric_2.png")),
     SMITING_RAY(    "Smiting Ray",  20,     0,  Items.GLOW_BERRIES,             new ResourceLocation(RpgMod.MOD_ID, "textures/gui/cleric/cleric_3.png")),
     HEALING_AURA(   "Heal Aura",    20,     0,  Items.GOLDEN_APPLE,             new ResourceLocation(RpgMod.MOD_ID, "textures/gui/cleric/cleric_4.png"));
 

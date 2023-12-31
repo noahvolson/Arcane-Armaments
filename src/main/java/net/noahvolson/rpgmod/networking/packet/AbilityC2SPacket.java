@@ -7,6 +7,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
 import net.noahvolson.rpgmod.networking.ModMessages;
 import net.noahvolson.rpgmod.player.PlayerRpgClassProvider;
+import net.noahvolson.rpgmod.player.PlayerUnlockedSkills;
+import net.noahvolson.rpgmod.player.PlayerUnlockedSkillsProvider;
 import net.noahvolson.rpgmod.rpgclass.RpgClass;
 
 import java.util.function.Supplier;
@@ -37,23 +39,25 @@ public class AbilityC2SPacket {
             ServerPlayer player = context.getSender();
 
             if (player != null) {
-                player.getCapability(PlayerRpgClassProvider.PLAYER_RPG_CLASS).ifPresent(curClass -> {
-                    String rpgClassId = curClass.getRpgClass();
-                    RpgClass rpgClass = switch (rpgClassId) {
-                        case "MAGE" -> MAGE;
-                        case "ROGUE" -> ROGUE;
-                        case "WARRIOR" -> WARRIOR;
-                        case "CLERIC" -> CLERIC;
-                        default -> null;
-                    };
-                    if (rpgClass != null) {
-                        switch (abilityNum) {
-                            case 1 -> rpgClass.useSkill1(player);
-                            case 2 -> rpgClass.useSkill2(player);
-                            case 3 -> rpgClass.useSkill3(player);
-                            case 4 -> rpgClass.useSkill4(player);
+                player.getCapability(PlayerUnlockedSkillsProvider.PLAYER_UNLOCKED_SKILLS).ifPresent(unlockedSkills -> {
+                    player.getCapability(PlayerRpgClassProvider.PLAYER_RPG_CLASS).ifPresent(curClass -> {
+                        String rpgClassId = curClass.getRpgClass();
+                        RpgClass rpgClass = switch (rpgClassId) {
+                            case "MAGE" -> MAGE;
+                            case "ROGUE" -> ROGUE;
+                            case "WARRIOR" -> WARRIOR;
+                            case "CLERIC" -> CLERIC;
+                            default -> null;
+                        };
+                        if (rpgClass != null) {
+                            switch (abilityNum) {
+                                case 1 -> { rpgClass.useSkill1(player); }
+                                case 2 -> { if (unlockedSkills.contains(rpgClass.getSkill2())) { rpgClass.useSkill2(player); } }
+                                case 3 -> { if (unlockedSkills.contains(rpgClass.getSkill3())) { rpgClass.useSkill3(player); } }
+                                case 4 -> { if (unlockedSkills.contains(rpgClass.getSkill4())) { rpgClass.useSkill4(player); } }
+                            }
                         }
-                    }
+                    });
                 });
             }
         });
