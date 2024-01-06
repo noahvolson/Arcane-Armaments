@@ -2,10 +2,7 @@ package net.noahvolson.rpgmod.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiComponent;
-import net.minecraft.network.chat.FormattedText;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.noahvolson.rpgmod.RpgMod;
@@ -14,14 +11,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.noahvolson.rpgmod.client.ClientRpgClassData;
 import net.noahvolson.rpgmod.rpgclass.RpgClass;
-
-import javax.swing.text.AttributeSet;
-import javax.swing.text.Style;
-
-import static net.noahvolson.rpgmod.rpgclass.RpgClasses.*;
-import static net.noahvolson.rpgmod.rpgclass.RpgClasses.CLERIC;
 
 public class GemInfusingStationScreen extends AbstractContainerScreen<GemInfusingStationMenu> {
     private static final ResourceLocation TEXTURE =
@@ -63,10 +53,10 @@ public class GemInfusingStationScreen extends AbstractContainerScreen<GemInfusin
 
         renderSkillInfo(pPoseStack, x, y, pMouseX, pMouseY);
 
-        boolean pressed0 = this.menu.renderPressedButton(0);
-        boolean pressed1 = this.menu.renderPressedButton(1);
-        boolean pressed2 = this.menu.renderPressedButton(2);
-        boolean pressed3 = this.menu.renderPressedButton(3);
+        boolean pressed0 = this.menu.shouldRenderPressedButton(0);
+        boolean pressed1 = this.menu.shouldRenderPressedButton(1);
+        boolean pressed2 = this.menu.shouldRenderPressedButton(2);
+        boolean pressed3 = this.menu.shouldRenderPressedButton(3);
 
 
         if (pressed0) {
@@ -144,6 +134,16 @@ public class GemInfusingStationScreen extends AbstractContainerScreen<GemInfusin
                     int color = pressed3 ? 10522994 : 16645499;
                     this.font.draw(pPoseStack, rpgClass.getSkill4().getLabel(), x + 80, y + 63, color);
                 }
+            }
+            int frame = menu.getIncrementForgeFrame();
+            if (frame > -1 && frame < 5) {
+                // Draw blank space over the idle pose
+                RenderSystem.setShaderTexture(0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/anim_forge/forge_blank.png"));
+                GuiComponent.blit(pPoseStack,x + 12, y + 14,0,0,38,32, 38,32);
+
+                // Draw the frame
+                RenderSystem.setShaderTexture(0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/anim_forge/forge_" + frame + ".png"));
+                GuiComponent.blit(pPoseStack,x + 12, y + 14,0,0,38,32, 38,32);
             }
         }
     }

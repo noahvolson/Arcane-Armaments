@@ -1,6 +1,7 @@
 package net.noahvolson.rpgmod.block.entity;
 
 import net.minecraft.world.level.Level;
+import net.noahvolson.rpgmod.entity.skill.SkillType;
 import net.noahvolson.rpgmod.item.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -21,6 +22,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import net.noahvolson.rpgmod.player.PlayerUnlockedSkillsProvider;
 import net.noahvolson.rpgmod.rpgclass.RpgClass;
 import net.noahvolson.rpgmod.rpgclass.RpgClasses;
 import net.noahvolson.rpgmod.screen.GemInfusingStationMenu;
@@ -119,33 +121,30 @@ public class GemInfusingStationBlockEntity extends BlockEntity implements MenuPr
         pEntity.rpgClass = RpgClasses.getByItem(pEntity.itemHandler.getStackInSlot(0).getItem());
     }
 
-    public void craftItem() {
+    public void craftSkill(Player player, SkillType skill) {
         if(this.level != null && !this.level.isClientSide) {
-            if(hasRecipe()) {
-                this.itemHandler.extractItem(0, 1, false);
+            if(hasRecipe(skill)) {
+                this.itemHandler.extractItem(1, 1, false);
                 this.itemHandler.setStackInSlot(1, new ItemStack(ModItems.ZIRCON.get(),
                         this.itemHandler.getStackInSlot(1).getCount() + 1));
+                unlockSkill(player, skill);
             }
         }
     }
 
-    private boolean hasRecipe() {
+    private boolean hasRecipe(SkillType skill) {
         SimpleContainer inventory = new SimpleContainer(this.itemHandler.getSlots());
         for (int i = 0; i < this.itemHandler.getSlots(); i++) {
             inventory.setItem(i, this.itemHandler.getStackInSlot(i));
         }
-
-        boolean hasRawGemInFirstSlot = this.itemHandler.getStackInSlot(0).getItem() == ModItems.RAW_ZIRCON.get();
-
-        return hasRawGemInFirstSlot && canInsertAmountIntoOutputSlot(inventory) &&
-                canInsertItemIntoOutputSlot(inventory, new ItemStack(ModItems.ZIRCON.get(), 0));
+        return this.itemHandler.getStackInSlot(0).getItem() == rpgClass.getClassItem() && this.itemHandler.getStackInSlot(1).getItem() == skill.getCraftCost();
     }
 
-    private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack stack) {
-        return inventory.getItem(1).getItem() == stack.getItem() || inventory.getItem(1).isEmpty();
-    }
-
-    private static boolean canInsertAmountIntoOutputSlot(SimpleContainer inventory) {
-        return inventory.getItem(1).getMaxStackSize() > inventory.getItem(1).getCount();
+    private void unlockSkill(Player player, SkillType skill) {
+        player.getCapability(PlayerUnlockedSkillsProvider.PLAYER_UNLOCKED_SKILLS).ifPresent(unlockedSkills -> {
+            if (!unlockedSkills.contains(skill)) {
+                unlockedSkills.setPlayerUnlockedSkills(unlockedSkills.getPlayerUnlockedSkills() + "[" + skill.name() + "]");
+            }
+        });
     }
 }

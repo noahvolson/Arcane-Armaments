@@ -153,7 +153,7 @@ public class ModHudOverlay {
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
             int frame = (int) player.level.getGameTime() % 32;
-            RenderSystem.setShaderTexture(0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/berserk_offhand/berserk_offhand_" + String.format("%02d", frame) + ".png"));
+            RenderSystem.setShaderTexture(0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/anim_berserk_offhand/berserk_offhand_" + String.format("%02d", frame) + ".png"));
             GuiComponent.blit(poseStack,x - 121, y - 23,0,0,24,24, 24,24);
         }
     }));

@@ -1,7 +1,5 @@
 package net.noahvolson.rpgmod.screen;
 
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
 import net.noahvolson.rpgmod.block.ModBlocks;
 import net.noahvolson.rpgmod.block.entity.GemInfusingStationBlockEntity;
 import net.minecraft.network.FriendlyByteBuf;
@@ -13,10 +11,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
-import net.noahvolson.rpgmod.entity.skill.SkillType;
-import net.noahvolson.rpgmod.networking.ModMessages;
-import net.noahvolson.rpgmod.networking.packet.RpgClassSyncS2CPacket;
-import net.noahvolson.rpgmod.player.PlayerRpgClassProvider;
 import net.noahvolson.rpgmod.player.PlayerUnlockedSkillsProvider;
 import net.noahvolson.rpgmod.rpgclass.RpgClass;
 import net.noahvolson.rpgmod.rpgclass.RpgClasses;
@@ -26,6 +20,8 @@ public class GemInfusingStationMenu extends AbstractContainerMenu {
     private final Level level;
     private final ContainerData data;
     private final int[] buttonDownCounter = {0,0,0,0};
+    private int forgeFrame = -1;
+    private int slowdownCounter = 0;
 
     public GemInfusingStationMenu(int id, Inventory inv, FriendlyByteBuf extraData) {
         this(id, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(2));
@@ -120,7 +116,7 @@ public class GemInfusingStationMenu extends AbstractContainerMenu {
         }
     }
 
-    public boolean renderPressedButton(int index) {
+    public boolean shouldRenderPressedButton(int index) {
         if (buttonDownCounter[index] > 0) {
             buttonDownCounter[index]--;
             return true;
@@ -128,16 +124,34 @@ public class GemInfusingStationMenu extends AbstractContainerMenu {
         return false;
     }
 
-    public RpgClass getRpgClass() {
-        return RpgClasses.getById(this.data.get(0));
+    /**
+     * Returns
+     * -1   if forge animation should not be rendered
+     * 0-4  if render forge animation, this will be the frame to show
+     */
+    public int getIncrementForgeFrame() {
+        if (forgeFrame > -1 && updateForgeFrame()) {
+            int frameToRender = forgeFrame;
+            forgeFrame++;
+            if (forgeFrame > 4) {
+                forgeFrame = -1;
+            }
+            return frameToRender;
+        }
+        return forgeFrame;
     }
 
-    private void unlockSkill(Player player, SkillType skill) {
-        player.getCapability(PlayerUnlockedSkillsProvider.PLAYER_UNLOCKED_SKILLS).ifPresent(unlockedSkills -> {
-            if (!unlockedSkills.contains(skill)) {
-                unlockedSkills.setPlayerUnlockedSkills(unlockedSkills.getPlayerUnlockedSkills() + "[" + skill.name() + "]");
-            }
-        });
+    public boolean updateForgeFrame() {
+        slowdownCounter++;
+        if (slowdownCounter % 5 == 0) {
+            slowdownCounter = 0;
+            return true;
+        }
+        return false;
+    }
+
+    public RpgClass getRpgClass() {
+        return RpgClasses.getById(this.data.get(0));
     }
 
     // For testing purposes
@@ -149,7 +163,6 @@ public class GemInfusingStationMenu extends AbstractContainerMenu {
 
     @Override
     public boolean clickMenuButton(Player player, int button) {
-        this.blockEntity.craftItem();
         System.out.println("n9v9o9 clickMenuButton - " + button + " client side " + player.level.isClientSide());
         switch (button) {
             case 0 -> {
@@ -159,17 +172,20 @@ public class GemInfusingStationMenu extends AbstractContainerMenu {
             }
             case 1 -> {
                 buttonDownCounter[1] = 20;
-                unlockSkill(player, getRpgClass().getSkill2());
+                this.forgeFrame = 0;
+                this.blockEntity.craftSkill(player, getRpgClass().getSkill2());
                 return true;
             }
             case 2 -> {
                 buttonDownCounter[2] = 20;
-                unlockSkill(player, getRpgClass().getSkill3());
+                this.forgeFrame = 0;
+                this.blockEntity.craftSkill(player, getRpgClass().getSkill3());
                 return true;
             }
             case 3 -> {
                 buttonDownCounter[3] = 20;
-                unlockSkill(player, getRpgClass().getSkill4());
+                this.forgeFrame = 0;
+                this.blockEntity.craftSkill(player, getRpgClass().getSkill4());
                 return true;
             }
             default -> {
