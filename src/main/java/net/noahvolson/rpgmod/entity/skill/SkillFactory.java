@@ -32,9 +32,9 @@ public class SkillFactory {
 
             // Rogue
             case SMOKE_BOMB     -> new SmokeBombSkill(player);
-            case VENOM_DAGGER   -> new VenomDaggerAttack(ModEntityTypes.VENOM_DAGGER.get(), player, player.level);
-            case RUPTURE_DAGGER -> new RuptureDaggerAttack(ModEntityTypes.RUPTURE_DAGGER.get(), player, player.level);
-            case EXECUTE_DAGGER -> new ExecuteDaggerAttack(ModEntityTypes.EXECUTE_DAGGER.get(), player, player.level);
+            case ENVENOM -> new VenomDaggerAttack(ModEntityTypes.VENOM_DAGGER.get(), player, player.level);
+            case RUPTURE -> new RuptureDaggerAttack(ModEntityTypes.RUPTURE_DAGGER.get(), player, player.level);
+            case EXECUTE -> new ExecuteDaggerAttack(ModEntityTypes.EXECUTE_DAGGER.get(), player, player.level);
 
             // Warrior
             case BERSERK -> new BerserkSkill(player);

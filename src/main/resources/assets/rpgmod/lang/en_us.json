@@ -13,6 +13,46 @@
   "key.rpgmod.ability_4": "Use Ability 4",
   "key.rpgmod.swap_class": "Swap Class",
 
+  "skill_label.rpgmod.fireball": "Fireball",
+  "skill_label.rpgmod.blink": "Blink",
+  "skill_label.rpgmod.blizzard": "Blizzard",
+  "skill_label.rpgmod.thunder": "Thunder",
+
+  "skill_label.rpgmod.envenom": "Envenom",
+  "skill_label.rpgmod.smoke_bomb": "Smoke Bomb",
+  "skill_label.rpgmod.rupture": "Rupture",
+  "skill_label.rpgmod.execute": "Execute",
+
+  "skill_label.rpgmod.berserk": "Berserk",
+  "skill_label.rpgmod.stomp": "Stomp",
+  "skill_label.rpgmod.grapple": "Grapple",
+  "skill_label.rpgmod.molten_shell": "Molten Shell",
+
+  "skill_label.rpgmod.blessed_blades": "Bless Blades",
+  "skill_label.rpgmod.holy_shield": "Holy Shield",
+  "skill_label.rpgmod.smiting_ray": "Smiting Ray",
+  "skill_label.rpgmod.healing_aura": "Heal Aura",
+
+  "skill_description.rpgmod.fireball": "Fireball\nLight enemies ablaze with an exploding ball of flame",
+  "skill_description.rpgmod.blink": "Blink\nStep through reality itself and teleport yourself to a target location",
+  "skill_description.rpgmod.blizzard": "Blizzard\nSlow and damage foes with a raging storm of sleet and snow",
+  "skill_description.rpgmod.thunder": "Thunder\nCall down a lightning strike after a short delay. Can be attached to a target or engraved into the ground",
+
+  "skill_description.rpgmod.envenom": "Envenom\nInject your foe with a deadly venom, slowly draining their life",
+  "skill_description.rpgmod.smoke_bomb": "Smoke Bomb\nVanish in a puff of smoke. Become fully invisible to both players and mobs",
+  "skill_description.rpgmod.rupture": "Rupture\nStrike at the heels, causing enemies to take damage as they flee",
+  "skill_description.rpgmod.execute": "Execute\nFinish off a wounded opponent with less than a third of their health",
+
+  "skill_description.rpgmod.berserk": "Berserk\nAllow yourself to be consumed by rage. Gain movement speed and the ability to fight with two weapons, but take more damage",
+  "skill_description.rpgmod.stomp": "Stomp\nCreate a tremor that stuns nearby enemies. Activate midair to transfer fall damage from yourself to your foes",
+  "skill_description.rpgmod.grapple": "Grapple\nThrow a hooked chain to pull your enemies within the range of your axe",
+  "skill_description.rpgmod.molten_shell": "Molten Shell\nCall upon your draconic ancestry for protection. Burn and knock enemies back while regenerating health.",
+
+  "skill_description.rpgmod.blessed_blades": "Bless Blades\nCast a prayer on the weapons of nearby players, briefly granting them the ability to steal life with every hit",
+  "skill_description.rpgmod.holy_shield": "Holy Shield\nCall upon a higher power for protection from the next three attacks",
+  "skill_description.rpgmod.smiting_ray": "Smiting Ray\nStrike foes with a beam of light, causing them to take damage from healing for a short time",
+  "skill_description.rpgmod.healing_aura": "Heal Aura\nRelease steady waves of healing to mend the wounds of all nearby players",
+
   "effect.rpgmod.venom": "Venom",
   "effect.rpgmod.freeze": "Frozen",
   "effect.rpgmod.zapped": "Zapped!",

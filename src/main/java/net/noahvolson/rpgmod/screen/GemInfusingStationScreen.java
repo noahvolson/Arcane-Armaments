@@ -3,6 +3,7 @@ package net.noahvolson.rpgmod.screen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.noahvolson.rpgmod.RpgMod;
@@ -117,24 +118,24 @@ public class GemInfusingStationScreen extends AbstractContainerScreen<GemInfusin
             RenderSystem.disableBlend();
 
 
-            this.font.draw(pPoseStack, rpgClass.getSkill1().getLabel(), x + 80, y + 12, pressed0 ? 10522994 : 4537905);
-            this.font.draw(pPoseStack, rpgClass.getSkill2().getLabel(), x + 80, y + 29, pressed1 ? 10522994 : 4537905);
-            this.font.draw(pPoseStack, rpgClass.getSkill3().getLabel(), x + 80, y + 46, pressed2 ? 10522994 : 4537905);
-            this.font.draw(pPoseStack, rpgClass.getSkill4().getLabel(), x + 80, y + 63, pressed3 ? 10522994 : 4537905);
+            this.font.draw(pPoseStack, I18n.get(rpgClass.getSkill1().getLabel()), x + 80, y + 12, pressed0 ? 10522994 : 4537905);
+            this.font.draw(pPoseStack, I18n.get(rpgClass.getSkill2().getLabel()), x + 80, y + 29, pressed1 ? 10522994 : 4537905);
+            this.font.draw(pPoseStack, I18n.get(rpgClass.getSkill3().getLabel()), x + 80, y + 46, pressed2 ? 10522994 : 4537905);
+            this.font.draw(pPoseStack, I18n.get(rpgClass.getSkill4().getLabel()), x + 80, y + 63, pressed3 ? 10522994 : 4537905);
 
             if (pMouseX >= x + 76 && pMouseX < x + 151) {
                 int highlightColor = 16645499; //pressed 10522994
                 if (pMouseY >= y + 8 && pMouseY <= y + 24) {
-                    this.font.draw(pPoseStack,  rpgClass.getSkill1().getLabel(), x + 80, y + 12, highlightColor);
+                    this.font.draw(pPoseStack, I18n.get(rpgClass.getSkill1().getLabel()), x + 80, y + 12, highlightColor);
                 }
                 else if (pMouseY >= y + 25 && pMouseY <= y + 41) {
-                    this.font.draw(pPoseStack, rpgClass.getSkill2().getLabel(), x + 80, y + 29, highlightColor);
+                    this.font.draw(pPoseStack, I18n.get(rpgClass.getSkill2().getLabel()), x + 80, y + 29, highlightColor);
                 }
                 else if (pMouseY >= y + 42 && pMouseY <= y + 58) {
-                    this.font.draw(pPoseStack, rpgClass.getSkill3().getLabel(), x + 80, y + 46, highlightColor);
+                    this.font.draw(pPoseStack, I18n.get(rpgClass.getSkill3().getLabel()), x + 80, y + 46, highlightColor);
                 }
                 else if (pMouseY >= y + 59 && pMouseY <= y + 75) {
-                    this.font.draw(pPoseStack, rpgClass.getSkill4().getLabel(), x + 80, y + 63, highlightColor);
+                    this.font.draw(pPoseStack, I18n.get(rpgClass.getSkill4().getLabel()), x + 80, y + 63, highlightColor);
                 }
             }
             boolean craftSuccessful = this.menu.getCraftSuccessful();
