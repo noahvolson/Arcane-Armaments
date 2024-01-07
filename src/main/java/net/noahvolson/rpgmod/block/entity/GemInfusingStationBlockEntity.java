@@ -1,5 +1,6 @@
 package net.noahvolson.rpgmod.block.entity;
 
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.noahvolson.rpgmod.entity.skill.SkillType;
 import net.noahvolson.rpgmod.item.ModItems;
@@ -22,6 +23,9 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import net.noahvolson.rpgmod.networking.ModMessages;
+import net.noahvolson.rpgmod.networking.packet.RpgClassSyncS2CPacket;
+import net.noahvolson.rpgmod.networking.packet.UnlockedSkillsSyncS2CPacket;
 import net.noahvolson.rpgmod.player.PlayerUnlockedSkillsProvider;
 import net.noahvolson.rpgmod.rpgclass.RpgClass;
 import net.noahvolson.rpgmod.rpgclass.RpgClasses;
@@ -37,26 +41,57 @@ public class GemInfusingStationBlockEntity extends BlockEntity implements MenuPr
         }
     };
 
+    public final static int dataSize = 3;
+
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
     protected final ContainerData data;
     private RpgClass rpgClass;
+    private boolean craftSuccessful;
+    private int attemptCounter = 0;
 
     public GemInfusingStationBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.GEM_INFUSING_STATION.get(), pos, state);
         this.data = new ContainerData() {
             @Override
             public int get(int index) {
-                return rpgClass != null && index == 0 ? rpgClass.getId() : -1;
+                switch (index) {
+                    case 0 -> {
+                        if (rpgClass != null) {
+                            return rpgClass.getId();
+                        } else {
+                            return -1;
+                        }
+                    }
+                    case 1 -> {
+                        return craftSuccessful ? 1 : 0;
+                    }
+                    case 2 -> {
+                        return attemptCounter;
+                    }
+                    default -> {
+                        return -1;
+                    }
+                }
             }
 
             @Override
             public void set(int index, int value) {
-                rpgClass = index == 0 ? RpgClasses.getById(value) : null;
+                switch (index) {
+                    case 0 -> {
+                        rpgClass = RpgClasses.getById(value);
+                    }
+                    case 1 -> {
+                        craftSuccessful = value != 0;
+                    }
+                    case 2 -> {
+                        attemptCounter = value;
+                    }
+                }
             }
 
             @Override
             public int getCount() {
-                return 1;
+                return dataSize;
             }
         };
     }
@@ -123,11 +158,16 @@ public class GemInfusingStationBlockEntity extends BlockEntity implements MenuPr
 
     public void craftSkill(Player player, SkillType skill) {
         if(this.level != null && !this.level.isClientSide) {
+            attemptCounter++;
+            attemptCounter %= 5;
             if(hasRecipe(skill)) {
                 this.itemHandler.extractItem(1, 1, false);
                 this.itemHandler.setStackInSlot(1, new ItemStack(ModItems.ZIRCON.get(),
                         this.itemHandler.getStackInSlot(1).getCount() + 1));
                 unlockSkill(player, skill);
+                craftSuccessful = true;
+            } else {
+                craftSuccessful = false;
             }
         }
     }
@@ -141,10 +181,13 @@ public class GemInfusingStationBlockEntity extends BlockEntity implements MenuPr
     }
 
     private void unlockSkill(Player player, SkillType skill) {
-        player.getCapability(PlayerUnlockedSkillsProvider.PLAYER_UNLOCKED_SKILLS).ifPresent(unlockedSkills -> {
-            if (!unlockedSkills.contains(skill)) {
-                unlockedSkills.setPlayerUnlockedSkills(unlockedSkills.getPlayerUnlockedSkills() + "[" + skill.name() + "]");
-            }
-        });
+        if (player instanceof ServerPlayer serverPlayer) {
+            player.getCapability(PlayerUnlockedSkillsProvider.PLAYER_UNLOCKED_SKILLS).ifPresent(unlockedSkills -> {
+                if (!unlockedSkills.contains(skill)) {
+                    unlockedSkills.setPlayerUnlockedSkills(unlockedSkills.getPlayerUnlockedSkills() + "[" + skill.name() + "]");
+                    ModMessages.sendToPlayer(new UnlockedSkillsSyncS2CPacket(unlockedSkills.getPlayerUnlockedSkills()), serverPlayer);
+                }
+            });
+        }
     }
 }

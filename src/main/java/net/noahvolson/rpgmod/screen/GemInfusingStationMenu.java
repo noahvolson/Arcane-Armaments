@@ -1,5 +1,6 @@
 package net.noahvolson.rpgmod.screen;
 
+import net.minecraft.server.level.ServerPlayer;
 import net.noahvolson.rpgmod.block.ModBlocks;
 import net.noahvolson.rpgmod.block.entity.GemInfusingStationBlockEntity;
 import net.minecraft.network.FriendlyByteBuf;
@@ -11,20 +12,20 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
+import net.noahvolson.rpgmod.networking.ModMessages;
+import net.noahvolson.rpgmod.networking.packet.UnlockedSkillsSyncS2CPacket;
 import net.noahvolson.rpgmod.player.PlayerUnlockedSkillsProvider;
 import net.noahvolson.rpgmod.rpgclass.RpgClass;
 import net.noahvolson.rpgmod.rpgclass.RpgClasses;
+import org.jetbrains.annotations.NotNull;
 
 public class GemInfusingStationMenu extends AbstractContainerMenu {
     public final GemInfusingStationBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
-    private final int[] buttonDownCounter = {0,0,0,0};
-    private int forgeFrame = -1;
-    private int slowdownCounter = 0;
 
     public GemInfusingStationMenu(int id, Inventory inv, FriendlyByteBuf extraData) {
-        this(id, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(2));
+        this(id, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(GemInfusingStationBlockEntity.dataSize));
     }
 
     public GemInfusingStationMenu(int id, Inventory inv, BlockEntity entity, ContainerData data) {
@@ -116,81 +117,51 @@ public class GemInfusingStationMenu extends AbstractContainerMenu {
         }
     }
 
-    public boolean shouldRenderPressedButton(int index) {
-        if (buttonDownCounter[index] > 0) {
-            buttonDownCounter[index]--;
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Returns
-     * -1   if forge animation should not be rendered
-     * 0-4  if render forge animation, this will be the frame to show
-     */
-    public int getIncrementForgeFrame() {
-        if (forgeFrame > -1 && updateForgeFrame()) {
-            int frameToRender = forgeFrame;
-            forgeFrame++;
-            if (forgeFrame > 4) {
-                forgeFrame = -1;
-            }
-            return frameToRender;
-        }
-        return forgeFrame;
-    }
-
-    public boolean updateForgeFrame() {
-        slowdownCounter++;
-        if (slowdownCounter % 5 == 0) {
-            slowdownCounter = 0;
-            return true;
-        }
-        return false;
-    }
-
     public RpgClass getRpgClass() {
         return RpgClasses.getById(this.data.get(0));
     }
 
+    public boolean getCraftSuccessful() {
+        return this.data.get(1) != 0;
+    }
+
+    public int getAttemptCounter() {
+        return this.data.get(2);
+    }
+
     // For testing purposes
     private void lockAllSkills(Player player) {
-        player.getCapability(PlayerUnlockedSkillsProvider.PLAYER_UNLOCKED_SKILLS).ifPresent(unlockedSkills -> {
-            unlockedSkills.setPlayerUnlockedSkills("");
-        });
+        if (player instanceof ServerPlayer serverPlayer) {
+            player.getCapability(PlayerUnlockedSkillsProvider.PLAYER_UNLOCKED_SKILLS).ifPresent(unlockedSkills -> {
+                unlockedSkills.setPlayerUnlockedSkills("");
+                ModMessages.sendToPlayer(new UnlockedSkillsSyncS2CPacket(unlockedSkills.getPlayerUnlockedSkills()), serverPlayer);
+            });
+        }
     }
 
     @Override
-    public boolean clickMenuButton(Player player, int button) {
-        System.out.println("n9v9o9 clickMenuButton - " + button + " client side " + player.level.isClientSide());
-        switch (button) {
-            case 0 -> {
-                buttonDownCounter[0] = 20;
-                lockAllSkills(player);
-                return true;
+    public boolean clickMenuButton(@NotNull Player player, int button) {
+
+        if (button > -1 && button < 4) {
+            RpgClass rpgClass = getRpgClass();
+            if (rpgClass != null) {
+                switch (button) {
+                    case 0 -> {
+                        lockAllSkills(player);
+                    }
+                    case 1 -> {
+                        this.blockEntity.craftSkill(player, rpgClass.getSkill2());
+                    }
+                    case 2 -> {
+                        this.blockEntity.craftSkill(player, rpgClass.getSkill3());
+                    }
+                    case 3 -> {
+                        this.blockEntity.craftSkill(player, rpgClass.getSkill4());
+                    }
+                }
             }
-            case 1 -> {
-                buttonDownCounter[1] = 20;
-                this.forgeFrame = 0;
-                this.blockEntity.craftSkill(player, getRpgClass().getSkill2());
-                return true;
-            }
-            case 2 -> {
-                buttonDownCounter[2] = 20;
-                this.forgeFrame = 0;
-                this.blockEntity.craftSkill(player, getRpgClass().getSkill3());
-                return true;
-            }
-            case 3 -> {
-                buttonDownCounter[3] = 20;
-                this.forgeFrame = 0;
-                this.blockEntity.craftSkill(player, getRpgClass().getSkill4());
-                return true;
-            }
-            default -> {
-                return false;
-            }
+            return true;
         }
+        return false;
     }
 }

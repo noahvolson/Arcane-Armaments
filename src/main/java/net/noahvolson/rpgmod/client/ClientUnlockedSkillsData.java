@@ -2,21 +2,15 @@ package net.noahvolson.rpgmod.client;
 
 import net.noahvolson.rpgmod.entity.skill.SkillType;
 
-import java.util.ArrayList;
-
 public class ClientUnlockedSkillsData {
-    private static ArrayList<SkillType> clientUnlockedSkills;
+    private static String clientUnlockedSkills = "";
 
-    public static void set(String serialized) {
-        for (SkillType skill : SkillType.values()) {
-            if (serialized.contains(skill.name())) {
-                clientUnlockedSkills.add(skill);
-            }
-        }
+    public static void set(String unlockedSkills) {
+        clientUnlockedSkills = unlockedSkills;
     }
 
-    public static ArrayList<SkillType> getUnlockedSkills() {
-        return clientUnlockedSkills;
+    public static boolean contains(SkillType skill) {
+        return clientUnlockedSkills.contains(skill.name());
     }
 
 }

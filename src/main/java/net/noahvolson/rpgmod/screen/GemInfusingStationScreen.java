@@ -11,11 +11,17 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.noahvolson.rpgmod.client.ClientUnlockedSkillsData;
 import net.noahvolson.rpgmod.rpgclass.RpgClass;
 
 public class GemInfusingStationScreen extends AbstractContainerScreen<GemInfusingStationMenu> {
     private static final ResourceLocation TEXTURE =
             new ResourceLocation(RpgMod.MOD_ID,"textures/gui/gem_infusing_station_gui.png");
+
+    private int forgeFrame = -1;
+    private int failedFrame = -1;
+    private int slowdownCounter = 0;
+    private int lastAttemptCounter = 0;
 
     public GemInfusingStationScreen(GemInfusingStationMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);
@@ -51,33 +57,35 @@ public class GemInfusingStationScreen extends AbstractContainerScreen<GemInfusin
 
         this.blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight + 2);
 
-        renderSkillInfo(pPoseStack, x, y, pMouseX, pMouseY);
-
-        boolean pressed0 = this.menu.shouldRenderPressedButton(0);
-        boolean pressed1 = this.menu.shouldRenderPressedButton(1);
-        boolean pressed2 = this.menu.shouldRenderPressedButton(2);
-        boolean pressed3 = this.menu.shouldRenderPressedButton(3);
-
-
-        if (pressed0) {
-            blit(pPoseStack, x + 76, y + 8, 0, 202, 75, 16);
-        }
-        if (pressed1) {
-            blit(pPoseStack, x + 76, y + 25, 0, 202, 75, 16);
-        }
-        if (pressed2) {
-            blit(pPoseStack, x + 76, y + 42, 0, 202, 75, 16);
-        }
-        if (pressed3) {
-            blit(pPoseStack, x + 76, y + 59, 0, 202, 75, 16);
-        }
-
         RpgClass rpgClass = this.menu.getRpgClass();
         if (rpgClass != null) {
-            RenderSystem.enableBlend();
-            RenderSystem.defaultBlendFunc();
+            renderSkillInfo(pPoseStack, x, y, pMouseX, pMouseY);
+
+            boolean pressed0 = true;
+            boolean pressed1 = ClientUnlockedSkillsData.contains(rpgClass.getSkill2());
+            boolean pressed2 = ClientUnlockedSkillsData.contains(rpgClass.getSkill3());
+            boolean pressed3 = ClientUnlockedSkillsData.contains(rpgClass.getSkill4());
+
+            if (pressed0) {
+                blit(pPoseStack, x + 76, y + 8, 0, 202, 75, 16);
+            }
+            if (pressed1) {
+                blit(pPoseStack, x + 76, y + 25, 0, 202, 75, 16);
+            }
+            if (pressed2) {
+                blit(pPoseStack, x + 76, y + 42, 0, 202, 75, 16);
+            }
+            if (pressed3) {
+                blit(pPoseStack, x + 76, y + 59, 0, 202, 75, 16);
+            }
+
+            // Draw blank space over the offhand slot icon
+            RenderSystem.setShaderTexture(0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/blank_slot.png"));
+            GuiComponent.blit(pPoseStack,x + 13, y + 47,0,0,16,16, 16,16);
 
             // Render Skill icons
+            RenderSystem.enableBlend();
+            RenderSystem.defaultBlendFunc();
             RenderSystem.setShaderTexture(0, rpgClass.getSkill1().getIcon());
             GuiComponent.blit(pPoseStack,x + 60, y + 9,0,0,15,15, 15,15);
             RenderSystem.setShaderTexture(0, rpgClass.getSkill2().getIcon());
@@ -112,40 +120,74 @@ public class GemInfusingStationScreen extends AbstractContainerScreen<GemInfusin
             RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1f);
             RenderSystem.disableBlend();
 
-            this.font.draw(pPoseStack, rpgClass.getSkill1().getLabel(), x + 80, y + 12, 4537905);
-            this.font.draw(pPoseStack, rpgClass.getSkill2().getLabel(), x + 80, y + 29, 4537905);
-            this.font.draw(pPoseStack, rpgClass.getSkill3().getLabel(), x + 80, y + 46, 4537905);
-            this.font.draw(pPoseStack, rpgClass.getSkill4().getLabel(), x + 80, y + 63, 4537905);
+
+            this.font.draw(pPoseStack, rpgClass.getSkill1().getLabel(), x + 80, y + 12, pressed0 ? 10522994 : 4537905);
+            this.font.draw(pPoseStack, rpgClass.getSkill2().getLabel(), x + 80, y + 29, pressed1 ? 10522994 : 4537905);
+            this.font.draw(pPoseStack, rpgClass.getSkill3().getLabel(), x + 80, y + 46, pressed2 ? 10522994 : 4537905);
+            this.font.draw(pPoseStack, rpgClass.getSkill4().getLabel(), x + 80, y + 63, pressed3 ? 10522994 : 4537905);
 
             if (pMouseX >= x + 76 && pMouseX < x + 151) {
+                int highlightColor = 16645499; //pressed 10522994
                 if (pMouseY >= y + 8 && pMouseY <= y + 24) {
-                    int color = pressed0 ? 10522994 : 16645499;
-                    this.font.draw(pPoseStack,  rpgClass.getSkill1().getLabel(), x + 80, y + 12, color);
+                    this.font.draw(pPoseStack,  rpgClass.getSkill1().getLabel(), x + 80, y + 12, highlightColor);
                 }
                 else if (pMouseY >= y + 25 && pMouseY <= y + 41) {
-                    int color = pressed1 ? 10522994 : 16645499;
-                    this.font.draw(pPoseStack, rpgClass.getSkill2().getLabel(), x + 80, y + 29, color);
+                    this.font.draw(pPoseStack, rpgClass.getSkill2().getLabel(), x + 80, y + 29, highlightColor);
                 }
                 else if (pMouseY >= y + 42 && pMouseY <= y + 58) {
-                    int color = pressed2 ? 10522994 : 16645499;
-                    this.font.draw(pPoseStack, rpgClass.getSkill3().getLabel(), x + 80, y + 46, color);
+                    this.font.draw(pPoseStack, rpgClass.getSkill3().getLabel(), x + 80, y + 46, highlightColor);
                 }
                 else if (pMouseY >= y + 59 && pMouseY <= y + 75) {
-                    int color = pressed3 ? 10522994 : 16645499;
-                    this.font.draw(pPoseStack, rpgClass.getSkill4().getLabel(), x + 80, y + 63, color);
+                    this.font.draw(pPoseStack, rpgClass.getSkill4().getLabel(), x + 80, y + 63, highlightColor);
                 }
             }
-            int frame = menu.getIncrementForgeFrame();
-            if (frame > -1 && frame < 5) {
+            boolean craftSuccessful = this.menu.getCraftSuccessful();
+
+            if (menu.getAttemptCounter() != lastAttemptCounter) { // Only update animation if the craft status is synced
+                // Animation not in progress
+                if (forgeFrame == -1 || failedFrame == -1) {
+                    if (craftSuccessful) {
+                        startForgeAnim();
+                    } else {
+                        startFailedAnim();
+                    }
+                }
+                lastAttemptCounter = menu.getAttemptCounter();
+            }
+
+            // Animation in progress
+            if (forgeFrame > -1) {
                 // Draw blank space over the idle pose
                 RenderSystem.setShaderTexture(0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/anim_forge/forge_blank.png"));
                 GuiComponent.blit(pPoseStack,x + 12, y + 14,0,0,38,32, 38,32);
 
-                // Draw the frame
-                RenderSystem.setShaderTexture(0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/anim_forge/forge_" + frame + ".png"));
+                // Draw the forgeFrame
+                RenderSystem.setShaderTexture(0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/anim_forge/forge_" + forgeFrame + ".png"));
                 GuiComponent.blit(pPoseStack,x + 12, y + 14,0,0,38,32, 38,32);
+            } else if (failedFrame > -1) {
+
+                // Draw the failedFrame
+                RenderSystem.setShaderTexture(0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/anim_unlock_failed/unlock_failed_" + failedFrame + ".png"));
+                GuiComponent.blit(pPoseStack,x + 23, y + 22,0,0,15,15, 15,15);
             }
+            nextFrames();
         }
+    }
+
+    public void nextFrames() {
+        slowdownCounter++;
+        if (slowdownCounter % 5 == 0) {
+            slowdownCounter = 0;
+            if (forgeFrame > -1) { forgeFrame--; }
+            if (failedFrame > -1) { failedFrame--; }
+        }
+    }
+
+    public void startForgeAnim() {
+        this.forgeFrame = 4;
+    }
+    public void startFailedAnim() {
+        this.failedFrame = 2;
     }
 
     @Override

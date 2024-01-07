@@ -9,6 +9,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
 import net.noahvolson.rpgmod.RpgMod;
 import net.noahvolson.rpgmod.networking.packet.AbilityC2SPacket;
 import net.noahvolson.rpgmod.networking.packet.RpgClassSyncS2CPacket;
+import net.noahvolson.rpgmod.networking.packet.UnlockedSkillsSyncS2CPacket;
 
 public class ModMessages {
     private static SimpleChannel INSTANCE;
@@ -38,6 +39,12 @@ public class ModMessages {
                 .decoder(RpgClassSyncS2CPacket::new)
                 .encoder(RpgClassSyncS2CPacket::toBytes)
                 .consumerMainThread(RpgClassSyncS2CPacket::handle)
+                .add();
+
+        net.messageBuilder(UnlockedSkillsSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(UnlockedSkillsSyncS2CPacket::new)
+                .encoder(UnlockedSkillsSyncS2CPacket::toBytes)
+                .consumerMainThread(UnlockedSkillsSyncS2CPacket::handle)
                 .add();
 
     }
