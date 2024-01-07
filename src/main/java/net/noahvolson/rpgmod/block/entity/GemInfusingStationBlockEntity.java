@@ -162,8 +162,6 @@ public class GemInfusingStationBlockEntity extends BlockEntity implements MenuPr
             attemptCounter %= 5;
             if(hasRecipe(skill)) {
                 this.itemHandler.extractItem(1, 1, false);
-                this.itemHandler.setStackInSlot(1, new ItemStack(ModItems.ZIRCON.get(),
-                        this.itemHandler.getStackInSlot(1).getCount() + 1));
                 unlockSkill(player, skill);
                 craftSuccessful = true;
             } else {

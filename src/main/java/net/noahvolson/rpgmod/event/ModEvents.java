@@ -44,6 +44,7 @@ import net.noahvolson.rpgmod.effect.ModEffects;
 import net.noahvolson.rpgmod.entity.skill.ModAreaEffectCloud;
 import net.noahvolson.rpgmod.networking.ModMessages;
 import net.noahvolson.rpgmod.networking.packet.RpgClassSyncS2CPacket;
+import net.noahvolson.rpgmod.networking.packet.UnlockedSkillsSyncS2CPacket;
 import net.noahvolson.rpgmod.particle.ModParticles;
 import net.noahvolson.rpgmod.player.PlayerRpgClass;
 import net.noahvolson.rpgmod.player.PlayerRpgClassProvider;
@@ -96,6 +97,11 @@ public class ModEvents {
         @SubscribeEvent
         public static void onPlayerJoin(EntityJoinLevelEvent event) {
             if (event.getEntity() instanceof ServerPlayer player) {
+
+                player.getCapability(PlayerUnlockedSkillsProvider.PLAYER_UNLOCKED_SKILLS).ifPresent(unlockedSkills -> {
+                    ModMessages.sendToPlayer(new UnlockedSkillsSyncS2CPacket(unlockedSkills.getPlayerUnlockedSkills()), player);
+                });
+
                 player.getAttribute(Attributes.MOVEMENT_SPEED);
 
                 ItemStack offhand = player.getOffhandItem();

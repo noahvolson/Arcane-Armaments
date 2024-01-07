@@ -22,14 +22,10 @@ public class GemInfusingStationScreen extends AbstractContainerScreen<GemInfusin
     private int failedFrame = -1;
     private int slowdownCounter = 0;
     private int lastAttemptCounter = 0;
+    private boolean resetComplete = false;
 
     public GemInfusingStationScreen(GemInfusingStationMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);
-    }
-
-    @Override
-    protected void init() {
-        super.init();
     }
 
     private ResourceLocation getResourceLocation(Item item) {
@@ -143,7 +139,14 @@ public class GemInfusingStationScreen extends AbstractContainerScreen<GemInfusin
             }
             boolean craftSuccessful = this.menu.getCraftSuccessful();
 
-            if (menu.getAttemptCounter() != lastAttemptCounter) { // Only update animation if the craft status is synced
+            // (Entity) Attempt counter will not be reset when we close the menu. Gotta synchronize this manually on the first rendering pass.
+            if (!resetComplete) {
+                lastAttemptCounter = menu.getAttemptCounter();
+                resetComplete = true;
+            }
+
+            // Only update animation if the craft status is updated
+            if (menu.getAttemptCounter() != lastAttemptCounter) {
                 // Animation not in progress
                 if (forgeFrame == -1 || failedFrame == -1) {
                     if (craftSuccessful) {
