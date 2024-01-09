@@ -4,6 +4,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.FormattedText;
+import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.noahvolson.rpgmod.RpgMod;
@@ -13,6 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.noahvolson.rpgmod.client.ClientUnlockedSkillsData;
+import net.noahvolson.rpgmod.entity.skill.SkillType;
 import net.noahvolson.rpgmod.rpgclass.RpgClass;
 
 public class GemInfusingStationScreen extends AbstractContainerScreen<GemInfusingStationMenu> {
@@ -126,15 +129,19 @@ public class GemInfusingStationScreen extends AbstractContainerScreen<GemInfusin
             if (pMouseX >= x + 76 && pMouseX < x + 151) {
                 int highlightColor = 16645499; //pressed 10522994
                 if (pMouseY >= y + 8 && pMouseY <= y + 24) {
+                    renderSkillDescription(pPoseStack, x, y, rpgClass.getSkill1());
                     this.font.draw(pPoseStack, I18n.get(rpgClass.getSkill1().getLabel()), x + 80, y + 12, highlightColor);
                 }
                 else if (pMouseY >= y + 25 && pMouseY <= y + 41) {
+                    renderSkillDescription(pPoseStack, x, y, rpgClass.getSkill2());
                     this.font.draw(pPoseStack, I18n.get(rpgClass.getSkill2().getLabel()), x + 80, y + 29, highlightColor);
                 }
                 else if (pMouseY >= y + 42 && pMouseY <= y + 58) {
+                    renderSkillDescription(pPoseStack, x, y, rpgClass.getSkill3());
                     this.font.draw(pPoseStack, I18n.get(rpgClass.getSkill3().getLabel()), x + 80, y + 46, highlightColor);
                 }
                 else if (pMouseY >= y + 59 && pMouseY <= y + 75) {
+                    renderSkillDescription(pPoseStack, x, y, rpgClass.getSkill4());
                     this.font.draw(pPoseStack, I18n.get(rpgClass.getSkill4().getLabel()), x + 80, y + 63, highlightColor);
                 }
             }
@@ -177,8 +184,17 @@ public class GemInfusingStationScreen extends AbstractContainerScreen<GemInfusin
             nextFrames();
         }
     }
+    private void renderSkillDescription(PoseStack pPoseStack, int x, int y, SkillType skill) {
+        RenderSystem.setShaderTexture(0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/skill_details.png"));
+        GuiComponent.blit(pPoseStack,x + 180, y,0,0,98,112, 98,112);
+        this.font.drawWordWrap(FormattedText.of(I18n.get(skill.getLabel())), x + 186, y + 6, 88, 13579059);
+        this.font.drawWordWrap(FormattedText.of(I18n.get(skill.getDescription())), x + 186, y + 18, 88, 11053224);
+        this.font.drawWordWrap(FormattedText.of(I18n.get("skill_cooldown.rpgmod") + ": " + String.format("%.1f", skill.getCooldown() / 20.0) + "s"), x + 186, y + 96, 88, 11053224);
 
-    public void nextFrames() {
+    }
+
+
+    private void nextFrames() {
         slowdownCounter++;
         if (slowdownCounter % 5 == 0) {
             slowdownCounter = 0;
@@ -187,10 +203,10 @@ public class GemInfusingStationScreen extends AbstractContainerScreen<GemInfusin
         }
     }
 
-    public void startForgeAnim() {
+    private void startForgeAnim() {
         this.forgeFrame = 4;
     }
-    public void startFailedAnim() {
+    private void startFailedAnim() {
         this.failedFrame = 2;
     }
 
