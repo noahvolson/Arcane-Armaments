@@ -1,7 +1,9 @@
 package net.noahvolson.rpgmod.event;
 
+import net.minecraft.world.effect.MobEffects;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
+import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.noahvolson.rpgmod.RpgMod;
@@ -30,6 +32,22 @@ public class ClientEvents {
                 ModMessages.sendToServer(new AbilityC2SPacket(4));
             }
         }
+
+        @SubscribeEvent
+        public static void onRenderGuiOverlayEvent(RenderGuiOverlayEvent.Pre event) {
+            if (event.getOverlay() == VanillaGuiOverlay.ARMOR_LEVEL.type()) {
+                event.setCanceled(true);
+            }
+        }
+
+        // Hide armor & drawn weapons
+        @SubscribeEvent
+        public static void onRenderPlayer(RenderPlayerEvent.Pre event) {
+            if (event.getEntity().hasEffect(MobEffects.INVISIBILITY)) {
+                event.setCanceled(true);
+            }
+        }
+
     }
 
     @Mod.EventBusSubscriber(modid = RpgMod.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)

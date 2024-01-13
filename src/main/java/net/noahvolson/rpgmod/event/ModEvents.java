@@ -181,21 +181,6 @@ public class ModEvents {
             }
         }
 
-        @SubscribeEvent
-        public static void onRenderGuiOverlayEvent(RenderGuiOverlayEvent.Pre event) {
-            if (event.getOverlay() == VanillaGuiOverlay.ARMOR_LEVEL.type()) {
-                event.setCanceled(true);
-            }
-        }
-
-        // Hide armor & drawn weapons
-        @SubscribeEvent
-        public static void onRenderPlayer(RenderPlayerEvent.Pre event) {
-            if (event.getEntity().hasEffect(MobEffects.INVISIBILITY)) {
-                event.setCanceled(true);
-            }
-        }
-
         // Remove mob aggro on invisibility and blindness
         @SubscribeEvent
         public static void onLivingSetAttackTargetEvent (LivingSetAttackTargetEvent event) {
