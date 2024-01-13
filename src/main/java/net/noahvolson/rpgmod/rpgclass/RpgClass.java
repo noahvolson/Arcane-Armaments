@@ -17,15 +17,17 @@ public class RpgClass {
     private final int id;
     private final String label;
     private final Item classItem;
+    private final int classColor;
     private final SkillType skill1;
     private final SkillType skill2;
     private final SkillType skill3;
     private final SkillType skill4;
 
-    public RpgClass(int id, String label, Item classItem, SkillType skill1, SkillType skill2, SkillType skill3, SkillType skill4) {
+    public RpgClass(int id, String label, Item classItem, int classColor, SkillType skill1, SkillType skill2, SkillType skill3, SkillType skill4) {
         this.id = id;
         this.label = label;
         this.classItem = classItem;
+        this.classColor = classColor;
         this.skill1 = skill1;
         this.skill2 = skill2;
         this.skill3 = skill3;
@@ -40,6 +42,9 @@ public class RpgClass {
     }
     public Item getClassItem() {
         return classItem;
+    }
+    public int getClassColor() {
+        return classColor;
     }
     public SkillType getSkill1() {
         return skill1;

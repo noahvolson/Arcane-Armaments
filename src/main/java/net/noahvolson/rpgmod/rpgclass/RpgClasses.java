@@ -6,10 +6,10 @@ import net.minecraft.world.item.Items;
 import static net.noahvolson.rpgmod.entity.skill.SkillType.*;
 
 public class RpgClasses {
-    public static final RpgClass MAGE = new RpgClass(0, "MAGE", Items.STICK, FIREBALL, BLINK, BLIZZARD, THUNDER);
-    public static final RpgClass ROGUE = new RpgClass(1, "ROGUE", Items.IRON_SWORD, ENVENOM, SMOKE_BOMB, RUPTURE, EXECUTE);
-    public static final RpgClass WARRIOR = new RpgClass(2, "WARRIOR", Items.IRON_AXE, BERSERK, STOMP, GRAPPLE, MOLTEN_SHELL);
-    public static final RpgClass CLERIC = new RpgClass(3, "CLERIC", Items.NETHER_STAR, BLESSED_BLADES, HOLY_SHIELD, SMITING_RAY, HEALING_AURA);
+    public static final RpgClass MAGE = new RpgClass(0, "MAGE", Items.STICK, 13579059, FIREBALL, BLINK, BLIZZARD, THUNDER);
+    public static final RpgClass ROGUE = new RpgClass(1, "ROGUE", Items.IRON_SWORD, 10638799, ENVENOM, SMOKE_BOMB, RUPTURE, EXECUTE);
+    public static final RpgClass WARRIOR = new RpgClass(2, "WARRIOR", Items.IRON_AXE, 16732214, BERSERK, STOMP, GRAPPLE, MOLTEN_SHELL);
+    public static final RpgClass CLERIC = new RpgClass(3, "CLERIC", Items.NETHER_STAR, 15916663, BLESSED_BLADES, HOLY_SHIELD, SMITING_RAY, HEALING_AURA);
 
     public static RpgClass getById(int id) {
         switch (id) {
