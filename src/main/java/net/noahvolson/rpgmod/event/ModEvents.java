@@ -304,18 +304,13 @@ public class ModEvents {
 
         @SubscribeEvent
         public static void onPlayerCloned(PlayerEvent.Clone event) {
-            if(event.isWasDeath()) {
-                event.getOriginal().getCapability(PlayerRpgClassProvider.PLAYER_RPG_CLASS).ifPresent(oldStore -> {
-                    event.getOriginal().getCapability(PlayerRpgClassProvider.PLAYER_RPG_CLASS).ifPresent(newStore -> {
-                        newStore.copyFrom(oldStore);
-                    });
+            event.getOriginal().reviveCaps();
+            event.getOriginal().getCapability(PlayerUnlockedSkillsProvider.PLAYER_UNLOCKED_SKILLS).ifPresent(oldStore -> {
+                event.getEntity().getCapability(PlayerUnlockedSkillsProvider.PLAYER_UNLOCKED_SKILLS).ifPresent(newStore -> {
+                    newStore.copyFrom(oldStore);
                 });
-                event.getOriginal().getCapability(PlayerUnlockedSkillsProvider.PLAYER_UNLOCKED_SKILLS).ifPresent(oldStore -> {
-                    event.getOriginal().getCapability(PlayerUnlockedSkillsProvider.PLAYER_UNLOCKED_SKILLS).ifPresent(newStore -> {
-                        newStore.copyFrom(oldStore);
-                    });
-                });
-            }
+            });
+            event.getOriginal().invalidateCaps();
         }
 
         @SubscribeEvent
