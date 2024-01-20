@@ -18,6 +18,8 @@ import net.noahvolson.rpgmod.client.ClientUnlockedSkillsData;
 import net.noahvolson.rpgmod.entity.skill.SkillType;
 import net.noahvolson.rpgmod.rpgclass.RpgClass;
 
+import static net.noahvolson.rpgmod.screen.GemInfusingStationMenu.TE_INVENTORY_FIRST_SLOT_INDEX;
+
 public class GemInfusingStationScreen extends AbstractContainerScreen<GemInfusingStationMenu> {
     private static final ResourceLocation TEXTURE =
             new ResourceLocation(RpgMod.MOD_ID,"textures/gui/gem_infusing_station_gui.png");
@@ -58,6 +60,7 @@ public class GemInfusingStationScreen extends AbstractContainerScreen<GemInfusin
         this.blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight + 2);
 
         RpgClass rpgClass = this.menu.getRpgClass();
+
         if (rpgClass != null) {
             renderSkillInfo(pPoseStack, x, y, pMouseX, pMouseY);
 
@@ -78,10 +81,6 @@ public class GemInfusingStationScreen extends AbstractContainerScreen<GemInfusin
             if (pressed3) {
                 blit(pPoseStack, x + 76, y + 59, 0, 202, 75, 16);
             }
-
-            // Draw blank space over the offhand slot icon
-            RenderSystem.setShaderTexture(0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/blank_slot.png"));
-            GuiComponent.blit(pPoseStack,x + 13, y + 47,0,0,16,16, 16,16);
 
             // Render Skill icons
             RenderSystem.enableBlend();
@@ -182,6 +181,11 @@ public class GemInfusingStationScreen extends AbstractContainerScreen<GemInfusin
                 GuiComponent.blit(pPoseStack,x + 23, y + 22,0,0,15,15, 15,15);
             }
             nextFrames();
+        }
+        if (menu.getSlot(TE_INVENTORY_FIRST_SLOT_INDEX).hasItem()) {
+            // Draw blank space over the offhand slot icon
+            RenderSystem.setShaderTexture(0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/blank_slot.png"));
+            GuiComponent.blit(pPoseStack,x + 13, y + 47,0,0,16,16, 16,16);
         }
     }
     private void renderSkillDescription(PoseStack pPoseStack, int x, int y, SkillType skill) {
