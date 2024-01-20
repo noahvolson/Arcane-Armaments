@@ -4,6 +4,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -22,6 +23,8 @@ public abstract class AbstractProjectileAbility extends AbstractArrow implements
     private SoundEvent hitEntitySound;
     private SoundEvent hitBlockSound;
     private double speed = 3D;
+    private int hitDamage = 0;
+    private DamageSource damageSource = DamageSource.MAGIC;
 
     // For registering in ModEntityTypes
     public AbstractProjectileAbility(EntityType<AbstractProjectileAbility> entityType, Level world) {
@@ -47,14 +50,20 @@ public abstract class AbstractProjectileAbility extends AbstractArrow implements
 
     @Override
     protected void onHitEntity(@NotNull EntityHitResult ray) {
-
-        // Override arrow sound
-        this.setSoundEvent(this.hitEntitySound);
-        super.onHitEntity(ray);
-
-        // Remove arrows that may have been added by the hit
         Entity target = ray.getEntity();
         if (target instanceof LivingEntity) {
+
+            // Arrow base damage factors in speed, which makes damage calculations needlessly complex
+            if (this.hitDamage > 0) {
+                this.setBaseDamage(0);
+                target.hurt(damageSource, hitDamage);
+            }
+
+            // Override arrow sound
+            this.setSoundEvent(this.hitEntitySound);
+            super.onHitEntity(ray);
+
+            // Remove arrows that may have been added by the hit
             if (!this.level.isClientSide && this.getPierceLevel() <= 0) {
                 LivingEntity livingentity = (LivingEntity)target;
                 livingentity.setArrowCount(livingentity.getArrowCount() - 1);
@@ -141,10 +150,16 @@ public abstract class AbstractProjectileAbility extends AbstractArrow implements
         return 0;
     }
 
-
     @Override
     public boolean isInvisibleCausing() {
         return false;
     }
 
+    public void setHitDamage(int hitDamage) {
+        this.hitDamage = hitDamage;
+    }
+
+    public void setDamageSource(DamageSource damageSource) {
+        this.damageSource = damageSource;
+    }
 }
