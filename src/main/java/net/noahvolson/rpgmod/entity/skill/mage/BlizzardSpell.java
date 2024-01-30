@@ -3,6 +3,7 @@ package net.noahvolson.rpgmod.entity.skill.mage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
@@ -13,6 +14,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.noahvolson.rpgmod.effect.ModEffects;
 import net.noahvolson.rpgmod.entity.skill.AbstractProjectileAbility;
+import net.noahvolson.rpgmod.entity.skill.SkillType;
 import net.noahvolson.rpgmod.particle.ModParticles;
 import net.noahvolson.rpgmod.sound.ModSounds;
 import org.jetbrains.annotations.NotNull;
@@ -27,6 +29,7 @@ public class BlizzardSpell extends AbstractProjectileAbility {
     public BlizzardSpell(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
         super(entityType, shooter, world, ModSounds.BLIZZARD_CAST.get(), ModSounds.BLIZZARD_IMPACT.get(), ModSounds.BLIZZARD_IMPACT.get());
         this.setKnockback(0);
+        this.setDamage(DamageSource.FREEZE, SkillType.BLIZZARD.getDamage());
     }
 
     @Override
@@ -41,7 +44,7 @@ public class BlizzardSpell extends AbstractProjectileAbility {
             AreaEffectCloud snowCloud = new AreaEffectCloud(this.level, blockPosAbove.getX(), blockPosAbove.getY(), blockPosAbove.getZ());
             snowCloud.setParticle(ModParticles.FREEZE_PARTICLES.get());
             snowCloud.setRadius(2F);
-            snowCloud.setDuration(120);
+            snowCloud.setDuration(SkillType.BLIZZARD.getDuration());
             snowCloud.setWaitTime(0);
             this.level.addFreshEntity(snowCloud);
 
@@ -51,7 +54,7 @@ public class BlizzardSpell extends AbstractProjectileAbility {
             }
             areaeffectcloud.setParticle(ModParticles.HIDDEN_PARTICLES.get());
             areaeffectcloud.setRadius(2.5F);
-            areaeffectcloud.setDuration(120);
+            areaeffectcloud.setDuration(SkillType.BLIZZARD.getDuration());
             areaeffectcloud.setWaitTime(0);
             areaeffectcloud.addEffect(new MobEffectInstance(ModEffects.FREEZE.get(), 30, -1));
 
@@ -70,7 +73,7 @@ public class BlizzardSpell extends AbstractProjectileAbility {
             AreaEffectCloud snowCloud = new AreaEffectCloud(this.level, blockPosAbove.getX(), blockPosAbove.getY(), blockPosAbove.getZ());
             snowCloud.setParticle(ModParticles.FREEZE_PARTICLES.get());
             snowCloud.setRadius(2F);
-            snowCloud.setDuration(120);
+            snowCloud.setDuration(SkillType.BLIZZARD.getDuration());
             snowCloud.setWaitTime(0);
             this.level.addFreshEntity(snowCloud);
 
@@ -80,7 +83,7 @@ public class BlizzardSpell extends AbstractProjectileAbility {
             }
             areaeffectcloud.setParticle(ModParticles.HIDDEN_PARTICLES.get());
             areaeffectcloud.setRadius(2.5F);
-            areaeffectcloud.setDuration(120);
+            areaeffectcloud.setDuration(SkillType.BLIZZARD.getDuration());
             areaeffectcloud.setWaitTime(0);
             areaeffectcloud.addEffect(new MobEffectInstance(ModEffects.FREEZE.get(), 30, -1));
             this.level.addFreshEntity(areaeffectcloud);
@@ -93,7 +96,7 @@ public class BlizzardSpell extends AbstractProjectileAbility {
 
     @Override
     protected void tickDespawn() {
-        if (this.inGroundTime > 120) {
+        if (this.inGroundTime > SkillType.BLIZZARD.getDuration()) {
             this.discard();
         }
     }

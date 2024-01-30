@@ -86,6 +86,12 @@
   "sounds.rpgmod.execute_dagger": "Execute Dagger Sound",
   "sounds.rpgmod.failed_execute": "Failed Execute Sound",
 
+  "death.attack.zap": "%1$s was electrocuted",
+  "death.attack.zap.player": "%1$s was electrocuted by %2$s",
+  "death.attack.fireball": "%1$s exploded in a blaze",
+  "death.attack.fireball.player": "%2$s blew up %1$s in a fiery explosion",
+  "death.attack.blink": "%1$s was punched into the void",
+  "death.attack.blink.player": "%1$s was punched into the void by %2$s",
   "death.attack.venom": "%1$s succumbed to venom",
   "death.attack.venom.player": "%1$s fell to the venomous blades of %2$s",
   "death.attack.rupture": "%1$s ran too fast and bled out",

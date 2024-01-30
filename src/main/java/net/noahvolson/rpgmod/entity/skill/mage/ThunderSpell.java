@@ -1,6 +1,7 @@
 package net.noahvolson.rpgmod.entity.skill.mage;
 
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.EntityType;
@@ -10,12 +11,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.noahvolson.rpgmod.effect.ModEffects;
 import net.noahvolson.rpgmod.entity.skill.AbstractProjectileAbility;
+import net.noahvolson.rpgmod.entity.skill.SkillType;
 import net.noahvolson.rpgmod.particle.ModParticles;
 import net.noahvolson.rpgmod.sound.ModSounds;
 import org.jetbrains.annotations.NotNull;
 
 public class ThunderSpell extends AbstractProjectileAbility {
-    private final int DURATION = 60;
 
     public ThunderSpell(EntityType<AbstractProjectileAbility> entityType, Level world) {
         super(entityType, world);
@@ -23,19 +24,20 @@ public class ThunderSpell extends AbstractProjectileAbility {
 
     public ThunderSpell(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
         super(entityType, shooter, world, ModSounds.THUNDER_CAST.get(), ModSounds.THUNDER_IMPACT.get(), ModSounds.THUNDER_IMPACT.get());
+        this.setDamage(new DamageSource("zap"), SkillType.THUNDER.getDamage());
     }
 
     @Override
     protected void doEffectsEntity(@NotNull EntityHitResult ray) {
         if (!this.level.isClientSide && ray.getEntity() instanceof LivingEntity livingentity) {
-            livingentity.addEffect(new MobEffectInstance(ModEffects.ZAPPED.get(), DURATION, -1));
+            livingentity.addEffect(new MobEffectInstance(ModEffects.ZAPPED.get(), SkillType.THUNDER.getDuration(), -1));
         }
     }
 
     // To blow up after 3 seconds
     @Override
     protected void tickDespawn() {
-        if (this.inGroundTime > DURATION){
+        if (this.inGroundTime > SkillType.THUNDER.getDuration()){
             //this.level.explode(this, this.getX(), this.getY(), this.getZ(), 4.0f, true, Explosion.BlockInteraction.NONE);
             LightningBolt bolt = new LightningBolt(EntityType.LIGHTNING_BOLT, this.level);
             bolt.setPos(this.getX(), this.getY(), this.getZ());

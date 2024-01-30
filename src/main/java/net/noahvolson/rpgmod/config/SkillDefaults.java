@@ -1,10 +1,10 @@
 package net.noahvolson.rpgmod.config;
 
 public enum SkillDefaults {
-    FIREBALL(       0, 0, 0, 0, 0),
-    BLINK(          0, 0, 0, 0, 0),
-    BLIZZARD(       0, 0, 0, 0, 0),
-    THUNDER(        0, 0, 0, 0, 0),
+    FIREBALL(       4, 0, 80, 100, 0),
+    BLINK(          2, 0, 5, 100, 0),
+    BLIZZARD(       3, 0, 120, 60, 0),
+    THUNDER(        2, 0, 60, 1200, 0),
 
     // rogue
     ENVENOM(        0, 0, 0, 0, 0),
