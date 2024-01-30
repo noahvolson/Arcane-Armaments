@@ -96,6 +96,8 @@
   "death.attack.execute.stomp": "%1$s was crushed by %2$s",
   "death.attack.overcast": "%1$s died of spell exhaustion",
   "death.attack.overcast.player": "%1$s died of spell exhaustion",
+  "death.attack.smiting_ray": "%1$s was banished to the nether",
+  "death.attack.smiting_ray.player": "%1$s was banished to the nether by %2$s",
   "death.attack.smiting": "%1$s healed to death",
   "death.attack.smiting.player": "%1$s was healed to death by %2$s"
 }

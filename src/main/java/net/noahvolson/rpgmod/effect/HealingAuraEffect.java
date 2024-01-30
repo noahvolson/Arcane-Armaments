@@ -6,6 +6,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -19,6 +20,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
+import net.noahvolson.rpgmod.entity.skill.SkillType;
 import net.noahvolson.rpgmod.entity.skill.cleric.HealingAuraSkill;
 import net.noahvolson.rpgmod.particle.ModParticles;
 import net.noahvolson.rpgmod.sound.ModSounds;
@@ -37,10 +39,11 @@ public class HealingAuraEffect extends MobEffect {
     public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
         if (pLivingEntity instanceof ServerPlayer player && pLivingEntity.level instanceof ServerLevel level) {
             int duration = player.getActiveEffectsMap().get(HealingAuraEffect.this).getDuration();
-            if (duration < HealingAuraSkill.EFFECT_DURATION && duration % 40 == 0) {
+            if (duration < SkillType.HEALING_AURA.getDuration() && duration % 40 == 0) {
                 HealingAuraSkill cloud = new HealingAuraSkill(player);
                 level.addFreshEntity(cloud);
                 level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.HEALING_AURA.get(), SoundSource.HOSTILE, .9F, 1.2F / (level.random.nextFloat() * 0.2F + 0.9F));
+                cloud.healHarmNearby(player);
             }
         }
         super.applyEffectTick(pLivingEntity, pAmplifier);

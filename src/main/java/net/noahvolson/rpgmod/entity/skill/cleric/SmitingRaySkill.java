@@ -1,5 +1,6 @@
 package net.noahvolson.rpgmod.entity.skill.cleric;
 
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -8,13 +9,13 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.noahvolson.rpgmod.effect.ModEffects;
 import net.noahvolson.rpgmod.entity.skill.AbstractProjectileAbility;
+import net.noahvolson.rpgmod.entity.skill.SkillType;
 import net.noahvolson.rpgmod.particle.ModParticles;
 import net.noahvolson.rpgmod.sound.ModSounds;
 import org.jetbrains.annotations.NotNull;
 
 public class SmitingRaySkill extends AbstractProjectileAbility {
-    private final int DURATION = 100;
-    private final double range = 25;
+    private final double RANGE = 25;
 
     private double startX = 0;
     private double startY = 0;
@@ -34,12 +35,14 @@ public class SmitingRaySkill extends AbstractProjectileAbility {
 
         this.setPierceLevel((byte)16);
         this.setSpeed(1.5);
+
+        this.setDamage(new DamageSource("smiting_ray"), SkillType.SMITING_RAY.getDamage());
     }
 
     @Override
     protected void doEffectsEntity(@NotNull EntityHitResult ray) {
         if (!this.level.isClientSide && ray.getEntity() instanceof LivingEntity livingentity) {
-            livingentity.addEffect(new MobEffectInstance(ModEffects.SMITING.get(), DURATION, 1));
+            livingentity.addEffect(new MobEffectInstance(ModEffects.SMITING.get(), SkillType.SMITING_RAY.getDuration(), 1));
         }
     }
 
@@ -51,7 +54,7 @@ public class SmitingRaySkill extends AbstractProjectileAbility {
     public void tick() {
         if (!this.level.isClientSide) {
             double distance = Math.sqrt(Math.pow(this.getX() - startX, 2) + Math.pow(this.getY() - startY, 2) + Math.pow(this.getZ() - startZ, 2));
-            if (!this.isRemoved() && Math.ceil(distance) >= this.range) {
+            if (!this.isRemoved() && Math.ceil(distance) >= this.RANGE) {
                 this.discard();
             }
         }

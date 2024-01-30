@@ -42,6 +42,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.noahvolson.rpgmod.RpgMod;
 import net.noahvolson.rpgmod.effect.ModEffects;
 import net.noahvolson.rpgmod.entity.skill.ModAreaEffectCloud;
+import net.noahvolson.rpgmod.entity.skill.SkillType;
 import net.noahvolson.rpgmod.networking.ModMessages;
 import net.noahvolson.rpgmod.networking.packet.RpgClassSyncS2CPacket;
 import net.noahvolson.rpgmod.networking.packet.UnlockedSkillsSyncS2CPacket;
@@ -201,8 +202,8 @@ public class ModEvents {
             if (event.getEntity() instanceof ServerPlayer player) {
                 if (player.hasEffect(ModEffects.BLESSED_BLADE.get()) && event.getTarget() instanceof LivingEntity target) {
 
-                    target.setHealth(target.getHealth() - 1);
-                    player.heal(1);
+                    target.setHealth(target.getHealth() - SkillType.BLESSED_BLADES.getDamage());
+                    player.heal(SkillType.BLESSED_BLADES.getHealing());
 
                     AreaEffectCloud sparkleCloud = new AreaEffectCloud(target.level, target.getX(), target.getY() + 1, target.getZ());
                     sparkleCloud.setParticle(ModParticles.BLESSED_BLADE_PARTICLES.get());

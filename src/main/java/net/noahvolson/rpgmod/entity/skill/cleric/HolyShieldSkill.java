@@ -9,6 +9,7 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.phys.Vec3;
 import net.noahvolson.rpgmod.effect.ModEffects;
 import net.noahvolson.rpgmod.entity.skill.Skill;
+import net.noahvolson.rpgmod.entity.skill.SkillType;
 import net.noahvolson.rpgmod.particle.ModParticles;
 import net.noahvolson.rpgmod.sound.ModSounds;
 
@@ -16,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HolyShieldSkill implements Skill {
-    private final int DURATION = 600;
     private final int RADIUS = 1;
 
     public HolyShieldSkill(ServerPlayer player) {
@@ -30,7 +30,7 @@ public class HolyShieldSkill implements Skill {
                 Vec3 shifted = point.add(player.position());
                 serverLevel.sendParticles(ModParticles.HOLY_SHIELD_PARTICLES.get(), shifted.x, shifted.y + 1, shifted.z, 1, 0, 0, 0, 0);
             }
-            player.addEffect(new MobEffectInstance(ModEffects.HOLY_SHIELD_3.get(), DURATION, 0, false, false, true));
+            player.addEffect(new MobEffectInstance(ModEffects.HOLY_SHIELD_3.get(), SkillType.HOLY_SHIELD.getDuration(), 0, false, false, true));
             player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.HOLY_SHIELD_CAST.get(), SoundSource.HOSTILE, 1F, 1.2F / (player.level.random.nextFloat() * 0.2F + 0.9F));
         }
     }

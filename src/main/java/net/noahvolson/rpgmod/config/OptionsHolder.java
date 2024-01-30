@@ -22,7 +22,6 @@ public class OptionsHolder
                     builder.worldRestart().define("damage",            SkillDefaults.FIREBALL.getDamage()),
                     builder.worldRestart().define("healing",           SkillDefaults.FIREBALL.getHealing()),
                     builder.worldRestart().define("duration",          SkillDefaults.FIREBALL.getDuration()),
-                    builder.worldRestart().define("effect_procs",      SkillDefaults.FIREBALL.getEffectProcs()),
                     builder.worldRestart().define("cooldown",          SkillDefaults.FIREBALL.getCooldown()),
                     builder.worldRestart().define("turnover_cooldown", SkillDefaults.FIREBALL.getTurnoverCooldown())
             );
@@ -33,7 +32,6 @@ public class OptionsHolder
                     builder.worldRestart().define("damage",            SkillDefaults.BLINK.getDamage()),
                     builder.worldRestart().define("healing",           SkillDefaults.BLINK.getHealing()),
                     builder.worldRestart().define("duration",          SkillDefaults.BLINK.getDuration()),
-                    builder.worldRestart().define("effect_procs",      SkillDefaults.BLINK.getEffectProcs()),
                     builder.worldRestart().define("cooldown",          SkillDefaults.BLINK.getCooldown()),
                     builder.worldRestart().define("turnover_cooldown", SkillDefaults.BLINK.getTurnoverCooldown())
             );
@@ -44,7 +42,6 @@ public class OptionsHolder
                     builder.worldRestart().define("damage",            SkillDefaults.BLIZZARD.getDamage()),
                     builder.worldRestart().define("healing",           SkillDefaults.BLIZZARD.getHealing()),
                     builder.worldRestart().define("duration",          SkillDefaults.BLIZZARD.getDuration()),
-                    builder.worldRestart().define("effect_procs",      SkillDefaults.BLIZZARD.getEffectProcs()),
                     builder.worldRestart().define("cooldown",          SkillDefaults.BLIZZARD.getCooldown()),
                     builder.worldRestart().define("turnover_cooldown", SkillDefaults.BLIZZARD.getTurnoverCooldown())
             );
@@ -55,7 +52,6 @@ public class OptionsHolder
                     builder.worldRestart().define("damage",            SkillDefaults.THUNDER.getDamage()),
                     builder.worldRestart().define("healing",           SkillDefaults.THUNDER.getHealing()),
                     builder.worldRestart().define("duration",          SkillDefaults.THUNDER.getDuration()),
-                    builder.worldRestart().define("effect_procs",      SkillDefaults.THUNDER.getEffectProcs()),
                     builder.worldRestart().define("cooldown",          SkillDefaults.THUNDER.getCooldown()),
                     builder.worldRestart().define("turnover_cooldown", SkillDefaults.THUNDER.getTurnoverCooldown())
             );
@@ -69,7 +65,6 @@ public class OptionsHolder
                     builder.worldRestart().define("damage",            SkillDefaults.ENVENOM.getDamage()),
                     builder.worldRestart().define("healing",           SkillDefaults.ENVENOM.getHealing()),
                     builder.worldRestart().define("duration",          SkillDefaults.ENVENOM.getDuration()),
-                    builder.worldRestart().define("effect_procs",      SkillDefaults.ENVENOM.getEffectProcs()),
                     builder.worldRestart().define("cooldown",          SkillDefaults.ENVENOM.getCooldown()),
                     builder.worldRestart().define("turnover_cooldown", SkillDefaults.ENVENOM.getTurnoverCooldown())
             );
@@ -80,7 +75,6 @@ public class OptionsHolder
                     builder.worldRestart().define("damage",            SkillDefaults.SMOKE_BOMB.getDamage()),
                     builder.worldRestart().define("healing",           SkillDefaults.SMOKE_BOMB.getHealing()),
                     builder.worldRestart().define("duration",          SkillDefaults.SMOKE_BOMB.getDuration()),
-                    builder.worldRestart().define("effect_procs",      SkillDefaults.SMOKE_BOMB.getEffectProcs()),
                     builder.worldRestart().define("cooldown",          SkillDefaults.SMOKE_BOMB.getCooldown()),
                     builder.worldRestart().define("turnover_cooldown", SkillDefaults.SMOKE_BOMB.getTurnoverCooldown())
             );
@@ -91,7 +85,6 @@ public class OptionsHolder
                     builder.worldRestart().define("damage",            SkillDefaults.RUPTURE.getDamage()),
                     builder.worldRestart().define("healing",           SkillDefaults.RUPTURE.getHealing()),
                     builder.worldRestart().define("duration",          SkillDefaults.RUPTURE.getDuration()),
-                    builder.worldRestart().define("effect_procs",      SkillDefaults.RUPTURE.getEffectProcs()),
                     builder.worldRestart().define("cooldown",          SkillDefaults.RUPTURE.getCooldown()),
                     builder.worldRestart().define("turnover_cooldown", SkillDefaults.RUPTURE.getTurnoverCooldown())
             );
@@ -102,7 +95,6 @@ public class OptionsHolder
                     builder.worldRestart().define("damage",            SkillDefaults.EXECUTE.getDamage()),
                     builder.worldRestart().define("healing",           SkillDefaults.EXECUTE.getHealing()),
                     builder.worldRestart().define("duration",          SkillDefaults.EXECUTE.getDuration()),
-                    builder.worldRestart().define("effect_procs",      SkillDefaults.EXECUTE.getEffectProcs()),
                     builder.worldRestart().define("cooldown",          SkillDefaults.EXECUTE.getCooldown()),
                     builder.worldRestart().define("turnover_cooldown", SkillDefaults.EXECUTE.getTurnoverCooldown())
             );
@@ -116,7 +108,6 @@ public class OptionsHolder
                     builder.worldRestart().define("damage",            SkillDefaults.BERSERK.getDamage()),
                     builder.worldRestart().define("healing",           SkillDefaults.BERSERK.getHealing()),
                     builder.worldRestart().define("duration",          SkillDefaults.BERSERK.getDuration()),
-                    builder.worldRestart().define("effect_procs",      SkillDefaults.BERSERK.getEffectProcs()),
                     builder.worldRestart().define("cooldown",          SkillDefaults.BERSERK.getCooldown()),
                     builder.worldRestart().define("turnover_cooldown", SkillDefaults.BERSERK.getTurnoverCooldown())
             );
@@ -127,7 +118,6 @@ public class OptionsHolder
                     builder.worldRestart().define("damage",            SkillDefaults.STOMP.getDamage()),
                     builder.worldRestart().define("healing",           SkillDefaults.STOMP.getHealing()),
                     builder.worldRestart().define("duration",          SkillDefaults.STOMP.getDuration()),
-                    builder.worldRestart().define("effect_procs",      SkillDefaults.STOMP.getEffectProcs()),
                     builder.worldRestart().define("cooldown",          SkillDefaults.STOMP.getCooldown()),
                     builder.worldRestart().define("turnover_cooldown", SkillDefaults.STOMP.getTurnoverCooldown())
             );
@@ -138,7 +128,6 @@ public class OptionsHolder
                     builder.worldRestart().define("damage",            SkillDefaults.GRAPPLE.getDamage()),
                     builder.worldRestart().define("healing",           SkillDefaults.GRAPPLE.getHealing()),
                     builder.worldRestart().define("duration",          SkillDefaults.GRAPPLE.getDuration()),
-                    builder.worldRestart().define("effect_procs",      SkillDefaults.GRAPPLE.getEffectProcs()),
                     builder.worldRestart().define("cooldown",          SkillDefaults.GRAPPLE.getCooldown()),
                     builder.worldRestart().define("turnover_cooldown", SkillDefaults.GRAPPLE.getTurnoverCooldown())
             );
@@ -149,7 +138,6 @@ public class OptionsHolder
                     builder.worldRestart().define("damage",            SkillDefaults.MOLTEN_SHELL.getDamage()),
                     builder.worldRestart().define("healing",           SkillDefaults.MOLTEN_SHELL.getHealing()),
                     builder.worldRestart().define("duration",          SkillDefaults.MOLTEN_SHELL.getDuration()),
-                    builder.worldRestart().define("effect_procs",      SkillDefaults.MOLTEN_SHELL.getEffectProcs()),
                     builder.worldRestart().define("cooldown",          SkillDefaults.MOLTEN_SHELL.getCooldown()),
                     builder.worldRestart().define("turnover_cooldown", SkillDefaults.MOLTEN_SHELL.getTurnoverCooldown())
             );
@@ -163,7 +151,6 @@ public class OptionsHolder
                     builder.worldRestart().define("damage",            SkillDefaults.BLESSED_BLADES.getDamage()),
                     builder.worldRestart().define("healing",           SkillDefaults.BLESSED_BLADES.getHealing()),
                     builder.worldRestart().define("duration",          SkillDefaults.BLESSED_BLADES.getDuration()),
-                    builder.worldRestart().define("effect_procs",      SkillDefaults.BLESSED_BLADES.getEffectProcs()),
                     builder.worldRestart().define("cooldown",          SkillDefaults.BLESSED_BLADES.getCooldown()),
                     builder.worldRestart().define("turnover_cooldown", SkillDefaults.BLESSED_BLADES.getTurnoverCooldown())
             );
@@ -174,7 +161,6 @@ public class OptionsHolder
                     builder.worldRestart().define("damage",            SkillDefaults.HOLY_SHIELD.getDamage()),
                     builder.worldRestart().define("healing",           SkillDefaults.HOLY_SHIELD.getHealing()),
                     builder.worldRestart().define("duration",          SkillDefaults.HOLY_SHIELD.getDuration()),
-                    builder.worldRestart().define("effect_procs",      SkillDefaults.HOLY_SHIELD.getEffectProcs()),
                     builder.worldRestart().define("cooldown",          SkillDefaults.HOLY_SHIELD.getCooldown()),
                     builder.worldRestart().define("turnover_cooldown", SkillDefaults.HOLY_SHIELD.getTurnoverCooldown())
             );
@@ -185,7 +171,6 @@ public class OptionsHolder
                     builder.worldRestart().define("damage",            SkillDefaults.SMITING_RAY.getDamage()),
                     builder.worldRestart().define("healing",           SkillDefaults.SMITING_RAY.getHealing()),
                     builder.worldRestart().define("duration",          SkillDefaults.SMITING_RAY.getDuration()),
-                    builder.worldRestart().define("effect_procs",      SkillDefaults.SMITING_RAY.getEffectProcs()),
                     builder.worldRestart().define("cooldown",          SkillDefaults.SMITING_RAY.getCooldown()),
                     builder.worldRestart().define("turnover_cooldown", SkillDefaults.SMITING_RAY.getTurnoverCooldown())
             );
@@ -196,7 +181,6 @@ public class OptionsHolder
                     builder.worldRestart().define("damage",            SkillDefaults.HEALING_AURA.getDamage()),
                     builder.worldRestart().define("healing",           SkillDefaults.HEALING_AURA.getHealing()),
                     builder.worldRestart().define("duration",          SkillDefaults.HEALING_AURA.getDuration()),
-                    builder.worldRestart().define("effect_procs",      SkillDefaults.HEALING_AURA.getEffectProcs()),
                     builder.worldRestart().define("cooldown",          SkillDefaults.HEALING_AURA.getCooldown()),
                     builder.worldRestart().define("turnover_cooldown", SkillDefaults.HEALING_AURA.getTurnoverCooldown())
             );

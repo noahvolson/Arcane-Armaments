@@ -52,15 +52,20 @@ public abstract class AbstractProjectileAbility extends AbstractArrow implements
     protected void onHitEntity(@NotNull EntityHitResult ray) {
         Entity target = ray.getEntity();
         if (target instanceof LivingEntity) {
+            Vec3 delta = this.getDeltaMovement();
 
             // Arrow base damage factors in speed, which makes damage calculations needlessly complex
             if (this.hitDamage > 0) {
                 this.setBaseDamage(0);
+
+                // if base damage is 0 soundEvent won't fire, so we need to manually play it
+                this.playSound(hitEntitySound, 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
                 target.hurt(damageSource, hitDamage);
             }
 
             // Override arrow sound
             this.setSoundEvent(this.hitEntitySound);
+
             super.onHitEntity(ray);
 
             // Remove arrows that may have been added by the hit
@@ -68,8 +73,17 @@ public abstract class AbstractProjectileAbility extends AbstractArrow implements
                 LivingEntity livingentity = (LivingEntity)target;
                 livingentity.setArrowCount(livingentity.getArrowCount() - 1);
             }
+
+            // Implemented by subclasses
+            doEffectsEntity(ray);
+
+            // Do this because super() will reflect 0 damage arrows
+            if (this.getPierceLevel() > 0) {
+                this.setDeltaMovement(delta);
+            } else {
+                this.discard();
+            }
         }
-        doEffectsEntity(ray);
     }
 
     // Override this to do fun things on entity hit
@@ -155,11 +169,8 @@ public abstract class AbstractProjectileAbility extends AbstractArrow implements
         return false;
     }
 
-    public void setHitDamage(int hitDamage) {
-        this.hitDamage = hitDamage;
-    }
-
-    public void setDamageSource(DamageSource damageSource) {
+    public void setDamage(DamageSource damageSource, int hitDamage) {
         this.damageSource = damageSource;
+        this.hitDamage = hitDamage;
     }
 }

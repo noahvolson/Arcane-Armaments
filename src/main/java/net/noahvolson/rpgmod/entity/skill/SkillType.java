@@ -41,7 +41,6 @@ public enum SkillType {
     private final int damage;
     private final int healing;
     private final int duration;
-    private final int effectProcs;
     private final int cooldown;
     private final int turnoverCooldown;
 
@@ -56,7 +55,6 @@ public enum SkillType {
         this.damage = config.damage().get();
         this.healing = config.healing().get();
         this.duration = config.duration().get();
-        this.effectProcs = config.effectProcs().get();
         this.cooldown = config.cooldown().get();
         this.turnoverCooldown = config.turnoverCooldown().get();
     }
@@ -80,9 +78,6 @@ public enum SkillType {
     }
     public int getDuration() {
         return duration;
-    }
-    public int getEffectProcs() {
-        return effectProcs;
     }
     public int getCooldown() {
         return cooldown;
