@@ -136,10 +136,10 @@ public class OptionsHolder
             builder.push("molten_shell");
             SkillConfig molten_shell = new SkillConfig(
                     builder.worldRestart().define("damage",            SkillDefaults.MOLTEN_SHELL.getDamage()),
-                    builder.worldRestart().define("healing",           SkillDefaults.MOLTEN_SHELL.getHealing()),
+                    builder.worldRestart().define("regeneration",      SkillDefaults.MOLTEN_SHELL.getHealing()),
                     builder.worldRestart().define("duration",          SkillDefaults.MOLTEN_SHELL.getDuration()),
                     builder.worldRestart().define("cooldown",          SkillDefaults.MOLTEN_SHELL.getCooldown()),
-                    builder.worldRestart().define("turnover_cooldown", SkillDefaults.MOLTEN_SHELL.getTurnoverCooldown())
+                    builder.worldRestart().define("burn_duration",     SkillDefaults.MOLTEN_SHELL.getTurnoverCooldown())
             );
             builder.pop();
             builder.pop();

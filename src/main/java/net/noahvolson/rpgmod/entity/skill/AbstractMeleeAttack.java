@@ -36,11 +36,6 @@ public abstract class AbstractMeleeAttack extends AbstractProjectileAbility {
         this.startZ = shooter.getZ();
         this.attackSound = attackSound;
 
-        // Set damage based on main hand weapon
-        Multimap<Attribute, AttributeModifier> mainHand = shooter.getMainHandItem().getAttributeModifiers(EquipmentSlot.MAINHAND);
-        double damage = mainHand.size() > 0 ? (mainHand.get(Attributes.ATTACK_DAMAGE).iterator().next().getAmount() / 2.5) : 1;
-        this.setBaseDamage(damage); // Need to divide by 2.5 to account for arrow velocity (which multiplies damage)
-
         if (shooter instanceof ServerPlayer serverplayer) {
             this.range = serverplayer.getAttackRange();
         }
@@ -56,7 +51,8 @@ public abstract class AbstractMeleeAttack extends AbstractProjectileAbility {
     @Override
     protected void onHitEntity(@NotNull EntityHitResult ray) {
         Entity owner = this.getOwner();
-        if (!this.level.isClientSide) {
+        if (owner != null && !this.level.isClientSide && ray.getEntity() instanceof LivingEntity target) {
+            target.knockback(0.5D, owner.getX() - target.getX(), owner.getZ() - target.getZ());
             this.level.playSound(null, owner.getX(), owner.getY(), owner.getZ(), attackSound, SoundSource.HOSTILE, 1F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
         }
         super.onHitEntity(ray);

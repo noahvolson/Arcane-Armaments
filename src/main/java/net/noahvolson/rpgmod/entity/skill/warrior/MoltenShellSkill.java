@@ -10,6 +10,7 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.phys.Vec3;
 import net.noahvolson.rpgmod.effect.ModEffects;
 import net.noahvolson.rpgmod.entity.skill.Skill;
+import net.noahvolson.rpgmod.entity.skill.SkillType;
 import net.noahvolson.rpgmod.particle.ModParticles;
 import net.noahvolson.rpgmod.sound.ModSounds;
 
@@ -17,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MoltenShellSkill implements Skill {
-    private final int DURATION = 40;
     private final int RADIUS = 4;
 
     public MoltenShellSkill(ServerPlayer player) {
@@ -28,7 +28,7 @@ public class MoltenShellSkill implements Skill {
         if (player.level instanceof ServerLevel serverLevel) {
             List<LivingEntity> list = player.level.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().inflate(RADIUS, RADIUS, RADIUS));
             for (LivingEntity target : list) {
-                target.setSecondsOnFire(3);
+                target.setSecondsOnFire(SkillType.MOLTEN_SHELL.getTurnoverCooldown() / 60);
                 target.knockback(1.25D, player.getX() - target.getX(), player.getZ() - target.getZ());
             }
             ArrayList<Vec3> points = getSpherePoints(1500, RADIUS);
@@ -36,8 +36,8 @@ public class MoltenShellSkill implements Skill {
                 Vec3 shifted = point.add(player.position());
                 serverLevel.sendParticles(ModParticles.SHELL_PARTICLES.get(), shifted.x, shifted.y + 1, shifted.z, 1, 0, 0, 0, 0);
             }
-            player.addEffect(new MobEffectInstance(ModEffects.SHELL.get(), DURATION, 0, false, false, true));
-            player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, DURATION, 4, false, false, false));
+            player.addEffect(new MobEffectInstance(ModEffects.SHELL.get(), SkillType.MOLTEN_SHELL.getDuration(), 0, false, false, true));
+            player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, SkillType.MOLTEN_SHELL.getDuration(), SkillType.MOLTEN_SHELL.getHealing(), false, false, false));
             player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.MOLTEN_SHELL.get(), SoundSource.HOSTILE, 1F, 1.2F / (player.level.random.nextFloat() * 0.2F + 0.9F));
         }
     }

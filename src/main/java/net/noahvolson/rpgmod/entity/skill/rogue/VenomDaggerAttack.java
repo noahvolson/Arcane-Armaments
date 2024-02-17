@@ -1,6 +1,7 @@
 package net.noahvolson.rpgmod.entity.skill.rogue;
 
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AreaEffectCloud;
@@ -13,12 +14,12 @@ import net.minecraft.world.phys.Vec3;
 import net.noahvolson.rpgmod.effect.ModEffects;
 import net.noahvolson.rpgmod.entity.skill.AbstractMeleeAttack;
 import net.noahvolson.rpgmod.entity.skill.AbstractProjectileAbility;
+import net.noahvolson.rpgmod.entity.skill.SkillType;
 import net.noahvolson.rpgmod.particle.ModParticles;
 import net.noahvolson.rpgmod.sound.ModSounds;
 import org.jetbrains.annotations.NotNull;
 
 public class VenomDaggerAttack extends AbstractMeleeAttack {
-    private final int DURATION = 60;
 
     public VenomDaggerAttack(EntityType<AbstractProjectileAbility> entityType, Level world) {
         super(entityType, world);
@@ -26,14 +27,14 @@ public class VenomDaggerAttack extends AbstractMeleeAttack {
 
     public VenomDaggerAttack(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
         super(entityType, shooter, world, ModSounds.VENOM_DAGGER.get());
-        this.setBaseDamage(this.getBaseDamage() * 0.5);
+        this.setDamage(new DamageSource("dagger"), SkillType.ENVENOM.getDamage());
     }
 
     @Override
     protected void doEffectsEntity(@NotNull EntityHitResult ray) {
         Entity entity = ray.getEntity();
         if (entity.level instanceof ServerLevel serverLevel && entity instanceof LivingEntity livingentity) {
-            livingentity.addEffect(new MobEffectInstance(ModEffects.VENOM.get(), DURATION, -1));
+            livingentity.addEffect(new MobEffectInstance(ModEffects.VENOM.get(), SkillType.ENVENOM.getDuration(), -1));
 
             double yShift = 1;
             AreaEffectCloud venomCloud = new AreaEffectCloud(livingentity.level, livingentity.getX(), livingentity.blockPosition().getY() + yShift, livingentity.getZ());

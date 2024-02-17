@@ -86,6 +86,12 @@
   "sounds.rpgmod.execute_dagger": "Execute Dagger Sound",
   "sounds.rpgmod.failed_execute": "Failed Execute Sound",
 
+  "death.attack.grapple": "%1$s was ripped apart",
+  "death.attack.grapple.player": "%1$s was ripped apart by %2$s",
+  "death.attack.decapitate": "%1$s was decapitated",
+  "death.attack.decapitate.player": "%1$s was decapitated by %2$s",
+  "death.attack.dagger": "%1$s was stabbed to death",
+  "death.attack.dagger.player": "%1$s was stabbed to death by %2$s",
   "death.attack.zap": "%1$s was electrocuted",
   "death.attack.zap.player": "%1$s was electrocuted by %2$s",
   "death.attack.fireball": "%1$s exploded in a blaze",

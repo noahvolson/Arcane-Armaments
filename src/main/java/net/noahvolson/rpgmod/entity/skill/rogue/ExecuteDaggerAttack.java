@@ -11,6 +11,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.noahvolson.rpgmod.entity.skill.AbstractMeleeAttack;
 import net.noahvolson.rpgmod.entity.skill.AbstractProjectileAbility;
+import net.noahvolson.rpgmod.entity.skill.SkillType;
 import net.noahvolson.rpgmod.particle.ModParticles;
 import net.noahvolson.rpgmod.sound.ModSounds;
 import org.jetbrains.annotations.NotNull;
@@ -23,7 +24,7 @@ public class ExecuteDaggerAttack extends AbstractMeleeAttack {
 
     public ExecuteDaggerAttack(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
         super(entityType, shooter, world, null);
-        this.setBaseDamage(this.getBaseDamage() * 0.5);
+        this.setDamage(new DamageSource("execute"), SkillType.EXECUTE.getDamage());
     }
 
     @Override

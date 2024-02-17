@@ -146,7 +146,7 @@ public class ModEvents {
                     rumbleCloud.setDuration(RUMBLE_DURATION);
                     rumbleCloud.setWaitTime(0);
                     rumbleCloud.setOwner(player);
-                    rumbleCloud.addEffect(new MobEffectInstance(ModEffects.STUNNED.get(), 20, 0, false, false, true));
+                    rumbleCloud.addEffect(new MobEffectInstance(ModEffects.STUNNED.get(), SkillType.STOMP.getDuration(), 0, false, false, true));
                     player.level.addFreshEntity(rumbleCloud);
 
                     ModAreaEffectCloud upperRumbleCloud = new ModAreaEffectCloud(player.level, player.getX(), player.getY() + 1, player.getZ());
@@ -156,7 +156,7 @@ public class ModEvents {
                     upperRumbleCloud.setDuration(RUMBLE_DURATION);
                     upperRumbleCloud.setWaitTime(0);
                     upperRumbleCloud.setOwner(player);
-                    upperRumbleCloud.addEffect(new MobEffectInstance(ModEffects.STUNNED.get(), 20, 0, false, false, true));
+                    upperRumbleCloud.addEffect(new MobEffectInstance(ModEffects.STUNNED.get(), SkillType.STOMP.getDuration(), 0, false, false, true));
                     player.level.addFreshEntity(upperRumbleCloud);
 
                     if (player.isInWater()) {

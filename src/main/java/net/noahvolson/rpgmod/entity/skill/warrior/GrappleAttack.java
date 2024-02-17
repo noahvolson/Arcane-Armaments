@@ -2,10 +2,12 @@ package net.noahvolson.rpgmod.entity.skill.warrior;
 
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.*;
 import net.noahvolson.rpgmod.entity.skill.AbstractProjectileAbility;
+import net.noahvolson.rpgmod.entity.skill.SkillType;
 import net.noahvolson.rpgmod.particle.ModParticles;
 import net.noahvolson.rpgmod.sound.ModSounds;
 import org.jetbrains.annotations.NotNull;
@@ -27,7 +29,7 @@ public class GrappleAttack extends AbstractProjectileAbility implements IAnimata
 
     public GrappleAttack(EntityType<? extends AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
         super((EntityType<AbstractProjectileAbility>) entityType, shooter, world, ModSounds.GRAPPLE_CAST.get(), ModSounds.RUPTURE_DAGGER.get(), ModSounds.GRAPPLE_GROUND.get());
-        this.setBaseDamage(0);
+        this.setDamage(new DamageSource("grapple"), SkillType.GRAPPLE.getDamage());
         this.setSpeed(2D);
         this.life = 0;
     }

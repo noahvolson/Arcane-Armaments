@@ -21,7 +21,7 @@ public class FireballSpell extends AbstractProjectileAbility {
 
     public FireballSpell(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
         super(entityType, shooter, world, SoundEvents.GHAST_SHOOT);
-        this.setDamage(new DamageSource("fire_ball"), SkillType.FIREBALL.getDamage());
+        this.setDamage(new DamageSource("fireball"), SkillType.FIREBALL.getDamage());
     }
 
     @Override

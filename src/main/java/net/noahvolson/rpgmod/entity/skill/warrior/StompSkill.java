@@ -6,8 +6,6 @@ import net.noahvolson.rpgmod.effect.ModEffects;
 import net.noahvolson.rpgmod.entity.skill.Skill;
 
 public class StompSkill implements Skill {
-    public final int DURATION = 40;
-
     public StompSkill(ServerPlayer player) {
 
     }
