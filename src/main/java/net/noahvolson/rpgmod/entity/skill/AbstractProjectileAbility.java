@@ -66,6 +66,9 @@ public abstract class AbstractProjectileAbility extends AbstractArrow implements
             // Override arrow sound
             this.setSoundEvent(this.hitEntitySound);
 
+            // Implemented by subclasses
+            doEffectsEntity(ray);
+
             super.onHitEntity(ray);
 
             // Remove arrows that may have been added by the hit
@@ -73,9 +76,6 @@ public abstract class AbstractProjectileAbility extends AbstractArrow implements
                 LivingEntity livingentity = (LivingEntity)target;
                 livingentity.setArrowCount(livingentity.getArrowCount() - 1);
             }
-
-            // Implemented by subclasses
-            doEffectsEntity(ray);
 
             // Do this because super() will reflect 0 damage arrows
             if (this.getPierceLevel() > 0) {
@@ -92,8 +92,8 @@ public abstract class AbstractProjectileAbility extends AbstractArrow implements
     @Override
     protected void onHitBlock(@NotNull BlockHitResult ray) {
         this.setSoundEvent(this.hitBlockSound);
-        super.onHitBlock(ray);
         doEffectsBlock(ray);
+        super.onHitBlock(ray);
     }
 
     // Override this to do fun things on block hit

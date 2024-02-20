@@ -19,41 +19,41 @@ public class OptionsHolder
             builder.push("MAGE");
             builder.push("fireball");
             SkillConfig fireball = new SkillConfig(
-                    builder.worldRestart().define("damage",            SkillDefaults.FIREBALL.getDamage()),
-                    builder.worldRestart().define("healing",           SkillDefaults.FIREBALL.getHealing()),
-                    builder.worldRestart().define("duration",          SkillDefaults.FIREBALL.getDuration()),
+                    builder.worldRestart().define("hit_damage",            SkillDefaults.FIREBALL.getDamage()),
+                    null,
+                    builder.worldRestart().define("burn_duration",          SkillDefaults.FIREBALL.getDuration()),
                     builder.worldRestart().define("cooldown",          SkillDefaults.FIREBALL.getCooldown()),
-                    builder.worldRestart().define("turnover_cooldown", SkillDefaults.FIREBALL.getTurnoverCooldown())
+                    null
             );
             builder.pop();
 
             builder.push("blink");
             SkillConfig blink = new SkillConfig(
-                    builder.worldRestart().define("damage",            SkillDefaults.BLINK.getDamage()),
-                    builder.worldRestart().define("healing",           SkillDefaults.BLINK.getHealing()),
-                    builder.worldRestart().define("duration",          SkillDefaults.BLINK.getDuration()),
+                    builder.worldRestart().define("hit_damage",            SkillDefaults.BLINK.getDamage()),
+                    null,
+                    builder.worldRestart().define("travel_ticks",          SkillDefaults.BLINK.getDuration()),
                     builder.worldRestart().define("cooldown",          SkillDefaults.BLINK.getCooldown()),
-                    builder.worldRestart().define("turnover_cooldown", SkillDefaults.BLINK.getTurnoverCooldown())
+                    null
             );
             builder.pop();
 
             builder.push("blizzard");
             SkillConfig blizzard = new SkillConfig(
-                    builder.worldRestart().define("damage",            SkillDefaults.BLIZZARD.getDamage()),
-                    builder.worldRestart().define("healing",           SkillDefaults.BLIZZARD.getHealing()),
+                    builder.worldRestart().define("hit_damage",            SkillDefaults.BLIZZARD.getDamage()),
+                    null,
                     builder.worldRestart().define("duration",          SkillDefaults.BLIZZARD.getDuration()),
                     builder.worldRestart().define("cooldown",          SkillDefaults.BLIZZARD.getCooldown()),
-                    builder.worldRestart().define("turnover_cooldown", SkillDefaults.BLIZZARD.getTurnoverCooldown())
+                    null
             );
             builder.pop();
 
             builder.push("thunder");
             SkillConfig thunder = new SkillConfig(
-                    builder.worldRestart().define("damage",            SkillDefaults.THUNDER.getDamage()),
-                    builder.worldRestart().define("healing",           SkillDefaults.THUNDER.getHealing()),
+                    builder.worldRestart().define("hit_damage",            SkillDefaults.THUNDER.getDamage()),
+                    null,
                     builder.worldRestart().define("duration",          SkillDefaults.THUNDER.getDuration()),
                     builder.worldRestart().define("cooldown",          SkillDefaults.THUNDER.getCooldown()),
-                    builder.worldRestart().define("turnover_cooldown", SkillDefaults.THUNDER.getTurnoverCooldown())
+                    null
             );
             builder.pop();
             builder.pop();

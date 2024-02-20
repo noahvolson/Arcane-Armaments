@@ -52,11 +52,11 @@ public enum SkillType {
         this.icon = icon;
 
         // Configurable
-        this.damage = config.damage().get();
-        this.healing = config.healing().get();
-        this.duration = config.duration().get();
-        this.cooldown = config.cooldown().get();
-        this.turnoverCooldown = config.turnoverCooldown().get();
+        this.damage = config.damage() != null ? config.damage().get() : 0;
+        this.healing = config.healing() != null ? config.healing().get() : 0;
+        this.duration = config.duration() != null ? config.duration().get() : 0;
+        this.cooldown = config.cooldown().get() != null ? config.cooldown().get() : 0;
+        this.turnoverCooldown = config.turnoverCooldown() != null ? config.turnoverCooldown().get() : 0;
     }
 
     public String getLabel() {

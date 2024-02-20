@@ -1,7 +1,7 @@
 package net.noahvolson.rpgmod.config;
 
 public enum SkillDefaults {
-    FIREBALL(       4, 0, 80, 100, 0),
+    FIREBALL(       4, 0, 60, 100, 0),
     BLINK(          2, 0, 5, 100, 0),
     BLIZZARD(       3, 0, 120, 60, 0),
     THUNDER(        2, 0, 60, 800, 0),
@@ -9,7 +9,7 @@ public enum SkillDefaults {
     // rogue
     ENVENOM(        2, 0, 80, 20, 0),
     SMOKE_BOMB(     0, 0, 200, 220, 0),
-    RUPTURE(        2, 0, 100, 600, 0),
+    RUPTURE(        2, 0, 100, 300, 0),
     EXECUTE(        2, 0, 0, 100, 0),
 
     // warrior
