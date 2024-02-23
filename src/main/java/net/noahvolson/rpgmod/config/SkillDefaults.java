@@ -7,7 +7,7 @@ public enum SkillDefaults {
     THUNDER(        2, 0, 60, 800, 0),
 
     // rogue
-    ENVENOM(        2, 0, 80, 20, 0),
+    ENVENOM(        2, 0, 100, 20, 0),
     SMOKE_BOMB(     0, 0, 200, 220, 0),
     RUPTURE(        2, 0, 100, 300, 0),
     EXECUTE(        2, 0, 0, 100, 0),
