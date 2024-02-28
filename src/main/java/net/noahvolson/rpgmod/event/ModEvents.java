@@ -74,6 +74,20 @@ public class ModEvents {
                     if (!curClass.getRpgClass().equals(rpgClass.getLabel())) {
                         player.sendSystemMessage(Component.literal("Swapping to " + rpgClass.getLabel()).withStyle(ChatFormatting.AQUA));
                         curClass.setRpgClass(rpgClass.getLabel());
+
+                        // Reset cooldowns on class swapping
+                        player.removeEffect(ModEffects.COOLDOWN_1.get());
+                        player.removeEffect(ModEffects.COOLDOWN_2.get());
+                        player.removeEffect(ModEffects.COOLDOWN_3.get());
+                        player.removeEffect(ModEffects.COOLDOWN_4.get());
+                        player.removeEffect(ModEffects.COOLDOWN_5.get());
+                        player.removeEffect(ModEffects.COOLDOWN_6.get());
+
+                        player.addEffect(new MobEffectInstance(ModEffects.COOLDOWN_1.get(), rpgClass.getSkill1().getCooldown(), 0, false, false, false));
+                        player.addEffect(new MobEffectInstance(ModEffects.COOLDOWN_2.get(), rpgClass.getSkill2().getCooldown(), 0, false, false, false));
+                        player.addEffect(new MobEffectInstance(ModEffects.COOLDOWN_3.get(), rpgClass.getSkill3().getCooldown(), 0, false, false, false));
+                        player.addEffect(new MobEffectInstance(ModEffects.COOLDOWN_4.get(), rpgClass.getSkill4().getCooldown(), 0, false, false, false));
+
                         ModMessages.sendToPlayer(new RpgClassSyncS2CPacket(rpgClass.getLabel()), player);
                     }
                 });
