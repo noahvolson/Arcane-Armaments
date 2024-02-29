@@ -13,6 +13,7 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import net.noahvolson.rpgmod.RpgMod;
 import net.noahvolson.rpgmod.effect.ModEffects;
 import net.noahvolson.rpgmod.rpgclass.RpgClass;
+import net.noahvolson.rpgmod.screen.GemInfusingStationScreen;
 
 import java.util.Objects;
 
@@ -130,14 +131,12 @@ public class ModHudOverlay {
                 default -> null;
             };
             if (rpgClass != null) {
-                RenderSystem.setShaderTexture(0, rpgClass.getSkill1().getIcon());
-                GuiComponent.blit(poseStack,x - 195, y - 18,0,0,15,15, 15,15);
-                RenderSystem.setShaderTexture(0, rpgClass.getSkill2().getIcon());
-                GuiComponent.blit(poseStack,x - 175, y - 18,0,0,15,15, 15,15);
-                RenderSystem.setShaderTexture(0, rpgClass.getSkill3().getIcon());
-                GuiComponent.blit(poseStack,x - 155, y - 18,0,0,15,15, 15,15);
-                RenderSystem.setShaderTexture(0, rpgClass.getSkill4().getIcon());
-                GuiComponent.blit(poseStack,x - 135, y - 18,0,0,15,15, 15,15);
+
+                GemInfusingStationScreen.renderSkillIcon(poseStack, rpgClass, rpgClass.getSkill1(), x, y, -195, -18);
+                GemInfusingStationScreen.renderSkillIcon(poseStack, rpgClass, rpgClass.getSkill2(), x, y, -175, -18);
+                GemInfusingStationScreen.renderSkillIcon(poseStack, rpgClass, rpgClass.getSkill3(), x, y, -155, -18);
+                GemInfusingStationScreen.renderSkillIcon(poseStack, rpgClass, rpgClass.getSkill4(), x, y, -135, -18);
+
             }
         }
     }));
@@ -148,7 +147,7 @@ public class ModHudOverlay {
         Player player = gui.getMinecraft().player;
         String rpgClassId = ClientRpgClassData.getRpgClass();
 
-        if (player != null && rpgClassId != null && rpgClassId.equals(WARRIOR.getLabel()) && player.hasEffect(ModEffects.COOLDOWN_1.get())) {
+        if (player != null && rpgClassId != null && rpgClassId.equals(WARRIOR.getLabel()) && player.hasEffect(ModEffects.BERSERK.get())) {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 

@@ -13,7 +13,7 @@ public enum SkillDefaults {
     EXECUTE(        2, 0, 0, 100, 0),
 
     // warrior
-    BERSERK(        4, 0, 200, 200, 20),
+    BERSERK(        6, 0, 200, 200, 20),
     STOMP(          0, 0, 30, 200, 0),
     GRAPPLE(        3, 0, 0, 140, 0),
     MOLTEN_SHELL(   0, 4, 60, 600, 240),

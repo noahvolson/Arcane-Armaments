@@ -83,11 +83,19 @@ public class ModEvents {
                         player.removeEffect(ModEffects.COOLDOWN_5.get());
                         player.removeEffect(ModEffects.COOLDOWN_6.get());
 
-                        player.addEffect(new MobEffectInstance(ModEffects.COOLDOWN_1.get(), rpgClass.getSkill1().getCooldown(), 0, false, false, false));
-                        player.addEffect(new MobEffectInstance(ModEffects.COOLDOWN_2.get(), rpgClass.getSkill2().getCooldown(), 0, false, false, false));
-                        player.addEffect(new MobEffectInstance(ModEffects.COOLDOWN_3.get(), rpgClass.getSkill3().getCooldown(), 0, false, false, false));
-                        player.addEffect(new MobEffectInstance(ModEffects.COOLDOWN_4.get(), rpgClass.getSkill4().getCooldown(), 0, false, false, false));
+                        player.getCapability(PlayerUnlockedSkillsProvider.PLAYER_UNLOCKED_SKILLS).ifPresent(unlockedSkills -> {
+                            player.addEffect(new MobEffectInstance(ModEffects.COOLDOWN_1.get(), rpgClass.getSkill1().getCooldown(), 0, false, false, false));
 
+                            if (unlockedSkills.contains(rpgClass.getSkill2())) {
+                                player.addEffect(new MobEffectInstance(ModEffects.COOLDOWN_2.get(), rpgClass.getSkill2().getCooldown(), 0, false, false, false));
+                            }
+                            if (unlockedSkills.contains(rpgClass.getSkill3())) {
+                                player.addEffect(new MobEffectInstance(ModEffects.COOLDOWN_3.get(), rpgClass.getSkill3().getCooldown(), 0, false, false, false));
+                            }
+                            if (unlockedSkills.contains(rpgClass.getSkill4())) {
+                                player.addEffect(new MobEffectInstance(ModEffects.COOLDOWN_4.get(), rpgClass.getSkill4().getCooldown(), 0, false, false, false));
+                            }
+                        });
                         ModMessages.sendToPlayer(new RpgClassSyncS2CPacket(rpgClass.getLabel()), player);
                     }
                 });

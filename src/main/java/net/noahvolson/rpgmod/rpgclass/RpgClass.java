@@ -1,5 +1,6 @@
 package net.noahvolson.rpgmod.rpgclass;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
@@ -22,8 +23,9 @@ public class RpgClass {
     private final SkillType skill2;
     private final SkillType skill3;
     private final SkillType skill4;
+    private final ResourceLocation background;
 
-    public RpgClass(int id, String label, Item classItem, int classColor, SkillType skill1, SkillType skill2, SkillType skill3, SkillType skill4) {
+    public RpgClass(int id, String label, Item classItem, int classColor, SkillType skill1, SkillType skill2, SkillType skill3, SkillType skill4, ResourceLocation background) {
         this.id = id;
         this.label = label;
         this.classItem = classItem;
@@ -32,6 +34,7 @@ public class RpgClass {
         this.skill2 = skill2;
         this.skill3 = skill3;
         this.skill4 = skill4;
+        this.background =  background;
     }
 
     public int getId() {
@@ -57,6 +60,9 @@ public class RpgClass {
     }
     public SkillType getSkill4() {
         return skill4;
+    }
+    public ResourceLocation getBackground() {
+        return background;
     }
 
     public void useSkill1(ServerPlayer player) {

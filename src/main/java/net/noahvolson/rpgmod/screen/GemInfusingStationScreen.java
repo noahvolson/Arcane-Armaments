@@ -49,6 +49,19 @@ public class GemInfusingStationScreen extends AbstractContainerScreen<GemInfusin
         }
     }
 
+    public static void renderSkillIcon(PoseStack pPoseStack, RpgClass rpgClass, SkillType skillType, int x, int y, int xOffset, int yOffset) {
+        RenderSystem.setShaderTexture(0, rpgClass.getBackground());
+        GuiComponent.blit(pPoseStack,x + xOffset, y + yOffset,0,0,15,15, 15,15);
+
+        if (skillType == rpgClass.getSkill1() || ClientUnlockedSkillsData.contains(skillType)) {
+            RenderSystem.setShaderTexture(0, skillType.getIcon());
+            GuiComponent.blit(pPoseStack,x + xOffset, y + yOffset,0,0,15,15, 15,15);
+        } else {
+            RenderSystem.setShaderTexture(0, new ResourceLocation(RpgMod.MOD_ID, "textures/gui/locked.png"));
+            GuiComponent.blit(pPoseStack,x + xOffset, y + yOffset,0,0,15,15, 15,15);
+        }
+    }
+
     @Override
     protected void renderBg(PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -85,14 +98,11 @@ public class GemInfusingStationScreen extends AbstractContainerScreen<GemInfusin
             // Render Skill icons
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
-            RenderSystem.setShaderTexture(0, rpgClass.getSkill1().getIcon());
-            GuiComponent.blit(pPoseStack,x + 60, y + 9,0,0,15,15, 15,15);
-            RenderSystem.setShaderTexture(0, rpgClass.getSkill2().getIcon());
-            GuiComponent.blit(pPoseStack,x + 60, y + 26,0,0,15,15, 15,15);
-            RenderSystem.setShaderTexture(0, rpgClass.getSkill3().getIcon());
-            GuiComponent.blit(pPoseStack,x + 60, y + 43,0,0,15,15, 15,15);
-            RenderSystem.setShaderTexture(0, rpgClass.getSkill4().getIcon());
-            GuiComponent.blit(pPoseStack,x + 60, y + 60,0,0,15,15, 15,15);
+
+            renderSkillIcon(pPoseStack, rpgClass, rpgClass.getSkill1(), x, y, 60, 9);
+            renderSkillIcon(pPoseStack, rpgClass, rpgClass.getSkill2(), x, y, 60, 26);
+            renderSkillIcon(pPoseStack, rpgClass, rpgClass.getSkill3(), x, y, 60, 43);
+            renderSkillIcon(pPoseStack, rpgClass, rpgClass.getSkill4(), x, y, 60, 60);
 
             // Render Skill craft cost items
             // NOTE: Probably shouldn't be parsing the descriptionId to find the resource location. Looking for a better solution...
