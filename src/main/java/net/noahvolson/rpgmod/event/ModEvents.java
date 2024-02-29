@@ -40,6 +40,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.noahvolson.rpgmod.RpgMod;
+import net.noahvolson.rpgmod.config.ModDamageSource;
 import net.noahvolson.rpgmod.effect.ModEffects;
 import net.noahvolson.rpgmod.entity.skill.ModAreaEffectCloud;
 import net.noahvolson.rpgmod.entity.skill.SkillType;
@@ -279,7 +280,7 @@ public class ModEvents {
         public static void onLivingHeal(LivingHealEvent event) {
             LivingEntity entity = event.getEntity();
             if(entity.hasEffect(ModEffects.SMITING.get())) {
-                entity.hurt(new DamageSource("smiting"), event.getAmount());
+                entity.hurt(ModDamageSource.SMITING, event.getAmount());
                 event.setCanceled(true);
             }
         }
@@ -304,7 +305,7 @@ public class ModEvents {
 
                         List<LivingEntity> list = player.level.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().inflate(RUMBLE_RADIUS, 0, RUMBLE_RADIUS));
                         for (LivingEntity target : list) {
-                            target.hurt(new DamageSource("stomp"), event.getAmount());
+                            target.hurt(ModDamageSource.STOMP, event.getAmount());
                         }
                         event.setCanceled(true);
                     }

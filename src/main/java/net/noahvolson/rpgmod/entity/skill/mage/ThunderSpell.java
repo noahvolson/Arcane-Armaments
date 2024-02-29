@@ -9,6 +9,7 @@ import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
+import net.noahvolson.rpgmod.config.ModDamageSource;
 import net.noahvolson.rpgmod.effect.ModEffects;
 import net.noahvolson.rpgmod.entity.skill.AbstractProjectileAbility;
 import net.noahvolson.rpgmod.entity.skill.SkillType;
@@ -24,7 +25,7 @@ public class ThunderSpell extends AbstractProjectileAbility {
 
     public ThunderSpell(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
         super(entityType, shooter, world, ModSounds.THUNDER_CAST.get(), ModSounds.THUNDER_IMPACT.get(), ModSounds.THUNDER_IMPACT.get());
-        this.setDamage(new DamageSource("zap"), SkillType.THUNDER.getDamage());
+        this.setDamage(ModDamageSource.ZAP, SkillType.THUNDER.getDamage());
     }
 
     @Override

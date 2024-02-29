@@ -10,6 +10,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.noahvolson.rpgmod.config.ModDamageSource;
 import net.noahvolson.rpgmod.effect.ModEffects;
 import net.noahvolson.rpgmod.entity.skill.Skill;
 import net.noahvolson.rpgmod.entity.skill.SkillType;
@@ -56,7 +57,7 @@ public class HealingAuraSkill extends AreaEffectCloud implements Skill {
 
     private void healHarmTarget(LivingEntity entity) {
         if (entity.isInvertedHealAndHarm() || entity.hasEffect(ModEffects.SMITING.get())) {
-            entity.hurt(new DamageSource("smiting"), SkillType.HEALING_AURA.getHealing());
+            entity.hurt(ModDamageSource.SMITING, SkillType.HEALING_AURA.getHealing());
         }
         else {
             entity.heal(SkillType.HEALING_AURA.getHealing());

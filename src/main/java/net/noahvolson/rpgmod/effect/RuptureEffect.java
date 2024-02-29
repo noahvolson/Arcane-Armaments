@@ -7,6 +7,7 @@ import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.phys.Vec3;
+import net.noahvolson.rpgmod.config.ModDamageSource;
 import net.noahvolson.rpgmod.entity.skill.SkillType;
 import net.noahvolson.rpgmod.particle.ModParticles;
 
@@ -25,7 +26,7 @@ public class RuptureEffect extends MobEffect {
                 Vec3 delta = pLivingEntity.getDeltaMovement();
                 double damage = Math.floor((Math.abs(delta.x) + Math.abs(delta.y) + Math.abs(delta.z)) * 4);
                 if (damage > 0) {
-                    pLivingEntity.hurt(new DamageSource("rupture"), (float) damage);
+                    pLivingEntity.hurt(ModDamageSource.RUPTURE, (float) damage);
                     double yShift = 0.5;
                     AreaEffectCloud bloodCloud = new AreaEffectCloud(pLivingEntity.level, pLivingEntity.getX(), pLivingEntity.blockPosition().getY() + yShift, pLivingEntity.getZ());
                     bloodCloud.setParticle(ModParticles.BLOOD_PARTICLES.get());

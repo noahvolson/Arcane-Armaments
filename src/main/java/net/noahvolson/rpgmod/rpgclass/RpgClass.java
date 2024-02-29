@@ -86,13 +86,6 @@ public class RpgClass {
         if (!player.hasEffect(cooldownEffect)) {
             player.addEffect(new MobEffectInstance(cooldownEffect, skillType.getCooldown(), 0, false, false, DEBUG));
             skill.use(player);
-            if (!player.isCreative()) {
-                int remainingFood = player.getFoodData().getFoodLevel() - skill.getCost();
-                player.getFoodData().setFoodLevel(Math.max(remainingFood, 0));
-                if (remainingFood < 0) {
-                    player.hurt(new DamageSource("overcast"), Math.abs(remainingFood));
-                }
-            }
             usedSkill = true;
         } else if (skill.canUseTurnover(player)){
             int turnoverCooldown = skillType.getTurnoverCooldown();

@@ -12,6 +12,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
+import net.noahvolson.rpgmod.config.ModDamageSource;
 import net.noahvolson.rpgmod.entity.skill.AbstractProjectileAbility;
 import net.noahvolson.rpgmod.entity.skill.SkillType;
 import net.noahvolson.rpgmod.entity.skill.cleric.HealingAuraSkill;
@@ -27,7 +28,7 @@ public class FireballSpell extends AbstractProjectileAbility {
 
     public FireballSpell(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
         super(entityType, shooter, world, SoundEvents.GHAST_SHOOT);
-        this.setDamage(new DamageSource("fireball"), SkillType.FIREBALL.getDamage());
+        this.setDamage(ModDamageSource.FIREBALL, SkillType.FIREBALL.getDamage());
     }
 
     @Override

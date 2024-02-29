@@ -10,6 +10,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
+import net.noahvolson.rpgmod.config.ModDamageSource;
 import net.noahvolson.rpgmod.entity.skill.AbstractProjectileAbility;
 import net.noahvolson.rpgmod.entity.skill.SkillType;
 import net.noahvolson.rpgmod.particle.ModParticles;
@@ -25,7 +26,7 @@ public class BlinkSpell extends AbstractProjectileAbility {
         super(entityType, shooter, world, SoundEvents.EVOKER_CAST_SPELL, SoundEvents.CHORUS_FRUIT_TELEPORT, SoundEvents.CHORUS_FRUIT_TELEPORT);
         this.setNoGravity(true);
 
-        this.setDamage(new DamageSource("blink"), SkillType.BLINK.getDamage());
+        this.setDamage(ModDamageSource.BLINK, SkillType.BLINK.getDamage());
     }
 
     @Override

@@ -12,6 +12,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
+import net.noahvolson.rpgmod.config.ModDamageSource;
 import net.noahvolson.rpgmod.entity.skill.AbstractMeleeAttack;
 import net.noahvolson.rpgmod.entity.skill.AbstractProjectileAbility;
 import net.noahvolson.rpgmod.entity.skill.Skill;
@@ -25,7 +26,7 @@ public class BerserkAttack extends AbstractMeleeAttack implements Skill {
 
     public BerserkAttack(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
         super(entityType, shooter, world, SoundEvents.PLAYER_ATTACK_SWEEP);
-        this.setDamage(new DamageSource("decapitate"), SkillType.EXECUTE.getDamage());
+        this.setDamage(ModDamageSource.DECAPITATE, SkillType.EXECUTE.getDamage());
     }
 
     protected void doEffectsEntity(@NotNull EntityHitResult ray) {

@@ -10,6 +10,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.phys.Vec3;
+import net.noahvolson.rpgmod.config.ModDamageSource;
 import net.noahvolson.rpgmod.entity.skill.SkillType;
 import net.noahvolson.rpgmod.particle.ModParticles;
 
@@ -26,7 +27,7 @@ public class VenomEffect extends MobEffect {
         int duration = pLivingEntity.getActiveEffectsMap().get(VenomEffect.this).getDuration();
         if (duration < SkillType.ENVENOM.getDuration() && duration % 30 == 0) {
             if (pLivingEntity.level instanceof ServerLevel serverLevel && pLivingEntity.getMobType() != MobType.UNDEAD) {
-                    pLivingEntity.hurt(new DamageSource("venom"), 2);
+                    pLivingEntity.hurt(ModDamageSource.VENOM, 2);
                     Vec3 eyePos = pLivingEntity.getEyePosition();
                     for (int j = 0; j < 3; ++j) {
 
