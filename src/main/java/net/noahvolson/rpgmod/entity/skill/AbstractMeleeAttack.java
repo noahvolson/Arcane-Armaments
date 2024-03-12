@@ -3,16 +3,17 @@ package net.noahvolson.rpgmod.entity.skill;
 import com.google.common.collect.Multimap;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
+import net.noahvolson.rpgmod.config.ModDamageSource;
+import net.noahvolson.rpgmod.effect.ModEffects;
+import net.noahvolson.rpgmod.particle.ModParticles;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -52,6 +53,19 @@ public abstract class AbstractMeleeAttack extends AbstractProjectileAbility {
     protected void onHitEntity(@NotNull EntityHitResult ray) {
         Entity owner = this.getOwner();
         if (owner != null && !this.level.isClientSide && ray.getEntity() instanceof LivingEntity target) {
+            if (owner instanceof LivingEntity livingOwner && livingOwner.hasEffect(ModEffects.BLESSED_BLADE.get())) {
+                livingOwner.heal(SkillType.BLESSED_BLADES.getHealing());
+                target.setHealth(target.getHealth() - SkillType.BLESSED_BLADES.getDamage());
+
+                AreaEffectCloud sparkleCloud = new AreaEffectCloud(target.level, target.getX(), target.getY() + 1, target.getZ());
+                sparkleCloud.setParticle(ModParticles.BLESSED_BLADE_PARTICLES.get());
+                sparkleCloud.setRadius(1F);
+                sparkleCloud.setDuration(5);
+                sparkleCloud.setWaitTime(0);
+                livingOwner.level.addFreshEntity(sparkleCloud);
+
+                livingOwner.level.playSound(null, livingOwner.getX(), livingOwner.getY(), livingOwner.getZ(), SoundEvents.ILLUSIONER_MIRROR_MOVE, SoundSource.HOSTILE, 1F, 1.2F / (livingOwner.level.random.nextFloat() * 0.2F + 0.9F));
+            }
             target.knockback(0.5D, owner.getX() - target.getX(), owner.getZ() - target.getZ());
             this.level.playSound(null, owner.getX(), owner.getY(), owner.getZ(), attackSound, SoundSource.HOSTILE, 1F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
         }

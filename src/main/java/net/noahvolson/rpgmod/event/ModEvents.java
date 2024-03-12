@@ -343,7 +343,7 @@ public class ModEvents {
                 shieldPlayer(event, player, level, ModEffects.HOLY_SHIELD_3.get(), ModEffects.HOLY_SHIELD_2.get());
 
                 if (player.hasEffect(ModEffects.BERSERK.get())) {
-                    event.setAmount(event.getAmount() * 1.5F);
+                    event.setAmount(event.getAmount() * 1.25F);
                 }
                 if (player.hasEffect(ModEffects.SHELL.get())) {
                     event.setAmount(event.getAmount() / 4);
