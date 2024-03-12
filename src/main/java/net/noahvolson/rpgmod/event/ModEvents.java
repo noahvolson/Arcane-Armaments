@@ -4,6 +4,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -32,9 +33,7 @@ import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
-import net.minecraftforge.event.entity.living.LivingHealEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
+import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -42,6 +41,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.noahvolson.rpgmod.RpgMod;
 import net.noahvolson.rpgmod.config.ModDamageSource;
 import net.noahvolson.rpgmod.effect.ModEffects;
+import net.noahvolson.rpgmod.effect.RuptureEffect;
 import net.noahvolson.rpgmod.entity.skill.ModAreaEffectCloud;
 import net.noahvolson.rpgmod.entity.skill.SkillType;
 import net.noahvolson.rpgmod.networking.ModMessages;
@@ -54,10 +54,9 @@ import net.noahvolson.rpgmod.player.PlayerUnlockedSkills;
 import net.noahvolson.rpgmod.player.PlayerUnlockedSkillsProvider;
 import net.noahvolson.rpgmod.rpgclass.RpgClass;
 import net.noahvolson.rpgmod.sound.ModSounds;
+import org.checkerframework.checker.units.qual.C;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import static net.noahvolson.rpgmod.rpgclass.RpgClasses.*;
 
@@ -137,6 +136,56 @@ public class ModEvents {
                     setPlayerRpgClassCapabilityJoin(player, WARRIOR);
                 } else if (offhand.is(CLERIC.getClassItem())) {
                     setPlayerRpgClassCapabilityJoin(player, CLERIC);
+                }
+            }
+        }
+
+
+        static HashMap<LivingEntity, Vec3> rupturedLivingLastPosition = new HashMap<>();
+
+
+        @SubscribeEvent
+        public static void onLivingDeath(LivingDeathEvent event) {
+            if (event.getEntity().hasEffect(ModEffects.RUPTURED.get())) {
+                rupturedLivingLastPosition.remove(event.getEntity());
+            }
+        }
+
+        @SubscribeEvent
+        public static void onEffectExpire(MobEffectEvent.Expired event) {
+            if (Objects.requireNonNull(event.getEffectInstance()).getEffect() == ModEffects.RUPTURED.get()) {
+                rupturedLivingLastPosition.remove(event.getEntity());
+            }
+        }
+
+        @SubscribeEvent
+        public static void onLivingTick(LivingEvent.LivingTickEvent event) {
+            LivingEntity pLivingEntity = event.getEntity();
+            if (!pLivingEntity.level.isClientSide && pLivingEntity.hasEffect(ModEffects.RUPTURED.get())) {
+
+                Vec3 lastPosition = rupturedLivingLastPosition.get(pLivingEntity);
+                int duration = Objects.requireNonNull(pLivingEntity.getEffect(ModEffects.RUPTURED.get())).getDuration();
+
+                if (lastPosition == null) {
+                    pLivingEntity.hurt(ModDamageSource.RUPTURE, 1);
+                    rupturedLivingLastPosition.put(pLivingEntity, new Vec3(pLivingEntity.getX(), pLivingEntity.getY(), pLivingEntity.getZ()));
+                } else if (duration % 10 == 0) {
+                    double damage = (Math.abs(pLivingEntity.getX() - lastPosition.x) +
+                                    Math.abs(pLivingEntity.getY() - lastPosition.y) +
+                                    Math.abs(pLivingEntity.getZ() - lastPosition.z)) / 2;
+
+                    if (damage > 0) {
+                        pLivingEntity.hurt(ModDamageSource.RUPTURE, Math.min((float) damage, 3F));
+                        double yShift = 0.5;
+                        AreaEffectCloud bloodCloud = new AreaEffectCloud(pLivingEntity.level, pLivingEntity.getX(), pLivingEntity.blockPosition().getY() + yShift, pLivingEntity.getZ());
+                        bloodCloud.setParticle(ModParticles.BLOOD_PARTICLES.get());
+                        bloodCloud.setRadius(.25F);
+                        bloodCloud.setDuration(5);
+                        bloodCloud.setWaitTime(0);
+                        pLivingEntity.level.addFreshEntity(bloodCloud);
+                    }
+
+                    rupturedLivingLastPosition.put(pLivingEntity, new Vec3(pLivingEntity.getX(), pLivingEntity.getY(), pLivingEntity.getZ()));
                 }
             }
         }
