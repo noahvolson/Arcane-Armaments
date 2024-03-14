@@ -5,7 +5,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.FormattedText;
-import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.noahvolson.rpgmod.RpgMod;
@@ -18,9 +17,9 @@ import net.noahvolson.rpgmod.client.ClientUnlockedSkillsData;
 import net.noahvolson.rpgmod.entity.skill.SkillType;
 import net.noahvolson.rpgmod.rpgclass.RpgClass;
 
-import static net.noahvolson.rpgmod.screen.GemInfusingStationMenu.TE_INVENTORY_FIRST_SLOT_INDEX;
+import static net.noahvolson.rpgmod.screen.ArmoryMenu.TE_INVENTORY_FIRST_SLOT_INDEX;
 
-public class GemInfusingStationScreen extends AbstractContainerScreen<GemInfusingStationMenu> {
+public class ArmoryScreen extends AbstractContainerScreen<ArmoryMenu> {
     private static final ResourceLocation TEXTURE =
             new ResourceLocation(RpgMod.MOD_ID,"textures/gui/gem_infusing_station_gui.png");
 
@@ -30,7 +29,7 @@ public class GemInfusingStationScreen extends AbstractContainerScreen<GemInfusin
     private int lastAttemptCounter = 0;
     private boolean resetComplete = false;
 
-    public GemInfusingStationScreen(GemInfusingStationMenu menu, Inventory inventory, Component component) {
+    public ArmoryScreen(ArmoryMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);
     }
 

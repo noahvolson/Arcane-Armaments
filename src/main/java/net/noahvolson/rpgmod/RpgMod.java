@@ -15,7 +15,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.noahvolson.rpgmod.block.ModBlocks;
 import net.noahvolson.rpgmod.block.entity.ModBlockEntities;
 import net.noahvolson.rpgmod.config.OptionsHolder;
-import net.noahvolson.rpgmod.screen.GemInfusingStationScreen;
+import net.noahvolson.rpgmod.screen.ArmoryScreen;
 import net.noahvolson.rpgmod.effect.ModEffects;
 import net.noahvolson.rpgmod.entity.ModEntityTypes;
 import net.noahvolson.rpgmod.entity.client.render.MeatHookRenderer;
@@ -68,7 +68,7 @@ public class RpgMod {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             EntityRenderers.register(ModEntityTypes.GRAPPLE.get(), MeatHookRenderer::new);
-            MenuScreens.register(ModMenuTypes.GEM_INFUSING_STATION_MENU.get(), GemInfusingStationScreen::new);
+            MenuScreens.register(ModMenuTypes.GEM_INFUSING_STATION_MENU.get(), ArmoryScreen::new);
         }
     }
 }

@@ -20,20 +20,20 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
-import net.noahvolson.rpgmod.block.entity.GemInfusingStationBlockEntity;
+import net.noahvolson.rpgmod.block.entity.ArmoryBlockEntity;
 import net.noahvolson.rpgmod.block.entity.ModBlockEntities;
 
 import javax.annotation.Nullable;
 
-public class GemInfusingStationBlock extends BaseEntityBlock {
+public class ArmoryBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-    public GemInfusingStationBlock(Properties properties) {
+    public ArmoryBlock(Properties properties) {
         super(properties);
     }
 
     private static final VoxelShape SHAPE =
-            Block.box(0, 0, 0, 16, 10, 16);
+            Block.box(0, 0, 0, 16, 16, 16);
 
     @Override
     public VoxelShape getShape(BlockState p_60555_, BlockGetter p_60556_, BlockPos p_60557_, CollisionContext p_60558_) {
@@ -72,8 +72,8 @@ public class GemInfusingStationBlock extends BaseEntityBlock {
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (pState.getBlock() != pNewState.getBlock()) {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-            if (blockEntity instanceof GemInfusingStationBlockEntity) {
-                ((GemInfusingStationBlockEntity) blockEntity).drops();
+            if (blockEntity instanceof ArmoryBlockEntity) {
+                ((ArmoryBlockEntity) blockEntity).drops();
             }
         }
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
@@ -84,8 +84,8 @@ public class GemInfusingStationBlock extends BaseEntityBlock {
                                  Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
             BlockEntity entity = pLevel.getBlockEntity(pPos);
-            if(entity instanceof GemInfusingStationBlockEntity) {
-                NetworkHooks.openScreen(((ServerPlayer)pPlayer), (GemInfusingStationBlockEntity)entity, pPos);
+            if(entity instanceof ArmoryBlockEntity) {
+                NetworkHooks.openScreen(((ServerPlayer)pPlayer), (ArmoryBlockEntity)entity, pPos);
             } else {
                 throw new IllegalStateException("Our Container provider is missing!");
             }
@@ -97,14 +97,14 @@ public class GemInfusingStationBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new GemInfusingStationBlockEntity(pos, state);
+        return new ArmoryBlockEntity(pos, state);
     }
 
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state,
                                                                   BlockEntityType<T> type) {
-        return createTickerHelper(type, ModBlockEntities.GEM_INFUSING_STATION.get(),
-                GemInfusingStationBlockEntity::tick);
+        return createTickerHelper(type, ModBlockEntities.ARMORY.get(),
+                ArmoryBlockEntity::tick);
     }
 }

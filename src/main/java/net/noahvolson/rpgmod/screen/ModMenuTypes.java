@@ -14,8 +14,8 @@ public class ModMenuTypes {
     public static final DeferredRegister<MenuType<?>> MENUS =
             DeferredRegister.create(ForgeRegistries.MENU_TYPES, RpgMod.MOD_ID);
 
-    public static final RegistryObject<MenuType<GemInfusingStationMenu>> GEM_INFUSING_STATION_MENU =
-            registerMenuType(GemInfusingStationMenu::new, "gem_infusing_station_menu");
+    public static final RegistryObject<MenuType<ArmoryMenu>> GEM_INFUSING_STATION_MENU =
+            registerMenuType(ArmoryMenu::new, "gem_infusing_station_menu");
 
 
     private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> registerMenuType(IContainerFactory<T> factory,

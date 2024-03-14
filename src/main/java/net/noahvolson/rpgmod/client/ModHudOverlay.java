@@ -13,7 +13,7 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import net.noahvolson.rpgmod.RpgMod;
 import net.noahvolson.rpgmod.effect.ModEffects;
 import net.noahvolson.rpgmod.rpgclass.RpgClass;
-import net.noahvolson.rpgmod.screen.GemInfusingStationScreen;
+import net.noahvolson.rpgmod.screen.ArmoryScreen;
 
 import java.util.Objects;
 
@@ -132,10 +132,10 @@ public class ModHudOverlay {
             };
             if (rpgClass != null) {
 
-                GemInfusingStationScreen.renderSkillIcon(poseStack, rpgClass, rpgClass.getSkill1(), x, y, -195, -18);
-                GemInfusingStationScreen.renderSkillIcon(poseStack, rpgClass, rpgClass.getSkill2(), x, y, -175, -18);
-                GemInfusingStationScreen.renderSkillIcon(poseStack, rpgClass, rpgClass.getSkill3(), x, y, -155, -18);
-                GemInfusingStationScreen.renderSkillIcon(poseStack, rpgClass, rpgClass.getSkill4(), x, y, -135, -18);
+                ArmoryScreen.renderSkillIcon(poseStack, rpgClass, rpgClass.getSkill1(), x, y, -195, -18);
+                ArmoryScreen.renderSkillIcon(poseStack, rpgClass, rpgClass.getSkill2(), x, y, -175, -18);
+                ArmoryScreen.renderSkillIcon(poseStack, rpgClass, rpgClass.getSkill3(), x, y, -155, -18);
+                ArmoryScreen.renderSkillIcon(poseStack, rpgClass, rpgClass.getSkill4(), x, y, -135, -18);
 
             }
         }

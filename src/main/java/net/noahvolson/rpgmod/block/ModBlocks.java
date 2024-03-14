@@ -1,7 +1,7 @@
 package net.noahvolson.rpgmod.block;
 
 import net.noahvolson.rpgmod.RpgMod;
-import net.noahvolson.rpgmod.block.custom.GemInfusingStationBlock;
+import net.noahvolson.rpgmod.block.custom.ArmoryBlock;
 import net.noahvolson.rpgmod.item.ModCreativeModeTab;
 import net.noahvolson.rpgmod.item.ModItems;
 import net.minecraft.world.item.BlockItem;
@@ -21,9 +21,9 @@ public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, RpgMod.MOD_ID);
 
-    public static final RegistryObject<Block> GEM_INFUSING_STATION = registerBlock("gem_infusing_station",
-            () -> new GemInfusingStationBlock(BlockBehaviour.Properties.of(Material.METAL)
-                    .strength(6f).requiresCorrectToolForDrops().noOcclusion()), ModCreativeModeTab.RPG_MOD_TAB);
+    public static final RegistryObject<Block> ARMORY = registerBlock("armory",
+            () -> new ArmoryBlock(BlockBehaviour.Properties.of(Material.STONE)
+                    .strength(3f).requiresCorrectToolForDrops().noOcclusion()), ModCreativeModeTab.RPG_MOD_TAB);
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

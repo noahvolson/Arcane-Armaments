@@ -2,7 +2,7 @@ package net.noahvolson.rpgmod.screen;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.noahvolson.rpgmod.block.ModBlocks;
-import net.noahvolson.rpgmod.block.entity.GemInfusingStationBlockEntity;
+import net.noahvolson.rpgmod.block.entity.ArmoryBlockEntity;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -19,19 +19,19 @@ import net.noahvolson.rpgmod.rpgclass.RpgClass;
 import net.noahvolson.rpgmod.rpgclass.RpgClasses;
 import org.jetbrains.annotations.NotNull;
 
-public class GemInfusingStationMenu extends AbstractContainerMenu {
-    public final GemInfusingStationBlockEntity blockEntity;
+public class ArmoryMenu extends AbstractContainerMenu {
+    public final ArmoryBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
 
-    public GemInfusingStationMenu(int id, Inventory inv, FriendlyByteBuf extraData) {
-        this(id, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(GemInfusingStationBlockEntity.dataSize));
+    public ArmoryMenu(int id, Inventory inv, FriendlyByteBuf extraData) {
+        this(id, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(ArmoryBlockEntity.dataSize));
     }
 
-    public GemInfusingStationMenu(int id, Inventory inv, BlockEntity entity, ContainerData data) {
+    public ArmoryMenu(int id, Inventory inv, BlockEntity entity, ContainerData data) {
         super(ModMenuTypes.GEM_INFUSING_STATION_MENU.get(), id);
         checkContainerSize(inv, 2);
-        blockEntity = (GemInfusingStationBlockEntity) entity;
+        blockEntity = (ArmoryBlockEntity) entity;
         this.level = inv.player.level;
         this.data = data;
 
@@ -100,7 +100,7 @@ public class GemInfusingStationMenu extends AbstractContainerMenu {
     @Override
     public boolean stillValid(Player player) {
         return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()),
-                player, ModBlocks.GEM_INFUSING_STATION.get());
+                player, ModBlocks.ARMORY.get());
     }
 
     private void addPlayerInventory(Inventory playerInventory) {

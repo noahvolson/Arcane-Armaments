@@ -3,7 +3,6 @@ package net.noahvolson.rpgmod.block.entity;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.noahvolson.rpgmod.entity.skill.SkillType;
-import net.noahvolson.rpgmod.item.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -15,7 +14,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -24,16 +22,15 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.noahvolson.rpgmod.networking.ModMessages;
-import net.noahvolson.rpgmod.networking.packet.RpgClassSyncS2CPacket;
 import net.noahvolson.rpgmod.networking.packet.UnlockedSkillsSyncS2CPacket;
 import net.noahvolson.rpgmod.player.PlayerUnlockedSkillsProvider;
 import net.noahvolson.rpgmod.rpgclass.RpgClass;
 import net.noahvolson.rpgmod.rpgclass.RpgClasses;
-import net.noahvolson.rpgmod.screen.GemInfusingStationMenu;
+import net.noahvolson.rpgmod.screen.ArmoryMenu;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class GemInfusingStationBlockEntity extends BlockEntity implements MenuProvider {
+public class ArmoryBlockEntity extends BlockEntity implements MenuProvider {
     private final ItemStackHandler itemHandler = new ItemStackHandler(3) {
         @Override
         protected void onContentsChanged(int slot) {
@@ -49,8 +46,8 @@ public class GemInfusingStationBlockEntity extends BlockEntity implements MenuPr
     private boolean craftSuccessful;
     private int attemptCounter = 0;
 
-    public GemInfusingStationBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.GEM_INFUSING_STATION.get(), pos, state);
+    public ArmoryBlockEntity(BlockPos pos, BlockState state) {
+        super(ModBlockEntities.ARMORY.get(), pos, state);
         this.data = new ContainerData() {
             @Override
             public int get(int index) {
@@ -104,7 +101,7 @@ public class GemInfusingStationBlockEntity extends BlockEntity implements MenuPr
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        return new GemInfusingStationMenu(id, inventory, this, this.data);
+        return new ArmoryMenu(id, inventory, this, this.data);
     }
 
     @Override
@@ -149,7 +146,7 @@ public class GemInfusingStationBlockEntity extends BlockEntity implements MenuPr
         Containers.dropContents(this.level, this.worldPosition, inventory);
     }
 
-    public static void tick(Level level, BlockPos pos, BlockState state, GemInfusingStationBlockEntity pEntity) {
+    public static void tick(Level level, BlockPos pos, BlockState state, ArmoryBlockEntity pEntity) {
         if(level.isClientSide()) {
             return;
         }
