@@ -29,7 +29,7 @@ public class ArmoryMenu extends AbstractContainerMenu {
     }
 
     public ArmoryMenu(int id, Inventory inv, BlockEntity entity, ContainerData data) {
-        super(ModMenuTypes.GEM_INFUSING_STATION_MENU.get(), id);
+        super(ModMenuTypes.ARMORY_MENU.get(), id);
         checkContainerSize(inv, 2);
         blockEntity = (ArmoryBlockEntity) entity;
         this.level = inv.player.level;

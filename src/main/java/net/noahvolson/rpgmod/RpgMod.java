@@ -68,7 +68,7 @@ public class RpgMod {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             EntityRenderers.register(ModEntityTypes.GRAPPLE.get(), MeatHookRenderer::new);
-            MenuScreens.register(ModMenuTypes.GEM_INFUSING_STATION_MENU.get(), ArmoryScreen::new);
+            MenuScreens.register(ModMenuTypes.ARMORY_MENU.get(), ArmoryScreen::new);
         }
     }
 }

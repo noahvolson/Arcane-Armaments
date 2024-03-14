@@ -21,7 +21,7 @@ import static net.noahvolson.rpgmod.screen.ArmoryMenu.TE_INVENTORY_FIRST_SLOT_IN
 
 public class ArmoryScreen extends AbstractContainerScreen<ArmoryMenu> {
     private static final ResourceLocation TEXTURE =
-            new ResourceLocation(RpgMod.MOD_ID,"textures/gui/gem_infusing_station_gui.png");
+            new ResourceLocation(RpgMod.MOD_ID,"textures/gui/armory.png");
 
     private int forgeFrame = -1;
     private int failedFrame = -1;
