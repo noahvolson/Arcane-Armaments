@@ -52,13 +52,15 @@ public class ThunderParticle extends TextureSheetParticle {
         float stepG = (float) (end.getGreen() - start.getGreen()) / lifetime;
         float stepB = (float) (end.getBlue() - start.getBlue()) / lifetime;
 
-        this.setColorRgb(
-                new Color(
-                        Math.round(start.getRed() + (stepR * age)),
-                        Math.round(start.getGreen() + (stepG * age)),
-                        Math.round(start.getBlue() + (stepB * age))
-                )
-        );
+        int r = Math.round(start.getRed() + (stepR * age));
+        int g = Math.round(start.getGreen() + (stepG * age));
+        int b = Math.round(start.getBlue() + (stepB * age));
+
+        r = r >= 255 ? 254 : (r <= 0 ? 1 : r);
+        g = g >= 255 ? 254 : (g <= 0 ? 1 : g);
+        b = b >= 255 ? 254 : (b <= 0 ? 1 : b);
+
+        this.setColorRgb(new Color(r,g,b));
     }
 
     private void setColorRgb(Color color) {
