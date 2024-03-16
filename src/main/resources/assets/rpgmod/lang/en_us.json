@@ -2,6 +2,11 @@
   "item.rpgmod.zircon" : "Zircon",
   "item.rpgmod.raw_zircon" : "Raw Zircon",
 
+  "item.rpgmod.mage_staff" : "Mage's Staff",
+  "item.rpgmod.rogue_dagger" : "Rogue's Dagger",
+  "item.rpgmod.warrior_axe" : "Warrior's Axe",
+  "item.rpgmod.cleric_sceptre" : "Cleric's Sceptre",
+
   "block.rpgmod.armory" : "Armory",
 
   "itemGroup.rpgmodtab": "Rpg Mod",
