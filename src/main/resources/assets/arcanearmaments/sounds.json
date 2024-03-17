@@ -1,0 +1,128 @@
+{
+  "blizzard_area": {
+    "subtitle": "sounds.arcanearmaments.blizzard_area",
+    "sounds": [
+      "arcanearmaments:blizzard_area"
+    ]
+  },
+  "blizzard_cast": {
+    "subtitle": "sounds.arcanearmaments.blizzard_cast",
+    "sounds": [
+      "arcanearmaments:blizzard_cast"
+    ]
+  },
+  "blizzard_impact": {
+    "subtitle": "sounds.arcanearmaments.blizzard_impact",
+    "sounds": [
+      "arcanearmaments:blizzard_impact"
+    ]
+  },
+  "thunder_cast": {
+    "subtitle": "sounds.arcanearmaments.thunder_cast",
+    "sounds": [
+      "arcanearmaments:thunder_cast"
+    ]
+  },
+  "thunder_impact": {
+    "subtitle": "sounds.arcanearmaments.thunder_impact",
+    "sounds": [
+      "arcanearmaments:thunder_impact"
+    ]
+  },
+  "thunder_pulse": {
+    "subtitle": "sounds.arcanearmaments.thunder_pulse",
+    "sounds": [
+      "arcanearmaments:thunder_pulse"
+    ]
+  },
+  "venom_dagger": {
+    "subtitle": "sounds.arcanearmaments.venom_dagger",
+    "sounds": [
+      "arcanearmaments:venom_dagger"
+    ]
+  },
+  "rupture_dagger": {
+    "subtitle": "sounds.arcanearmaments.rupture_dagger",
+    "sounds": [
+      "arcanearmaments:rupture_dagger"
+    ]
+  },
+  "execute_dagger": {
+    "subtitle": "sounds.arcanearmaments.execute_dagger",
+    "sounds": [
+      "arcanearmaments:execute_dagger"
+    ]
+  },
+  "failed_execute": {
+    "subtitle": "sounds.arcanearmaments.failed_execute",
+    "sounds": [
+      "arcanearmaments:failed_execute"
+    ]
+  },
+  "smoke_bomb": {
+    "subtitle": "sounds.arcanearmaments.smoke_bomb",
+    "sounds": [
+      "arcanearmaments:smoke_bomb"
+    ]
+  },
+  "berserk": {
+    "subtitle": "sounds.arcanearmaments.berserk",
+    "sounds": [
+      "arcanearmaments:berserk"
+    ]
+  },
+  "grapple_cast": {
+    "subtitle": "sounds.arcanearmaments.grapple_cast",
+    "sounds": [
+      "arcanearmaments:grapple_cast"
+    ]
+  },
+  "grapple_ground": {
+    "subtitle": "sounds.arcanearmaments.grapple_ground",
+    "sounds": [
+      "arcanearmaments:grapple_ground"
+    ]
+  },
+  "stomp_impact": {
+    "subtitle": "sounds.arcanearmaments.stomp_impact",
+    "sounds": [
+      "arcanearmaments:stomp_impact"
+    ]
+  },
+  "molten_shell": {
+    "subtitle": "sounds.arcanearmaments.molten_shell",
+    "sounds": [
+      "arcanearmaments:molten_shell"
+    ]
+  },
+  "holy_shield_cast": {
+    "subtitle": "sounds.arcanearmaments.holy_shield_cast",
+    "sounds": [
+      "arcanearmaments:holy_shield_cast"
+    ]
+  },
+  "holy_shield_impact": {
+    "subtitle": "sounds.arcanearmaments.holy_shield_impact",
+    "sounds": [
+      "arcanearmaments:holy_shield_impact"
+    ]
+  },
+  "smiting_ray_cast": {
+    "subtitle": "sounds.arcanearmaments.smiting_ray_cast",
+    "sounds": [
+      "arcanearmaments:smiting_ray_cast"
+    ]
+  },
+  "smiting_ray_impact": {
+    "subtitle": "sounds.arcanearmaments.smiting_ray_impact",
+    "sounds": [
+      "arcanearmaments:smiting_ray_impact"
+    ]
+  },
+  "healing_aura": {
+    "subtitle": "sounds.arcanearmaments.healing_aura",
+    "sounds": [
+      "arcanearmaments:healing_aura"
+    ]
+  }
+}

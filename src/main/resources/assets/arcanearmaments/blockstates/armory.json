@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "arcanearmaments:block/armory"
+    },
+    "facing=south": {
+      "model": "arcanearmaments:block/armory",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "arcanearmaments:block/armory",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "arcanearmaments:block/armory",
+      "y": 90
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "arcanearmaments:item/rogue_dagger"
+  },
+  "display": {
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        90,
+        25
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        0,
+        -90,
+        -25
+      ]
+    }
+  }
+}
