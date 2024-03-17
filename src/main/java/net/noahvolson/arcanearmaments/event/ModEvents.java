@@ -66,7 +66,7 @@ public class ModEvents {
             if (player != null && rpgClass != null) {
                 player.getCapability(PlayerRpgClassProvider.PLAYER_RPG_CLASS).ifPresent(curClass -> {
                     if (!curClass.getRpgClass().equals(rpgClass.getLabel())) {
-                        player.sendSystemMessage(Component.literal("Swapping to " + rpgClass.getLabel()).withStyle(ChatFormatting.AQUA));
+                        //player.sendSystemMessage(Component.literal("Swapping to " + rpgClass.getLabel()).withStyle(ChatFormatting.AQUA));
                         curClass.setRpgClass(rpgClass.getLabel());
 
                         // Reset cooldowns on class swapping
