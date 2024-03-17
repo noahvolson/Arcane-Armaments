@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "minecraft:iron_ingot"
+    },
+    "D": {
+      "item": "minecraft:dandelion"
+    }
+  },
+  "pattern": [
+    "XDX",
+    " # ",
+    " # "
+  ],
+  "result": {
+    "item": "rpgmod:cleric_sceptre"
+  }
+}

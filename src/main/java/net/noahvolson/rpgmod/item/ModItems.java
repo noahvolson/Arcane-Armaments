@@ -12,16 +12,16 @@ public class ModItems {
             DeferredRegister.create(ForgeRegistries.ITEMS, RpgMod.MOD_ID);
 
     public static final RegistryObject<Item> MAGE_STAFF = ITEMS.register("mage_staff",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.RPG_MOD_TAB)));
+            () -> new Item(new Item.Properties().stacksTo(1).tab(ModCreativeModeTab.RPG_MOD_TAB)));
 
     public static final RegistryObject<Item> ROGUE_DAGGER = ITEMS.register("rogue_dagger",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.RPG_MOD_TAB)));
+            () -> new Item(new Item.Properties().stacksTo(1).tab(ModCreativeModeTab.RPG_MOD_TAB)));
 
     public static final RegistryObject<Item> WARRIOR_AXE = ITEMS.register("warrior_axe",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.RPG_MOD_TAB)));
+            () -> new Item(new Item.Properties().stacksTo(1).tab(ModCreativeModeTab.RPG_MOD_TAB)));
 
     public static final RegistryObject<Item> CLERIC_SCEPTRE = ITEMS.register("cleric_sceptre",
-            () -> new Item(new Item.Properties().tab(ModCreativeModeTab.RPG_MOD_TAB)));
+            () -> new Item(new Item.Properties().stacksTo(1).tab(ModCreativeModeTab.RPG_MOD_TAB)));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
