@@ -62,3 +62,9 @@ description='''Arcane Armaments adds new offhand weapons, each with their own se
     versionRange="[1.19,1.20)"
     ordering="NONE"
     side="BOTH"
+[[dependencies.tutorialmod]]
+    modId="geckolib" #mandatory
+    mandatory=true #mandatory
+    versionRange="[3.1.19,)" #mandatory
+    ordering="NONE"
+    side="BOTH"
