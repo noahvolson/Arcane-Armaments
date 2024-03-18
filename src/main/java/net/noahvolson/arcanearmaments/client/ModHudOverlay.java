@@ -10,6 +10,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
+import net.minecraftforge.common.ForgeMod;
 import net.noahvolson.arcanearmaments.ArcaneArmaments;
 import net.noahvolson.arcanearmaments.effect.ModEffects;
 import net.noahvolson.arcanearmaments.rpgclass.RpgClass;
@@ -100,6 +101,33 @@ public class ModHudOverlay {
                     GuiComponent.blit(poseStack, left, top, 16, 9, 9, 9,256, 256);
                 }
                 left += 8;
+            }
+
+            RenderSystem.disableBlend();
+            minecraft.getProfiler().pop();
+        }
+    }));
+
+    public static final IGuiOverlay MOVED_AIR = (((gui, poseStack, partialTick, width, height) -> {
+        gui.setupOverlayRenderState(true, false);
+        Minecraft minecraft = gui.getMinecraft();
+        if (minecraft.player != null && !minecraft.player.isCreative() && !minecraft.player.isSpectator()) {
+            minecraft.getProfiler().push("air");
+            Player player = (Player) minecraft.getCameraEntity();
+            RenderSystem.enableBlend();
+            int left = (width / 2) - 10;
+            int top = height - 49;
+
+            int air = player.getAirSupply();
+            if (player.isEyeInFluidType(ForgeMod.WATER_TYPE.get()) || air < 300)
+            {
+                int full = Mth.ceil((double) (air - 2) * 10.0D / 300.0D);
+                int partial = Mth.ceil((double) air * 10.0D / 300.0D) - full;
+
+                for (int i = 0; i < full + partial; ++i)
+                {
+                    GuiComponent.blit(poseStack, left - i * 8 - 9, top, (i < full ? 16 : 25), 18, 9, 9,256, 256);
+                }
             }
 
             RenderSystem.disableBlend();

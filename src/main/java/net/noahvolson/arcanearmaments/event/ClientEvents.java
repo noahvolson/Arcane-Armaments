@@ -35,7 +35,7 @@ public class ClientEvents {
 
         @SubscribeEvent
         public static void onRenderGuiOverlayEvent(RenderGuiOverlayEvent.Pre event) {
-            if (event.getOverlay() == VanillaGuiOverlay.ARMOR_LEVEL.type()) {
+            if (event.getOverlay() == VanillaGuiOverlay.AIR_LEVEL.type() || event.getOverlay() == VanillaGuiOverlay.ARMOR_LEVEL.type()) {
                 event.setCanceled(true);
             }
         }
@@ -62,6 +62,7 @@ public class ClientEvents {
 
         @SubscribeEvent
         public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
+            event.registerBelowAll("hud_moved_air", ModHudOverlay.MOVED_AIR);
             event.registerBelowAll("hud_moved_armor", ModHudOverlay.MOVED_ARMOR);
             event.registerBelowAll("hud_berserk", ModHudOverlay.HUD_BERSERK);
             event.registerBelowAll("hud_trinket_hotbar", ModHudOverlay.HUD_TRINKET_HOTBAR);
