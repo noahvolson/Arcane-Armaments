@@ -65,7 +65,7 @@ public class ClientEvents {
             event.registerBelowAll("hud_moved_air", ModHudOverlay.MOVED_AIR);
             event.registerBelowAll("hud_moved_armor", ModHudOverlay.MOVED_ARMOR);
             event.registerBelowAll("hud_berserk", ModHudOverlay.HUD_BERSERK);
-            event.registerBelowAll("hud_trinket_hotbar", ModHudOverlay.HUD_TRINKET_HOTBAR);
+            //event.registerBelowAll("hud_trinket_hotbar", ModHudOverlay.HUD_TRINKET_HOTBAR);
             event.registerBelowAll("hud_class_hotbar", ModHudOverlay.HUD_CLASS_HOTBAR);
             event.registerAboveAll("hud_venom", ModHudOverlay.HUD_VENOM);
             event.registerAboveAll("hud_cooldowns", ModHudOverlay.HUD_COOLDOWNS);
