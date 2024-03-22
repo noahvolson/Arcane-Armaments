@@ -1,0 +1,11 @@
+{
+  "name": "Test Entry",
+  "icon": "arcanearmaments:mage_staff",
+  "category": "arcanearmaments:test_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Mage staff mage staff mage staff :)"
+    }
+  ]
+}
