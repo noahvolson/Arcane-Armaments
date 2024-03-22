@@ -51,6 +51,9 @@ minecraft {
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
             property 'forge.enabledGameTestNamespaces', 'arcanearmaments'
 
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+
             mods {
                 rpgmod {
                     source sourceSets.main
@@ -124,6 +127,7 @@ repositories {
     //     dir 'libs'
     // }
     maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
+    maven { url 'https://maven.blamejared.com' }
 }
 
 dependencies {
@@ -132,6 +136,8 @@ dependencies {
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft 'net.minecraftforge:forge:1.19-41.1.0'
     implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.19:3.1.19')
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.19-75:api")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.19-75")
 
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
