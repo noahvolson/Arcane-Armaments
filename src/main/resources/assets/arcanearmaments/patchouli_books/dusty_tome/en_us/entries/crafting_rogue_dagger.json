@@ -1,0 +1,17 @@
+{
+  "name": "Rogue's Dagger",
+  "icon": "arcanearmaments:rogue_dagger",
+  "category": "arcanearmaments:crafting",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Rogue's Dagger",
+      "text": "Strike from the shadows with a poisoned blade, then finish off weakened enemies. Equip the Rogue's Dagger in your offhand to unleash its potential."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Recipe",
+      "recipe": "arcanearmaments:rogue_dagger"
+    }
+  ]
+}

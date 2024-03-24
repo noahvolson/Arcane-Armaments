@@ -1,0 +1,17 @@
+{
+  "name": "Mage's Staff",
+  "icon": "arcanearmaments:mage_staff",
+  "category": "arcanearmaments:crafting",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Mage's Staff",
+      "text": "Cast elemental magic to burn, shock, and freeze your foes. Equip the Mage's Staff in your offhand to unleash its potential."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Recipe",
+      "recipe": "arcanearmaments:mage_staff"
+    }
+  ]
+}

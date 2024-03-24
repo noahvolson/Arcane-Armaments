@@ -1,0 +1,19 @@
+{
+  "sortnum": 3,
+  "name": "Smiting Ray",
+  "icon": "arcanearmaments:textures/gui/cleric/cleric_3.png",
+  "category": "arcanearmaments:cleric",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Description",
+      "text": "skill_description.arcanearmaments.smiting_ray"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Skill Unlock",
+      "item": "minecraft:glow_berries",
+      "text": "Enhance a $(l:crafting_cleric_sceptre)Cleric's Sceptre$() in the $(l:crafting_armory)Armory$() to unlock this skill."
+    }
+  ]
+}

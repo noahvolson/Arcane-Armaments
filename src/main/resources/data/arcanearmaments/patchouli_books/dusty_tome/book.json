@@ -1,5 +1,10 @@
 {
   "name": "Dusty Tome",
+  "subtitle": "Arcane Armaments",
   "landing_text": "Welcome to Arcane Armaments",
-  "use_resource_pack": true
+  "use_resource_pack": true,
+  "creative_tab": "arcanearmaments_tab",
+  "show_progress": false,
+  "show_toasts": false,
+  "i18n": true
 }

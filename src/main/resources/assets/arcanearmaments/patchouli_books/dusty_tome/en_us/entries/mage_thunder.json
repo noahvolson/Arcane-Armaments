@@ -1,0 +1,19 @@
+{
+  "sortnum": 4,
+  "name": "Thunder",
+  "icon": "arcanearmaments:textures/gui/mage/mage_4.png",
+  "category": "arcanearmaments:mage",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Description",
+      "text": "skill_description.arcanearmaments.thunder"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Skill Unlock",
+      "item": "minecraft:amethyst_shard",
+      "text": "Enhance a $(l:crafting_mage_staff)Mage's Staff$() in the $(l:crafting_armory)Armory$() to unlock this skill."
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "sortnum": 2,
+  "name": "Stomp",
+  "icon": "arcanearmaments:textures/gui/warrior/warrior_2.png",
+  "category": "arcanearmaments:warrior",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Description",
+      "text": "skill_description.arcanearmaments.stomp"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Skill Unlock",
+      "item": "minecraft:iron_boots",
+      "text": "Enhance a $(l:crafting_warrior_axe)Warrior's Axe$() in the $(l:crafting_armory)Armory$() to unlock this skill."
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "sortnum": 2,
+  "name": "Holy Shield",
+  "icon": "arcanearmaments:textures/gui/cleric/cleric_2.png",
+  "category": "arcanearmaments:cleric",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Description",
+      "text": "skill_description.arcanearmaments.holy_shield"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Skill Unlock",
+      "item": "minecraft:book",
+      "text": "Enhance a $(l:crafting_cleric_sceptre)Cleric's Sceptre$() in the $(l:crafting_armory)Armory$() to unlock this skill."
+    }
+  ]
+}

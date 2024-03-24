@@ -1,0 +1,19 @@
+{
+  "sortnum": 2,
+  "name": "Smoke Bomb",
+  "icon": "arcanearmaments:textures/gui/rogue/rogue_2.png",
+  "category": "arcanearmaments:rogue",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Description",
+      "text": "skill_description.arcanearmaments.smoke_bomb"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Skill Unlock",
+      "item": "minecraft:gunpowder",
+      "text": "Enhance a $(l:crafting_rogue_dagger)Rogue's Dagger$() in the $(l:crafting_armory)Armory$() to unlock this skill."
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Warrior's Axe",
+  "icon": "arcanearmaments:warrior_axe",
+  "category": "arcanearmaments:crafting",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Warrior's Axe",
+      "text": "Dominate melee combat with enhanced speed, stunning blows, and a grappling hook. Equip the Warrior's Axe in your offhand to unleash its potential."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Recipe",
+      "recipe": "arcanearmaments:warrior_axe"
+    }
+  ]
+}

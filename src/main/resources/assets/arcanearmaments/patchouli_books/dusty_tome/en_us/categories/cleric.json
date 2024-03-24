@@ -1,0 +1,6 @@
+{
+  "name": "Cleric",
+  "description": "Heal and support allies while smiting foes with radiant energy.",
+  "icon": "arcanearmaments:cleric_sceptre",
+  "sortnum": 0
+}

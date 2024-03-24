@@ -1,0 +1,19 @@
+{
+  "sortnum": 3,
+  "name": "Grapple",
+  "icon": "arcanearmaments:textures/gui/warrior/warrior_3.png",
+  "category": "arcanearmaments:warrior",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Description",
+      "text": "skill_description.arcanearmaments.grapple"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Skill Unlock",
+      "item": "minecraft:fishing_rod",
+      "text": "Enhance a $(l:crafting_warrior_axe)Warrior's Axe$() in the $(l:crafting_armory)Armory$() to unlock this skill."
+    }
+  ]
+}

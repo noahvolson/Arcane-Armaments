@@ -1,0 +1,19 @@
+{
+  "sortnum": 2,
+  "name": "Blink",
+  "icon": "arcanearmaments:textures/gui/mage/mage_2.png",
+  "category": "arcanearmaments:mage",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Description",
+      "text": "skill_description.arcanearmaments.blink"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Skill Unlock",
+      "item": "minecraft:ender_pearl",
+      "text": "Enhance a $(l:crafting_mage_staff)Mage's Staff$() in the $(l:crafting_armory)Armory$() to unlock this skill."
+    }
+  ]
+}

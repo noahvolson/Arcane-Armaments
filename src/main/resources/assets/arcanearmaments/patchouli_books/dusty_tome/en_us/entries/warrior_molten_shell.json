@@ -1,0 +1,19 @@
+{
+  "sortnum": 4,
+  "name": "Molten Shell",
+  "icon": "arcanearmaments:textures/gui/warrior/warrior_4.png",
+  "category": "arcanearmaments:warrior",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Description",
+      "text": "skill_description.arcanearmaments.molten_shell"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Skill Unlock",
+      "item": "minecraft:blaze_powder",
+      "text": "Enhance a $(l:crafting_warrior_axe)Warrior's Axe$() in the $(l:crafting_armory)Armory$() to unlock this skill."
+    }
+  ]
+}

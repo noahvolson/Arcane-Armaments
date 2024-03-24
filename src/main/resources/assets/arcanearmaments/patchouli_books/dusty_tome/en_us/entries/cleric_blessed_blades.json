@@ -1,0 +1,19 @@
+{
+  "sortnum": 1,
+  "name": "Blessed Blades",
+  "icon": "arcanearmaments:textures/gui/cleric/cleric_1.png",
+  "category": "arcanearmaments:cleric",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Description",
+      "text": "skill_description.arcanearmaments.blessed_blades"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Skill Unlock",
+      "item": "arcanearmaments:cleric_sceptre",
+      "text": "Equip a $(l:crafting_cleric_sceptre)Cleric's Sceptre$() in your offhand to unlock this skill."
+    }
+  ]
+}

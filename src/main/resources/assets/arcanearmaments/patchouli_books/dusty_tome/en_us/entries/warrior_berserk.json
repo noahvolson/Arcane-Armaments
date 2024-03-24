@@ -1,0 +1,19 @@
+{
+  "sortnum": 1,
+  "name": "Berserk",
+  "icon": "arcanearmaments:textures/gui/warrior/warrior_1.png",
+  "category": "arcanearmaments:warrior",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Description",
+      "text": "skill_description.arcanearmaments.berserk"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Skill Unlock",
+      "item": "arcanearmaments:warrior_axe",
+      "text": "Equip a $(l:crafting_warrior_axe)Warrior's Axe$() in your offhand to unlock this skill."
+    }
+  ]
+}

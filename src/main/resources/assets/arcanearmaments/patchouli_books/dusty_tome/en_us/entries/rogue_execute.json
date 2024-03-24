@@ -1,0 +1,19 @@
+{
+  "sortnum": 4,
+  "name": "Execute",
+  "icon": "arcanearmaments:textures/gui/rogue/rogue_4.png",
+  "category": "arcanearmaments:rogue",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Description",
+      "text": "skill_description.arcanearmaments.execute"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Skill Unlock",
+      "item": "minecraft:diamond_hoe",
+      "text": "Enhance a $(l:crafting_rogue_dagger)Rogue's Dagger$() in the $(l:crafting_armory)Armory$() to unlock this skill."
+    }
+  ]
+}

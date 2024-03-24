@@ -1,0 +1,19 @@
+{
+  "sortnum": 1,
+  "name": "Fireball",
+  "icon": "arcanearmaments:textures/gui/mage/mage_1.png",
+  "category": "arcanearmaments:mage",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Description",
+      "text": "skill_description.arcanearmaments.fireball"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Skill Unlock",
+      "item": "arcanearmaments:mage_staff",
+      "text": "Equip a $(l:crafting_mage_staff)Mage's Staff$() in your offhand to unlock this skill."
+    }
+  ]
+}

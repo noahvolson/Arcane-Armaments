@@ -1,0 +1,17 @@
+{
+  "name": "Armory",
+  "icon": "arcanearmaments:armory",
+  "category": "arcanearmaments:crafting",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Armory",
+      "text": "Use the Armory block to unlock new offhand skills."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Recipe",
+      "recipe": "arcanearmaments:armory"
+    }
+  ]
+}

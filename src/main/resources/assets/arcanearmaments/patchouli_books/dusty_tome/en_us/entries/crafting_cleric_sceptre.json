@@ -1,0 +1,17 @@
+{
+  "name": "Cleric's Sceptre",
+  "icon": "arcanearmaments:cleric_sceptre",
+  "category": "arcanearmaments:crafting",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Cleric's Sceptre",
+      "text": "Heal and support allies while smiting foes with radiant energy. Equip the Cleric's Sceptre in your offhand to unleash its potential."
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Recipe",
+      "recipe": "arcanearmaments:cleric_sceptre"
+    }
+  ]
+}

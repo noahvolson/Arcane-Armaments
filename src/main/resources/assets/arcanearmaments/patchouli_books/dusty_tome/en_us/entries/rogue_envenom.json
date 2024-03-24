@@ -1,0 +1,19 @@
+{
+  "sortnum": 1,
+  "name": "Envenom",
+  "icon": "arcanearmaments:textures/gui/rogue/rogue_1.png",
+  "category": "arcanearmaments:rogue",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Description",
+      "text": "skill_description.arcanearmaments.envenom"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Skill Unlock",
+      "item": "arcanearmaments:rogue_dagger",
+      "text": "Equip a $(l:crafting_rogue_dagger)Rogue's Dagger$() in your offhand to unlock this skill."
+    }
+  ]
+}
