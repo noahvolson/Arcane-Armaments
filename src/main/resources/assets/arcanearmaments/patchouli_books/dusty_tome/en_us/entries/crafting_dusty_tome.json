@@ -1,0 +1,18 @@
+{
+  "name": "Dusty Tome",
+  "icon": "patchouli:guide_book",
+  "category": "arcanearmaments:crafting",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Dusty Tome",
+      "text": "Lose your starter tome? Craft a new one with some sand and a book!"
+    },
+    {
+      "type": "patchouli:crafting",
+      "title": "Recipe",
+      "recipe": "arcanearmaments:dusty_tome"
+    }
+  ]
+}

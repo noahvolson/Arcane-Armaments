@@ -1,7 +1,7 @@
 {
   "name": "Dusty Tome",
   "subtitle": "Arcane Armaments",
-  "landing_text": "Welcome to Arcane Armaments",
+  "landing_text": "Welcome to Arcane Armaments!$(br2)This mod adds new offhand weapons, each with their own set of combat skills.",
   "use_resource_pack": true,
   "creative_tab": "arcanearmaments_tab",
   "show_progress": false,

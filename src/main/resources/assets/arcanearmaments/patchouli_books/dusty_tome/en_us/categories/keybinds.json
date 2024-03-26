@@ -1,0 +1,6 @@
+{
+  "name": "Key Bindings",
+  "description": "$(li)Use Skill 1 - $(k:arcanearmaments.ability_1)$(li)Use Skill 2 - $(k:arcanearmaments.ability_2)$(li)Use Skill 3 - $(k:arcanearmaments.ability_3)$(li)Use Skill 4 - $(k:arcanearmaments.ability_4)$(br2)These can be changed in Options > Controls > Key Binds$(br2)Note: To use skills 2-4, you must first unlock them in the in the $(l:crafting_armory)Armory$()",
+  "icon": "arcanearmaments:textures/gui/keybinds.png",
+  "sortnum": 1
+}
