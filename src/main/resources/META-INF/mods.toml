@@ -68,3 +68,9 @@ description='''Arcane Armaments adds new offhand weapons, each with their own se
     versionRange="[3.1.19,)" #mandatory
     ordering="NONE"
     side="BOTH"
+[[dependencies.arcanearmaments]]
+    modId="patchouli" #mandatory
+    mandatory=true #mandatory
+    versionRange="[1.19-75,)" #mandatory
+    ordering="NONE"
+    side="BOTH"
