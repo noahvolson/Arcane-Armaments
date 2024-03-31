@@ -1,0 +1,1 @@
+Arcane Armaments adds four new offhand weapons to Minecraft, each with their own set of RPG-style combat skills. These skills are balanced around vanilla combat, but can be tweaked to suit a range of difficulties.
