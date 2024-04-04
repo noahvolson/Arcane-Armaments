@@ -250,13 +250,13 @@ public class ModEvents {
 
         // Remove mob aggro on invisibility and blindness
         @SubscribeEvent
-        public static void onLivingSetAttackTargetEvent (LivingSetAttackTargetEvent event) {
-            if (event.getTarget() instanceof Player player) {
+        public static void onLivingSetAttackTargetEvent (LivingChangeTargetEvent event) {
+            if (event.getOriginalTarget() instanceof Player player) {
                 if (event.getEntity() instanceof Mob mob) {
                     if (player.hasEffect(MobEffects.INVISIBILITY)) {
-                        mob.setTarget(null);
+                        event.setNewTarget(null);
                     } else if (mob.hasEffect(MobEffects.BLINDNESS)) {
-                        mob.setTarget(null);
+                        event.setNewTarget(null);
                     }
                 }
             }

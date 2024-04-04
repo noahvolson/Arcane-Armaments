@@ -38,9 +38,11 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> SMITING_RAY_IMPACT = registerSoundEvent("smiting_ray_impact");
     public static final RegistryObject<SoundEvent> HEALING_AURA = registerSoundEvent("healing_aura");
 
+    public static final RegistryObject<SoundEvent> SILENT = registerSoundEvent("silent");
+
 
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
-        return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(ArcaneArmaments.MOD_ID, name)));
+        return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ArcaneArmaments.MOD_ID, name)));
     }
 
     public static void register(IEventBus eventBus) {

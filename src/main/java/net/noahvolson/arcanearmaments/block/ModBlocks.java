@@ -23,7 +23,7 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> ARMORY = registerBlock("armory",
             () -> new ArmoryBlock(BlockBehaviour.Properties.of(Material.STONE)
-                    .strength(3f).requiresCorrectToolForDrops().noOcclusion()), ModCreativeModeTab.RPG_MOD_TAB);
+                    .strength(3f).requiresCorrectToolForDrops().noOcclusion()), ModCreativeModeTab.ARCANE_ARMAMENTS_TAB);
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
@@ -33,7 +33,7 @@ public class ModBlocks {
 
     private static <T extends Block> RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block,
                                                                             CreativeModeTab tab) {
-        return ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(tab)));
+        return ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
     public static void register(IEventBus eventBus) {

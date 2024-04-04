@@ -124,5 +124,11 @@
     "sounds": [
       "arcanearmaments:healing_aura"
     ]
+  },
+  "silent": {
+    "subtitle": "sounds.arcanearmaments.silent",
+    "sounds": [
+      "arcanearmaments:silent"
+    ]
   }
 }

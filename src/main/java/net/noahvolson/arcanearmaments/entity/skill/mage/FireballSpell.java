@@ -1,6 +1,7 @@
 package net.noahvolson.arcanearmaments.entity.skill.mage;
 
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -21,7 +22,7 @@ public class FireballSpell extends AbstractProjectileAbility {
     }
 
     public FireballSpell(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
-        super(entityType, shooter, world, SoundEvents.GHAST_SHOOT);
+        super(entityType, shooter, world, SoundEvents.GHAST_SHOOT, null, null);
         this.setDamage(ModDamageSource.FIREBALL, SkillType.FIREBALL.getDamage());
     }
 
@@ -31,7 +32,7 @@ public class FireballSpell extends AbstractProjectileAbility {
         Entity owner = this.getOwner();
         if (owner != null && !this.level.isClientSide && ray.getEntity() instanceof LivingEntity target) {
             target.knockback(0.7D, owner.getX() - target.getX(), owner.getZ() - target.getZ());
-            this.level.explode(this, this.getX(), this.getY() - 0.5, this.getZ(), 1.25f, true, Explosion.BlockInteraction.NONE);
+            this.level.explode(this, this.getX(), this.getY() - 0.5, this.getZ(), 1.5f, true, Level.ExplosionInteraction.NONE);
             ray.getEntity().setSecondsOnFire(SkillType.FIREBALL.getDuration() / 20);
         }
     }
@@ -39,7 +40,7 @@ public class FireballSpell extends AbstractProjectileAbility {
     @Override
     protected void doEffectsBlock(@NotNull BlockHitResult ray) {
         if (!this.level.isClientSide) {
-            this.level.explode(this, this.getX(), this.getY() - 0.5, this.getZ(), 1.25f, true, Explosion.BlockInteraction.NONE);
+            this.level.explode(this, this.getX(), this.getY() - 0.5, this.getZ(), 1.5f, true, Level.ExplosionInteraction.NONE);
         }
     };
     

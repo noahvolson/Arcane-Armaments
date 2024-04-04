@@ -9,15 +9,16 @@ import net.noahvolson.arcanearmaments.entity.skill.SkillType;
 import net.noahvolson.arcanearmaments.particle.ModParticles;
 import net.noahvolson.arcanearmaments.sound.ModSounds;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.*;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.object.PlayState;
 
-public class GrappleAttack extends AbstractProjectileAbility implements IAnimatable {
-    private AnimationFactory factory = new AnimationFactory(this);
+public class GrappleAttack extends AbstractProjectileAbility implements GeoEntity {
+    private AnimatableInstanceCache factory = new SingletonAnimatableInstanceCache(this);
     private int life;
     private Vec3 lastTickPos;
 
@@ -44,13 +45,13 @@ public class GrappleAttack extends AbstractProjectileAbility implements IAnimata
         }
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+    private PlayState predicate(AnimationState animationState) {
         return PlayState.CONTINUE; // No animations for projectile
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController(this, "controller",
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController(this, "controller",
                 0, this::predicate));
     }
 
@@ -66,7 +67,7 @@ public class GrappleAttack extends AbstractProjectileAbility implements IAnimata
     }
 
     @Override
-    public AnimationFactory getFactory() {
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
         return factory;
     }
 

@@ -1,6 +1,7 @@
 package net.noahvolson.arcanearmaments.screen;
 
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.noahvolson.arcanearmaments.block.ModBlocks;
 import net.noahvolson.arcanearmaments.block.entity.ArmoryBlockEntity;
 import net.minecraft.network.FriendlyByteBuf;
@@ -38,7 +39,7 @@ public class ArmoryMenu extends AbstractContainerMenu {
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
-        this.blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
+        this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
             this.addSlot(new SlotItemHandler(handler, 0, 13, 47)); // Top left corner
             this.addSlot(new SlotItemHandler(handler, 1, 33, 47));
         });

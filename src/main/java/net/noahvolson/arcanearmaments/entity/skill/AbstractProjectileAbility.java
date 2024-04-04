@@ -4,6 +4,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -15,13 +16,14 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
+import net.noahvolson.arcanearmaments.sound.ModSounds;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class AbstractProjectileAbility extends AbstractArrow implements Skill {
 
-    private SoundEvent castSound;
-    private SoundEvent hitEntitySound;
-    private SoundEvent hitBlockSound;
+    private SoundEvent castSound = ModSounds.SILENT.get();
+    private SoundEvent hitEntitySound = ModSounds.SILENT.get();
+    private SoundEvent hitBlockSound = ModSounds.SILENT.get();
     private double speed = 3D;
     private int hitDamage = 0;
     private DamageSource damageSource = DamageSource.MAGIC;
@@ -36,16 +38,10 @@ public abstract class AbstractProjectileAbility extends AbstractArrow implements
                                      SoundEvent castSound, SoundEvent hitEntitySound, SoundEvent hitBlockSound) {
 
         super(entityType, shooter, world);
-        this.castSound = castSound;
-        this.hitEntitySound = hitEntitySound;
-        this.hitBlockSound = hitBlockSound;
-    }
+        this.castSound = castSound != null ? castSound : this.castSound;
+        this.hitEntitySound = hitEntitySound != null ? hitEntitySound : this.hitEntitySound;
+        this.hitBlockSound = hitBlockSound != null ? hitBlockSound : this.hitBlockSound;
 
-    // For ability casts
-    public AbstractProjectileAbility(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world, SoundEvent castSound) {
-
-        super(entityType, shooter, world);
-        this.castSound = castSound;
     }
 
     @Override
@@ -105,14 +101,6 @@ public abstract class AbstractProjectileAbility extends AbstractArrow implements
         return ItemStack.EMPTY;
     }
 
-    // returns a packet to sync the entity from the server side to the client side
-    // called automatically whenever the arrow is added to the world
-    @Override
-    public @NotNull Packet<?> getAddEntityPacket() {
-        this.playSound(castSound, 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
-        return NetworkHooks.getEntitySpawningPacket(this);
-    }
-
     @Override
     public void tick() {
         super.tick();
@@ -147,6 +135,7 @@ public abstract class AbstractProjectileAbility extends AbstractArrow implements
         Vec3 look = player.getLookAngle();
         this.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
         player.level.addFreshEntity(this);
+        this.playSound(castSound, 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
     }
 
     @Override
