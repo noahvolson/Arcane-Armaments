@@ -9,6 +9,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.noahvolson.arcanearmaments.effect.ModEffects;
 import net.noahvolson.arcanearmaments.particle.ModParticles;
+import net.noahvolson.arcanearmaments.sound.ModSounds;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -18,7 +19,7 @@ public abstract class AbstractMeleeAttack extends AbstractProjectileAbility {
     private double startZ = 0;
     private double range = 0;
 
-    private SoundEvent attackSound;
+    private SoundEvent attackSound = ModSounds.SILENT.get();
     public AbstractMeleeAttack(EntityType<AbstractProjectileAbility> entityType, Level world) {
         super(entityType, world);
     }
@@ -30,7 +31,7 @@ public abstract class AbstractMeleeAttack extends AbstractProjectileAbility {
         this.startX = shooter.getX();
         this.startY = shooter.getY();
         this.startZ = shooter.getZ();
-        this.attackSound = attackSound;
+        this.attackSound = attackSound != null ? attackSound : this.attackSound;
 
         if (shooter instanceof ServerPlayer serverplayer) {
             this.range = serverplayer.getAttackRange();
