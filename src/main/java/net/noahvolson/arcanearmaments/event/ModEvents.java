@@ -13,6 +13,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageSources;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -343,7 +344,7 @@ public class ModEvents {
                 if (player.hasEffect(ModEffects.SHELL.get())) {
                     event.setAmount(event.getAmount() / 4);
                 }
-                if (event.getSource() == new DamageSources(player.level.registryAccess()).fall()) {
+                if (event.getSource().is(DamageTypes.FALL)) {
                     if (player.hasEffect(ModEffects.STOMPING.get()) || fallDamageImmune.contains(player.getUUID())) {
                         fallDamageImmune.remove(player.getUUID());
 
