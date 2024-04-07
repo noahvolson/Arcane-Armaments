@@ -9,7 +9,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.noahvolson.arcanearmaments.config.ModDamageSource;
+import net.noahvolson.arcanearmaments.damage.ModDamageSources;
 import net.noahvolson.arcanearmaments.effect.ModEffects;
 import net.noahvolson.arcanearmaments.entity.skill.AbstractMeleeAttack;
 import net.noahvolson.arcanearmaments.entity.skill.AbstractProjectileAbility;
@@ -26,7 +26,7 @@ public class VenomDaggerAttack extends AbstractMeleeAttack {
 
     public VenomDaggerAttack(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
         super(entityType, shooter, world, ModSounds.VENOM_DAGGER.get());
-        this.setDamage(ModDamageSource.DAGGER, SkillType.ENVENOM.getDamage());
+        this.setDamage(new ModDamageSources(this.level.registryAccess()).dagger(), SkillType.ENVENOM.getDamage());
     }
 
     @Override

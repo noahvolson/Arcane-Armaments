@@ -8,7 +8,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.noahvolson.arcanearmaments.config.ModDamageSource;
+import net.noahvolson.arcanearmaments.damage.ModDamageSources;
 import net.noahvolson.arcanearmaments.entity.skill.AbstractMeleeAttack;
 import net.noahvolson.arcanearmaments.entity.skill.AbstractProjectileAbility;
 import net.noahvolson.arcanearmaments.entity.skill.SkillType;
@@ -24,7 +24,7 @@ public class ExecuteDaggerAttack extends AbstractMeleeAttack {
 
     public ExecuteDaggerAttack(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
         super(entityType, shooter, world, null);
-        this.setDamage(ModDamageSource.EXECUTE, SkillType.EXECUTE.getDamage());
+        this.setDamage(new ModDamageSources(this.level.registryAccess()).execute(), SkillType.EXECUTE.getDamage());
     }
 
     @Override
@@ -38,7 +38,7 @@ public class ExecuteDaggerAttack extends AbstractMeleeAttack {
             double x = eyePos.x() > owner.getX() ? eyePos.x() - shiftCloserBy : eyePos.x() + shiftCloserBy;
             double z = eyePos.z() > owner.getZ() ? eyePos.z() - shiftCloserBy : eyePos.z() + shiftCloserBy;
             if (livingentity.getHealth() / livingentity.getMaxHealth() <= 0.33) {
-                livingentity.hurt(ModDamageSource.EXECUTE, livingentity.getHealth() * 100);
+                livingentity.hurt(new ModDamageSources(this.level.registryAccess()).execute(), livingentity.getHealth() * 100);
                 this.level.playSound(null, owner.getX(), owner.getY(), owner.getZ(), ModSounds.EXECUTE_DAGGER.get(), SoundSource.HOSTILE, 0.9F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
                 serverLevel.sendParticles(ModParticles.EXECUTE_PARTICLES.get(), x, eyePos.y(), z, 1, 0D, 0D,0D, 0D);
             } else {

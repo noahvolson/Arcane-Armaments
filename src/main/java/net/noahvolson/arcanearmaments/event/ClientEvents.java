@@ -74,26 +74,26 @@ public class ClientEvents {
 
         @SubscribeEvent
         public static void registerParticleFactories(final RegisterParticleProvidersEvent event) {
-            event.register(ModParticles.HIDDEN_PARTICLES.get(), HiddenParticle.Provider::new);
-            event.register(ModParticles.BLINK_PARTICLES.get(), BlinkParticle.Provider::new);
-            event.register(ModParticles.FIREBOLT_PARTICLES.get(), FireballParticle.Provider::new);
-            event.register(ModParticles.ICEBOLT_PARTICLES.get(), BlizzardParticle.Provider::new);
-            event.register(ModParticles.FREEZE_PARTICLES.get(), FreezeParticle.Provider::new);
-            event.register(ModParticles.THUNDER_PARTICLES.get(), ThunderParticle.Provider::new);
-            event.register(ModParticles.RUNE_PARTICLES.get(), RuneParticle.Provider::new);
-            event.register(ModParticles.ZAPPED_PARTICLES.get(), ZappedParticle.Provider::new);
-            event.register(ModParticles.VENOM_PARTICLES.get(), VenomParticle.Provider::new);
-            event.register(ModParticles.BLOOD_PARTICLES.get(), BloodParticle.Provider::new);
-            event.register(ModParticles.EXECUTE_PARTICLES.get(), ExecuteParticle.Provider::new);
-            event.register(ModParticles.DAGGER_PARTICLES.get(), DaggerParticle.Provider::new);
-            event.register(ModParticles.BERSERK_PARTICLES.get(), BerserkParticle.Provider::new);
-            event.register(ModParticles.STUN_PARTICLES.get(), StunParticle.Provider::new);
-            event.register(ModParticles.SHELL_PARTICLES.get(), ShellParticle.Provider::new);
-            event.register(ModParticles.CHAIN_PARTICLES.get(), ChainParticle.Provider::new);
-            event.register(ModParticles.BLESSED_BLADE_PARTICLES.get(), BlessedBladeParticle.Provider::new);
-            event.register(ModParticles.SMITING_RAY_PARTICLES.get(), SmitingRayParticle.Provider::new);
-            event.register(ModParticles.HOLY_SHIELD_PARTICLES.get(), HolyShieldParticle.Provider::new);
-            event.register(ModParticles.HEAL_PARTICLES.get(), HealParticle.Provider::new);
+            event.registerSpriteSet(ModParticles.HIDDEN_PARTICLES.get(), HiddenParticle.Provider::new);
+            event.registerSpriteSet(ModParticles.BLINK_PARTICLES.get(), BlinkParticle.Provider::new);
+            event.registerSpriteSet(ModParticles.FIREBOLT_PARTICLES.get(), FireballParticle.Provider::new);
+            event.registerSpriteSet(ModParticles.ICEBOLT_PARTICLES.get(), BlizzardParticle.Provider::new);
+            event.registerSpriteSet(ModParticles.FREEZE_PARTICLES.get(), FreezeParticle.Provider::new);
+            event.registerSpriteSet(ModParticles.THUNDER_PARTICLES.get(), ThunderParticle.Provider::new);
+            event.registerSpriteSet(ModParticles.RUNE_PARTICLES.get(), RuneParticle.Provider::new);
+            event.registerSpriteSet(ModParticles.ZAPPED_PARTICLES.get(), ZappedParticle.Provider::new);
+            event.registerSpriteSet(ModParticles.VENOM_PARTICLES.get(), VenomParticle.Provider::new);
+            event.registerSpriteSet(ModParticles.BLOOD_PARTICLES.get(), BloodParticle.Provider::new);
+            event.registerSpriteSet(ModParticles.EXECUTE_PARTICLES.get(), ExecuteParticle.Provider::new);
+            event.registerSpriteSet(ModParticles.DAGGER_PARTICLES.get(), DaggerParticle.Provider::new);
+            event.registerSpriteSet(ModParticles.BERSERK_PARTICLES.get(), BerserkParticle.Provider::new);
+            event.registerSpriteSet(ModParticles.STUN_PARTICLES.get(), StunParticle.Provider::new);
+            event.registerSpriteSet(ModParticles.SHELL_PARTICLES.get(), ShellParticle.Provider::new);
+            event.registerSpriteSet(ModParticles.CHAIN_PARTICLES.get(), ChainParticle.Provider::new);
+            event.registerSpriteSet(ModParticles.BLESSED_BLADE_PARTICLES.get(), BlessedBladeParticle.Provider::new);
+            event.registerSpriteSet(ModParticles.SMITING_RAY_PARTICLES.get(), SmitingRayParticle.Provider::new);
+            event.registerSpriteSet(ModParticles.HOLY_SHIELD_PARTICLES.get(), HolyShieldParticle.Provider::new);
+            event.registerSpriteSet(ModParticles.HEAL_PARTICLES.get(), HealParticle.Provider::new);
         }
     }
 }

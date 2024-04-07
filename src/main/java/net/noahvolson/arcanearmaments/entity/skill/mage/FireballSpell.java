@@ -10,7 +10,7 @@ import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
-import net.noahvolson.arcanearmaments.config.ModDamageSource;
+import net.noahvolson.arcanearmaments.damage.ModDamageSources;
 import net.noahvolson.arcanearmaments.entity.skill.AbstractProjectileAbility;
 import net.noahvolson.arcanearmaments.entity.skill.SkillType;
 import net.noahvolson.arcanearmaments.particle.ModParticles;
@@ -23,7 +23,7 @@ public class FireballSpell extends AbstractProjectileAbility {
 
     public FireballSpell(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
         super(entityType, shooter, world, SoundEvents.GHAST_SHOOT, null, null);
-        this.setDamage(ModDamageSource.FIREBALL, SkillType.FIREBALL.getDamage());
+        this.setDamage(new ModDamageSources(this.level.registryAccess()).fireball(), SkillType.FIREBALL.getDamage());
     }
 
     @Override

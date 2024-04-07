@@ -34,7 +34,7 @@ public abstract class AbstractMeleeAttack extends AbstractProjectileAbility {
         this.attackSound = attackSound != null ? attackSound : this.attackSound;
 
         if (shooter instanceof ServerPlayer serverplayer) {
-            this.range = serverplayer.getAttackRange();
+            this.range = serverplayer.getEntityReach();
         }
     }
     public void setRange(double range) {

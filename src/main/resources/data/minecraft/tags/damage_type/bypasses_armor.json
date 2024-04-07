@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "arcanearmaments:rupture",
+    "arcanearmaments:venom",
+    "arcanearmaments:execute",
+    "arcanearmaments:dagger",
+    "arcanearmaments:smiting",
+    "arcanearmaments:smiting_ray",
+    "arcanearmaments:blink",
+    "arcanearmaments:fireball",
+    "arcanearmaments:zap",
+    "arcanearmaments:decapitate",
+    "arcanearmaments:grapple",
+    "arcanearmaments:stomp"
+  ]
+}

@@ -6,6 +6,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -16,6 +17,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
+import net.noahvolson.arcanearmaments.damage.ModDamageSources;
 import net.noahvolson.arcanearmaments.sound.ModSounds;
 import org.jetbrains.annotations.NotNull;
 
@@ -26,7 +28,7 @@ public abstract class AbstractProjectileAbility extends AbstractArrow implements
     private SoundEvent hitBlockSound = ModSounds.SILENT.get();
     private double speed = 3D;
     private int hitDamage = 0;
-    private DamageSource damageSource = DamageSource.MAGIC;
+    private DamageSource damageSource = new DamageSources(this.level.registryAccess()).magic();
 
     // For registering in ModEntityTypes
     public AbstractProjectileAbility(EntityType<AbstractProjectileAbility> entityType, Level world) {

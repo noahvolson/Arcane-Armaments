@@ -200,9 +200,9 @@ public class ArmoryScreen extends AbstractContainerScreen<ArmoryMenu> {
     private void renderSkillDescription(PoseStack pPoseStack, int x, int y, SkillType skill) {
         RenderSystem.setShaderTexture(0, new ResourceLocation(ArcaneArmaments.MOD_ID, "textures/gui/skill_details.png"));
         GuiComponent.blit(pPoseStack,x + 180, y,0,0,98,112, 98,112);
-        this.font.drawWordWrap(FormattedText.of(I18n.get(skill.getLabel())), x + 186, y + 6, 88, menu.getRpgClass().getClassColor());
-        this.font.drawWordWrap(FormattedText.of(I18n.get(skill.getDescription())), x + 186, y + 18, 88, 11053224);
-        this.font.drawWordWrap(FormattedText.of(I18n.get("skill_cooldown.arcanearmaments") + ": " + String.format("%.1f", skill.getCooldown() / 20.0) + "s"), x + 186, y + 96, 88, 11053224);
+        this.font.drawWordWrap(pPoseStack, FormattedText.of(I18n.get(skill.getLabel())), x + 186, y + 6, 88, menu.getRpgClass().getClassColor());
+        this.font.drawWordWrap(pPoseStack, FormattedText.of(I18n.get(skill.getDescription())), x + 186, y + 18, 88, 11053224);
+        this.font.drawWordWrap(pPoseStack, FormattedText.of(I18n.get("skill_cooldown.arcanearmaments") + ": " + String.format("%.1f", skill.getCooldown() / 20.0) + "s"), x + 186, y + 96, 88, 11053224);
 
     }
 

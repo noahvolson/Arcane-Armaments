@@ -216,7 +216,6 @@ public class ModHudOverlay {
             if (rpgClass != null) {
 
                 RenderSystem.disableDepthTest();
-                RenderSystem.disableTexture();
                 RenderSystem.enableBlend();
                 RenderSystem.defaultBlendFunc();
                 Tesselator tesselator1 = Tesselator.getInstance();
@@ -237,7 +236,6 @@ public class ModHudOverlay {
                 int remainingTicks = Objects.requireNonNull(player.getEffect(effect)).getDuration();
                 float f = (float) remainingTicks / cooldown;
                 fillRect(bufferbuilder1, x - (196 - (index * 20)), y - 19 + Mth.floor(16.0F * (1.0F - f)), 16, Mth.ceil(16.0F * f), 255, 255, 255, 127);
-                RenderSystem.enableTexture();
                 RenderSystem.enableDepthTest();
             }
         }

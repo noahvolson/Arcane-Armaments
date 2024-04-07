@@ -6,7 +6,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
-import net.noahvolson.arcanearmaments.config.ModDamageSource;
+import net.noahvolson.arcanearmaments.damage.ModDamageSources;
 import net.noahvolson.arcanearmaments.effect.ModEffects;
 import net.noahvolson.arcanearmaments.entity.skill.AbstractProjectileAbility;
 import net.noahvolson.arcanearmaments.entity.skill.SkillType;
@@ -36,7 +36,7 @@ public class SmitingRaySkill extends AbstractProjectileAbility {
         this.setPierceLevel((byte)16);
         this.setSpeed(1.5);
 
-        this.setDamage(ModDamageSource.SMITING_RAY, SkillType.SMITING_RAY.getDamage());
+        this.setDamage(new ModDamageSources(this.level.registryAccess()).smiting_ray(), SkillType.SMITING_RAY.getDamage());
     }
 
     @Override

@@ -3,7 +3,7 @@ package net.noahvolson.arcanearmaments.entity.skill.warrior;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.*;
-import net.noahvolson.arcanearmaments.config.ModDamageSource;
+import net.noahvolson.arcanearmaments.damage.ModDamageSources;
 import net.noahvolson.arcanearmaments.entity.skill.AbstractProjectileAbility;
 import net.noahvolson.arcanearmaments.entity.skill.SkillType;
 import net.noahvolson.arcanearmaments.particle.ModParticles;
@@ -28,7 +28,7 @@ public class GrappleAttack extends AbstractProjectileAbility implements GeoEntit
 
     public GrappleAttack(EntityType<? extends AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
         super((EntityType<AbstractProjectileAbility>) entityType, shooter, world, ModSounds.GRAPPLE_CAST.get(), ModSounds.RUPTURE_DAGGER.get(), ModSounds.GRAPPLE_GROUND.get());
-        this.setDamage(ModDamageSource.GRAPPLE, SkillType.GRAPPLE.getDamage());
+        this.setDamage(new ModDamageSources(this.level.registryAccess()).grapple(), SkillType.GRAPPLE.getDamage());
         this.setSpeed(2D);
         this.life = 0;
     }

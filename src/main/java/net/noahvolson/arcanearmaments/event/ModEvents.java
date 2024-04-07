@@ -12,6 +12,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -35,7 +36,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.noahvolson.arcanearmaments.ArcaneArmaments;
-import net.noahvolson.arcanearmaments.config.ModDamageSource;
+import net.noahvolson.arcanearmaments.damage.ModDamageSources;
 import net.noahvolson.arcanearmaments.effect.ModEffects;
 import net.noahvolson.arcanearmaments.entity.skill.ModAreaEffectCloud;
 import net.noahvolson.arcanearmaments.entity.skill.SkillType;
@@ -161,7 +162,7 @@ public class ModEvents {
                 int duration = Objects.requireNonNull(pLivingEntity.getEffect(ModEffects.RUPTURED.get())).getDuration();
 
                 if (lastPosition == null) {
-                    pLivingEntity.hurt(ModDamageSource.RUPTURE, 1);
+                    pLivingEntity.hurt(new ModDamageSources(pLivingEntity.level.registryAccess()).rupture(), 1);
                     rupturedLivingLastPosition.put(pLivingEntity, new Vec3(pLivingEntity.getX(), pLivingEntity.getY(), pLivingEntity.getZ()));
                 } else if (duration % 10 == 0) {
                     double damage = (Math.abs(pLivingEntity.getX() - lastPosition.x) +
@@ -169,7 +170,7 @@ public class ModEvents {
                                     Math.abs(pLivingEntity.getZ() - lastPosition.z)) / 2;
 
                     if (damage > 0) {
-                        pLivingEntity.hurt(ModDamageSource.RUPTURE, Math.min((float) damage, 3F));
+                        pLivingEntity.hurt(new ModDamageSources(pLivingEntity.level.registryAccess()).rupture(), Math.min((float) damage, 3F));
                         double yShift = 0.5;
                         AreaEffectCloud bloodCloud = new AreaEffectCloud(pLivingEntity.level, pLivingEntity.getX(), pLivingEntity.blockPosition().getY() + yShift, pLivingEntity.getZ());
                         bloodCloud.setParticle(ModParticles.BLOOD_PARTICLES.get());
@@ -323,7 +324,7 @@ public class ModEvents {
         public static void onLivingHeal(LivingHealEvent event) {
             LivingEntity entity = event.getEntity();
             if(entity.hasEffect(ModEffects.SMITING.get())) {
-                entity.hurt(ModDamageSource.SMITING, event.getAmount());
+                entity.hurt(new ModDamageSources(entity.level.registryAccess()).smiting(), event.getAmount());
                 event.setCanceled(true);
             }
         }
@@ -342,13 +343,13 @@ public class ModEvents {
                 if (player.hasEffect(ModEffects.SHELL.get())) {
                     event.setAmount(event.getAmount() / 4);
                 }
-                if (event.getSource() == DamageSource.FALL) {
+                if (event.getSource() == new DamageSources(player.level.registryAccess()).fall()) {
                     if (player.hasEffect(ModEffects.STOMPING.get()) || fallDamageImmune.contains(player.getUUID())) {
                         fallDamageImmune.remove(player.getUUID());
 
                         List<LivingEntity> list = player.level.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().inflate(RUMBLE_RADIUS, 0, RUMBLE_RADIUS));
                         for (LivingEntity target : list) {
-                            target.hurt(ModDamageSource.STOMP, event.getAmount());
+                            target.hurt(new ModDamageSources(player.level.registryAccess()).stomp(), event.getAmount());
                         }
                         event.setCanceled(true);
                     }
