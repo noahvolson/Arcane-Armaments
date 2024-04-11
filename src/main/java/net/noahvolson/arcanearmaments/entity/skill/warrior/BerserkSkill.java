@@ -16,14 +16,14 @@ public class BerserkSkill implements Skill {
 
     @Override
     public void use(ServerPlayer player) {
-        new BerserkAttack(ModEntityTypes.BERSERK.get(), player, player.level).use(player);
+        new BerserkAttack(ModEntityTypes.BERSERK.get(), player, player.level()).use(player);
         player.addEffect(new MobEffectInstance(ModEffects.BERSERK.get(), SkillType.BERSERK.getDuration(), 0, false, false, true));
-        player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.BERSERK.get(), SoundSource.HOSTILE, 10F, 1.2F / (player.level.random.nextFloat() * 0.2F + 0.9F));
+        player.level().playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.BERSERK.get(), SoundSource.HOSTILE, 10F, 1.2F / (player.level().random.nextFloat() * 0.2F + 0.9F));
     }
 
     @Override
     public void useTurnover(ServerPlayer player) {
-        new BerserkAttack(ModEntityTypes.BERSERK.get(), player, player.level).use(player);
+        new BerserkAttack(ModEntityTypes.BERSERK.get(), player, player.level()).use(player);
     }
 
     @Override

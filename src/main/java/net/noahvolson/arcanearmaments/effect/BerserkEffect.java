@@ -18,13 +18,13 @@ public class BerserkEffect extends MobEffect {
     @Override
     public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
 
-        if (!pLivingEntity.level.isClientSide()) {
-            AreaEffectCloud cloud = new AreaEffectCloud(pLivingEntity.level, pLivingEntity.getX(), pLivingEntity.getY() + 1, pLivingEntity.getZ());
+        if (!pLivingEntity.level().isClientSide()) {
+            AreaEffectCloud cloud = new AreaEffectCloud(pLivingEntity.level(), pLivingEntity.getX(), pLivingEntity.getY() + 1, pLivingEntity.getZ());
             cloud.setParticle(ModParticles.BERSERK_PARTICLES.get());
             cloud.setRadius(.5F);
             cloud.setDuration(5);
             cloud.setWaitTime(0);
-            pLivingEntity.level.addFreshEntity(cloud);
+            pLivingEntity.level().addFreshEntity(cloud);
         }
         super.applyEffectTick(pLivingEntity, pAmplifier);
     }

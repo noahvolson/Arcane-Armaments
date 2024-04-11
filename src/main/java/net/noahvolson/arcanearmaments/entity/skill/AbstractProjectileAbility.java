@@ -28,7 +28,7 @@ public abstract class AbstractProjectileAbility extends AbstractArrow implements
     private SoundEvent hitBlockSound = ModSounds.SILENT.get();
     private double speed = 3D;
     private int hitDamage = 0;
-    private DamageSource damageSource = new DamageSources(this.level.registryAccess()).magic();
+    private DamageSource damageSource = new DamageSources(this.level().registryAccess()).magic();
 
     // For registering in ModEntityTypes
     public AbstractProjectileAbility(EntityType<AbstractProjectileAbility> entityType, Level world) {
@@ -70,7 +70,7 @@ public abstract class AbstractProjectileAbility extends AbstractArrow implements
             super.onHitEntity(ray);
 
             // Remove arrows that may have been added by the hit
-            if (!this.level.isClientSide && this.getPierceLevel() <= 0) {
+            if (!this.level().isClientSide && this.getPierceLevel() <= 0) {
                 LivingEntity livingentity = (LivingEntity)target;
                 livingentity.setArrowCount(livingentity.getArrowCount() - 1);
             }
@@ -106,7 +106,7 @@ public abstract class AbstractProjectileAbility extends AbstractArrow implements
     @Override
     public void tick() {
         super.tick();
-        if (this.level.isClientSide) {
+        if (this.level().isClientSide) {
             this.makeTrailParticle();
         }
     }
@@ -119,7 +119,7 @@ public abstract class AbstractProjectileAbility extends AbstractArrow implements
     // Override this to customize spell effects
     protected void makeTrailParticle() {
         for(int j = 0; j < 5; ++j) {
-            this.level.addParticle(ParticleTypes.DRAGON_BREATH, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
+            this.level().addParticle(ParticleTypes.DRAGON_BREATH, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
         }
     }
 
@@ -136,7 +136,7 @@ public abstract class AbstractProjectileAbility extends AbstractArrow implements
     public void use(ServerPlayer player) {
         Vec3 look = player.getLookAngle();
         this.setDeltaMovement(look.x * speed, look.y * speed, look.z * speed);
-        player.level.addFreshEntity(this);
+        player.level().addFreshEntity(this);
         this.playSound(castSound, 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
     }
 

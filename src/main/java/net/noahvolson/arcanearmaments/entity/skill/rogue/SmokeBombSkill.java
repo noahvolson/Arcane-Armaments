@@ -19,7 +19,7 @@ public class SmokeBombSkill extends AreaEffectCloud implements Skill {
     }
 
     public SmokeBombSkill(ServerPlayer player) {
-        super(player.level, player.getX(), player.getY(), player.getZ());
+        super(player.level(), player.getX(), player.getY(), player.getZ());
         this.setParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE);
         this.setRadius(2F);
         this.setDuration(10);
@@ -28,9 +28,9 @@ public class SmokeBombSkill extends AreaEffectCloud implements Skill {
 
     @Override
     public void use(ServerPlayer player) {
-        player.level.addFreshEntity(this);
+        player.level().addFreshEntity(this);
         player.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, SkillType.SMOKE_BOMB.getDuration(), -1));
-        this.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.SMOKE_BOMB.get(), SoundSource.HOSTILE, .9F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+        this.level().playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.SMOKE_BOMB.get(), SoundSource.HOSTILE, .9F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
     }
 
     @Override

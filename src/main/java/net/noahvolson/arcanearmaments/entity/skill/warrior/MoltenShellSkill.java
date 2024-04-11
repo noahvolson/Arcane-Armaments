@@ -25,8 +25,8 @@ public class MoltenShellSkill implements Skill {
 
     @Override
     public void use(ServerPlayer player) {
-        if (player.level instanceof ServerLevel serverLevel) {
-            List<LivingEntity> list = player.level.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().inflate(RADIUS, RADIUS, RADIUS));
+        if (player.level() instanceof ServerLevel serverLevel) {
+            List<LivingEntity> list = player.level().getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().inflate(RADIUS, RADIUS, RADIUS));
             for (LivingEntity target : list) {
                 target.setSecondsOnFire(SkillType.MOLTEN_SHELL.getTurnoverCooldown() / 60);
                 target.knockback(1.25D, player.getX() - target.getX(), player.getZ() - target.getZ());
@@ -38,7 +38,7 @@ public class MoltenShellSkill implements Skill {
             }
             player.addEffect(new MobEffectInstance(ModEffects.SHELL.get(), SkillType.MOLTEN_SHELL.getDuration(), 0, false, false, true));
             player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, SkillType.MOLTEN_SHELL.getDuration(), SkillType.MOLTEN_SHELL.getHealing(), false, false, false));
-            player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.MOLTEN_SHELL.get(), SoundSource.HOSTILE, 1F, 1.2F / (player.level.random.nextFloat() * 0.2F + 0.9F));
+            player.level().playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.MOLTEN_SHELL.get(), SoundSource.HOSTILE, 1F, 1.2F / (player.level().random.nextFloat() * 0.2F + 0.9F));
         }
     }
 

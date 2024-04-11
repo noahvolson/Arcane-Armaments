@@ -19,7 +19,7 @@ public class HealingAuraEffect extends MobEffect {
     // Applied as long as isDurationEffectTick is true
     @Override
     public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
-        if (pLivingEntity instanceof ServerPlayer player && pLivingEntity.level instanceof ServerLevel level) {
+        if (pLivingEntity instanceof ServerPlayer player && pLivingEntity.level() instanceof ServerLevel level) {
             int duration = player.getActiveEffectsMap().get(HealingAuraEffect.this).getDuration();
             if (duration < SkillType.HEALING_AURA.getDuration() && duration % 40 == 0) {
                 HealingAuraSkill cloud = new HealingAuraSkill(player);

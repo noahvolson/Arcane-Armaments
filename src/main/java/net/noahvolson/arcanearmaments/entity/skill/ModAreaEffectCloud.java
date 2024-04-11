@@ -28,7 +28,7 @@ public class ModAreaEffectCloud extends AreaEffectCloud {
         super.tick();
         boolean flag = this.isWaiting();
         float f = this.getRadius();
-        if (this.level.isClientSide) {
+        if (this.level().isClientSide) {
             if (flag && this.random.nextBoolean()) {
                 return;
             }
@@ -70,7 +70,7 @@ public class ModAreaEffectCloud extends AreaEffectCloud {
                     d7 = (double)((float)(k & 255) / 255.0F);
                 }
 
-                this.level.addAlwaysVisibleParticle(particleoptions, d0, d2, d4, d5, d6, d7);
+                this.level().addAlwaysVisibleParticle(particleoptions, d0, d2, d4, d5, d6, d7);
             }
         } else {
             if (this.tickCount >= this.getWaitTime() + this.getDuration()) {
@@ -111,7 +111,7 @@ public class ModAreaEffectCloud extends AreaEffectCloud {
                 if (list.isEmpty()) {
                     this.victims.clear();
                 } else {
-                    List<LivingEntity> list1 = this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox());
+                    List<LivingEntity> list1 = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox());
                     if (!list1.isEmpty()) {
                         for(LivingEntity livingentity : list1) {
                             if (!this.victims.containsKey(livingentity) && livingentity.isAffectedByPotions() && livingentity != this.getOwner()) {

@@ -142,8 +142,9 @@ public class ArmoryBlockEntity extends BlockEntity implements MenuProvider {
         for (int i = 0; i < itemHandler.getSlots(); i++) {
             inventory.setItem(i, itemHandler.getStackInSlot(i));
         }
-
-        Containers.dropContents(this.level, this.worldPosition, inventory);
+        if (this.level != null) {
+            Containers.dropContents(this.level, this.worldPosition, inventory);
+        }
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, ArmoryBlockEntity pEntity) {

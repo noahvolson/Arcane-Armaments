@@ -12,7 +12,7 @@ public class FreezeEffect extends MobEffect {
     // Applied as long as isDurationEffectTick is true
     @Override
     public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
-        if (!pLivingEntity.level.isClientSide()) {
+        if (!pLivingEntity.level().isClientSide()) {
             pLivingEntity.setTicksFrozen(200);
         }
         super.applyEffectTick(pLivingEntity, pAmplifier);

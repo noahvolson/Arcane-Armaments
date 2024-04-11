@@ -25,7 +25,7 @@ public class BlinkSpell extends AbstractProjectileAbility {
         super(entityType, shooter, world, SoundEvents.EVOKER_CAST_SPELL, SoundEvents.CHORUS_FRUIT_TELEPORT, SoundEvents.CHORUS_FRUIT_TELEPORT);
         this.setNoGravity(true);
 
-        this.setDamage(new ModDamageSources(this.level.registryAccess()).blink(), SkillType.BLINK.getDamage());
+        this.setDamage(new ModDamageSources(this.level().registryAccess()).blink(), SkillType.BLINK.getDamage());
     }
 
     @Override
@@ -42,11 +42,11 @@ public class BlinkSpell extends AbstractProjectileAbility {
     };
 
     protected void blinkTo(double x, double y, double z) {
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             Entity entity = this.getOwner();
             if (entity instanceof ServerPlayer serverplayer) {
                 serverplayer.teleportTo(x, y, z);
-                serverplayer.level.playSound(null, serverplayer.blockPosition(), SoundEvents.CHORUS_FRUIT_TELEPORT, SoundSource.HOSTILE, 1F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+                serverplayer.level().playSound(null, serverplayer.blockPosition(), SoundEvents.CHORUS_FRUIT_TELEPORT, SoundSource.HOSTILE, 1F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
                 serverplayer.resetFallDistance();
             }
         }
@@ -54,7 +54,7 @@ public class BlinkSpell extends AbstractProjectileAbility {
 
     @Override
     public void tick() {
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             if (tickCounter >= SkillType.BLINK.getDuration() && !this.isRemoved()) {
                 blinkTo(this.getX(), this.getY(), this.getZ());
                 this.discard();
@@ -66,7 +66,7 @@ public class BlinkSpell extends AbstractProjectileAbility {
 
     @Override
     protected void makeTrailParticle() {
-        this.level.addParticle(ModParticles.BLINK_PARTICLES.get(), this.getX(), this.getY(), this.getZ(), 0, 0, 0);
+        this.level().addParticle(ModParticles.BLINK_PARTICLES.get(), this.getX(), this.getY(), this.getZ(), 0, 0, 0);
     }
 
 }

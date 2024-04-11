@@ -11,7 +11,6 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.noahvolson.arcanearmaments.networking.ModMessages;
 import net.noahvolson.arcanearmaments.networking.packet.UnlockedSkillsSyncS2CPacket;
@@ -26,14 +25,14 @@ public class ArmoryMenu extends AbstractContainerMenu {
     private final ContainerData data;
 
     public ArmoryMenu(int id, Inventory inv, FriendlyByteBuf extraData) {
-        this(id, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(ArmoryBlockEntity.dataSize));
+        this(id, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(ArmoryBlockEntity.dataSize));
     }
 
     public ArmoryMenu(int id, Inventory inv, BlockEntity entity, ContainerData data) {
         super(ModMenuTypes.ARMORY_MENU.get(), id);
         checkContainerSize(inv, 2);
         blockEntity = (ArmoryBlockEntity) entity;
-        this.level = inv.player.level;
+        this.level = inv.player.level();
         this.data = data;
 
         addPlayerInventory(inv);

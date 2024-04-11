@@ -31,26 +31,26 @@ public class BlizzardSpell extends AbstractProjectileAbility {
     public BlizzardSpell(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
         super(entityType, shooter, world, ModSounds.BLIZZARD_CAST.get(), ModSounds.BLIZZARD_IMPACT.get(), ModSounds.BLIZZARD_IMPACT.get());
         this.setKnockback(0);
-        this.setDamage(new DamageSources(this.level.registryAccess()).freeze(), SkillType.BLIZZARD.getDamage());
+        this.setDamage(new DamageSources(this.level().registryAccess()).freeze(), SkillType.BLIZZARD.getDamage());
     }
 
     @Override
     protected void doEffectsEntity(@NotNull EntityHitResult ray) {
-        if (!this.level.isClientSide && ray.getEntity() instanceof LivingEntity livingentity) {
+        if (!this.level().isClientSide && ray.getEntity() instanceof LivingEntity livingentity) {
             livingentity.addEffect(new MobEffectInstance(ModEffects.FREEZE.get(), 100, -1));
 
             BlockPos blockPosAbove = ray.getEntity().getOnPos().above(4);
             BlockPos blockPosFeet = ray.getEntity().getOnPos().above();
             Entity owner = this.getOwner();
 
-            AreaEffectCloud snowCloud = new AreaEffectCloud(this.level, blockPosAbove.getX(), blockPosAbove.getY(), blockPosAbove.getZ());
+            AreaEffectCloud snowCloud = new AreaEffectCloud(this.level(), blockPosAbove.getX(), blockPosAbove.getY(), blockPosAbove.getZ());
             snowCloud.setParticle(ModParticles.FREEZE_PARTICLES.get());
             snowCloud.setRadius(2F);
             snowCloud.setDuration(SkillType.BLIZZARD.getDuration());
             snowCloud.setWaitTime(0);
-            this.level.addFreshEntity(snowCloud);
+            this.level().addFreshEntity(snowCloud);
 
-            AreaEffectCloud areaeffectcloud = new AreaEffectCloud(this.level, blockPosFeet.getX(), blockPosFeet.getY(), blockPosFeet.getZ());
+            AreaEffectCloud areaeffectcloud = new AreaEffectCloud(this.level(), blockPosFeet.getX(), blockPosFeet.getY(), blockPosFeet.getZ());
             if (owner instanceof LivingEntity) {
                 areaeffectcloud.setOwner((LivingEntity)owner);
             }
@@ -60,26 +60,26 @@ public class BlizzardSpell extends AbstractProjectileAbility {
             areaeffectcloud.setWaitTime(0);
             areaeffectcloud.addEffect(new MobEffectInstance(ModEffects.FREEZE.get(), 30, -1));
 
-            this.level.addFreshEntity(areaeffectcloud);
-            this.level.playSound(null, this.getX(), this.getY(), this.getZ(), ModSounds.BLIZZARD_AREA.get(), SoundSource.HOSTILE, 1f, 1f);
+            this.level().addFreshEntity(areaeffectcloud);
+            this.level().playSound(null, this.getX(), this.getY(), this.getZ(), ModSounds.BLIZZARD_AREA.get(), SoundSource.HOSTILE, 1f, 1f);
         }
     }
 
     @Override
     protected void doEffectsBlock(@NotNull BlockHitResult ray) {
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             BlockPos blockPosAbove = ray.getBlockPos().above(4);
             BlockPos blockPosFeet = ray.getBlockPos().above();
             Entity owner = this.getOwner();
 
-            AreaEffectCloud snowCloud = new AreaEffectCloud(this.level, blockPosAbove.getX(), blockPosAbove.getY(), blockPosAbove.getZ());
+            AreaEffectCloud snowCloud = new AreaEffectCloud(this.level(), blockPosAbove.getX(), blockPosAbove.getY(), blockPosAbove.getZ());
             snowCloud.setParticle(ModParticles.FREEZE_PARTICLES.get());
             snowCloud.setRadius(2F);
             snowCloud.setDuration(SkillType.BLIZZARD.getDuration());
             snowCloud.setWaitTime(0);
-            this.level.addFreshEntity(snowCloud);
+            this.level().addFreshEntity(snowCloud);
 
-            AreaEffectCloud areaeffectcloud = new AreaEffectCloud(this.level, blockPosFeet.getX(), blockPosFeet.getY(), blockPosFeet.getZ());
+            AreaEffectCloud areaeffectcloud = new AreaEffectCloud(this.level(), blockPosFeet.getX(), blockPosFeet.getY(), blockPosFeet.getZ());
             if (owner instanceof LivingEntity) {
                 areaeffectcloud.setOwner((LivingEntity)owner);
             }
@@ -88,10 +88,10 @@ public class BlizzardSpell extends AbstractProjectileAbility {
             areaeffectcloud.setDuration(SkillType.BLIZZARD.getDuration());
             areaeffectcloud.setWaitTime(0);
             areaeffectcloud.addEffect(new MobEffectInstance(ModEffects.FREEZE.get(), 30, -1));
-            this.level.addFreshEntity(areaeffectcloud);
+            this.level().addFreshEntity(areaeffectcloud);
 
         } else {
-            this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), ModSounds.BLIZZARD_AREA.get(), SoundSource.HOSTILE, 1f, 1f, false);
+            this.level().playLocalSound(this.getX(), this.getY(), this.getZ(), ModSounds.BLIZZARD_AREA.get(), SoundSource.HOSTILE, 1f, 1f, false);
         }
 
     }
@@ -113,8 +113,8 @@ public class BlizzardSpell extends AbstractProjectileAbility {
                 double yD = (2*Math.random() - 1) * magnitude;
                 double zD = (2*Math.random() - 1) * magnitude;
 
-                this.level.addParticle(ModParticles.ICEBOLT_PARTICLES.get(), this.getX(), this.getY(), this.getZ(), xD, yD, zD);
-                this.level.addParticle(ParticleTypes.SNOWFLAKE, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
+                this.level().addParticle(ModParticles.ICEBOLT_PARTICLES.get(), this.getX(), this.getY(), this.getZ(), xD, yD, zD);
+                this.level().addParticle(ParticleTypes.SNOWFLAKE, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
             }
         }
     }

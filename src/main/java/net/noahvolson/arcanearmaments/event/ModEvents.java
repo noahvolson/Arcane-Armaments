@@ -157,13 +157,13 @@ public class ModEvents {
         @SubscribeEvent
         public static void onLivingTick(LivingEvent.LivingTickEvent event) {
             LivingEntity pLivingEntity = event.getEntity();
-            if (!pLivingEntity.level.isClientSide && pLivingEntity.hasEffect(ModEffects.RUPTURED.get())) {
+            if (!pLivingEntity.level().isClientSide && pLivingEntity.hasEffect(ModEffects.RUPTURED.get())) {
 
                 Vec3 lastPosition = rupturedLivingLastPosition.get(pLivingEntity);
                 int duration = Objects.requireNonNull(pLivingEntity.getEffect(ModEffects.RUPTURED.get())).getDuration();
 
                 if (lastPosition == null) {
-                    pLivingEntity.hurt(new ModDamageSources(pLivingEntity.level.registryAccess()).rupture(), 1);
+                    pLivingEntity.hurt(new ModDamageSources(pLivingEntity.level().registryAccess()).rupture(), 1);
                     rupturedLivingLastPosition.put(pLivingEntity, new Vec3(pLivingEntity.getX(), pLivingEntity.getY(), pLivingEntity.getZ()));
                 } else if (duration % 10 == 0) {
                     double damage = (Math.abs(pLivingEntity.getX() - lastPosition.x) +
@@ -171,14 +171,14 @@ public class ModEvents {
                                     Math.abs(pLivingEntity.getZ() - lastPosition.z)) / 2;
 
                     if (damage > 0) {
-                        pLivingEntity.hurt(new ModDamageSources(pLivingEntity.level.registryAccess()).rupture(), Math.min((float) damage, 3F));
+                        pLivingEntity.hurt(new ModDamageSources(pLivingEntity.level().registryAccess()).rupture(), Math.min((float) damage, 3F));
                         double yShift = 0.5;
-                        AreaEffectCloud bloodCloud = new AreaEffectCloud(pLivingEntity.level, pLivingEntity.getX(), pLivingEntity.blockPosition().getY() + yShift, pLivingEntity.getZ());
+                        AreaEffectCloud bloodCloud = new AreaEffectCloud(pLivingEntity.level(), pLivingEntity.getX(), pLivingEntity.blockPosition().getY() + yShift, pLivingEntity.getZ());
                         bloodCloud.setParticle(ModParticles.BLOOD_PARTICLES.get());
                         bloodCloud.setRadius(.25F);
                         bloodCloud.setDuration(5);
                         bloodCloud.setWaitTime(0);
-                        pLivingEntity.level.addFreshEntity(bloodCloud);
+                        pLivingEntity.level().addFreshEntity(bloodCloud);
                     }
 
                     rupturedLivingLastPosition.put(pLivingEntity, new Vec3(pLivingEntity.getX(), pLivingEntity.getY(), pLivingEntity.getZ()));
@@ -191,7 +191,7 @@ public class ModEvents {
             if (event.player instanceof ServerPlayer player) {
                 fallDamageImmune.remove(player.getUUID());
 
-                if (player.hasEffect(ModEffects.STOMPING.get()) && (player.isOnGround() || player.isInWater())) {
+                if (player.hasEffect(ModEffects.STOMPING.get()) && (player.onGround() || player.isInWater())) {
                     player.removeEffect(ModEffects.STOMPING.get());
                     fallDamageImmune.add(player.getUUID());
 
@@ -199,15 +199,15 @@ public class ModEvents {
                     int j = Mth.floor(player.getY() - (double)0.2F);
                     int k = Mth.floor(player.getZ());
                     BlockPos blockpos = new BlockPos(i, j, k);
-                    BlockState blockstate = player.level.getBlockState(blockpos);
+                    BlockState blockstate = player.level().getBlockState(blockpos);
 
                     if (blockstate.isAir()) {
                         j = Mth.floor(player.getY() - (double)1.2F);
                         blockpos = new BlockPos(i, j, k);
-                        blockstate = player.level.getBlockState(blockpos);
+                        blockstate = player.level().getBlockState(blockpos);
                     }
 
-                    ModAreaEffectCloud rumbleCloud = new ModAreaEffectCloud(player.level, player.getX(), player.getY(), player.getZ());
+                    ModAreaEffectCloud rumbleCloud = new ModAreaEffectCloud(player.level(), player.getX(), player.getY(), player.getZ());
                     rumbleCloud.setParticle(new BlockParticleOption(ParticleTypes.BLOCK, blockstate).setPos(blockpos));
                     rumbleCloud.setRadiusOnUse(0F);
                     rumbleCloud.setRadiusPerTick((float) RUMBLE_RADIUS / RUMBLE_DURATION);
@@ -215,9 +215,9 @@ public class ModEvents {
                     rumbleCloud.setWaitTime(0);
                     rumbleCloud.setOwner(player);
                     rumbleCloud.addEffect(new MobEffectInstance(ModEffects.STUNNED.get(), SkillType.STOMP.getDuration(), 0, false, false, true));
-                    player.level.addFreshEntity(rumbleCloud);
+                    player.level().addFreshEntity(rumbleCloud);
 
-                    ModAreaEffectCloud upperRumbleCloud = new ModAreaEffectCloud(player.level, player.getX(), player.getY() + 1, player.getZ());
+                    ModAreaEffectCloud upperRumbleCloud = new ModAreaEffectCloud(player.level(), player.getX(), player.getY() + 1, player.getZ());
                     upperRumbleCloud.setParticle(ModParticles.HIDDEN_PARTICLES.get());
                     upperRumbleCloud.setRadiusOnUse(0F);
                     upperRumbleCloud.setRadiusPerTick((float) RUMBLE_RADIUS / RUMBLE_DURATION);
@@ -225,13 +225,13 @@ public class ModEvents {
                     upperRumbleCloud.setWaitTime(0);
                     upperRumbleCloud.setOwner(player);
                     upperRumbleCloud.addEffect(new MobEffectInstance(ModEffects.STUNNED.get(), SkillType.STOMP.getDuration(), 0, false, false, true));
-                    player.level.addFreshEntity(upperRumbleCloud);
+                    player.level().addFreshEntity(upperRumbleCloud);
 
                     if (player.isInWater()) {
-                        player.level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.PLAYER_SPLASH_HIGH_SPEED, SoundSource.HOSTILE, 1F, 1.2F / (player.level.random.nextFloat() * 0.2F + 0.9F));
+                        player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.PLAYER_SPLASH_HIGH_SPEED, SoundSource.HOSTILE, 1F, 1.2F / (player.level().random.nextFloat() * 0.2F + 0.9F));
                     }
                     else {
-                        player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.STOMP_IMPACT.get(), SoundSource.HOSTILE, 1F, 1.2F / (player.level.random.nextFloat() * 0.2F + 0.9F));
+                        player.level().playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.STOMP_IMPACT.get(), SoundSource.HOSTILE, 1F, 1.2F / (player.level().random.nextFloat() * 0.2F + 0.9F));
                     }
                 }
 
@@ -273,14 +273,14 @@ public class ModEvents {
                     target.setHealth(target.getHealth() - SkillType.BLESSED_BLADES.getDamage());
                     player.heal(SkillType.BLESSED_BLADES.getHealing());
 
-                    AreaEffectCloud sparkleCloud = new AreaEffectCloud(target.level, target.getX(), target.getY() + 1, target.getZ());
+                    AreaEffectCloud sparkleCloud = new AreaEffectCloud(target.level(), target.getX(), target.getY() + 1, target.getZ());
                     sparkleCloud.setParticle(ModParticles.BLESSED_BLADE_PARTICLES.get());
                     sparkleCloud.setRadius(1F);
                     sparkleCloud.setDuration(5);
                     sparkleCloud.setWaitTime(0);
-                    player.level.addFreshEntity(sparkleCloud);
+                    player.level().addFreshEntity(sparkleCloud);
 
-                    player.level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ILLUSIONER_MIRROR_MOVE, SoundSource.HOSTILE, 1F, 1.2F / (player.level.random.nextFloat() * 0.2F + 0.9F));
+                    player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ILLUSIONER_MIRROR_MOVE, SoundSource.HOSTILE, 1F, 1.2F / (player.level().random.nextFloat() * 0.2F + 0.9F));
                 }
 
                 if (player.hasEffect(MobEffects.INVISIBILITY)) {
@@ -316,7 +316,7 @@ public class ModEvents {
                     Vec3 shifted = point.add(player.position());
                     level.sendParticles(ModParticles.HOLY_SHIELD_PARTICLES.get(), shifted.x, shifted.y + 1, shifted.z, 1, 0, 0, 0, 0);
                 }
-                player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.HOLY_SHIELD_IMPACT.get(), SoundSource.HOSTILE, 1F, 1.2F / (player.level.random.nextFloat() * 0.2F + 0.9F));
+                player.level().playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.HOLY_SHIELD_IMPACT.get(), SoundSource.HOSTILE, 1F, 1.2F / (player.level().random.nextFloat() * 0.2F + 0.9F));
                 event.setCanceled(true);
             }
         }
@@ -325,14 +325,14 @@ public class ModEvents {
         public static void onLivingHeal(LivingHealEvent event) {
             LivingEntity entity = event.getEntity();
             if(entity.hasEffect(ModEffects.SMITING.get())) {
-                entity.hurt(new ModDamageSources(entity.level.registryAccess()).smiting(), event.getAmount());
+                entity.hurt(new ModDamageSources(entity.level().registryAccess()).smiting(), event.getAmount());
                 event.setCanceled(true);
             }
         }
 
         @SubscribeEvent
         public static void onLivingHurt(LivingHurtEvent event) {
-            if (event.getEntity() instanceof ServerPlayer player && player.level instanceof ServerLevel level) {
+            if (event.getEntity() instanceof ServerPlayer player && player.level() instanceof ServerLevel level) {
 
                 shieldPlayer(event, player, level, ModEffects.HOLY_SHIELD_1.get(), null);
                 shieldPlayer(event, player, level, ModEffects.HOLY_SHIELD_2.get(), ModEffects.HOLY_SHIELD_1.get());
@@ -348,9 +348,9 @@ public class ModEvents {
                     if (player.hasEffect(ModEffects.STOMPING.get()) || fallDamageImmune.contains(player.getUUID())) {
                         fallDamageImmune.remove(player.getUUID());
 
-                        List<LivingEntity> list = player.level.getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().inflate(RUMBLE_RADIUS, 0, RUMBLE_RADIUS));
+                        List<LivingEntity> list = player.level().getNearbyEntities(LivingEntity.class, TargetingConditions.DEFAULT, player, player.getBoundingBox().inflate(RUMBLE_RADIUS, 0, RUMBLE_RADIUS));
                         for (LivingEntity target : list) {
-                            target.hurt(new ModDamageSources(player.level.registryAccess()).stomp(), event.getAmount());
+                            target.hurt(new ModDamageSources(player.level().registryAccess()).stomp(), event.getAmount());
                         }
                         event.setCanceled(true);
                     }

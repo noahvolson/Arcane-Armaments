@@ -19,16 +19,16 @@ public class StunEffect extends MobEffect {
     // Applied as long as isDurationEffectTick is true
     @Override
     public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
-        if (!pLivingEntity.level.isClientSide()) {
+        if (!pLivingEntity.level().isClientSide()) {
             pLivingEntity.getActiveEffects().forEach(mobEffectInstance -> {
                 if (mobEffectInstance.getEffect() instanceof StunEffect && mobEffectInstance.getDuration() % 10 == 0) {
                     Vec3 eyePos = pLivingEntity.getEyePosition();
-                    AreaEffectCloud fearCloud = new AreaEffectCloud(pLivingEntity.level, pLivingEntity.getX(), eyePos.y, pLivingEntity.getZ());
+                    AreaEffectCloud fearCloud = new AreaEffectCloud(pLivingEntity.level(), pLivingEntity.getX(), eyePos.y, pLivingEntity.getZ());
                     fearCloud.setParticle(ModParticles.STUN_PARTICLES.get());
                     fearCloud.setRadius(0.6F);
                     fearCloud.setDuration(5);
                     fearCloud.setWaitTime(0);
-                    pLivingEntity.level.addFreshEntity(fearCloud);
+                    pLivingEntity.level().addFreshEntity(fearCloud);
                 }
             });
         }

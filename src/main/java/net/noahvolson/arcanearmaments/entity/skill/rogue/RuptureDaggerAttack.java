@@ -26,22 +26,22 @@ public class RuptureDaggerAttack extends AbstractMeleeAttack {
 
     public RuptureDaggerAttack(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
         super(entityType, shooter, world, ModSounds.RUPTURE_DAGGER.get());
-        this.setDamage(new ModDamageSources(this.level.registryAccess()).dagger(), SkillType.RUPTURE.getDamage());
+        this.setDamage(new ModDamageSources(this.level().registryAccess()).dagger(), SkillType.RUPTURE.getDamage());
     }
 
     @Override
     protected void doEffectsEntity(@NotNull EntityHitResult ray) {
         Entity entity = ray.getEntity();
-        if (entity.level instanceof ServerLevel serverLevel && entity instanceof LivingEntity livingentity) {
+        if (entity.level() instanceof ServerLevel serverLevel && entity instanceof LivingEntity livingentity) {
             livingentity.addEffect(new MobEffectInstance(ModEffects.RUPTURED.get(), SkillType.RUPTURE.getDuration(), -1));
 
             double yShift = 1;
-            AreaEffectCloud bloodCloud = new AreaEffectCloud(livingentity.level, livingentity.getX(), livingentity.blockPosition().getY() + yShift, livingentity.getZ());
+            AreaEffectCloud bloodCloud = new AreaEffectCloud(livingentity.level(), livingentity.getX(), livingentity.blockPosition().getY() + yShift, livingentity.getZ());
             bloodCloud.setParticle(ModParticles.BLOOD_PARTICLES.get());
             bloodCloud.setRadius(.25F);
             bloodCloud.setDuration(5);
             bloodCloud.setWaitTime(0);
-            this.level.addFreshEntity(bloodCloud);
+            this.level().addFreshEntity(bloodCloud);
 
             Vec3 eyePos = livingentity.getEyePosition();
             Entity owner = this.getOwner();

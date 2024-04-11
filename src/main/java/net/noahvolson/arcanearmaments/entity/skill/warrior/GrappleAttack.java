@@ -28,7 +28,7 @@ public class GrappleAttack extends AbstractProjectileAbility implements GeoEntit
 
     public GrappleAttack(EntityType<? extends AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
         super((EntityType<AbstractProjectileAbility>) entityType, shooter, world, ModSounds.GRAPPLE_CAST.get(), ModSounds.RUPTURE_DAGGER.get(), ModSounds.GRAPPLE_GROUND.get());
-        this.setDamage(new ModDamageSources(this.level.registryAccess()).grapple(), SkillType.GRAPPLE.getDamage());
+        this.setDamage(new ModDamageSources(this.level().registryAccess()).grapple(), SkillType.GRAPPLE.getDamage());
         this.setSpeed(2D);
         this.life = 0;
     }
@@ -59,8 +59,8 @@ public class GrappleAttack extends AbstractProjectileAbility implements GeoEntit
     protected void makeTrailParticle() {
         if (!this.inGround && this.lastTickPos != null) {
             for(int j = 0; j < 5; ++j) {
-                this.level.addParticle(ModParticles.CHAIN_PARTICLES.get(), lastTickPos.x, lastTickPos.y, lastTickPos.z, 0, 0, 0);
-                this.level.addParticle(ModParticles.SHELL_PARTICLES.get(), lastTickPos.x, lastTickPos.y, lastTickPos.z, 0, 0, 0);
+                this.level().addParticle(ModParticles.CHAIN_PARTICLES.get(), lastTickPos.x, lastTickPos.y, lastTickPos.z, 0, 0, 0);
+                this.level().addParticle(ModParticles.SHELL_PARTICLES.get(), lastTickPos.x, lastTickPos.y, lastTickPos.z, 0, 0, 0);
             }
         }
         this.lastTickPos = new Vec3(this.getX(), this.getY(), this.getZ());

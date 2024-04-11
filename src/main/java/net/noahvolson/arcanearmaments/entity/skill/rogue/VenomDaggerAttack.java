@@ -26,22 +26,22 @@ public class VenomDaggerAttack extends AbstractMeleeAttack {
 
     public VenomDaggerAttack(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
         super(entityType, shooter, world, ModSounds.VENOM_DAGGER.get());
-        this.setDamage(new ModDamageSources(this.level.registryAccess()).dagger(), SkillType.ENVENOM.getDamage());
+        this.setDamage(new ModDamageSources(this.level().registryAccess()).dagger(), SkillType.ENVENOM.getDamage());
     }
 
     @Override
     protected void doEffectsEntity(@NotNull EntityHitResult ray) {
         Entity entity = ray.getEntity();
-        if (entity.level instanceof ServerLevel serverLevel && entity instanceof LivingEntity livingentity) {
+        if (entity.level() instanceof ServerLevel serverLevel && entity instanceof LivingEntity livingentity) {
             livingentity.addEffect(new MobEffectInstance(ModEffects.VENOM.get(), SkillType.ENVENOM.getDuration(), -1));
 
             double yShift = 1;
-            AreaEffectCloud venomCloud = new AreaEffectCloud(livingentity.level, livingentity.getX(), livingentity.blockPosition().getY() + yShift, livingentity.getZ());
+            AreaEffectCloud venomCloud = new AreaEffectCloud(livingentity.level(), livingentity.getX(), livingentity.blockPosition().getY() + yShift, livingentity.getZ());
             venomCloud.setParticle(ModParticles.VENOM_PARTICLES.get());
             venomCloud.setRadius(.45F);
             venomCloud.setDuration(5);
             venomCloud.setWaitTime(0);
-            this.level.addFreshEntity(venomCloud);
+            this.level().addFreshEntity(venomCloud);
 
             Vec3 eyePos = livingentity.getEyePosition();
             Entity owner = this.getOwner();

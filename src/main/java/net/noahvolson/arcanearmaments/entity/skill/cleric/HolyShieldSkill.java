@@ -21,14 +21,14 @@ public class HolyShieldSkill implements Skill {
 
     @Override
     public void use(ServerPlayer player) {
-        if (player.level instanceof ServerLevel serverLevel) {
+        if (player.level() instanceof ServerLevel serverLevel) {
             ArrayList<Vec3> points = getSpherePoints(400, RADIUS);
             for (Vec3 point : points) {
                 Vec3 shifted = point.add(player.position());
                 serverLevel.sendParticles(ModParticles.HOLY_SHIELD_PARTICLES.get(), shifted.x, shifted.y + 1, shifted.z, 1, 0, 0, 0, 0);
             }
             player.addEffect(new MobEffectInstance(ModEffects.HOLY_SHIELD_3.get(), SkillType.HOLY_SHIELD.getDuration(), 0, false, false, true));
-            player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.HOLY_SHIELD_CAST.get(), SoundSource.HOSTILE, 1F, 1.2F / (player.level.random.nextFloat() * 0.2F + 0.9F));
+            player.level().playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.HOLY_SHIELD_CAST.get(), SoundSource.HOSTILE, 1F, 1.2F / (player.level().random.nextFloat() * 0.2F + 0.9F));
         }
     }
 

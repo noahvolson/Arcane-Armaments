@@ -24,12 +24,12 @@ public class ThunderSpell extends AbstractProjectileAbility {
 
     public ThunderSpell(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
         super(entityType, shooter, world, ModSounds.THUNDER_CAST.get(), ModSounds.THUNDER_IMPACT.get(), ModSounds.THUNDER_IMPACT.get());
-        this.setDamage(new ModDamageSources(this.level.registryAccess()).zap(), SkillType.THUNDER.getDamage());
+        this.setDamage(new ModDamageSources(this.level().registryAccess()).zap(), SkillType.THUNDER.getDamage());
     }
 
     @Override
     protected void doEffectsEntity(@NotNull EntityHitResult ray) {
-        if (!this.level.isClientSide && ray.getEntity() instanceof LivingEntity livingentity) {
+        if (!this.level().isClientSide && ray.getEntity() instanceof LivingEntity livingentity) {
             livingentity.addEffect(new MobEffectInstance(ModEffects.ZAPPED.get(), SkillType.THUNDER.getDuration(), -1));
         }
     }
@@ -38,10 +38,10 @@ public class ThunderSpell extends AbstractProjectileAbility {
     @Override
     protected void tickDespawn() {
         if (this.inGroundTime > SkillType.THUNDER.getDuration()){
-            //this.level.explode(this, this.getX(), this.getY(), this.getZ(), 4.0f, true, Explosion.BlockInteraction.NONE);
-            LightningBolt bolt = new LightningBolt(EntityType.LIGHTNING_BOLT, this.level);
+            //this.level().explode(this, this.getX(), this.getY(), this.getZ(), 4.0f, true, Explosion.BlockInteraction.NONE);
+            LightningBolt bolt = new LightningBolt(EntityType.LIGHTNING_BOLT, this.level());
             bolt.setPos(this.getX(), this.getY(), this.getZ());
-            this.level.addFreshEntity(bolt);
+            this.level().addFreshEntity(bolt);
             this.discard();
         }
     }
@@ -49,18 +49,18 @@ public class ThunderSpell extends AbstractProjectileAbility {
     @Override
     public void tick() {
         super.tick();
-        if (this.level.isClientSide) {
+        if (this.level().isClientSide) {
             this.makeTrailParticle();
         } else if (this.inGroundTime % 20 == 0 && this.inGroundTime > 0) {
-            this.level.playSound(null, this.getX(), this.getY(), this.getZ(),
+            this.level().playSound(null, this.getX(), this.getY(), this.getZ(),
                     ModSounds.THUNDER_PULSE.get(), SoundSource.HOSTILE, .5f, 1f);
 
-            AreaEffectCloud zapCloud = new AreaEffectCloud(this.level, this.getX(), this.getY(), this.getZ());
+            AreaEffectCloud zapCloud = new AreaEffectCloud(this.level(), this.getX(), this.getY(), this.getZ());
             zapCloud.setParticle(ModParticles.ZAPPED_PARTICLES.get());
             zapCloud.setRadius(1.5F);
             zapCloud.setDuration(5);
             zapCloud.setWaitTime(0);
-            this.level.addFreshEntity(zapCloud);
+            this.level().addFreshEntity(zapCloud);
         }
     }
 
@@ -74,7 +74,7 @@ public class ThunderSpell extends AbstractProjectileAbility {
                 double yD = (2*Math.random() - 1) * magnitude;
                 double zD = (2*Math.random() - 1) * magnitude;
 
-                this.level.addParticle(ModParticles.THUNDER_PARTICLES.get(), this.getX(), this.getY(), this.getZ(), xD, yD, zD);
+                this.level().addParticle(ModParticles.THUNDER_PARTICLES.get(), this.getX(), this.getY(), this.getZ(), xD, yD, zD);
             }
         }
         else if (this.inGroundTime % 20 == 0 || this.inGroundTime % 20 == 19 || this.inGroundTime % 20 == 18) {
@@ -91,7 +91,7 @@ public class ThunderSpell extends AbstractProjectileAbility {
                 double x = this.getX();
                 double y = this.getY();
                 double z = this.getZ() - 1 + shift;
-                this.level.addParticle(ModParticles.RUNE_PARTICLES.get(), x, y, z, 0, yD, 0);
+                this.level().addParticle(ModParticles.RUNE_PARTICLES.get(), x, y, z, 0, yD, 0);
             }
 
             // Vertical line down from start
@@ -100,7 +100,7 @@ public class ThunderSpell extends AbstractProjectileAbility {
                 double x = this.getX();
                 double y = this.getY();
                 double z = this.getZ() + shift;
-                this.level.addParticle(ModParticles.RUNE_PARTICLES.get(), x, y, z, 0, yD, 0);
+                this.level().addParticle(ModParticles.RUNE_PARTICLES.get(), x, y, z, 0, yD, 0);
             }
 
             // Left half angled line from start
@@ -109,7 +109,7 @@ public class ThunderSpell extends AbstractProjectileAbility {
                 double x = this.getX() - shift;
                 double y = this.getY();
                 double z = this.getZ() - shift;
-                this.level.addParticle(ModParticles.RUNE_PARTICLES.get(), x, y, z, 0, yD, 0);
+                this.level().addParticle(ModParticles.RUNE_PARTICLES.get(), x, y, z, 0, yD, 0);
             }
 
             // Right half angled line from start
@@ -118,7 +118,7 @@ public class ThunderSpell extends AbstractProjectileAbility {
                 double x = this.getX() + shift;
                 double y = this.getY();
                 double z = this.getZ() - shift;
-                this.level.addParticle(ModParticles.RUNE_PARTICLES.get(), x, y, z, 0, yD, 0);
+                this.level().addParticle(ModParticles.RUNE_PARTICLES.get(), x, y, z, 0, yD, 0);
             }
 
             // Left half angled line from top
@@ -127,7 +127,7 @@ public class ThunderSpell extends AbstractProjectileAbility {
                 double x = this.getX() - shift;
                 double y = this.getY();
                 double z = this.getZ() + shift - 1;
-                this.level.addParticle(ModParticles.RUNE_PARTICLES.get(), x, y, z, 0, yD, 0);
+                this.level().addParticle(ModParticles.RUNE_PARTICLES.get(), x, y, z, 0, yD, 0);
             }
 
             // Right half angled line from top
@@ -136,7 +136,7 @@ public class ThunderSpell extends AbstractProjectileAbility {
                 double x = this.getX() + shift;
                 double y = this.getY();
                 double z = this.getZ() + shift - 1;
-                this.level.addParticle(ModParticles.RUNE_PARTICLES.get(), x, y, z, 0, yD, 0);
+                this.level().addParticle(ModParticles.RUNE_PARTICLES.get(), x, y, z, 0, yD, 0);
             }
 
             // Left half angled line from start
@@ -145,7 +145,7 @@ public class ThunderSpell extends AbstractProjectileAbility {
                 double x = this.getX() - shift;
                 double y = this.getY();
                 double z = this.getZ() + shift;
-                this.level.addParticle(ModParticles.RUNE_PARTICLES.get(), x, y, z, 0, yD, 0);
+                this.level().addParticle(ModParticles.RUNE_PARTICLES.get(), x, y, z, 0, yD, 0);
             }
 
             // Right half angled line from start
@@ -154,7 +154,7 @@ public class ThunderSpell extends AbstractProjectileAbility {
                 double x = this.getX() + shift;
                 double y = this.getY();
                 double z = this.getZ() + shift;
-                this.level.addParticle(ModParticles.RUNE_PARTICLES.get(), x, y, z, 0, yD, 0);
+                this.level().addParticle(ModParticles.RUNE_PARTICLES.get(), x, y, z, 0, yD, 0);
             }
             
         }

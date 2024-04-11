@@ -48,29 +48,29 @@ public abstract class AbstractMeleeAttack extends AbstractProjectileAbility {
     @Override
     protected void onHitEntity(@NotNull EntityHitResult ray) {
         Entity owner = this.getOwner();
-        if (owner != null && !this.level.isClientSide && ray.getEntity() instanceof LivingEntity target) {
+        if (owner != null && !this.level().isClientSide && ray.getEntity() instanceof LivingEntity target) {
             if (owner instanceof LivingEntity livingOwner && livingOwner.hasEffect(ModEffects.BLESSED_BLADE.get())) {
                 livingOwner.heal(SkillType.BLESSED_BLADES.getHealing());
                 target.setHealth(target.getHealth() - SkillType.BLESSED_BLADES.getDamage());
 
-                AreaEffectCloud sparkleCloud = new AreaEffectCloud(target.level, target.getX(), target.getY() + 1, target.getZ());
+                AreaEffectCloud sparkleCloud = new AreaEffectCloud(target.level(), target.getX(), target.getY() + 1, target.getZ());
                 sparkleCloud.setParticle(ModParticles.BLESSED_BLADE_PARTICLES.get());
                 sparkleCloud.setRadius(1F);
                 sparkleCloud.setDuration(5);
                 sparkleCloud.setWaitTime(0);
-                livingOwner.level.addFreshEntity(sparkleCloud);
+                livingOwner.level().addFreshEntity(sparkleCloud);
 
-                livingOwner.level.playSound(null, livingOwner.getX(), livingOwner.getY(), livingOwner.getZ(), SoundEvents.ILLUSIONER_MIRROR_MOVE, SoundSource.HOSTILE, 1F, 1.2F / (livingOwner.level.random.nextFloat() * 0.2F + 0.9F));
+                livingOwner.level().playSound(null, livingOwner.getX(), livingOwner.getY(), livingOwner.getZ(), SoundEvents.ILLUSIONER_MIRROR_MOVE, SoundSource.HOSTILE, 1F, 1.2F / (livingOwner.level().random.nextFloat() * 0.2F + 0.9F));
             }
             target.knockback(0.5D, owner.getX() - target.getX(), owner.getZ() - target.getZ());
-            this.level.playSound(null, owner.getX(), owner.getY(), owner.getZ(), attackSound, SoundSource.HOSTILE, 1F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+            this.level().playSound(null, owner.getX(), owner.getY(), owner.getZ(), attackSound, SoundSource.HOSTILE, 1F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
         }
         super.onHitEntity(ray);
     }
 
     @Override
     public void tick() {
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             double distance = Math.sqrt(Math.pow(this.getX() - startX, 2) + Math.pow(this.getY() - startY, 2) + Math.pow(this.getZ() - startZ, 2));
             if (!this.isRemoved() && Math.ceil(distance) >= this.range) {
                 this.discard();

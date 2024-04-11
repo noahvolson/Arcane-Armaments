@@ -4,7 +4,7 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.CreativeModeTabEvent;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -62,8 +62,8 @@ public class ArcaneArmaments {
         event.enqueueWork(ModMessages::register);
     }
 
-    private void addCreative(CreativeModeTabEvent.BuildContents event) {
-        if(event.getTab() == ModCreativeModeTab.ARCANE_ARMAMENTS_TAB) {
+    private void addCreative(BuildCreativeModeTabContentsEvent event) {
+        if(event.getTab() == ModCreativeModeTab.ARCANE_ARMAMENTS_TAB.get()) {
             event.accept(ModItems.MAGE_STAFF.get());
             event.accept(ModItems.ROGUE_DAGGER.get());
             event.accept(ModItems.WARRIOR_AXE.get());

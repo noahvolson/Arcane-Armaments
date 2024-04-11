@@ -25,27 +25,27 @@ public class SkillFactory {
         return switch (selection) {
 
             // Mage
-            case FIREBALL   -> new FireballSpell(ModEntityTypes.FIREBALL.get(), player, player.level);
-            case BLINK      -> new BlinkSpell(ModEntityTypes.BLINK.get(), player, player.level);
-            case BLIZZARD   -> new BlizzardSpell(ModEntityTypes.BLIZZARD.get(), player, player.level);
-            case THUNDER    -> new ThunderSpell(ModEntityTypes.THUNDER.get(), player, player.level);
+            case FIREBALL   -> new FireballSpell(ModEntityTypes.FIREBALL.get(), player, player.level());
+            case BLINK      -> new BlinkSpell(ModEntityTypes.BLINK.get(), player, player.level());
+            case BLIZZARD   -> new BlizzardSpell(ModEntityTypes.BLIZZARD.get(), player, player.level());
+            case THUNDER    -> new ThunderSpell(ModEntityTypes.THUNDER.get(), player, player.level());
 
             // Rogue
             case SMOKE_BOMB     -> new SmokeBombSkill(player);
-            case ENVENOM -> new VenomDaggerAttack(ModEntityTypes.VENOM_DAGGER.get(), player, player.level);
-            case RUPTURE -> new RuptureDaggerAttack(ModEntityTypes.RUPTURE_DAGGER.get(), player, player.level);
-            case EXECUTE -> new ExecuteDaggerAttack(ModEntityTypes.EXECUTE_DAGGER.get(), player, player.level);
+            case ENVENOM -> new VenomDaggerAttack(ModEntityTypes.VENOM_DAGGER.get(), player, player.level());
+            case RUPTURE -> new RuptureDaggerAttack(ModEntityTypes.RUPTURE_DAGGER.get(), player, player.level());
+            case EXECUTE -> new ExecuteDaggerAttack(ModEntityTypes.EXECUTE_DAGGER.get(), player, player.level());
 
             // Warrior
             case BERSERK -> new BerserkSkill(player);
             case STOMP -> new StompSkill(player);
-            case GRAPPLE -> new GrappleAttack(ModEntityTypes.GRAPPLE.get(), player, player.level);
+            case GRAPPLE -> new GrappleAttack(ModEntityTypes.GRAPPLE.get(), player, player.level());
             case MOLTEN_SHELL -> new MoltenShellSkill(player);
 
             // Cleric
             case BLESSED_BLADES -> new BlessedBladesSkill(player);
             case HOLY_SHIELD -> new HolyShieldSkill(player);
-            case SMITING_RAY -> new SmitingRaySkill(ModEntityTypes.SMITING_RAY.get(), player, player.level);
+            case SMITING_RAY -> new SmitingRaySkill(ModEntityTypes.SMITING_RAY.get(), player, player.level());
             case HEALING_AURA -> new HealingAuraSkill(player);
 
         };

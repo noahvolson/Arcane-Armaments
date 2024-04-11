@@ -23,8 +23,8 @@ public class VenomEffect extends MobEffect {
         int duration = pLivingEntity.getActiveEffectsMap().get(VenomEffect.this).getDuration();
         if (duration < SkillType.ENVENOM.getDuration() && duration % 30 == 0) {
             // Making undead immune to Venom logically makes sense. However, this makes the rogue a weak early game choice.
-            if (pLivingEntity.level instanceof ServerLevel serverLevel) { // && pLivingEntity.getMobType() != MobType.UNDEAD) {
-                    pLivingEntity.hurt(new ModDamageSources(pLivingEntity.level.registryAccess()).venom(), 2);
+            if (pLivingEntity.level() instanceof ServerLevel serverLevel) { // && pLivingEntity.getMobType() != MobType.UNDEAD) {
+                    pLivingEntity.hurt(new ModDamageSources(pLivingEntity.level().registryAccess()).venom(), 2);
                     Vec3 eyePos = pLivingEntity.getEyePosition();
                     for (int j = 0; j < 3; ++j) {
 

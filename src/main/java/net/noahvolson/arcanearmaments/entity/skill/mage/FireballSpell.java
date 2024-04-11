@@ -23,24 +23,24 @@ public class FireballSpell extends AbstractProjectileAbility {
 
     public FireballSpell(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
         super(entityType, shooter, world, SoundEvents.GHAST_SHOOT, null, null);
-        this.setDamage(new ModDamageSources(this.level.registryAccess()).fireball(), SkillType.FIREBALL.getDamage());
+        this.setDamage(new ModDamageSources(this.level().registryAccess()).fireball(), SkillType.FIREBALL.getDamage());
     }
 
     @Override
     protected void doEffectsEntity(@NotNull EntityHitResult ray) {
 
         Entity owner = this.getOwner();
-        if (owner != null && !this.level.isClientSide && ray.getEntity() instanceof LivingEntity target) {
+        if (owner != null && !this.level().isClientSide && ray.getEntity() instanceof LivingEntity target) {
             target.knockback(0.7D, owner.getX() - target.getX(), owner.getZ() - target.getZ());
-            this.level.explode(this, this.getX(), this.getY() - 0.5, this.getZ(), 1.5f, true, Level.ExplosionInteraction.NONE);
+            this.level().explode(this, this.getX(), this.getY() - 0.5, this.getZ(), 1.5f, true, Level.ExplosionInteraction.NONE);
             ray.getEntity().setSecondsOnFire(SkillType.FIREBALL.getDuration() / 20);
         }
     }
 
     @Override
     protected void doEffectsBlock(@NotNull BlockHitResult ray) {
-        if (!this.level.isClientSide) {
-            this.level.explode(this, this.getX(), this.getY() - 0.5, this.getZ(), 1.5f, true, Level.ExplosionInteraction.NONE);
+        if (!this.level().isClientSide) {
+            this.level().explode(this, this.getX(), this.getY() - 0.5, this.getZ(), 1.5f, true, Level.ExplosionInteraction.NONE);
         }
     };
     
@@ -53,8 +53,8 @@ public class FireballSpell extends AbstractProjectileAbility {
             double yD = (2*Math.random() - 1) * magnitude;
             double zD = (2*Math.random() - 1) * magnitude;
 
-            this.level.addParticle(ModParticles.FIREBOLT_PARTICLES.get(), this.getX(), this.getY(), this.getZ(), xD, yD, zD);
-            this.level.addParticle(ParticleTypes.SMOKE, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
+            this.level().addParticle(ModParticles.FIREBOLT_PARTICLES.get(), this.getX(), this.getY(), this.getZ(), xD, yD, zD);
+            this.level().addParticle(ParticleTypes.SMOKE, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
         }
     }
 

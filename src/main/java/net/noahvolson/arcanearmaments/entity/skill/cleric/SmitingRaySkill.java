@@ -36,12 +36,12 @@ public class SmitingRaySkill extends AbstractProjectileAbility {
         this.setPierceLevel((byte)16);
         this.setSpeed(1.5);
 
-        this.setDamage(new ModDamageSources(this.level.registryAccess()).smiting_ray(), SkillType.SMITING_RAY.getDamage());
+        this.setDamage(new ModDamageSources(this.level().registryAccess()).smiting_ray(), SkillType.SMITING_RAY.getDamage());
     }
 
     @Override
     protected void doEffectsEntity(@NotNull EntityHitResult ray) {
-        if (!this.level.isClientSide && ray.getEntity() instanceof LivingEntity livingentity) {
+        if (!this.level().isClientSide && ray.getEntity() instanceof LivingEntity livingentity) {
             livingentity.addEffect(new MobEffectInstance(ModEffects.SMITING.get(), SkillType.SMITING_RAY.getDuration(), 1));
         }
     }
@@ -52,7 +52,7 @@ public class SmitingRaySkill extends AbstractProjectileAbility {
 
     @Override
     public void tick() {
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             double distance = Math.sqrt(Math.pow(this.getX() - startX, 2) + Math.pow(this.getY() - startY, 2) + Math.pow(this.getZ() - startZ, 2));
             if (!this.isRemoved() && Math.ceil(distance) >= this.RANGE) {
                 this.discard();
@@ -70,7 +70,7 @@ public class SmitingRaySkill extends AbstractProjectileAbility {
             double yD = (2*Math.random() - 1) * magnitude;
             double zD = (2*Math.random() - 1) * magnitude;
 
-            this.level.addParticle(ModParticles.SMITING_RAY_PARTICLES.get(), this.getX(), this.getY(), this.getZ(), xD, yD, zD);
+            this.level().addParticle(ModParticles.SMITING_RAY_PARTICLES.get(), this.getX(), this.getY(), this.getZ(), xD, yD, zD);
         }
     }
 

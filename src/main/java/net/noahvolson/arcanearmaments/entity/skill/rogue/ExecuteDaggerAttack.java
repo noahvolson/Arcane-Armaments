@@ -24,13 +24,13 @@ public class ExecuteDaggerAttack extends AbstractMeleeAttack {
 
     public ExecuteDaggerAttack(EntityType<AbstractProjectileAbility> entityType, LivingEntity shooter, Level world) {
         super(entityType, shooter, world, null);
-        this.setDamage(new ModDamageSources(this.level.registryAccess()).execute(), SkillType.EXECUTE.getDamage());
+        this.setDamage(new ModDamageSources(this.level().registryAccess()).execute(), SkillType.EXECUTE.getDamage());
     }
 
     @Override
     protected void doEffectsEntity(@NotNull EntityHitResult ray) {
         Entity entity = ray.getEntity();
-        if (entity.level instanceof ServerLevel serverLevel && entity instanceof LivingEntity livingentity) {
+        if (entity.level() instanceof ServerLevel serverLevel && entity instanceof LivingEntity livingentity) {
             Vec3 eyePos = livingentity.getEyePosition();
             Entity owner = this.getOwner();
             assert owner != null;
@@ -38,11 +38,11 @@ public class ExecuteDaggerAttack extends AbstractMeleeAttack {
             double x = eyePos.x() > owner.getX() ? eyePos.x() - shiftCloserBy : eyePos.x() + shiftCloserBy;
             double z = eyePos.z() > owner.getZ() ? eyePos.z() - shiftCloserBy : eyePos.z() + shiftCloserBy;
             if (livingentity.getHealth() / livingentity.getMaxHealth() <= 0.33) {
-                livingentity.hurt(new ModDamageSources(this.level.registryAccess()).execute(), livingentity.getHealth() * 100);
-                this.level.playSound(null, owner.getX(), owner.getY(), owner.getZ(), ModSounds.EXECUTE_DAGGER.get(), SoundSource.HOSTILE, 0.9F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+                livingentity.hurt(new ModDamageSources(this.level().registryAccess()).execute(), livingentity.getHealth() * 100);
+                this.level().playSound(null, owner.getX(), owner.getY(), owner.getZ(), ModSounds.EXECUTE_DAGGER.get(), SoundSource.HOSTILE, 0.9F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
                 serverLevel.sendParticles(ModParticles.EXECUTE_PARTICLES.get(), x, eyePos.y(), z, 1, 0D, 0D,0D, 0D);
             } else {
-                this.level.playSound(null, owner.getX(), owner.getY(), owner.getZ(), ModSounds.FAILED_EXECUTE.get(), SoundSource.HOSTILE, 0.9F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+                this.level().playSound(null, owner.getX(), owner.getY(), owner.getZ(), ModSounds.FAILED_EXECUTE.get(), SoundSource.HOSTILE, 0.9F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
                 serverLevel.sendParticles(ModParticles.DAGGER_PARTICLES.get(), x, eyePos.y(), z, 1, 0D, 0D,0D, 0D);
             }
         }
