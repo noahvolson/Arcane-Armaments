@@ -16,7 +16,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.noahvolson.arcanearmaments.block.ModBlocks;
 import net.noahvolson.arcanearmaments.block.entity.ModBlockEntities;
 import net.noahvolson.arcanearmaments.config.OptionsHolder;
-import net.noahvolson.arcanearmaments.item.ModCreativeModeTab;
+import net.noahvolson.arcanearmaments.item.ModCreativeModeTabs;
 import net.noahvolson.arcanearmaments.screen.ArmoryScreen;
 import net.noahvolson.arcanearmaments.effect.ModEffects;
 import net.noahvolson.arcanearmaments.entity.ModEntityTypes;
@@ -45,6 +45,7 @@ public class ArcaneArmaments {
         ModBlockEntities.register(modEventBus);
         ModMenuTypes.register(modEventBus);
         ModParticles.register(modEventBus);
+        ModCreativeModeTabs.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::addCreative);
@@ -63,7 +64,7 @@ public class ArcaneArmaments {
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if(event.getTab() == ModCreativeModeTab.ARCANE_ARMAMENTS_TAB.get()) {
+        if(event.getTab() == ModCreativeModeTabs.ARCANE_ARMAMENTS_TAB.get()) {
             event.accept(ModItems.MAGE_STAFF.get());
             event.accept(ModItems.ROGUE_DAGGER.get());
             event.accept(ModItems.WARRIOR_AXE.get());

@@ -49,7 +49,7 @@ public class ArmoryScreen extends AbstractContainerScreen<ArmoryMenu> {
 
     public static void renderSkillIcon(GuiGraphics guiGraphics, RpgClass rpgClass, SkillType skillType, int x, int y, int xOffset, int yOffset) {
         RenderSystem.setShaderTexture(0, rpgClass.getBackground());
-        guiGraphics.blit(skillType.getIcon(),x + xOffset, y + yOffset,0,0,15,15, 15,15);
+        guiGraphics.blit(rpgClass.getBackground(),x + xOffset, y + yOffset,0,0,15,15, 15,15);
 
         if (skillType == rpgClass.getSkill1() || ClientUnlockedSkillsData.contains(skillType)) {
             RenderSystem.setShaderTexture(0, skillType.getIcon());
@@ -127,29 +127,28 @@ public class ArmoryScreen extends AbstractContainerScreen<ArmoryMenu> {
             RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1f);
             RenderSystem.disableBlend();
 
-
-            guiGraphics.drawString(this.font, I18n.get(rpgClass.getSkill1().getLabel()), x + 80, y + 12, pressed0 ? 10522994 : 4537905);
-            guiGraphics.drawString(this.font, I18n.get(rpgClass.getSkill2().getLabel()), x + 80, y + 29, pressed1 ? 10522994 : 4537905);
-            guiGraphics.drawString(this.font, I18n.get(rpgClass.getSkill3().getLabel()), x + 80, y + 46, pressed2 ? 10522994 : 4537905);
-            guiGraphics.drawString(this.font, I18n.get(rpgClass.getSkill4().getLabel()), x + 80, y + 63, pressed3 ? 10522994 : 4537905);
+            guiGraphics.drawWordWrap(this.font, FormattedText.of(I18n.get(rpgClass.getSkill1().getLabel())), x + 80, y + 12, 88, pressed0 ? 10522994 : 4537905);
+            guiGraphics.drawWordWrap(this.font, FormattedText.of(I18n.get(rpgClass.getSkill2().getLabel())), x + 80, y + 29, 88, pressed1 ? 10522994 : 4537905);
+            guiGraphics.drawWordWrap(this.font, FormattedText.of(I18n.get(rpgClass.getSkill3().getLabel())), x + 80, y + 46, 88, pressed2 ? 10522994 : 4537905);
+            guiGraphics.drawWordWrap(this.font, FormattedText.of(I18n.get(rpgClass.getSkill4().getLabel())), x + 80, y + 63, 88, pressed3 ? 10522994 : 4537905);
 
             if (pMouseX >= x + 76 && pMouseX < x + 151) {
                 int highlightColor = 16645499; //pressed 10522994
                 if (pMouseY >= y + 8 && pMouseY <= y + 24) {
                     renderSkillDescription(guiGraphics, x, y, rpgClass.getSkill1());
-                    guiGraphics.drawString(this.font, I18n.get(rpgClass.getSkill1().getLabel()), x + 80, y + 12, highlightColor);
+                    guiGraphics.drawWordWrap(this.font, FormattedText.of(I18n.get(rpgClass.getSkill1().getLabel())), x + 80, y + 12, 88, highlightColor);
                 }
                 else if (pMouseY >= y + 25 && pMouseY <= y + 41) {
                     renderSkillDescription(guiGraphics, x, y, rpgClass.getSkill2());
-                    guiGraphics.drawString(this.font, I18n.get(rpgClass.getSkill2().getLabel()), x + 80, y + 29, highlightColor);
+                    guiGraphics.drawWordWrap(this.font, FormattedText.of(I18n.get(rpgClass.getSkill2().getLabel())), x + 80, y + 29, 88, highlightColor);
                 }
                 else if (pMouseY >= y + 42 && pMouseY <= y + 58) {
                     renderSkillDescription(guiGraphics, x, y, rpgClass.getSkill3());
-                    guiGraphics.drawString(this.font, I18n.get(rpgClass.getSkill3().getLabel()), x + 80, y + 46, highlightColor);
+                    guiGraphics.drawWordWrap(this.font, FormattedText.of(I18n.get(rpgClass.getSkill3().getLabel())), x + 80, y + 46, 88, highlightColor);
                 }
                 else if (pMouseY >= y + 59 && pMouseY <= y + 75) {
                     renderSkillDescription(guiGraphics, x, y, rpgClass.getSkill4());
-                    guiGraphics.drawString(this.font, I18n.get(rpgClass.getSkill4().getLabel()), x + 80, y + 63, highlightColor);
+                    guiGraphics.drawWordWrap(this.font, FormattedText.of(I18n.get(rpgClass.getSkill4().getLabel())), x + 80, y + 63, 88, highlightColor);
                 }
             }
             boolean craftSuccessful = this.menu.getCraftSuccessful();

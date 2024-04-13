@@ -6,7 +6,7 @@
 
   "block.arcanearmaments.armory" : "Armory",
 
-  "itemGroup.arcanearmaments_tab": "Arcane Armaments",
+  "creativemodetab.arcanearmaments_tab": "Arcane Armaments",
 
   "key.category.arcanearmaments.ability_bindings": "Arcane Armaments",
   "key.arcanearmaments.ability_1": "Use Ability 1",
