@@ -207,7 +207,7 @@ public class ArmoryScreen extends AbstractContainerScreen<ArmoryMenu> {
 
     private void nextFrames() {
         slowdownCounter++;
-        if (slowdownCounter % 5 == 0) {
+        if (slowdownCounter % 10 == 0) {
             slowdownCounter = 0;
             if (forgeFrame > -1) { forgeFrame--; }
             if (failedFrame > -1) { failedFrame--; }
