@@ -136,18 +136,6 @@ public class ModHudOverlay {
     }));
 
     public static final IGuiOverlay HUD_CLASS_HOTBAR = (((gui, poseStack, partialTick, width, height) -> {
-        int x = width / 2;
-        int y = height;
-
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, CLASS_HOTBAR);
-
-        RenderSystem.enableBlend();
-        RenderSystem.defaultBlendFunc();
-
-        GuiComponent.blit(poseStack,x - 200, y - 23,0,0,85,24, 85,24);
-
         Player player = gui.getMinecraft().player;
         String rpgClassId = ClientRpgClassData.getRpgClass();
         if (player != null && rpgClassId != null) {
@@ -159,12 +147,22 @@ public class ModHudOverlay {
                 default -> null;
             };
             if (rpgClass != null) {
+                int x = width / 2;
+                int y = height;
+
+                RenderSystem.setShader(GameRenderer::getPositionTexShader);
+                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+                RenderSystem.setShaderTexture(0, CLASS_HOTBAR);
+
+                RenderSystem.enableBlend();
+                RenderSystem.defaultBlendFunc();
+
+                GuiComponent.blit(poseStack,x - 200, y - 23,0,0,85,24, 85,24);
 
                 ArmoryScreen.renderSkillIcon(poseStack, rpgClass, rpgClass.getSkill1(), x, y, -195, -18);
                 ArmoryScreen.renderSkillIcon(poseStack, rpgClass, rpgClass.getSkill2(), x, y, -175, -18);
                 ArmoryScreen.renderSkillIcon(poseStack, rpgClass, rpgClass.getSkill3(), x, y, -155, -18);
                 ArmoryScreen.renderSkillIcon(poseStack, rpgClass, rpgClass.getSkill4(), x, y, -135, -18);
-
             }
         }
     }));
