@@ -1,6 +1,7 @@
 package net.noahvolson.arcanearmaments.event;
 
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
@@ -44,6 +45,13 @@ public class ClientEvents {
         @SubscribeEvent
         public static void onRenderPlayer(RenderPlayerEvent.Pre event) {
             if (event.getEntity().hasEffect(MobEffects.INVISIBILITY)) {
+                event.setCanceled(true);
+            }
+        }
+
+        @SubscribeEvent
+        public static void onRenderLiving(RenderLivingEvent.Pre event) {
+            if (event.getEntity() instanceof Player player && player.hasEffect(MobEffects.INVISIBILITY)) {
                 event.setCanceled(true);
             }
         }
