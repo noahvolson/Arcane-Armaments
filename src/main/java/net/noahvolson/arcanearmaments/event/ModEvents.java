@@ -40,8 +40,10 @@ import net.noahvolson.arcanearmaments.effect.ModEffects;
 import net.noahvolson.arcanearmaments.entity.skill.ModAreaEffectCloud;
 import net.noahvolson.arcanearmaments.entity.skill.SkillType;
 import net.noahvolson.arcanearmaments.networking.ModMessages;
+import net.noahvolson.arcanearmaments.networking.packet.InvisiblePlayerS2CPacket;
 import net.noahvolson.arcanearmaments.networking.packet.RpgClassSyncS2CPacket;
 import net.noahvolson.arcanearmaments.networking.packet.UnlockedSkillsSyncS2CPacket;
+import net.noahvolson.arcanearmaments.networking.packet.VisiblePlayerS2CPacket;
 import net.noahvolson.arcanearmaments.particle.ModParticles;
 import net.noahvolson.arcanearmaments.player.PlayerRpgClass;
 import net.noahvolson.arcanearmaments.player.PlayerRpgClassProvider;
@@ -143,12 +145,28 @@ public class ModEvents {
             if (event.getEntity().hasEffect(ModEffects.RUPTURED.get())) {
                 rupturedLivingLastPosition.remove(event.getEntity());
             }
+            else if (event.getEntity() instanceof ServerPlayer player && Objects.requireNonNull(event.getEntity()).hasEffect(MobEffects.INVISIBILITY)) {
+                ModMessages.sendToAll(new VisiblePlayerS2CPacket(player.getStringUUID()));
+            }
         }
 
         @SubscribeEvent
         public static void onEffectExpire(MobEffectEvent.Expired event) {
             if (Objects.requireNonNull(event.getEffectInstance()).getEffect() == ModEffects.RUPTURED.get()) {
                 rupturedLivingLastPosition.remove(event.getEntity());
+            }
+            else if (event.getEntity() instanceof ServerPlayer player && Objects.requireNonNull(event.getEffectInstance()).getEffect() == MobEffects.INVISIBILITY) {
+                ModMessages.sendToAll(new VisiblePlayerS2CPacket(player.getStringUUID()));
+            }
+        }
+
+        @SubscribeEvent
+        public static void onEffectRemove(MobEffectEvent.Remove event) {
+            if (Objects.requireNonNull(event.getEffectInstance()).getEffect() == ModEffects.RUPTURED.get()) {
+                rupturedLivingLastPosition.remove(event.getEntity());
+            }
+            else if (event.getEntity() instanceof ServerPlayer player && Objects.requireNonNull(event.getEffectInstance()).getEffect() == MobEffects.INVISIBILITY) {
+                ModMessages.sendToAll(new VisiblePlayerS2CPacket(player.getStringUUID()));
             }
         }
 
@@ -244,6 +262,11 @@ public class ModEvents {
                     setPlayerRpgClassCapabilityTick(player, CLERIC);
                 } else {
                     setPlayerRpgClassCapabilityTick(player, null);
+                }
+
+                // Broadcast to all connected players
+                if (player.hasEffect(MobEffects.INVISIBILITY)) {
+                    ModMessages.sendToAll(new InvisiblePlayerS2CPacket(player.getStringUUID()));
                 }
             }
         }

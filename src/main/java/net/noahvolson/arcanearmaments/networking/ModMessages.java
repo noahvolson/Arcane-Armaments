@@ -7,9 +7,7 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.noahvolson.arcanearmaments.ArcaneArmaments;
-import net.noahvolson.arcanearmaments.networking.packet.AbilityC2SPacket;
-import net.noahvolson.arcanearmaments.networking.packet.RpgClassSyncS2CPacket;
-import net.noahvolson.arcanearmaments.networking.packet.UnlockedSkillsSyncS2CPacket;
+import net.noahvolson.arcanearmaments.networking.packet.*;
 
 public class ModMessages {
     private static SimpleChannel INSTANCE;
@@ -47,6 +45,17 @@ public class ModMessages {
                 .consumerMainThread(UnlockedSkillsSyncS2CPacket::handle)
                 .add();
 
+        net.messageBuilder(InvisiblePlayerS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(InvisiblePlayerS2CPacket::new)
+                .encoder(InvisiblePlayerS2CPacket::toBytes)
+                .consumerMainThread(InvisiblePlayerS2CPacket::handle)
+                .add();
+
+        net.messageBuilder(VisiblePlayerS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(VisiblePlayerS2CPacket::new)
+                .encoder(VisiblePlayerS2CPacket::toBytes)
+                .consumerMainThread(VisiblePlayerS2CPacket::handle)
+                .add();
     }
 
     public static <MSG> void sendToServer(MSG message) {
@@ -55,5 +64,9 @@ public class ModMessages {
 
     public static <MSG> void sendToPlayer(MSG message, ServerPlayer player) {
         INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), message);
+    }
+
+    public static <MSG> void sendToAll(MSG message) {
+        INSTANCE.send(PacketDistributor.ALL.noArg(), message);
     }
 }
