@@ -36,6 +36,22 @@ public class ClientEvents {
         }
 
         @SubscribeEvent
+        public static void onMouseInput(InputEvent.MouseButton event) {
+            if(KeyBinding.ABILITY_1_KEY.consumeClick()) {
+                ModMessages.sendToServer(new AbilityC2SPacket(1));
+            }
+            if(KeyBinding.ABILITY_2_KEY.consumeClick()) {
+                ModMessages.sendToServer(new AbilityC2SPacket(2));
+            }
+            if(KeyBinding.ABILITY_3_KEY.consumeClick()) {
+                ModMessages.sendToServer(new AbilityC2SPacket(3));
+            }
+            if(KeyBinding.ABILITY_4_KEY.consumeClick()) {
+                ModMessages.sendToServer(new AbilityC2SPacket(4));
+            }
+        }
+
+        @SubscribeEvent
         public static void onRenderGuiOverlayEvent(RenderGuiOverlayEvent.Pre event) {
             if (event.getOverlay() == VanillaGuiOverlay.AIR_LEVEL.type() || event.getOverlay() == VanillaGuiOverlay.ARMOR_LEVEL.type()) {
                 event.setCanceled(true);
