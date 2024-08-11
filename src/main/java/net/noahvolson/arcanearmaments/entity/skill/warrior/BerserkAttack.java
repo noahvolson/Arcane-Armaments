@@ -22,10 +22,4 @@ public class BerserkAttack extends AbstractMeleeAttack implements Skill {
         super(entityType, shooter, world, SoundEvents.PLAYER_ATTACK_SWEEP);
         this.setDamage(ModDamageSource.DECAPITATE, SkillType.BERSERK.getDamage());
     }
-
-    protected void doEffectsEntity(@NotNull EntityHitResult ray) {
-        if (ray.getEntity() instanceof ServerPlayer player && player.canDisableShield()) {
-            player.disableShield(true);
-        }
-    }
 }
