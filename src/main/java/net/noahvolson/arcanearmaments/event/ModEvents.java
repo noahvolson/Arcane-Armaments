@@ -137,36 +137,55 @@ public class ModEvents {
         }
 
 
-        static HashMap<LivingEntity, Vec3> rupturedLivingLastPosition = new HashMap<>();
+        static HashMap<String, Vec3> rupturedLivingLastPosition = new HashMap<>();
 
 
         @SubscribeEvent
         public static void onLivingDeath(LivingDeathEvent event) {
-            if (event.getEntity().hasEffect(ModEffects.RUPTURED.get())) {
-                rupturedLivingLastPosition.remove(event.getEntity());
-            }
-            else if (event.getEntity() instanceof ServerPlayer player && Objects.requireNonNull(event.getEntity()).hasEffect(MobEffects.INVISIBILITY)) {
-                ModMessages.sendToAll(new VisiblePlayerS2CPacket(player.getStringUUID()));
+            LivingEntity livingEntity = event.getEntity();
+            if (livingEntity != null) {
+                if (livingEntity.hasEffect(ModEffects.RUPTURED.get())) {
+                    rupturedLivingLastPosition.remove(event.getEntity().getStringUUID());
+                }
+
+                if (livingEntity instanceof ServerPlayer serverPlayer) {
+                    if (serverPlayer.hasEffect(MobEffects.INVISIBILITY)) {
+                        ModMessages.sendToAll(new VisiblePlayerS2CPacket(serverPlayer.getStringUUID()));
+                    }
+                }
             }
         }
 
         @SubscribeEvent
         public static void onEffectExpire(MobEffectEvent.Expired event) {
-            if (Objects.requireNonNull(event.getEffectInstance()).getEffect() == ModEffects.RUPTURED.get()) {
-                rupturedLivingLastPosition.remove(event.getEntity());
-            }
-            else if (event.getEntity() instanceof ServerPlayer player && Objects.requireNonNull(event.getEffectInstance()).getEffect() == MobEffects.INVISIBILITY) {
-                ModMessages.sendToAll(new VisiblePlayerS2CPacket(player.getStringUUID()));
+            MobEffectInstance effectInstance = event.getEffectInstance();
+            LivingEntity livingEntity = event.getEntity();
+            if (effectInstance != null && livingEntity != null) {
+                if (effectInstance.getEffect() == ModEffects.RUPTURED.get()) {
+                    rupturedLivingLastPosition.remove(livingEntity.getStringUUID());
+                }
+
+                if (livingEntity instanceof ServerPlayer serverPlayer) {
+                    if (effectInstance.getEffect() == MobEffects.INVISIBILITY) {
+                        ModMessages.sendToAll(new VisiblePlayerS2CPacket(serverPlayer.getStringUUID()));
+                    }
+                }
             }
         }
 
         @SubscribeEvent
         public static void onEffectRemove(MobEffectEvent.Remove event) {
-            if (Objects.requireNonNull(event.getEffectInstance()).getEffect() == ModEffects.RUPTURED.get()) {
-                rupturedLivingLastPosition.remove(event.getEntity());
-            }
-            else if (event.getEntity() instanceof ServerPlayer player && Objects.requireNonNull(event.getEffectInstance()).getEffect() == MobEffects.INVISIBILITY) {
-                ModMessages.sendToAll(new VisiblePlayerS2CPacket(player.getStringUUID()));
+            LivingEntity livingEntity = event.getEntity();
+            if (livingEntity != null) {
+                if (livingEntity.hasEffect(ModEffects.RUPTURED.get())) {
+                    rupturedLivingLastPosition.remove(event.getEntity().getStringUUID());
+                }
+
+                if (livingEntity instanceof ServerPlayer serverPlayer) {
+                    if (serverPlayer.hasEffect(MobEffects.INVISIBILITY)) {
+                        ModMessages.sendToAll(new VisiblePlayerS2CPacket(serverPlayer.getStringUUID()));
+                    }
+                }
             }
         }
 
@@ -175,12 +194,12 @@ public class ModEvents {
             LivingEntity pLivingEntity = event.getEntity();
             if (!pLivingEntity.level.isClientSide && pLivingEntity.hasEffect(ModEffects.RUPTURED.get())) {
 
-                Vec3 lastPosition = rupturedLivingLastPosition.get(pLivingEntity);
+                Vec3 lastPosition = rupturedLivingLastPosition.get(pLivingEntity.getStringUUID());
                 int duration = Objects.requireNonNull(pLivingEntity.getEffect(ModEffects.RUPTURED.get())).getDuration();
 
                 if (lastPosition == null) {
                     pLivingEntity.hurt(ModDamageSource.RUPTURE, 1);
-                    rupturedLivingLastPosition.put(pLivingEntity, new Vec3(pLivingEntity.getX(), pLivingEntity.getY(), pLivingEntity.getZ()));
+                    rupturedLivingLastPosition.put(pLivingEntity.getStringUUID(), new Vec3(pLivingEntity.getX(), pLivingEntity.getY(), pLivingEntity.getZ()));
                 } else if (duration % 10 == 0) {
                     double damage = (Math.abs(pLivingEntity.getX() - lastPosition.x) +
                                     Math.abs(pLivingEntity.getY() - lastPosition.y) +
@@ -197,7 +216,7 @@ public class ModEvents {
                         pLivingEntity.level.addFreshEntity(bloodCloud);
                     }
 
-                    rupturedLivingLastPosition.put(pLivingEntity, new Vec3(pLivingEntity.getX(), pLivingEntity.getY(), pLivingEntity.getZ()));
+                    rupturedLivingLastPosition.put(pLivingEntity.getStringUUID(), new Vec3(pLivingEntity.getX(), pLivingEntity.getY(), pLivingEntity.getZ()));
                 }
             }
         }
@@ -265,7 +284,7 @@ public class ModEvents {
                 }
 
                 // Broadcast to all connected players
-                if (player.hasEffect(MobEffects.INVISIBILITY)) {
+                if (player.hasEffect(MobEffects.INVISIBILITY) && !player.isDeadOrDying()) {
                     ModMessages.sendToAll(new InvisiblePlayerS2CPacket(player.getStringUUID()));
                 }
             }
@@ -374,6 +393,12 @@ public class ModEvents {
                             target.hurt(ModDamageSource.STOMP, event.getAmount());
                         }
                         event.setCanceled(true);
+                    }
+                }
+
+                if (player.getHealth() <= event.getAmount()) {
+                    if (player.hasEffect(MobEffects.INVISIBILITY)) {
+                        ModMessages.sendToAll(new VisiblePlayerS2CPacket(player.getStringUUID()));
                     }
                 }
             }
